@@ -3,8 +3,9 @@ module.exports = {
   content: [
     "./src/**/*.{html,ts}",
   ],
+  darkMode: 'media',
+  plugins: [],
   theme: {
     extend: {},
-  },
-  plugins: [],
+  }
 }
