@@ -1,1 +1,121 @@
-<p>sign-up-user works!</p>
+<div class="flex min-h-full flex-col justify-center px-6 pt-12 lg:px-40">
+  <div class="min-h-[600px] rounded-md shadow-lg w-full flex flex-row bg-white">
+    <div class="w-1/2 hidden lg:block flex border-r-2 border-gray-100">
+      <div class="h-full rounded-l-lg bg-cover bg-center flex flex-col justify-center" style="background-image: url('/assets/icon/bg-logins.jpg')">
+        <div class="text-2xl text-white text-center font-bold">Hello, Friends! </div>
+        <div class="text-lg text-white text-center font-light">Enter your personal details and start journey with us!</div>
+      </div>
+    </div>
+    <div class="w-full lg:w-1/2 py-6 px-6 flex flex-col justify-center">
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 class="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign Up as
+          <font color="#5C06E4">User</font>
+        </h2>
+      </div>
+      <div class="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-2" action="#" method="POST">
+          <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+              <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
+              <div class="mt-1">
+                <input type="text" name="first-name" id="first-name" placeholder="Enter First Name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div class="sm:col-span-3">
+              <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
+              <div class="mt-1">
+                <input type="text" name="last-name" id="last-name" placeholder="Enter Last Name" autocomplete="family-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div class="sm:col-span-3">
+              <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Birth Date</label>
+              <div class="mt-1">
+                <input type="date" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div class="sm:col-span-3">
+              <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
+              <div class="mt-1">
+                <input type="text" name="phone-number" id="phone-number" placeholder="Enter Phone Number" autocomplete="phone-number" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div class="col-span-full">
+              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+              <div class="mt-1">
+                <input id="email" name="email" type="email" placeholder="Enter Email example xxx@gmail.com" autocomplete="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+            </div>
+            <div class="col-span-full">
+              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+              <div class="mt-1 relative">
+                <input matInput #password id="password" name="password" type="password" placeholder="Enter Your Password" autocomplete="password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <mat-icon class="absolute inset-y-0 top-2.5 end-3 flex"
+                  style="cursor: pointer"
+                  matSuffix
+                  (mousedown)="password.type = 'text'"
+                  (mouseup)="password.type = 'password'"
+                  [inline]="true">
+                    <div [ngClass]="password.type == 'password'?'hidden':'block'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                      </svg>
+                    </div>
+                    <div [ngClass]="password.type == 'password'?'block':'hidden'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z"/>
+                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"/>
+                      </svg>
+                    </div>
+                </mat-icon>
+              </div>
+            </div>
+            <div class="col-span-full">
+              <label for="confpassword" class="block text-sm font-medium leading-6 text-gray-900">Confirmation Password</label>
+              <div class="mt-1 relative">
+                <input #confpassword id="confpassword" name="confpassword" type="password" placeholder="Enter Confirmation Password" autocomplete="password" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                <mat-icon class="absolute inset-y-0 top-2.5 end-3 flex"
+                  style="cursor: pointer"
+                  matSuffix
+                  (mousedown)="confpassword.type = 'text'"
+                  (mouseup)="confpassword.type = 'password'"
+                  [inline]="true">
+                    <div [ngClass]="confpassword.type == 'password'?'hidden':'block'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                      </svg>
+                    </div>
+                    <div [ngClass]="confpassword.type == 'password'?'block':'hidden'">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z"/>
+                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"/>
+                      </svg>
+                    </div>
+                </mat-icon>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-full">
+            <div class="flex h-6 items-center">
+              <input id="offers" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+              <p class="ml-2 text-gray-500 text-xs">By registring, I agree to EONITE's <font color="#5C06E4" style="font-weight:bold">Terms and Condition</font></p>
+            </div>
+          </div>
+          <div>
+            <button type="submit" class="flex w-full justify-center rounded-md bg-[#5C06E4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">SIGN UP</button>
+          </div>
+        </form>
+        <p class="mt-10 text-center text-sm text-gray-500">
+          Already have an account?
+          <a href="/login" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">LOGIN</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="w-full max-w-screen-xl pt-2 mx-auto md:pt-8 md:px-4">
+        <span class="block text-sm text-[#5C06E4] sm:text-center dark:text-gray-400 text-center">© 2023 <a href="#" class="hover:underline">EONITE™</a>. All Rights Reserved.</span>
+    </div>
+  </footer>
+</div>

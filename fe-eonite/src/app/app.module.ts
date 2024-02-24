@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './module/component/navbar/navbar.component';
@@ -11,6 +10,7 @@ import { LoginComponent } from './module/pages/login/login.component';
 import { FooterComponent } from './module/component/footer/footer.component';
 import { SignupComponent } from './module/pages/signup/signup.component';
 import { ServicesComponent } from './module/pages/services/services.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,11 +23,12 @@ import { ServicesComponent } from './module/pages/services/services.component';
     FooterComponent,
     SignupComponent,
     ServicesComponent,
-    
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

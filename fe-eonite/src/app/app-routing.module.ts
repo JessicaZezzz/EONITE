@@ -23,6 +23,14 @@ const routes: Routes = [
   {
     path:'services',
     component: ServicesComponent,
+  },
+  {
+    path:'signupUser',
+    component: SignUpUserComponent,
+  },
+  {
+    path:'signupVendor',
+    component: SignUpVendorComponent,
   }
 ];
 
