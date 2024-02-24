@@ -10,7 +10,7 @@ export const MENU_PUBLIC:MENU[]=[
   },
   {
     name : 'Services',
-    link : '/service'
+    link : '/services'
   },
   {
     name : 'About Us',

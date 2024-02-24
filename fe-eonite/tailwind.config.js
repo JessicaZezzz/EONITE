@@ -4,8 +4,12 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   darkMode: 'media',
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')
+  ],
   theme: {
-    extend: {},
+    extend: {
+      textColor: ['active'],
+    },
   }
 }

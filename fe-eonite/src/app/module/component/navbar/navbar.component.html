@@ -22,13 +22,9 @@
           </div>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
-              <!-- <div *ngFor="let i of menu">
-                <li><a class="inline-block text-sm text-gray-900 hover:text-[#5C06E4] font-medium" [href]="i.link">{{ i.name }}</a></li>
-              </div> -->
-              <a href="#" class="text-gray-300 hover:border-b-4 hover:border-[#5C06E4] hover:text-[#5C06E4] px-3 py-2 text-sm font-medium active:border-b-3 active:border-[#5C06E4] active:text-[#5C06E4]">Dashboard</a>
-              <a href="#" class="text-gray-300 hover:border-b-4 hover:border-[#5C06E4] hover:text-[#5C06E4] px-3 py-2 text-sm font-medium">Team</a>
-              <a href="#" class="text-gray-300 hover:border-b-4 hover:border-[#5C06E4] hover:text-[#5C06E4] px-3 py-2 text-sm font-medium">Projects</a>
-              <a href="#" class="text-gray-300 hover:border-b-4 hover:border-[#5C06E4] hover:text-[#5C06E4] px-3 py-2 text-sm font-medium">Calendar</a>
+              <div *ngFor="let i of menu">
+                <a [href]="i.link" [ngClass]="isActive(i.link)?'activeLink':''" class="text-gray-300 hover:border-b-4 hover:border-[#5C06E4] hover:text-[#5C06E4] px-3 py-2 text-sm font-medium">{{ i.name }}</a>
+              </div>
             </div>
           </div>
         </div>
@@ -72,9 +68,9 @@
         <input type="text" id="search-navbar" class="w-[450px] block p-2 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search Vendor">
       </div>
       <div class="space-y-1 px-2 pb-3 pt-2" [ngClass]="tabMobile == true ? 'block' : 'hidden'">
-        <a href="#" class="hover:bg-indigo-100 block rounded-md px-3 py-2 text-base font-medium">Team</a>
-        <a href="#" class="hover:bg-indigo-100 block rounded-md px-3 py-2 text-base font-medium">Projects</a>
-        <a href="#" class="hover:bg-indigo-100 block rounded-md px-3 py-2 text-base font-medium">Calendar</a>
+        <div *ngFor="let i of menu">
+          <a [href]="i.link" [ngClass]="isActive(i.link)?'activeMobileLink bg-indigo-100':''" class="hover:bg-indigo-100 block rounded-md px-3 py-2 text-base font-medium">{{ i.name }}</a>
+        </div>
       </div>
     </div>
   </nav>

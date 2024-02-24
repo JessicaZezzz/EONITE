@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MENU, MENU_ADMIN, MENU_PUBLIC, MENU_VENDOR } from '../../models/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ export class NavbarComponent {
   role: string = 'User';
   menu : MENU[] = [];
 
-  constructor(){
+  constructor(private router: Router){
     if(this.role == 'Public' || this.role == 'User') this.menu = MENU_PUBLIC;
     else if(this.role == 'Vendor') this.menu = MENU_VENDOR;
     else if(this.role == 'Admin') this.menu = MENU_ADMIN;
@@ -26,6 +27,10 @@ export class NavbarComponent {
 
   tabUsers(){
     this.tabUser == true? this.tabUser = false : this.tabUser = true;
+  }
+
+  isActive(url: string): boolean {
+    return this.router.isActive(url,false);
   }
 
 }
