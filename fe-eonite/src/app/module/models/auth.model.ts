@@ -14,7 +14,7 @@ export const MENU_PUBLIC:MENU[]=[
   },
   {
     name : 'About Us',
-    link : '/about_us'
+    link : '/about-us'
   }
 ];
 
@@ -25,7 +25,53 @@ export const MENU_VENDOR:MENU[]=[
   },
   {
     name : 'About Us',
-    link : '/about_us'
+    link : '/about-us'
+  }
+];
+
+export const DROPDOWN_USER:MENU[]=[
+  {
+    name : 'Profile',
+    link : '/profile-user'
+  },
+  {
+    name : 'Chat',
+    link : '/chat'
+  },
+  {
+    name : 'Cart',
+    link : '/cart'
+  },
+  {
+    name : 'Transaction',
+    link : '/transaction'
+  },
+  {
+    name : 'Logout',
+    link : '/logout'
+  }
+];
+
+export const DROPDOWN_VENDOR:MENU[]=[
+  {
+    name : 'Profile',
+    link : '/profile-vendor'
+  },
+  {
+    name : 'Chat',
+    link : '/chat'
+  },
+  {
+    name : 'Product',
+    link : '/product'
+  },
+  {
+    name : 'Transaction',
+    link : '/transaction'
+  },
+  {
+    name : 'Logout',
+    link : '/logout'
   }
 ]
 

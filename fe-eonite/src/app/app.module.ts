@@ -11,6 +11,7 @@ import { FooterComponent } from './module/component/footer/footer.component';
 import { SignupComponent } from './module/pages/signup/signup.component';
 import { ServicesComponent } from './module/pages/services/services.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AboutUsComponent } from './module/pages/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
     FooterComponent,
     SignupComponent,
     ServicesComponent,
+    AboutUsComponent,
 
   ],
   imports: [
