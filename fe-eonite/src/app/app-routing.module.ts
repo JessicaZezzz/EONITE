@@ -7,6 +7,7 @@ import { SignupComponent } from './module/pages/signup/signup.component';
 import { HomeComponent } from './module/pages/home/home.component';
 import { ServicesComponent } from './module/pages/services/services.component';
 import { AboutUsComponent } from './module/pages/about-us/about-us.component';
+import { FaqComponent } from './module/pages/faq/faq.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path:'about-us',
     component: AboutUsComponent,
+  },
+  {
+    path:'faq',
+    component: FaqComponent,
   }
 ];
 

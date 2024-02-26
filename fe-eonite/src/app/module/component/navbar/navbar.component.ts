@@ -12,7 +12,7 @@ export class NavbarComponent {
   tabMobile: boolean = false;
   tabUser: boolean = false;
 
-  role: string = 'User';
+  role: string = 'Public';
   menu : MENU[] = [];
 
   constructor(private router: Router){
@@ -31,6 +31,11 @@ export class NavbarComponent {
 
   isActive(url: string): boolean {
     return this.router.isActive(url,false);
+  }
+
+  redirectPage(number: number){
+    if(number == 1) this.router.navigateByUrl('/login');
+    else this.router.navigateByUrl('/signup');
   }
 
 }

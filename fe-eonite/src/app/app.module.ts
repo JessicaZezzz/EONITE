@@ -12,6 +12,9 @@ import { SignupComponent } from './module/pages/signup/signup.component';
 import { ServicesComponent } from './module/pages/services/services.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AboutUsComponent } from './module/pages/about-us/about-us.component';
+import { HeaderPublicComponent } from './module/pages/header-public/header-public.component';
+import { TestimonialComponent } from './module/pages/testimonial/testimonial.component';
+import { FaqComponent } from './module/pages/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { AboutUsComponent } from './module/pages/about-us/about-us.component';
     SignupComponent,
     ServicesComponent,
     AboutUsComponent,
+    HeaderPublicComponent,
+    TestimonialComponent,
+    FaqComponent,
 
   ],
   imports: [

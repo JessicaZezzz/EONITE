@@ -1,0 +1,225 @@
+<app-navbar></app-navbar>
+<!-- ====== FAQ Section Start -->
+<section class="relative z-20 overflow-hidden bg-white dark:bg-dark pt-10 pb-12 lg:pt-[10px] lg:pb-[90px]">
+  <div class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
+    <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="container mx-auto p-12">
+      <div class="flex flex-wrap -mx-4">
+         <div class="w-full px-4">
+            <div class="mx-auto mb-[60px] max-w-[520px] text-center lg:mb-20">
+               <span class="block mb-2 text-lg font-semibold text-primary">
+               FAQ
+               </span>
+               <h2 class="mb-4 text-3xl font-bold sm:text-[40px]/[48px]">
+                  Any Questions? Look Here
+               </h2>
+               <p class="text-base text-body-color dark:text-dark-6">
+                  There are many variations of passages of Lorem Ipsum available
+                  but the majority have suffered alteration in some form.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="flex flex-wrap -mx-4">
+         <div class="w-full px-4 lg:w-1/2">
+            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+               <button class="flex w-full text-left faq-btn" (click)="openFaq(1)">
+                  <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
+                     <svg
+                        :class="openFaq1 && 'rotate-180'"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 22 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                           d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
+                           fill="currentColor"
+                           />
+                     </svg>
+                  </div>
+                  <div class="w-full">
+                     <h4 class="mt-1 text-lg font-semibold">
+                        How long we deliver your first blog post?
+                     </h4>
+                  </div>
+               </button>
+               <div *ngIf="openFaq1" class="faq-content pl-[62px]">
+                  <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
+                     It takes 2-3 weeks to get your first blog post ready. That
+                     includes the in-depth research & creation of your monthly
+                     content marketing strategy that we do before writing your
+                     first blog post, Ipsum available .
+                  </p>
+               </div>
+            </div>
+            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+               <button class="flex w-full text-left faq-btn" (click)="openFaq(2)">
+                  <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
+                     <svg
+                        :class="openFaq2 && 'rotate-180'"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 22 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                           d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
+                           fill="currentColor"
+                           />
+                     </svg>
+                  </div>
+                  <div class="w-full">
+                     <h4 class="mt-1 text-lg font-semibold">
+                        How long we deliver your first blog post?
+                     </h4>
+                  </div>
+               </button>
+               <div *ngIf="openFaq2" class="faq-content pl-[62px]">
+                  <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
+                     It takes 2-3 weeks to get your first blog post ready. That
+                     includes the in-depth research & creation of your monthly
+                     content marketing strategy that we do before writing your
+                     first blog post, Ipsum available .
+                  </p>
+               </div>
+            </div>
+            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+               <button class="flex w-full text-left faq-btn" (click)="openFaq(3)">
+                  <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
+                     <svg
+                        :class="openFaq3 && 'rotate-180'"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 22 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                           d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
+                           fill="currentColor"
+                           />
+                     </svg>
+                  </div>
+                  <div class="w-full">
+                     <h4 class="mt-1 text-lg font-semibold">
+                        How long we deliver your first blog post?
+                     </h4>
+                  </div>
+               </button>
+               <div *ngIf="openFaq3" class="faq-content pl-[62px]">
+                  <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
+                     It takes 2-3 weeks to get your first blog post ready. That
+                     includes the in-depth research & creation of your monthly
+                     content marketing strategy that we do before writing your
+                     first blog post, Ipsum available .
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="w-full px-4 lg:w-1/2">
+            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+               <button class="flex w-full text-left faq-btn" (click)="openFaq(4)">
+                  <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
+                     <svg
+                        :class="openFaq4 && 'rotate-180'"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 22 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                           d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
+                           fill="currentColor"
+                           />
+                     </svg>
+                  </div>
+                  <div class="w-full">
+                     <h4 class="mt-1 text-lg font-semibold">
+                        How long we deliver your first blog post?
+                     </h4>
+                  </div>
+               </button>
+               <div *ngIf="openFaq4" class="faq-content pl-[62px]">
+                  <p
+                     class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                     >
+                     It takes 2-3 weeks to get your first blog post ready. That
+                     includes the in-depth research & creation of your monthly
+                     content marketing strategy that we do before writing your
+                     first blog post, Ipsum available .
+                  </p>
+               </div>
+            </div>
+            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+               <button class="flex w-full text-left faq-btn" (click)="openFaq(5)">
+                  <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
+                     <svg
+                        :class="openFaq5 && 'rotate-180'"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 22 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                           d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
+                           fill="currentColor"
+                           />
+                     </svg>
+                  </div>
+                  <div class="w-full">
+                     <h4 class="mt-1 text-lg font-semibold">
+                        How long we deliver your first blog post?
+                     </h4>
+                  </div>
+               </button>
+               <div *ngIf="openFaq5" class="faq-content pl-[62px]">
+                  <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
+                     It takes 2-3 weeks to get your first blog post ready. That
+                     includes the in-depth research & creation of your monthly
+                     content marketing strategy that we do before writing your
+                     first blog post, Ipsum available .
+                  </p>
+               </div>
+            </div>
+            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+               <button class="flex w-full text-left faq-btn" (click)="openFaq(6)">
+                  <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
+                     <svg
+                        :class="openFaq6 && 'rotate-180'"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 22 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                           d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
+                           fill="currentColor"
+                           />
+                     </svg>
+                  </div>
+                  <div class="w-full">
+                     <h4 class="mt-1 text-lg font-semibold">
+                        How long we deliver your first blog post?
+                     </h4>
+                  </div>
+               </button>
+               <div *ngIf="openFaq6" class="faq-content pl-[62px]">
+                  <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
+                     It takes 2-3 weeks to get your first blog post ready. That
+                     includes the in-depth research & creation of your monthly
+                     content marketing strategy that we do before writing your
+                     first blog post, Ipsum available .
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+  </div>
+</section>
+<app-footer></app-footer>
