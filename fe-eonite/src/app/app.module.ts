@@ -15,6 +15,7 @@ import { AboutUsComponent } from './module/pages/about-us/about-us.component';
 import { HeaderPublicComponent } from './module/pages/header-public/header-public.component';
 import { TestimonialComponent } from './module/pages/testimonial/testimonial.component';
 import { FaqComponent } from './module/pages/faq/faq.component';
+import { SlideBarHomeComponent } from './module/pages/slide-bar-home/slide-bar-home.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FaqComponent } from './module/pages/faq/faq.component';
     HeaderPublicComponent,
     TestimonialComponent,
     FaqComponent,
+    SlideBarHomeComponent,
 
   ],
   imports: [

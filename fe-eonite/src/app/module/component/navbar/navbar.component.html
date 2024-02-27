@@ -35,7 +35,7 @@
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
             </svg>
           </div>
-          <input type="text" id="search-navbar" class="w-[250px] block p-2 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-white" placeholder="Search Vendor">
+          <input type="text" id="search-navbar" class="w-[250px] block p-2 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Search Vendor">
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <!-- Profile dropdown -->
@@ -73,7 +73,7 @@
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
           </svg>
         </div>
-        <input type="text" id="search-navbar" class="w-[450px] block p-2 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search Vendor">
+        <input type="text" id="search-navbar" class="w-[450px] block p-2 ps-10 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Search Vendor">
       </div>
       <div class="space-y-1 px-2 pb-3 pt-2" [ngClass]="tabMobile == true ? 'block' : 'hidden'">
         <div *ngFor="let i of menu">
