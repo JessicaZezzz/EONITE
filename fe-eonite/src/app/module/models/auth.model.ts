@@ -89,3 +89,24 @@ export const MENU_ADMIN:MENU[]=[
     link : '/manage_about_us'
   }
 ]
+
+export class Category{
+  id?: String;
+  name?: String;
+}
+
+export class Domicile{
+  id?: String;
+  name?: String;
+}
+
+export interface User{
+  first_name  :string;
+  last_name   :string;
+  birth_date  :Date;
+  phone_number:string;
+  photo_id    :number;
+  email       :string;
+  password    :string;
+  role        :string;
+}

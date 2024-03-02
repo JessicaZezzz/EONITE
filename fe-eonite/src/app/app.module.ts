@@ -16,6 +16,9 @@ import { HeaderPublicComponent } from './module/pages/header-public/header-publi
 import { TestimonialComponent } from './module/pages/testimonial/testimonial.component';
 import { FaqComponent } from './module/pages/faq/faq.component';
 import { SlideBarHomeComponent } from './module/pages/slide-bar-home/slide-bar-home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -39,8 +42,13 @@ import { SlideBarHomeComponent } from './module/pages/slide-bar-home/slide-bar-h
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
