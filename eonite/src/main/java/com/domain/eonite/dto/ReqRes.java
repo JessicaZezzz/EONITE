@@ -1,9 +1,6 @@
 package com.domain.eonite.dto;
-
-import java.util.List;
-
-import com.domain.eonite.entity.Product;
 import com.domain.eonite.entity.Users;
+import com.domain.eonite.entity.Vendor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -24,7 +21,7 @@ public class ReqRes {
     private String email;
     private String role;
     private String password;
-    private List<Product> products;
     private Users users;
+    private Vendor vendors;
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.domain.eonite.dto.ReqRes;
 import com.domain.eonite.entity.Product;
+import com.domain.eonite.repository.CategoryRepo;
 import com.domain.eonite.repository.ProductRepo;
 
 @RestController
@@ -17,11 +18,14 @@ public class AdminUsers {
     @Autowired
     private ProductRepo productRepo;
 
+    @Autowired
+    private CategoryRepo categoryRepo;
+
     @GetMapping("/public/product")
     public ResponseEntity<Object> getAllProduct() {
         return ResponseEntity.ok(productRepo.findAll());
     }
-
+    
     @PostMapping("/admin/saveproduct")
     public ResponseEntity<Object> addProduct(@RequestBody ReqRes productRequest){
         Product productToSave = new Product();
