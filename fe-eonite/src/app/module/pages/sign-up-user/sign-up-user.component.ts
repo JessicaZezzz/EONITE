@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/auth.model';
 import { emailValidator } from '../../services/email-validator.directive';
+import { passwordConfirmationValidator } from '../../services/confirm-password';
+import { RestApiServiceService } from '../../services/rest-api-service.service';
+import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 export const StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
 
@@ -14,7 +18,11 @@ export class SignUpUserComponent {
   reactiveForm!: FormGroup;
   user?:User;
   confPassword?:string;
-  constructor() {
+  acceptcb:boolean = false;
+  openDialogErrorDiv: boolean = false;
+  openDialogSuccessDiv: boolean = false;
+
+  constructor(private restService: RestApiServiceService, private router: Router) {
     this.user = {} as User;
   }
 
@@ -46,6 +54,11 @@ export class SignUpUserComponent {
       confirmPassword: new FormControl(this.confPassword, [
         Validators.required
       ]),
+      acceptTnC: new FormControl(this.acceptcb, [
+        Validators.requiredTrue
+      ]),
+    },{
+      validators: passwordConfirmationValidator('password', 'confirmPassword')
     });
   }
 
@@ -77,15 +90,11 @@ export class SignUpUserComponent {
     return this.reactiveForm.get('confirmPassword')!;
   }
 
-  checkPasswords(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      let pass = this.reactiveForm.get('password')?.value;
-      let confirmPass = this.confPassword;
-      return pass === confirmPass ? null : { notSame: true };
-    };
+  get acceptTnC() {
+    return this.reactiveForm.get('acceptTnC')!;
   }
 
-  public validate(): void {
+  public submit(): void {
     if (this.reactiveForm.invalid) {
       for (const control of Object.keys(this.reactiveForm.controls)) {
         this.reactiveForm.controls[control].markAsTouched();
@@ -93,8 +102,34 @@ export class SignUpUserComponent {
       return;
     }
 
-    this.user = this.reactiveForm.value;
-    console.log(this.user)
+    let postUser: User = {};
+      postUser.first_name = this.reactiveForm.value.firstName;
+      postUser.last_name = this.reactiveForm.value.lastName;
+      let dates = this.reactiveForm.value.birthDate;
+      var year = dates.substring(0, 4);
+      var month = dates.substring(5, 7);
+      var day = dates.substring(8, 10);
+      const bdate = new DatePipe('en-US');
+      postUser.birth_date = bdate.transform(new Date(parseInt(year),parseInt(month),parseInt(day)),"yyyy-MM-ddThh:mm:ssZZZZZ");
+      postUser.photo_id = 1;
+      postUser.phone_number = this.reactiveForm.value.phoneNumber;
+      postUser.email = this.reactiveForm.value.email;
+      postUser.password = this.reactiveForm.value.password;
+      postUser.role = 'USER';
+      console.log(JSON.stringify(postUser));
+
+      this.restService.postsignInUser(JSON.stringify(postUser)).subscribe(event=>{
+        if(event.statusCode == 200){
+          this.openDialogSuccessDiv = true;
+        }else if(event.statusCode == 500){
+          this.openDialogErrorDiv = true;
+        }
+      })
+
+  }
+
+  redirect(): void {
+    this.router.navigate(['/login'])
   }
 
 }

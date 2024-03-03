@@ -18,7 +18,9 @@ import { FaqComponent } from './module/pages/faq/faq.component';
 import { SlideBarHomeComponent } from './module/pages/slide-bar-home/slide-bar-home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,10 @@ import { DatePipe } from '@angular/common';
     MatIconModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    CommonModule
   ],
   providers: [
     DatePipe

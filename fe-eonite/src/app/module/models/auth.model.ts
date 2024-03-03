@@ -100,13 +100,13 @@ export class Domicile{
   name?: String;
 }
 
-export interface User{
-  first_name  :string;
-  last_name   :string;
-  birth_date  :Date;
-  phone_number:string;
-  photo_id    :number;
-  email       :string;
-  password    :string;
-  role        :string;
+export class User{
+  first_name?  :string;
+  last_name?   :string;
+  birth_date?  :Date | any;
+  phone_number?:string;
+  photo_id?    :number;
+  email?       :string;
+  password?    :string;
+  role?        :string;
 }
