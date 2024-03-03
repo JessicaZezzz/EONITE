@@ -2,11 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { environment } from 'src/app/enviroment/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class RestApiServiceService {
-  apiURL = 'http://localhost:8081';
   headers = new HttpHeaders({
     "Content-Type": "application/json",
     "Accept": "application/json"
@@ -16,16 +17,31 @@ export class RestApiServiceService {
   }
 
   getCategory(): Observable<any>{
-    return this.http.get(this.apiURL+'/public/category').pipe(retry(1), catchError(this.handleError));
+    return this.http.get(`${environment.apiUrl}/public/category`).pipe(retry(1), catchError(this.handleError));
   }
 
   getDomicile(): Observable<any>{
-    return this.http.get(this.apiURL+'/public/domicile').pipe(retry(1), catchError(this.handleError));
+    return this.http.get(`${environment.apiUrl}/public/domicile`).pipe(retry(1), catchError(this.handleError));
   }
 
   postsignInUser(body: any): Observable<any>{
-    return this.http.post(this.apiURL+'/auth/signupUser',body, {headers: this.headers});
+    return this.http.post(`${environment.apiUrl}/auth/signupUser`,body, {headers: this.headers});
   }
+
+  loginUser(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/auth/signinUser`,body, {headers: this.headers});
+  }
+
+  loginVendor(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/auth/signinVendor`,body, {headers: this.headers});
+  }
+
+  refreshToken(refreshToken: any): Observable<any>{
+    let body :token = {};
+    body.token = refreshToken;
+    return this.http.post(`${environment.apiUrl}/auth/refresh`,JSON.stringify(body), {headers: this.headers});
+  }
+
 
   handleError(error: any) {
     let errorMessage = '';
@@ -39,4 +55,8 @@ export class RestApiServiceService {
       return errorMessage;
     });
   }
+}
+
+export class token{
+  token?:string;
 }

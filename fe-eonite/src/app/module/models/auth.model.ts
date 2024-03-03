@@ -20,8 +20,8 @@ export const MENU_PUBLIC:MENU[]=[
 
 export const MENU_VENDOR:MENU[]=[
   {
-    name : 'Home',
-    link : '/home'
+    name : 'Dashboard',
+    link : '/dashboard'
   },
   {
     name : 'About Us',
@@ -83,10 +83,6 @@ export const MENU_ADMIN:MENU[]=[
   {
     name : 'Manage Vendor',
     link : '/manage_vendor'
-  },
-  {
-    name : 'Manage About Us',
-    link : '/manage_about_us'
   }
 ]
 

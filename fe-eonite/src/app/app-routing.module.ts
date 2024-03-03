@@ -8,23 +8,26 @@ import { HomeComponent } from './module/pages/home/home.component';
 import { ServicesComponent } from './module/pages/services/services.component';
 import { AboutUsComponent } from './module/pages/about-us/about-us.component';
 import { FaqComponent } from './module/pages/faq/faq.component';
+import { LoginUserVendorComponent } from './module/pages/login-user-vendor/login-user-vendor.component';
+import { PageNotFoundComponent } from './module/pages/page-not-found/page-not-found.component';
+import { AuthGuard } from './module/services/auth.guard';
 
 const routes: Routes = [
+  {
+    path:'',
+    component: HomeComponent,
+  },
   {
     path: 'login',
     component: LoginComponent,
   },
   {
+    path: 'loginAs/:role',
+    component: LoginUserVendorComponent,
+  },
+  {
     path: 'signup',
     component: SignupComponent,
-  },
-  {
-    path:'home',
-    component: HomeComponent,
-  },
-  {
-    path:'services',
-    component: ServicesComponent,
   },
   {
     path:'signupUser',
@@ -35,12 +38,21 @@ const routes: Routes = [
     component: SignUpVendorComponent,
   },
   {
+    path:'services',
+    component: ServicesComponent,
+  },
+  {
     path:'about-us',
     component: AboutUsComponent,
   },
   {
     path:'faq',
     component: FaqComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
 ];
 

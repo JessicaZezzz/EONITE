@@ -129,7 +129,11 @@ export class SignUpUserComponent {
   }
 
   redirect(): void {
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
+  }
+
+  back(){
+    this.router.navigate(['/signup']);
   }
 
 }
