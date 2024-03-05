@@ -28,6 +28,10 @@ export class RestApiServiceService {
     return this.http.post(`${environment.apiUrl}/auth/signupUser`,body, {headers: this.headers});
   }
 
+  postsignInVendor(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/auth/signupVendor`,body, {headers: this.headers});
+  }
+
   loginUser(body: any): Observable<any>{
     return this.http.post(`${environment.apiUrl}/auth/signinUser`,body, {headers: this.headers});
   }
@@ -41,7 +45,6 @@ export class RestApiServiceService {
     body.token = refreshToken;
     return this.http.post(`${environment.apiUrl}/auth/refresh`,JSON.stringify(body), {headers: this.headers});
   }
-
 
   handleError(error: any) {
     let errorMessage = '';

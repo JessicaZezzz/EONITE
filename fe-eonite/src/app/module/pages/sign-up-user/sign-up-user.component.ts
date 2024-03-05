@@ -110,7 +110,7 @@ export class SignUpUserComponent {
       var month = dates.substring(5, 7);
       var day = dates.substring(8, 10);
       const bdate = new DatePipe('en-US');
-      postUser.birth_date = bdate.transform(new Date(parseInt(year),parseInt(month),parseInt(day)),"yyyy-MM-ddThh:mm:ssZZZZZ");
+      postUser.birth_date = bdate.transform(new Date(parseInt(year),parseInt(month)-1,parseInt(day)),"yyyy-MM-ddThh:mm:ssZZZZZ");
       postUser.photo_id = 1;
       postUser.phone_number = this.reactiveForm.value.phoneNumber;
       postUser.email = this.reactiveForm.value.email;

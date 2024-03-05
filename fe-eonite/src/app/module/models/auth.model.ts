@@ -106,3 +106,22 @@ export class User{
   password?    :string;
   role?        :string;
 }
+
+export class Vendor{
+  role?         :string;
+  category_id?  :number;
+  domicile_id?  :number;
+  first_name?   :string;
+  last_name?    :string;
+  birth_date?   :string;
+  phone_number? :string;
+  phone_business?:string;
+  address?      :string;
+  photo_identity?:any;
+  photo_id?     :number;
+  status?       :string;
+  startTime?    :string;
+  endTime?      :string;
+  email?        :string;
+  password?     :string;
+}
