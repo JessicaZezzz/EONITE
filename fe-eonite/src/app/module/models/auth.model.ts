@@ -20,8 +20,8 @@ export const MENU_PUBLIC:MENU[]=[
 
 export const MENU_VENDOR:MENU[]=[
   {
-    name : 'Home',
-    link : '/home'
+    name : 'Dashboard',
+    link : '/dashboard'
   },
   {
     name : 'About Us',
@@ -33,10 +33,6 @@ export const DROPDOWN_USER:MENU[]=[
   {
     name : 'Profile',
     link : '/profile-user'
-  },
-  {
-    name : 'Chat',
-    link : '/chat'
   },
   {
     name : 'Cart',
@@ -58,16 +54,23 @@ export const DROPDOWN_VENDOR:MENU[]=[
     link : '/profile-vendor'
   },
   {
-    name : 'Chat',
-    link : '/chat'
-  },
-  {
     name : 'Product',
     link : '/product'
   },
   {
     name : 'Transaction',
     link : '/transaction'
+  },
+  {
+    name : 'Logout',
+    link : '/logout'
+  }
+]
+
+export const DROPDOWN_ADMIN:MENU[]=[
+  {
+    name : 'Profile',
+    link : '/profile-vendor'
   },
   {
     name : 'Logout',
@@ -83,9 +86,45 @@ export const MENU_ADMIN:MENU[]=[
   {
     name : 'Manage Vendor',
     link : '/manage_vendor'
-  },
-  {
-    name : 'Manage About Us',
-    link : '/manage_about_us'
   }
 ]
+
+export class Category{
+  id?: String;
+  name?: String;
+}
+
+export class Domicile{
+  id?: String;
+  name?: String;
+}
+
+export class User{
+  first_name?  :string;
+  last_name?   :string;
+  birth_date?  :Date | any;
+  phone_number?:string;
+  photo_id?    :number;
+  email?       :string;
+  password?    :string;
+  role?        :string;
+}
+
+export class Vendor{
+  role?         :string;
+  category_id?  :number;
+  domicile_id?  :number;
+  first_name?   :string;
+  last_name?    :string;
+  birth_date?   :string;
+  phone_number? :string;
+  phone_business?:string;
+  address?      :string;
+  photo_identity?:any;
+  photo_id?     :number;
+  status?       :string;
+  startTime?    :string;
+  endTime?      :string;
+  email?        :string;
+  password?     :string;
+}
