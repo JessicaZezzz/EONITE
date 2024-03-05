@@ -27,6 +27,9 @@ import { appInitializer } from './module/services/app.initializer';
 import { JwtInterceptor } from './module/services/jwt.interceptor';
 import { ErrorInterceptor } from './module/services/error.interceptor';
 import { RestApiServiceService } from './module/services/rest-api-service.service';
+import { LogoutComponent } from './module/pages/logout/logout.component';
+import { ListVendorComponent } from './module/pages/list-vendor/list-vendor.component';
+import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendor.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { RestApiServiceService } from './module/services/rest-api-service.servic
     SlideBarHomeComponent,
     LoginUserVendorComponent,
     PageNotFoundComponent,
+    LogoutComponent,
+    ListVendorComponent,
+    DetailVendorComponent,
 
   ],
   imports: [

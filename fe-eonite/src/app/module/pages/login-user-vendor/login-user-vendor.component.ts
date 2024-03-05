@@ -18,7 +18,9 @@ export class LoginUserVendorComponent implements OnInit {
   openDialogError1: boolean = false;
   openDialogError2: boolean = false;
 
-  constructor(private restService: RestApiServiceService, private activeRoute: ActivatedRoute, private router: Router) {
+  constructor(private restService: RestApiServiceService,
+              private activeRoute: ActivatedRoute,
+              private router: Router) {
     this.role = this.activeRoute.snapshot.params['role'];
   }
 
@@ -50,7 +52,7 @@ export class LoginUserVendorComponent implements OnInit {
       }
       return;
     }
-
+    window.sessionStorage.clear();
     let loginUser: login = {};
       loginUser.email = this.reactiveForm.value.email;
       loginUser.password = this.reactiveForm.value.password;
@@ -72,8 +74,13 @@ export class LoginUserVendorComponent implements OnInit {
 
   validationLogIn(status:any){
     if(status.statusCode == 200){
+      sessionStorage.setItem('ID', status.id);
       sessionStorage.setItem('ACCESS_TOKEN',status.token);
       sessionStorage.setItem('REFRESH_TOKEN',status.refreshToken);
+      var base64Url = status.token.split('.')[1];
+      var base64 = base64Url.replace('-', '+').replace('_', '/');
+      let temp = JSON.parse(window.atob(base64));
+      sessionStorage.setItem('AUTH',temp.data_users[0].authority);
       this.router.navigate(['/']);
     }else if(status.statusCode == 500){
       if(status.error == 'Bad credentials'){

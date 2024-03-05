@@ -196,7 +196,6 @@ export class SignUpVendorComponent {
     this.httpClinet.post(`${environment.apiUrl}/public/uploadPhoto`,uploadImage).subscribe(res=>{
       let photo_id:any = res;
       postVendor.photo_identity = photo_id.id;
-      console.log(JSON.stringify(postVendor));
         this.restService.postsignInVendor(JSON.stringify(postVendor)).subscribe(event=>{
           if(event.statusCode == 200){
             this.openDialogSuccessDiv = true;

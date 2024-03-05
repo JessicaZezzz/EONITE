@@ -11,10 +11,12 @@ import { FaqComponent } from './module/pages/faq/faq.component';
 import { LoginUserVendorComponent } from './module/pages/login-user-vendor/login-user-vendor.component';
 import { PageNotFoundComponent } from './module/pages/page-not-found/page-not-found.component';
 import { AuthGuard } from './module/services/auth.guard';
+import { LogoutComponent } from './module/pages/logout/logout.component';
+import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendor.component';
 
 const routes: Routes = [
   {
-    path:'',
+    path:'home',
     component: HomeComponent,
   },
   {
@@ -46,9 +48,17 @@ const routes: Routes = [
     component: AboutUsComponent,
   },
   {
+    path:'details/:id',
+    component: DetailVendorComponent,
+  },
+  {
     path:'faq',
     component: FaqComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
   },
   {
     path: '**',

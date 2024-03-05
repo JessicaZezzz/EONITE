@@ -35,10 +35,6 @@ export const DROPDOWN_USER:MENU[]=[
     link : '/profile-user'
   },
   {
-    name : 'Chat',
-    link : '/chat'
-  },
-  {
     name : 'Cart',
     link : '/cart'
   },
@@ -58,16 +54,23 @@ export const DROPDOWN_VENDOR:MENU[]=[
     link : '/profile-vendor'
   },
   {
-    name : 'Chat',
-    link : '/chat'
-  },
-  {
     name : 'Product',
     link : '/product'
   },
   {
     name : 'Transaction',
     link : '/transaction'
+  },
+  {
+    name : 'Logout',
+    link : '/logout'
+  }
+]
+
+export const DROPDOWN_ADMIN:MENU[]=[
+  {
+    name : 'Profile',
+    link : '/profile-vendor'
   },
   {
     name : 'Logout',

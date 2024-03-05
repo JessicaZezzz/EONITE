@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MENU, MENU_ADMIN, MENU_PUBLIC, MENU_VENDOR } from '../../models/auth.model';
+import { Component, OnInit } from '@angular/core';
+import { DROPDOWN_ADMIN, DROPDOWN_USER, DROPDOWN_VENDOR, MENU, MENU_ADMIN, MENU_PUBLIC, MENU_VENDOR } from '../../models/auth.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,17 +8,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   tabMobile: boolean = false;
   tabUser: boolean = false;
-
-  role: string = 'Public';
+  role: string = '';
   menu : MENU[] = [];
+  dropdown : MENU[] = [];
 
   constructor(private router: Router){
-    if(this.role == 'Public' || this.role == 'User') this.menu = MENU_PUBLIC;
-    else if(this.role == 'Vendor') this.menu = MENU_VENDOR;
-    else if(this.role == 'Admin') this.menu = MENU_ADMIN;
+
+  }
+
+  ngOnInit() {
+    this.role = sessionStorage.getItem('AUTH')!;
+    if(this.role=='USER' || this.role==null){
+      this.menu = MENU_PUBLIC;
+      this.dropdown = DROPDOWN_USER;
+    }else if(this.role=='VENDOR'){
+      this.menu = MENU_VENDOR;
+      this.dropdown = DROPDOWN_VENDOR;
+    }else if(this.role=='ADMIN'){
+      this.menu = MENU_ADMIN;
+      this.dropdown = DROPDOWN_ADMIN;
+    }
   }
 
   tabMobiles(){
