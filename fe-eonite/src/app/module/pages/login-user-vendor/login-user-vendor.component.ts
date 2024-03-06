@@ -81,7 +81,7 @@ export class LoginUserVendorComponent implements OnInit {
       var base64 = base64Url.replace('-', '+').replace('_', '/');
       let temp = JSON.parse(window.atob(base64));
       sessionStorage.setItem('AUTH',temp.data_users[0].authority);
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
     }else if(status.statusCode == 500){
       if(status.error == 'Bad credentials'){
         this.openDialogError2 = true;

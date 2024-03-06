@@ -30,6 +30,7 @@ import { RestApiServiceService } from './module/services/rest-api-service.servic
 import { LogoutComponent } from './module/pages/logout/logout.component';
 import { ListVendorComponent } from './module/pages/list-vendor/list-vendor.component';
 import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendor.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendo
     ReactiveFormsModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    CommonModule
+    CommonModule,
+    MatTabsModule
   ],
   providers: [
     DatePipe,
