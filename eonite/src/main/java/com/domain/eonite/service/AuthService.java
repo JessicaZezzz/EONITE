@@ -1,13 +1,12 @@
 package com.domain.eonite.service;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -112,19 +111,20 @@ public class AuthService {
     public ReqRes signInUser(ReqRes signInRequest){
         ReqRes response = new ReqRes();
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),signInRequest.getPassword()));
-            var user = userRepo.findByEmail(signInRequest.getEmail()).orElseThrow();
-            System.out.println("USER IS: "+ user);
-            var jwt = jwtUtils.generateToken(user);
-            var resfreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), user);
-            response.setStatusCode(200);
-            response.setToken(jwt);
-            response.setRefreshToken(resfreshToken);
-            response.setExpirationTime("24 hr");
-            response.setMessage("Successfully Signed In");
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),signInRequest.getPassword())); 
+                var user = userRepo.findByEmail(signInRequest.getEmail()).orElseThrow();
+                var jwt = jwtUtils.generateToken(user);
+                var resfreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), user);
+                response.setStatusCode(200);
+                response.setId(user.getId());
+                response.setToken(jwt);
+                response.setRefreshToken(resfreshToken);
+                response.setExpirationTime("24 hr");
+                response.setMessage("Successfully Signed In");
         }catch(Exception e){
             response.setStatusCode(500);
             response.setError(e.getMessage());
+            System.err.println(signInRequest.getRole());
         }
         return response;
     }
@@ -138,6 +138,7 @@ public class AuthService {
             var jwt = jwtUtils.generateToken(vendor);
             var resfreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), vendor);
             response.setStatusCode(200);
+            response.setId(vendor.getId());
             response.setToken(jwt);
             response.setRefreshToken(resfreshToken);
             response.setExpirationTime("24 hr");
@@ -151,17 +152,23 @@ public class AuthService {
     
     public ReqRes refreshToken(ReqRes refreshTokenRequest){
         ReqRes response = new ReqRes();
-        String ourEmail = jwtUtils.extractUsername(refreshTokenRequest.getToken());
-        Users users = userRepo.findByEmail(ourEmail).orElseThrow();
-        if(jwtUtils.isTokenValid(refreshTokenRequest.getToken(), users)){
-            var jwt = jwtUtils.generateToken(users);
-            response.setStatusCode(200);
-            response.setToken(jwt);
-            response.setRefreshToken(refreshTokenRequest.getToken());
-            response.setExpirationTime("24 hr");
-            response.setMessage("Successfully Refreshed Token");
+        try{
+            String ourEmail = jwtUtils.extractUsername(refreshTokenRequest.getToken());
+            Users users = userRepo.findByEmail(ourEmail).orElseThrow();
+            if(jwtUtils.isTokenValid(refreshTokenRequest.getToken(), users)){
+                var jwt = jwtUtils.generateToken(users);
+                response.setStatusCode(200);
+                response.setToken(jwt);
+                response.setRefreshToken(refreshTokenRequest.getToken());
+                response.setExpirationTime("24 hr");
+                response.setMessage("Successfully Refreshed Token");
         }
-        response.setStatusCode(500);
+        }catch(Exception e){
+            response.setStatusCode(500);
+            response.setError(e.getMessage());
+            return response;
+        }
+        
         return response;
     }
 }
