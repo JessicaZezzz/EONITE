@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detail-vendor.component.css']
 })
 export class DetailVendorComponent implements OnInit {
-
+  tabActive: boolean = true;
   constructor() { }
 
   ngOnInit(): void {
