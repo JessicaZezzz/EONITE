@@ -4,10 +4,13 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name= "Domicile")
-public class Domicile {
+@Table(name= "Bank")
+public class Bank {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    @Lob
+    @Column (name = "image", columnDefinition="BLOB")
+    private byte[] image;
 }

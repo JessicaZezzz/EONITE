@@ -1,19 +1,10 @@
 package com.domain.eonite.entity;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -28,11 +19,15 @@ public class Users implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String role;
-    private String first_name;
-    private String last_name;
-    private Date birth_date;
-    private String phone_number;
-    private Integer photo_id;
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
+    private String phoneNumber;
+    
+    @Lob
+    @Column (name = "photo", columnDefinition="BLOB")
+    private byte[] photo;
+
     private String email;
     private String password;
 

@@ -1,23 +1,21 @@
 package com.domain.eonite.entity;
 
-import java.sql.Time;
+import java.sql.*;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-@Data
+import jakarta.persistence.*;
+import lombok.*;
+
+@Data @AllArgsConstructor @NoArgsConstructor @ToString
 @Entity
 @Table(name= "Vendor", 
        uniqueConstraints={
@@ -29,20 +27,24 @@ public class Vendor implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String role;
-    private Integer category_id;
     private Integer domicile_id;
-    private String first_name;
-    private String last_name;
-    private Date birth_date;
-    private String phone_number;
-    private String phone_business;
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
+    private String phoneNumber;
+    @Lob
+    @Column (name = "photo_identity", columnDefinition="BLOB")
+    private byte[] photo_identity;
+
+    private String usernameVendor;
+    private String phoneBusiness;
     private String address;
-    private Integer photo_identity;
-    private Integer photo_id;
+    @Lob
+    @Column (name = "photo", columnDefinition="BLOB")
+    private byte[] photo;
     private String description;
-    private String inoperatve_date;
+    private String[] inoperative_date;
     private String instagram_url;
-    private String twitter_url;
     private Integer rating;
     private Integer penalty;
     private String status;
@@ -50,6 +52,13 @@ public class Vendor implements UserDetails {
     private Time endTime;
     private String email;
     private String password;
+    @Column (name = "surat_ijin_usaha", columnDefinition="LONGTEXT")
+    private String surat_ijin_usaha;
+
+    @ToString.Exclude
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="vendor", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    public List<CategoryVendor> categoryVendors;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

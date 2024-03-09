@@ -1,10 +1,13 @@
 package com.domain.eonite.dto;
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 import com.domain.eonite.entity.Vendor;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
 
@@ -18,21 +21,22 @@ public class VendorRes {
     private String token;
     private String refreshToken;
     private String expirationTime;
+    private List<Vendor> vendor;
+    private List<Integer> subCategory;
     private String role;
-    private Integer category_id;
     private Integer domicile_id;
-    private String first_name;
-    private String last_name;
-    private Date birth_date;
-    private String phone_number;
-    private String phone_business;
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
+    private String phoneNumber;
+    private byte[] photo_identity;
+    private String usernameVendor;
+    private String phoneBusiness;
     private String address;
-    private Integer photo_identity;
-    private Integer photo_id;
+    private byte[] photo;
     private String description;
-    private String inoperatve_date;
+    private String[] inoperative_date;
     private String instagram_url;
-    private String twitter_url;
     private Integer rating;
     private Integer penalty;
     private String status;
@@ -40,5 +44,6 @@ public class VendorRes {
     private Time endTime;
     private String email;
     private String password;
-    private Vendor vendor;
+    private String surat_ijin_usaha;
+
 }

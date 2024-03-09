@@ -1,10 +1,5 @@
 package com.domain.eonite.entity;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -14,13 +9,9 @@ public class Photo {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String type;
-    private byte[] pic;
+    
+    @Lob
+    @Column (name = "image", columnDefinition="BLOB")
+    private byte[] image;
 
-    public Photo(String name, String type, byte[] pic) {
-        this.name = name;
-        this.type = type;
-        this.pic = pic;
-    }
 }

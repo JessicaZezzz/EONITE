@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name= "Domicile")
-public class Domicile {
+@Table(name= "BankAccount")
+public class BankAccount {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    private String name;
+    private Integer noAccount;
+
 }

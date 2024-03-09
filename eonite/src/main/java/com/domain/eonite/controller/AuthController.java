@@ -1,23 +1,13 @@
 package com.domain.eonite.controller;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.domain.eonite.dto.ReqRes;
-import com.domain.eonite.dto.UserRes;
-import com.domain.eonite.dto.VendorRes;
-import com.domain.eonite.entity.Users;
-import com.domain.eonite.entity.Vendor;
-import com.domain.eonite.service.AuthService;
-
+import com.domain.eonite.dto.*;
+import com.domain.eonite.entity.*;
+import com.domain.eonite.service.*;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
@@ -28,7 +18,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signupUser")
-    public ResponseEntity<UserRes> signUp(@RequestBody UserRes signUpRequest){
+    public ResponseEntity<UserRes> signUp(@RequestBody Users signUpRequest){
         return ResponseEntity.ok(authService.signUpUser(signUpRequest));
     }
 
