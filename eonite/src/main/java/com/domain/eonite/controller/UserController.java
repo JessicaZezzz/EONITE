@@ -1,13 +1,7 @@
 package com.domain.eonite.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.domain.eonite.dto.UserRes;
 import com.domain.eonite.entity.Users;
@@ -36,18 +30,18 @@ public class UserController {
         return ResponseEntity.ok(userService.getProfileUser(id));
     }
 
-    @PostMapping("/updateProfile")
-    public ResponseEntity<UserRes> updateProfile(@RequestBody Users signUpRequest){
-        return ResponseEntity.ok(userService.editProfile(signUpRequest));
+    @PutMapping("/updateProfile")
+    public ResponseEntity<UserRes> updateProfile(@RequestBody Users request){
+        return ResponseEntity.ok(userService.editProfile(request));
     }
 
     @PostMapping("/checkPassword")
-    public ResponseEntity<UserRes> checkPassword(@RequestBody Users signUpRequest){
-        return ResponseEntity.ok(userService.checkPassword(signUpRequest));
+    public ResponseEntity<UserRes> checkPassword(@RequestBody Users request){
+        return ResponseEntity.ok(userService.checkPassword(request));
     }
 
     @PostMapping("/changePassword")
-    public ResponseEntity<UserRes> changePassword(@RequestBody Users signUpRequest){
-        return ResponseEntity.ok(userService.changePassword(signUpRequest));
+    public ResponseEntity<UserRes> changePassword(@RequestBody Users request){
+        return ResponseEntity.ok(userService.changePassword(request));
     }
 }

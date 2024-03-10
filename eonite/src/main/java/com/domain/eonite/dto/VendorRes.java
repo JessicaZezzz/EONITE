@@ -21,6 +21,7 @@ public class VendorRes {
     private String expirationTime;
     private List<Vendor> vendor;
     private List<Integer> subCategory;
+    private Integer id;
     private String role;
     private Integer domicile_id;
     private String firstName;

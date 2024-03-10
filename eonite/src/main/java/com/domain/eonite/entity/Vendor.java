@@ -45,7 +45,7 @@ public class Vendor implements UserDetails {
     private String description;
     private String[] inoperative_date;
     private String instagram_url;
-    private Integer rating;
+    private float rating;
     private Integer penalty;
     private String status;
     private Time startTime;

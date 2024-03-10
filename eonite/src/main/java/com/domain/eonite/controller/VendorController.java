@@ -1,14 +1,9 @@
 package com.domain.eonite.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.domain.eonite.dto.BankRes;
 import com.domain.eonite.dto.VendorRes;
 import com.domain.eonite.entity.Vendor;
 import com.domain.eonite.service.VendorService;
@@ -36,18 +31,38 @@ public class VendorController {
         return ResponseEntity.ok(vendorService.getProfileVendor(id));
     }
 
-    // @PostMapping("/updateProfile")
-    // public ResponseEntity<VendorRes> updateProfile(@RequestBody Vendor signUpRequest){
-    //     return ResponseEntity.ok(vendorService.editProfile(signUpRequest));
-    // }
+    @PutMapping("/updateProfileVendor")
+    public ResponseEntity<VendorRes> updateProfile(@RequestBody VendorRes request){
+        return ResponseEntity.ok(vendorService.editProfile(request));
+    }
 
     @PostMapping("/checkPasswordVendor")
-    public ResponseEntity<VendorRes> checkPassword(@RequestBody Vendor signUpRequest){
-        return ResponseEntity.ok(vendorService.checkPassword(signUpRequest));
+    public ResponseEntity<VendorRes> checkPassword(@RequestBody Vendor request){
+        return ResponseEntity.ok(vendorService.checkPassword(request));
     }
 
     @PostMapping("/changePasswordVendor")
-    public ResponseEntity<VendorRes> changePassword(@RequestBody Vendor signUpRequest){
-        return ResponseEntity.ok(vendorService.changePassword(signUpRequest));
+    public ResponseEntity<VendorRes> changePassword(@RequestBody Vendor request){
+        return ResponseEntity.ok(vendorService.changePassword(request));
+    }
+
+    @PostMapping("/addBankAccount")
+    public ResponseEntity<BankRes> addBankAccount(@RequestBody BankRes request){
+        return ResponseEntity.ok(vendorService.addBankAccount(request));
+    }
+
+    @PutMapping("/updateBankAccount")
+    public ResponseEntity<BankRes> updateBankAccount(@RequestBody BankRes request){
+        return ResponseEntity.ok(vendorService.updateBankAccount(request));
+    }
+
+    @GetMapping("/bankAccount")
+    public ResponseEntity<BankRes> getBankAccount(@RequestParam(required = true,name = "id") Integer id){
+        return ResponseEntity.ok(vendorService.getBankAccount(id));
+    }
+
+    @DeleteMapping("/deleteBankAccount/{id}")
+    public ResponseEntity<BankRes> deleteBankAccount(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(vendorService.deleteBankAccount(id));
     }
 }

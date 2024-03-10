@@ -74,17 +74,17 @@ public class UserService {
         return resp;
     }
 
-    public UserRes editProfile(Users registrationRequest){
+    public UserRes editProfile(Users request){
         UserRes resp =  new UserRes();
-        userRepository.findById(registrationRequest.getId()).ifPresentOrElse((users) ->{
-            users.setFirstName(registrationRequest.getFirstName());
-            users.setLastName(registrationRequest.getLastName());
-            users.setBirthDate(registrationRequest.getBirthDate());
-            users.setPhoneNumber(registrationRequest.getPhoneNumber());
-            users.setPhoto(registrationRequest.getPhoto());
-            userRepository.findByEmail(registrationRequest.getEmail()).ifPresentOrElse((email)->{
-                if(email.getId().equals(registrationRequest.getId())){
-                    users.setEmail(registrationRequest.getEmail());
+        userRepository.findById(request.getId()).ifPresentOrElse((users) ->{
+            users.setFirstName(request.getFirstName());
+            users.setLastName(request.getLastName());
+            users.setBirthDate(request.getBirthDate());
+            users.setPhoneNumber(request.getPhoneNumber());
+            users.setPhoto(request.getPhoto());
+            userRepository.findByEmail(request.getEmail()).ifPresentOrElse((email)->{
+                if(email.getId().equals(request.getId())){
+                    users.setEmail(request.getEmail());
                     userRepository.save(users);
                     List<Users> usersList = new ArrayList<Users>();
                     usersList.add(users);
@@ -102,7 +102,7 @@ public class UserService {
                     resp.setError("Sorry, Email already taken");
                 }
             }, ()->{
-                users.setEmail(registrationRequest.getEmail());
+                users.setEmail(request.getEmail());
                 userRepository.save(users);
                 List<Users> usersList = new ArrayList<Users>();
                 usersList.add(users);
@@ -124,12 +124,12 @@ public class UserService {
         return resp;
     }
 
-    public UserRes checkPassword(Users registrationRequest){
+    public UserRes checkPassword(Users request){
         UserRes resp =  new UserRes();
-        userRepository.findById(registrationRequest.getId()).ifPresentOrElse((users) ->{
+        userRepository.findById(request.getId()).ifPresentOrElse((users) ->{
             PasswordEncoder passencoder = new BCryptPasswordEncoder();
             String encodedPassword = users.getPassword();
-            if(passencoder.matches(registrationRequest.getPassword(), encodedPassword)){
+            if(passencoder.matches(request.getPassword(), encodedPassword)){
                 resp.setStatusCode(200);
                 resp.setMessage("Password Match!");
             }else{
@@ -144,11 +144,11 @@ public class UserService {
         return resp;
     }
 
-    public UserRes changePassword(Users registrationRequest){
+    public UserRes changePassword(Users request){
         UserRes resp =  new UserRes();
         PasswordEncoder passencoder = new BCryptPasswordEncoder();
-        userRepository.findById(registrationRequest.getId()).ifPresentOrElse((users) ->{
-            users.setPassword(passencoder.encode(registrationRequest.getPassword()));
+        userRepository.findById(request.getId()).ifPresentOrElse((users) ->{
+            users.setPassword(passencoder.encode(request.getPassword()));
             userRepository.save(users);
             List<Users> usersList = new ArrayList<Users>();
             usersList.add(users);

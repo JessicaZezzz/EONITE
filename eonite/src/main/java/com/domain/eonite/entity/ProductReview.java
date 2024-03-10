@@ -15,7 +15,6 @@ public class ProductReview {
     private Integer id;
     private String review;
     private Integer rating;
-    private Integer flag;
 
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
@@ -28,4 +27,10 @@ public class ProductReview {
     @JoinColumn(name="product_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     private Product product;
+
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="transactiondetail_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
+    private TransactionDetail transactionDetail;
 }

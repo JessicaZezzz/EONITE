@@ -13,13 +13,8 @@ public class BankAccount {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    private Integer noAccount;
-
-    @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name="bank_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
-    private Bank bank;
+    private Integer idbank;
+    private String noAccount;
 
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
