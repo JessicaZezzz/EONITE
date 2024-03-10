@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data @AllArgsConstructor @NoArgsConstructor @ToString
+@Data
 @Entity
 @Table(name= "Vendor", 
        uniqueConstraints={
@@ -55,7 +55,6 @@ public class Vendor implements UserDetails {
     @Column (name = "surat_ijin_usaha", columnDefinition="LONGTEXT")
     private String surat_ijin_usaha;
 
-    @ToString.Exclude
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     @OneToMany(fetch = FetchType.LAZY, mappedBy="vendor", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     public List<CategoryVendor> categoryVendors;

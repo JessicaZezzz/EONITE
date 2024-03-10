@@ -148,8 +148,7 @@ public class AuthService {
         ReqRes response = new ReqRes();
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),signInRequest.getPassword()));
-            var vendor = vendorRepo.findByEmail(signInRequest.getEmail()).orElseThrow();
-            System.out.println("VENDOR IS: "+ vendor);
+            Vendor vendor = vendorRepo.findByEmail(signInRequest.getEmail()).get();
             var jwt = jwtUtils.generateToken(vendor);
             var resfreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), vendor);
             response.setStatusCode(200);

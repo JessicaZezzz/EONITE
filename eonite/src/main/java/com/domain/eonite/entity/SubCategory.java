@@ -2,6 +2,7 @@ package com.domain.eonite.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -21,6 +22,7 @@ public class SubCategory {
     @JsonBackReference
     private Category category;
 
+    @JsonIgnore
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy="subcategory", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     public List<CategoryVendor> categoryVendors;

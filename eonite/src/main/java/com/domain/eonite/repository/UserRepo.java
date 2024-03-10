@@ -1,18 +1,13 @@
 package com.domain.eonite.repository;
 
 import com.domain.eonite.entity.Users;
-
 import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 public interface UserRepo extends JpaRepository<Users, Integer> {
-    
-    String searchBy = "first_name";
 
     Optional<Users> findByEmail(String email);
 
