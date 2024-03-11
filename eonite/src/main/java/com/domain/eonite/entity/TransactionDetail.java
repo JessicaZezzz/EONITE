@@ -13,7 +13,7 @@ public class TransactionDetail {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
-    private String[] date;
+    private String bookdate;
     private Integer quantity;
 
     @JsonIgnore
@@ -22,7 +22,6 @@ public class TransactionDetail {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     private Transaction transaction;
 
-    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="product_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")

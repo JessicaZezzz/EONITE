@@ -14,7 +14,7 @@ public class Cart {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private Integer quantity;
-    private String[] bookdate;
+    private String bookdate;
 
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
@@ -22,7 +22,6 @@ public class Cart {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     private Users user;
 
-    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="product_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
