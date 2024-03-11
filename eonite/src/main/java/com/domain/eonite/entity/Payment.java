@@ -19,6 +19,7 @@ public class Payment {
     @Column (name = "image", columnDefinition="BLOB")
     private byte[] image;
     private String state;
+    private String description;
     
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)

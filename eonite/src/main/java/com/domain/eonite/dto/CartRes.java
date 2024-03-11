@@ -5,7 +5,6 @@ import com.domain.eonite.entity.Cart;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import jakarta.persistence.Tuple;
 import lombok.Data;
 
 @Data
