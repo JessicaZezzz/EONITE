@@ -44,4 +44,9 @@ public class UserController {
     public ResponseEntity<UserRes> changePassword(@RequestBody Users request){
         return ResponseEntity.ok(userService.changePassword(request));
     }
+
+    @DeleteMapping("/deleteUser")
+    public ResponseEntity<UserRes> deleteUser(@RequestBody UserRes request){
+        return ResponseEntity.ok(userService.deleteUser(request));
+    }
 }

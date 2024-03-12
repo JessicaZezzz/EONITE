@@ -16,7 +16,6 @@ public class ProductReview {
     private String review;
     private Integer rating;
 
-    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="user_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")

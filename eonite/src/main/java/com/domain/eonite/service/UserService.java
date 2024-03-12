@@ -9,7 +9,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.domain.eonite.dto.UserRes;
+import com.domain.eonite.entity.Cart;
+import com.domain.eonite.entity.Transaction;
 import com.domain.eonite.entity.Users;
+import com.domain.eonite.repository.CartRepo;
+import com.domain.eonite.repository.TransactionRepo;
 import com.domain.eonite.repository.UserRepo;
 
 import jakarta.transaction.Transactional;
@@ -19,6 +23,12 @@ import jakarta.transaction.Transactional;
 public class UserService {
     @Autowired
     private UserRepo userRepository;
+
+    @Autowired
+    private CartRepo cartRepo;
+
+    @Autowired 
+    private TransactionRepo transactionRepo;
 
     public UserRes getAllUser(String searchBy, String searchParam, String sortBy, String sortDir, Boolean pagination, Integer pageSize, Integer pageIndex){
         UserRes resp =  new UserRes();
@@ -165,6 +175,32 @@ public class UserService {
             resp.setStatusCode(500);
             resp.setError("User not found");
         });
+        return resp;
+    }
+
+    public UserRes deleteUser(UserRes request) {
+        UserRes resp = new UserRes();
+        for(Integer index: request.getUserId()){
+            List<Cart> cartlist = cartRepo.findByUser(userRepository.findById(index).get());
+                cartlist.forEach((cart) ->{
+                    cartRepo.deleteById(cart.getId());
+                });
+            List<Transaction> transactions = transactionRepo.findByUser(userRepository.findById(index).get());
+                transactions.forEach((trans) ->{
+                    trans.setUser(null);
+                    transactionRepo.save(trans);
+                });
+            //product review
+            userRepository.deleteById(index);
+        }
+        try{
+            resp.setMessage("Success Delete User Account");
+            resp.setStatusCode(200);
+
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
         return resp;
     }
 }

@@ -20,4 +20,5 @@ public class UserRes {
     private String expirationTime;
     private List<Users> users;
     private Long length;
+    private List<Integer> userId;
 }

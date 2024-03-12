@@ -132,13 +132,19 @@ public class ProductService {
     public ProductReviewRes addProductReview(ProductReviewRes request){
         ProductReviewRes resp =  new ProductReviewRes();
         ProductReview productReview = new ProductReview();
+            productReview.setTransactionDetail(TransactionDetailRepo.findById(request.getTransaction_detail_id()).get());
             productReview.setRating(request.getRating());
             productReview.setReview(request.getReview());
             productReview.setUser(userRepo.findById(request.getUser_id()).get());
             productReview.setProduct(ProductRepo.findById(request.getProduct_id()).get());
-            productReview.setTransactionDetail(TransactionDetailRepo.findById(request.getTransaction_detail_id()).get());
             productReviewRepo.save(productReview);
-            //get
+                ProductRepo.findById(request.getProduct_id()).ifPresentOrElse((product)->{
+                    product.setRating(ProductRepo.updateRatingProduct(product.getId()));
+                    vendorRepo.findById(product.getVendor().getId()).ifPresentOrElse((vendor)->{
+                        vendor.setRating(ProductRepo.updateRatingVendor(vendor.getId()));
+                    },null);
+                    ProductRepo.save(product);
+                }, null);
             List<ProductReview> productrws = new ArrayList<ProductReview>();
             productrws.add(productReview);
             try{
@@ -153,56 +159,47 @@ public class ProductService {
         return resp;
     }
 
-    // public ProductRes updateProductReview(ProductRes request){
-    //     ProductRes resp =  new ProductRes();
-    //     ProductRepo.findById(request.getId()).ifPresentOrElse((product)->{
-    //         product.setName(request.getName());
-    //         product.setPrice(request.getPrice());
-    //         product.setDescription(request.getDescription());
-    //         product.setCapacity(request.getCapacity());
-    //         ProductRepo.save(product);     
-    //         try{
-    //             resp.setMessage("Success Update Product");
-    //             resp.setStatusCode(200);
+    public ProductReviewRes updateProductReview(ProductReviewRes request){
+        ProductReviewRes resp =  new ProductReviewRes();
+        productReviewRepo.findById(request.getId()).ifPresentOrElse((productRev)->{
+            productRev.setRating(request.getRating());
+            productRev.setReview(request.getReview());
+            productReviewRepo.save(productRev);
+                ProductRepo.findById(request.getProduct_id()).ifPresentOrElse((product)->{
+                    product.setRating(ProductRepo.updateRatingProduct(product.getId()));
+                    vendorRepo.findById(product.getVendor().getId()).ifPresentOrElse((vendor)->{
+                        vendor.setRating(ProductRepo.updateRatingVendor(vendor.getId()));
+                    },null);
+                    ProductRepo.save(product);
+                }, null);
+            try{
+                resp.setMessage("Success Update Product Review");
+                resp.setStatusCode(200);
     
-    //         }catch(Exception e){
-    //             resp.setStatusCode(500);
-    //             resp.setError(e.getMessage());
-    //         }
-    //     }, ()->{
-    //         resp.setStatusCode(500);
-    //         resp.setError("Vendor Not Found");
-    //     });
-    //     return resp;
-    // }
+            }catch(Exception e){
+                resp.setStatusCode(500);
+                resp.setError(e.getMessage());
+            }
+        },()->{
+            resp.setStatusCode(500);
+            resp.setError("Product Review Not Found");
+        });
 
-    // public ProductRes getProductReviewbyTransactionDtls(Integer id){
-    //     ProductRes resp =  new ProductRes();
-    //     List<Product> products = ProductRepo.findAllById(id);
-    //     try{
-    //         resp.setProducts(products);
-    //         resp.setMessage("Success Get Product with Id "+id);
-    //         resp.setStatusCode(200);
+        return resp;
+    }
 
-    //     }catch(Exception e){
-    //         resp.setStatusCode(500);
-    //         resp.setError(e.getMessage());
-    //     }
-    //     return resp;
-    // }
+    public ProductReviewRes getProductReviewbyProduct(Integer id){
+        ProductReviewRes resp =  new ProductReviewRes();
+        List<ProductReview> products = productReviewRepo.findAllByProductId(id);
+        try{
+            resp.setProductReview(products);
+            resp.setMessage("Success Get All Review Product with Product Id "+id);
+            resp.setStatusCode(200);
 
-    // public ProductRes getProductReviewbyProduct(Integer id){
-    //     ProductRes resp =  new ProductRes();
-    //     List<Product> products = ProductRepo.findAllByVendorId(id);
-    //     try{
-    //         resp.setProducts(products); 
-    //         resp.setMessage("Success Get All Product with Vendor Id "+id);
-    //         resp.setStatusCode(200);
-
-    //     }catch(Exception e){
-    //         resp.setStatusCode(500);
-    //         resp.setError(e.getMessage());
-    //     }
-    //     return resp;
-    // }
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
 }

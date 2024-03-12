@@ -26,4 +26,7 @@ public class TransactionDetail {
     @JoinColumn(name="product_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     private Product product;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy="transactionDetail", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    private ProductReview productReview;
 }

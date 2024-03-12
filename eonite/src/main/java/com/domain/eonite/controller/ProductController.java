@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.domain.eonite.dto.ProductRes;
+import com.domain.eonite.dto.ProductReviewRes;
 import com.domain.eonite.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,5 +47,19 @@ public class ProductController {
     // public ResponseEntity<ProductRes> deleteProduct(@PathVariable("id") Integer id){
     //     return ResponseEntity.ok(productService.deleteProduct(id));
     // }
-    
+
+    @PostMapping("/addReview")
+    public ResponseEntity<ProductReviewRes> addProductReview(@RequestBody ProductReviewRes request){
+        return ResponseEntity.ok(productService.addProductReview(request));
+    }
+
+    @PutMapping("/updateProductReview")
+    public ResponseEntity<ProductReviewRes> updateProductReview(@RequestBody ProductReviewRes request){
+        return ResponseEntity.ok(productService.updateProductReview(request));
+    }
+
+    @GetMapping("/getAllProductReview")
+    public ResponseEntity<ProductReviewRes> getProductReviewbyProduct(@RequestParam(required = true,name = "id") Integer id){
+        return ResponseEntity.ok(productService.getProductReviewbyProduct(id));
+    }
 }
