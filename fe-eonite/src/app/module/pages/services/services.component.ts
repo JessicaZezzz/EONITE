@@ -15,12 +15,12 @@ export class ServicesComponent {
   availDate : any;
 
   constructor(private restApi: RestApiServiceService,private datePipe: DatePipe){
-    this.restApi.getCategory().subscribe((data) => {
-      this.category = data;
-    });
-    this.restApi.getDomicile().subscribe((data) => {
-      this.domicile = data;
-    });
+    // this.restApi.getCategory().subscribe((data) => {
+    //   this.category = data;
+    // });
+    // this.restApi.getDomicile().subscribe((data) => {
+    //   this.domicile = data;
+    // });
   }
 
   sort(){

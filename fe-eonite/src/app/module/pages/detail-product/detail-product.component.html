@@ -1,0 +1,150 @@
+<app-navbar></app-navbar>
+<div class="w-full flex justify-center">
+  <div class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
+    <div class="relative -z-10 left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="m-2 max-w-screen-xl">
+    <div class="md:flex">
+      <div class="p-4 bg-white shadow-md rounded-lg w-full">
+        <div class="mt-2 mr-3">
+          <button (click)="back()" style="rotate: 180deg;" class="w-10 h-10 rounded-full align-left absolute z-10">
+            <svg aria-hidden="true" class="w-6 h-6 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+            fill="black">
+              <path fill-rule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <div class="max-w-7xl mx-3 px-4 sm:px-6 lg:px-8 mt-6">
+          <div class="flex flex-col md:flex-row -mx-4 mb-4">
+            <div class="md:flex-1 px-4 mb-2">
+              <div class="grid gap-4">
+                <div>
+                  <div class="img-wrapper hover:cursor-pointer">
+                    <img class="h-auto max-w-full rounded-lg zoom" [src]="cover" alt="">
+                    <div class="content fade" (click)="onClick($event)">
+                      <img [src]="'./assets/icon/icons8-zoom-in-52.png'" alt="">
+                    </div>
+                  </div>
+                  <!-- Modal Image -->
+                  <div *ngIf="zoomImage" class="bg-black/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
+                    <div class="relative p-4 w-full max-w-4xl max-h-full">
+                        <div class="relative  shadow ">
+                            <div class="p-2 text-end">
+                              <button (click)="zoomImage = false" type="button" #closebutton class="text-3xl absolute right-4" data-dismiss="modal">&times;</button>
+                              <img
+                              [src]="cover"
+                              style="width:300%;"
+                              class="rounded-lg modal-hover-opacity"
+                              />
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-5 gap-4">
+                  <div *ngFor="let i of image">
+                    <button (click)="changeImg(i)">
+                      <img  class="h-auto max-w-full rounded-lg hover:scale-110 transition duration-500 cursor-pointer object-cover"
+                            [src]="i" alt="">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="md:flex-1 px-4">
+              <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">Lorem ipsum dolor, sit amet consectetur, adipisicing elit.</h2>
+              <p class="text-gray-500 text-sm">By <a href="#" class="text-indigo-600 hover:underline">ABC Company</a></p>
+
+              <div class="flex items-center space-x-4 my-4">
+                <div>
+                  <div class="rounded-lg bg-gray-100 flex py-2 px-3">
+                    <span class="text-indigo-400 mr-1 mt-1">Rp</span>
+                    <span class="font-bold text-indigo-600 text-3xl">250.000,00</span>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <p class="text-green-500 text-xl font-semibold">New!</p>
+                  <!-- <p class="text-gray-400 text-sm">Inclusive of all Taxes.</p> -->
+                </div>
+              </div>
+              <p class="text-gray-500">Lorem ipsum, dolor sit, amet consectetur adipisicing elit. Vitae exercitationem porro saepe ea harum corrupti vero id laudantium enim, libero blanditiis expedita cupiditate a est.</p>
+              <div class="flex py-1 space-x-4">
+                <button (click)="addtoCart()"
+                        type="button"  class="py-3 px-4 font-semibold rounded-md bg-indigo-600 hover:bg-indigo-500 text-white">
+                  ADD TO CART
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 lg:max-w-7xl max-w-4xl mx-auto border-t-2 border-gray-200">
+          <div>
+            <h3 class="text-lg font-bold text-[#333]">Reviews(10)</h3>
+            <div class="grid md:grid-cols-2 gap-12 mt-4">
+              <div class="space-y-2">
+                <div class="space-y-3" *ngFor="let i of review">
+                  <div class="flex items-center">
+                    <div class="text-sm text-[#333] font-bold">{{ i.rating }}</div>
+                    <svg class="w-5 fill-[#333] ml-1" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                    </svg>
+                    <div class="bg-gray-400 rounded w-full md:w-[400px] h-2 ml-3">
+                      <div class="h-full rounded bg-[#333]" [style.width]="i.bar"></div>
+                    </div>
+                    <div class="text-sm text-[#333] font-bold ml-3">{{ i.total }}%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="">
+                <div class="flex items-start flex-col w-full space-y-2 md:max-h-[500px] md:overflow-y-scroll">
+                  <div class="border-b-2 border-gray-200 pb-2" *ngFor="let i of review">
+                    <img src="https://readymadeui.com/team-2.webp" class="w-12 h-12 rounded-full border-2 border-white ml-3" />
+                    <div class="ml-3 space-y-1">
+                      <div class="text-md font-semibold text-[#333] mt-1">John Doe</div>
+                      <div class="flex space-x-1 items-center">
+                        <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <p class="text-xs !ml-2 font-semibold text-[#333] !m-0">2 mins ago</p>
+                      </div>
+                      <p class="text-sm mt-4 text-[#333]">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="openCart">
+  <app-dialog-cart (openCart)="closeCart($event)"></app-dialog-cart>
+</div>
+<app-footer></app-footer>

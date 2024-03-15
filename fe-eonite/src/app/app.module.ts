@@ -30,7 +30,19 @@ import { RestApiServiceService } from './module/services/rest-api-service.servic
 import { LogoutComponent } from './module/pages/logout/logout.component';
 import { ListVendorComponent } from './module/pages/list-vendor/list-vendor.component';
 import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendor.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule} from '@angular/material/tabs';
+import { HomeUserComponent } from './module/pages/home-user/home-user.component';
+import { HomeVendorComponent } from './module/pages/home-vendor/home-vendor.component';
+import { HomeAdminComponent } from './module/pages/home-admin/home-admin.component';
+import { DetailProductComponent } from './module/pages/detail-product/detail-product.component';
+import { DialogCartComponent } from './module/pages/dialog-cart/dialog-cart.component';
+import { MatButtonModule} from '@angular/material/button';
+import { MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatChipsModule} from '@angular/material/chips';
+import { MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import { CartComponent } from './module/pages/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +65,12 @@ import {MatTabsModule} from '@angular/material/tabs';
     LogoutComponent,
     ListVendorComponent,
     DetailVendorComponent,
+    HomeUserComponent,
+    HomeVendorComponent,
+    HomeAdminComponent,
+    DetailProductComponent,
+    DialogCartComponent,
+    CartComponent,
 
   ],
   imports: [
@@ -65,10 +83,17 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDialogModule,
     BrowserAnimationsModule,
     CommonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    MatRippleModule
   ],
   providers: [
-    DatePipe,
+    DatePipe,MatDatepickerModule, MatNativeDateModule,
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,

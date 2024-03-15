@@ -13,6 +13,8 @@ import { PageNotFoundComponent } from './module/pages/page-not-found/page-not-fo
 import { AuthGuard } from './module/services/auth.guard';
 import { LogoutComponent } from './module/pages/logout/logout.component';
 import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendor.component';
+import { DetailProductComponent } from './module/pages/detail-product/detail-product.component';
+import { CartComponent } from './module/pages/cart/cart.component';
 
 const routes: Routes = [
   {
@@ -50,6 +52,14 @@ const routes: Routes = [
   {
     path:'details/:id',
     component: DetailVendorComponent,
+  },
+  {
+    path:'product/:id',
+    component: DetailProductComponent,
+  },
+  {
+    path:'cart',
+    component: CartComponent,
   },
   {
     path:'faq',
