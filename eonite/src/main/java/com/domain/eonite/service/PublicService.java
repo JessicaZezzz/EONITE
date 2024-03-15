@@ -21,10 +21,11 @@ public class PublicService {
     private DomicileRepo domicileRepo;
 
     public List<Category> findAllCategory() {
-        return categoryRepo.findAllByOrderByName();
+        return categoryRepo.findAll();
     }
 
     public List<Domicile> findAllDomicile() {
         return domicileRepo.findAllByOrderByName();
     }
+
 }
