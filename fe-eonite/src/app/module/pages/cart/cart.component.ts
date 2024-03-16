@@ -24,7 +24,7 @@ export class CartComponent{
   userSelection = new SelectionModel<any>(true, []);
   userSSelection = new SelectionModel<any>(true, []);
   userSelectionMap: Map<number, SelectionModel<any>> = new Map<number,SelectionModel<any>>();
-  bookingDialog:boolean = true;
+  bookingDialog:boolean = false;
 
   constructor() {}
 
@@ -56,6 +56,10 @@ export class CartComponent{
 
   closeCart(event:boolean){
     this.openCart = event;
+  }
+
+  closeBooking(event:boolean){
+    this.bookingDialog = event;
   }
 
   openDialogCart(element:any){

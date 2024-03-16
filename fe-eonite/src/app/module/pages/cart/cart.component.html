@@ -6,7 +6,7 @@
   <div class="m-2 max-w-screen-xl">
     <div class="md:flex">
       <div class="p-4 bg-white shadow-md rounded-lg">
-        <div class="flex items-center justify-center font-bold text-xl text-[#5C06E4]">CART</div>
+        <div class="flex items-center justify-center font-bold text-xl text-[#5C06E4] mb-2">CART</div>
         <div class="w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px] overflow-scroll:visible">
           <table mat-table [dataSource]="data" multiTemplateDataRows matSort>
             <!-- Checkbox Column -->
@@ -116,7 +116,7 @@
               </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <!-- <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr> -->
             <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
               [class.example-element-row]="element.addresses?.length" [class.example-expanded-row]="element?.expanded"
               (click)="element.expanded = !element?.expanded">
@@ -153,7 +153,7 @@
   </div>
 </div>
 <div *ngIf="bookingDialog">
-  <app-dialog-booking></app-dialog-booking>
+  <app-dialog-booking (openBooking)="closeBooking($event)"></app-dialog-booking>
 </div>
 <app-footer></app-footer>
 

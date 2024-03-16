@@ -20,7 +20,7 @@ export class DialogBookingComponent implements OnInit {
     new Date('6/17/1998')
   ];
 
-  @Output() openCart = new EventEmitter<boolean>();
+  @Output() openBooking = new EventEmitter<boolean>();
   @ViewChild('picker', { static: true }) _picker?: MatDatepicker<Date>;
 
   constructor() { }
@@ -74,7 +74,7 @@ export class DialogBookingComponent implements OnInit {
   }
 
   close(){
-    this.openCart.emit(false);
+    this.openBooking.emit(false);
   }
 
   submitCart(){
