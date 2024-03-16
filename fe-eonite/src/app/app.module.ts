@@ -41,8 +41,13 @@ import { MatInputModule} from '@angular/material/input';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatChipsModule} from '@angular/material/chips';
-import { MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { CartComponent } from './module/pages/cart/cart.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTreeModule } from '@angular/material/tree';
+import { DialogEditCartComponent } from './module/pages/dialog-edit-cart/dialog-edit-cart.component';
+import { DialogBookingComponent } from './module/pages/dialog-booking/dialog-booking.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +76,8 @@ import { CartComponent } from './module/pages/cart/cart.component';
     DetailProductComponent,
     DialogCartComponent,
     CartComponent,
-
+    DialogEditCartComponent,
+    DialogBookingComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,8 +96,12 @@ import { CartComponent } from './module/pages/cart/cart.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatChipsModule,
-    MatRippleModule
+    MatRippleModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatTreeModule
   ],
+  entryComponents: [CartComponent],
   providers: [
     DatePipe,MatDatepickerModule, MatNativeDateModule,
     {

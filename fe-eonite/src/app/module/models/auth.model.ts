@@ -128,3 +128,10 @@ export class Vendor{
   email?        :string;
   password?     :string;
 }
+
+export class Product{
+  id?           : number;
+  name?         : string;
+  qty?          : number;
+  date?         : string[];
+}
