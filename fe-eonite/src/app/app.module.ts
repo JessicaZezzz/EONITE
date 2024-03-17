@@ -45,9 +45,11 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { CartComponent } from './module/pages/cart/cart.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTreeModule } from '@angular/material/tree';
 import { DialogEditCartComponent } from './module/pages/dialog-edit-cart/dialog-edit-cart.component';
 import { DialogBookingComponent } from './module/pages/dialog-booking/dialog-booking.component';
+import { TransactionComponent } from './module/pages/transaction/transaction.component';
+import { TransactionDetailComponent } from './module/pages/transaction-detail/transaction-detail.component';
+import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,8 @@ import { DialogBookingComponent } from './module/pages/dialog-booking/dialog-boo
     CartComponent,
     DialogEditCartComponent,
     DialogBookingComponent,
+    TransactionComponent,
+    TransactionDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +103,7 @@ import { DialogBookingComponent } from './module/pages/dialog-booking/dialog-boo
     MatRippleModule,
     MatTableModule,
     MatCheckboxModule,
-    MatTreeModule
+    NgbRatingModule
   ],
   entryComponents: [CartComponent],
   providers: [

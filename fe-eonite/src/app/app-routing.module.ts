@@ -15,6 +15,8 @@ import { LogoutComponent } from './module/pages/logout/logout.component';
 import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendor.component';
 import { DetailProductComponent } from './module/pages/detail-product/detail-product.component';
 import { CartComponent } from './module/pages/cart/cart.component';
+import { TransactionComponent } from './module/pages/transaction/transaction.component';
+import { TransactionDetailComponent } from './module/pages/transaction-detail/transaction-detail.component';
 
 const routes: Routes = [
   {
@@ -60,6 +62,14 @@ const routes: Routes = [
   {
     path:'cart',
     component: CartComponent,
+  },
+  {
+    path:'transaction',
+    component: TransactionComponent,
+  },
+  {
+    path:'transaction-details/:id',
+    component: TransactionDetailComponent,
   },
   {
     path:'faq',
