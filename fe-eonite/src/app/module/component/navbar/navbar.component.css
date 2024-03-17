@@ -6,3 +6,8 @@
 .activeMobileLink{
   color: #5C06E4;
 }
+
+.activeMenu{
+  background-color: #5C06E4;
+  color:white;
+}

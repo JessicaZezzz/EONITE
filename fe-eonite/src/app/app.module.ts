@@ -50,6 +50,9 @@ import { DialogBookingComponent } from './module/pages/dialog-booking/dialog-boo
 import { TransactionComponent } from './module/pages/transaction/transaction.component';
 import { TransactionDetailComponent } from './module/pages/transaction-detail/transaction-detail.component';
 import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
+import { ProfileUserComponent } from './module/pages/profile-user/profile-user.component';
+import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
+import { ProductComponent } from './module/pages/product/product.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +85,9 @@ import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
     DialogBookingComponent,
     TransactionComponent,
     TransactionDetailComponent,
+    ProfileUserComponent,
+    ProfileVendorComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,

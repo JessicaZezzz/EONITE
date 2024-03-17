@@ -17,6 +17,8 @@ import { DetailProductComponent } from './module/pages/detail-product/detail-pro
 import { CartComponent } from './module/pages/cart/cart.component';
 import { TransactionComponent } from './module/pages/transaction/transaction.component';
 import { TransactionDetailComponent } from './module/pages/transaction-detail/transaction-detail.component';
+import { ProfileUserComponent } from './module/pages/profile-user/profile-user.component';
+import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
 
 const routes: Routes = [
   {
@@ -66,6 +68,14 @@ const routes: Routes = [
   {
     path:'transaction',
     component: TransactionComponent,
+  },
+  {
+    path:'profile-user',
+    component: ProfileUserComponent,
+  },
+  {
+    path:'profile-vendor',
+    component: ProfileVendorComponent,
   },
   {
     path:'transaction-details/:id',
