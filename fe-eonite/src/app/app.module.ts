@@ -53,6 +53,8 @@ import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProfileUserComponent } from './module/pages/profile-user/profile-user.component';
 import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
 import { ProductComponent } from './module/pages/product/product.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AddEditProductComponent } from './module/pages/add-edit-product/add-edit-product.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,7 @@ import { ProductComponent } from './module/pages/product/product.component';
     ProfileUserComponent,
     ProfileVendorComponent,
     ProductComponent,
+    AddEditProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -109,7 +112,8 @@ import { ProductComponent } from './module/pages/product/product.component';
     MatRippleModule,
     MatTableModule,
     MatCheckboxModule,
-    NgbRatingModule
+    NgbRatingModule,
+    AngularEditorModule
   ],
   entryComponents: [CartComponent],
   providers: [

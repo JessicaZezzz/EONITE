@@ -19,6 +19,7 @@ import { TransactionComponent } from './module/pages/transaction/transaction.com
 import { TransactionDetailComponent } from './module/pages/transaction-detail/transaction-detail.component';
 import { ProfileUserComponent } from './module/pages/profile-user/profile-user.component';
 import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
+import { ProductComponent } from './module/pages/product/product.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,10 @@ const routes: Routes = [
   {
     path:'transaction-details/:id',
     component: TransactionDetailComponent,
+  },
+  {
+    path:'product-vendor',
+    component: ProductComponent,
   },
   {
     path:'faq',

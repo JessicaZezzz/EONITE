@@ -24,4 +24,11 @@
   background: #555;
 }
 
-body { margin: 0; font-family: 'Open Sans'; }
+body { margin: 0; font-family: 'Open Sans';}
+ul{
+  list-style-type: disc;
+}
+
+ol{
+  list-style-type: decimal;
+}
