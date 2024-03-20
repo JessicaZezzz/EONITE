@@ -3,7 +3,7 @@ import { NG_VALIDATORS, AbstractControl, Validator, ValidationErrors, ValidatorF
 
 export function emailValidator(): ValidatorFn {
 
-  const EMAIL_REGEXP = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const EMAIL_REGEXP = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{3,})$/i;
 
   return (control: AbstractControl): ValidationErrors | null => {
     const isValid = EMAIL_REGEXP.test(control.value);

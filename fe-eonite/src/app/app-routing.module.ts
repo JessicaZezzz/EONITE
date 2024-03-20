@@ -20,6 +20,7 @@ import { TransactionDetailComponent } from './module/pages/transaction-detail/tr
 import { ProfileUserComponent } from './module/pages/profile-user/profile-user.component';
 import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
 import { ProductComponent } from './module/pages/product/product.component';
+import { ServicesProductComponent } from './module/pages/services-product/services-product.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
   {
     path:'about-us',
     component: AboutUsComponent,
+  },
+  {
+    path:'services-product',
+    component: ServicesProductComponent,
   },
   {
     path:'details/:id',

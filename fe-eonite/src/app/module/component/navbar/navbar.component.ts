@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DROPDOWN_ADMIN, DROPDOWN_USER, DROPDOWN_VENDOR, MENU, MENU_ADMIN, MENU_PUBLIC, MENU_VENDOR } from '../../models/auth.model';
 import { Router } from '@angular/router';
+import { RestApiServiceService } from '../../services/rest-api-service.service';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +16,9 @@ export class NavbarComponent implements OnInit {
   role: string = '';
   menu : MENU[] = [];
   dropdown : MENU[] = [];
+  imgProfile: string='';
 
-  constructor(private router: Router){
+  constructor(private router: Router,private restService:RestApiServiceService){
 
   }
 
@@ -27,6 +30,12 @@ export class NavbarComponent implements OnInit {
     }else if(this.role=='VENDOR'){
       this.menu = MENU_VENDOR;
       this.dropdown = DROPDOWN_VENDOR;
+      this.restService.getprofileVendor(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
+        if(event.type == HttpEventType.Response && event.body && event.ok){
+          let data = Object(event.body)['vendor'];
+          this.imgProfile = data[0].photo;
+        }
+      })
     }else if(this.role=='ADMIN'){
       this.menu = MENU_ADMIN;
       this.dropdown = DROPDOWN_ADMIN;

@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, timeout } from 'rxjs/operators';
 import { environment } from 'src/app/enviroment/environment';
 
 @Injectable({
@@ -10,10 +10,10 @@ import { environment } from 'src/app/enviroment/environment';
 export class RestApiServiceService {
   headers = new HttpHeaders({
     "Content-Type": "application/json",
-    "Accept": "application/json"
+    "Accept": "application/json",
+    'Authorization': `Bearer ${sessionStorage.getItem('ACCESS_TOKEN')}`
   });
   constructor(private http: HttpClient) {
-
   }
 
   getCategory(): Observable<any>{
@@ -30,6 +30,13 @@ export class RestApiServiceService {
 
   postsignInVendor(body: any): Observable<any>{
     return this.http.post(`${environment.apiUrl}/auth/signupVendor`,body, {headers: this.headers});
+  }
+
+  getprofileVendor(id:number){
+    let params = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/vendor/vendorProfile`;
+    const request = new HttpRequest('GET',path,{params:params,headers:this.headers})
+    return this.http.request(request).pipe(timeout(200000));
   }
 
   loginUser(body: any): Observable<any>{

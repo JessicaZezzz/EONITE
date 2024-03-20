@@ -55,6 +55,12 @@ import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-ve
 import { ProductComponent } from './module/pages/product/product.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AddEditProductComponent } from './module/pages/add-edit-product/add-edit-product.component';
+import { ServicesProductComponent } from './module/pages/services-product/services-product.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTreeModule} from '@angular/material/tree';
+import {MatSelectModule} from '@angular/material/select';
+import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/edit-profile-vendor.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +97,8 @@ import { AddEditProductComponent } from './module/pages/add-edit-product/add-edi
     ProfileVendorComponent,
     ProductComponent,
     AddEditProductComponent,
+    ServicesProductComponent,
+    EditProfileVendorComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,7 +121,11 @@ import { AddEditProductComponent } from './module/pages/add-edit-product/add-edi
     MatTableModule,
     MatCheckboxModule,
     NgbRatingModule,
-    AngularEditorModule
+    AngularEditorModule,
+    MatExpansionModule,
+    MatTreeModule,
+    MatRadioModule,
+    MatSelectModule,
   ],
   entryComponents: [CartComponent],
   providers: [

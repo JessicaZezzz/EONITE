@@ -90,13 +90,14 @@ export const MENU_ADMIN:MENU[]=[
 ]
 
 export class Category{
-  id?: String;
-  name?: String;
+  id?: string;
+  name: string='';
+  subCategories?:Category[];
 }
 
 export class Domicile{
-  id?: String;
-  name?: String;
+  id?: string;
+  name?: string;
 }
 
 export class User{
@@ -111,23 +112,35 @@ export class User{
 }
 
 export class Vendor{
-  role?         :string;
-  category_id?  :number;
-  domicile_id?  :number;
-  first_name?   :string;
-  last_name?    :string;
-  birth_date?   :string;
-  phone_number? :string;
-  phone_business?:string;
-  address?      :string;
-  photo_identity?:any;
-  photo_id?     :number;
-  status?       :string;
-  startTime?    :string;
-  endTime?      :string;
-  email?        :string;
-  password?     :string;
+  role?           :string;
+  subCategory?    :number[];
+  domicile_id?    :number;
+  firstName?      :string;
+  lastName?       :string;
+  birthDate?      :string;
+  phoneNumber?    :string;
+  phoneBusiness?  :string;
+  address?        :string;
+  photo_identity? :any;
+  photo?          :any;
+  status?         :string;
+  startTime?      :string;
+  endTime?        :string;
+  email?          :string;
+  password?       :string;
+  usernameVendor?   :string;
+  categoryVendors?  :categoryvendor[];
+  description?      :string;
+  inporative_date?  :string[];
+  instagram_url?    :string;
+  rating?           :Number;
+  surat_ijin_usaha? :any;
 }
+
+export class categoryvendor{
+  id?           :number;
+}
+
 
 export class Product{
   id?           : number;

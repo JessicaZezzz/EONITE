@@ -1,0 +1,477 @@
+<app-navbar></app-navbar>
+<div class="w-full flex justify-center">
+  <div class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
+    <div class="relative -z-10 left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="m-2 ">
+      <div class="bg-white shadow-lg rounded-md">
+        <div>
+          <!--
+            Mobile filter dialog
+
+            Off-canvas filters for mobile, show/hide based on off-canvas filters state.
+          -->
+          <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
+            <!--
+              Off-canvas menu backdrop, show/hide based on off-canvas menu state.
+
+              Entering: "transition-opacity ease-linear duration-300"
+                From: "opacity-0"
+                To: "opacity-100"
+              Leaving: "transition-opacity ease-linear duration-300"
+                From: "opacity-100"
+                To: "opacity-0"
+            -->
+            <div class="fixed inset-0 bg-black bg-opacity-25"></div>
+
+            <div class="fixed inset-0 z-40 flex">
+              <!--
+                Off-canvas menu, show/hide based on off-canvas menu state.
+
+                Entering: "transition ease-in-out duration-300 transform"
+                  From: "translate-x-full"
+                  To: "translate-x-0"
+                Leaving: "transition ease-in-out duration-300 transform"
+                  From: "translate-x-0"
+                  To: "translate-x-full"
+              -->
+              <div class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                <div class="flex items-center justify-between px-4">
+                  <h2 class="text-lg font-medium text-gray-900">Filters</h2>
+                  <button type="button" class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400">
+                    <span class="sr-only">Close menu</span>
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Filters -->
+                <form class="mt-4 border-t border-gray-200">
+                  <h3 class="sr-only">Categories</h3>
+
+                  <div class="border-t border-gray-200 px-4 py-6">
+                    <h3 class="-mx-2 -my-3 flow-root">
+                      <!-- Expand/collapse section button -->
+                      <button type="button" class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-0" aria-expanded="false">
+                        <span class="font-medium text-gray-900">Color</span>
+                        <span class="ml-6 flex items-center">
+                          <!-- Expand icon, show/hide based on section open state. -->
+                          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                          </svg>
+                          <!-- Collapse icon, show/hide based on section open state. -->
+                          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                          </svg>
+                        </span>
+                      </button>
+                    </h3>
+                    <!-- Filter section, show/hide based on section state. -->
+                    <div class="pt-6" id="filter-section-mobile-0">
+                      <div class="space-y-6">
+                        <div class="flex items-center">
+                          <input id="filter-mobile-color-4" name="color[]" value="green" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                          <label for="filter-mobile-color-4" class="ml-3 min-w-0 flex-1 text-gray-500">Green</label>
+                        </div>
+                        <div class="flex items-center">
+                          <input id="filter-mobile-color-5" name="color[]" value="purple" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                          <label for="filter-mobile-color-5" class="ml-3 min-w-0 flex-1 text-gray-500">Purple</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border-t border-gray-200 px-4 py-6">
+                    <h3 class="-mx-2 -my-3 flow-root">
+                      <!-- Expand/collapse section button -->
+                      <button type="button" class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-1" aria-expanded="false">
+                        <span class="font-medium text-gray-900">Category</span>
+                        <span class="ml-6 flex items-center">
+                          <!-- Expand icon, show/hide based on section open state. -->
+                          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                          </svg>
+                          <!-- Collapse icon, show/hide based on section open state. -->
+                          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                          </svg>
+                        </span>
+                      </button>
+                    </h3>
+                    <!-- Filter section, show/hide based on section state. -->
+                    <div class="pt-6" id="filter-section-mobile-1">
+                      <div class="space-y-6">
+                        <div class="flex items-center">
+                          <input id="filter-mobile-category-2" name="category[]" value="travel" type="checkbox" checked class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                          <label for="filter-mobile-category-2" class="ml-3 min-w-0 flex-1 text-gray-500">Travel</label>
+                        </div>
+                        <div class="flex items-center">
+                          <input id="filter-mobile-category-3" name="category[]" value="organization" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                          <label for="filter-mobile-category-3" class="ml-3 min-w-0 flex-1 text-gray-500">Organization</label>
+                        </div>
+                        <div class="flex items-center">
+                          <input id="filter-mobile-category-4" name="category[]" value="accessories" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                          <label for="filter-mobile-category-4" class="ml-3 min-w-0 flex-1 text-gray-500">Accessories</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border-t border-gray-200 px-4 py-6">
+                    <h3 class="-mx-2 -my-3 flow-root">
+                      <!-- Expand/collapse section button -->
+                      <button type="button" class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-2" aria-expanded="false">
+                        <span class="font-medium text-gray-900">Size</span>
+                        <span class="ml-6 flex items-center">
+                          <!-- Expand icon, show/hide based on section open state. -->
+                          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                          </svg>
+                          <!-- Collapse icon, show/hide based on section open state. -->
+                          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                          </svg>
+                        </span>
+                      </button>
+                    </h3>
+                    <!-- Filter section, show/hide based on section state. -->
+                    <div class="pt-6" id="filter-section-mobile-2">
+                      <div class="space-y-6">
+                        <div class="flex items-center">
+                          <input id="filter-mobile-size-3" name="size[]" value="18l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                          <label for="filter-mobile-size-3" class="ml-3 min-w-0 flex-1 text-gray-500">18L</label>
+                        </div>
+                        <div class="flex items-center">
+                          <input id="filter-mobile-size-4" name="size[]" value="20l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                          <label for="filter-mobile-size-4" class="ml-3 min-w-0 flex-1 text-gray-500">20L</label>
+                        </div>
+                        <div class="flex items-center">
+                          <input id="filter-mobile-size-5" name="size[]" value="40l" type="checkbox" checked class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                          <label for="filter-mobile-size-5" class="ml-3 min-w-0 flex-1 text-gray-500">40L</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-5">
+              <div class="text-2xl font-bold tracking-tight text-gray-900">Product</div>
+              <div class="flex items-center">
+                <div class="relative inline-block text-left">
+                  <div>
+                    <button type="button" class="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900" id="menu-button" aria-expanded="false" aria-haspopup="true">
+                      Sort
+                      <svg class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                  <!--
+                    Dropdown menu, show/hide based on menu state.
+
+                    Entering: "transition ease-out duration-100"
+                      From: "transform opacity-0 scale-95"
+                      To: "transform opacity-100 scale-100"
+                    Leaving: "transition ease-in duration-75"
+                      From: "transform opacity-100 scale-100"
+                      To: "transform opacity-0 scale-95"
+                  -->
+                  <div class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                      <!--
+                        Active: "bg-gray-100", Not Active: ""
+
+                        Selected: "font-medium text-gray-900", Not Selected: "text-gray-500"
+                      -->
+                      <a href="#" class="font-medium text-gray-900 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Most Popular</a>
+                      <a href="#" class="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Best Rating</a>
+                      <a href="#" class="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Newest</a>
+                      <a href="#" class="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Price: Low to High</a>
+                      <a href="#" class="text-gray-500 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-4">Price: High to Low</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <section aria-labelledby="products-heading" class="pb-20 pt-2">
+              <h2 id="products-heading" class="sr-only">Products</h2>
+
+              <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+                <!-- Filters -->
+                <form class="hidden lg:block">
+                  <div class="border-b border-gray-200 py-3">
+                    <mat-accordion>
+                      <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header class="text-sm">
+                          <span class="font-medium text-gray-900">Category</span>
+                        </mat-expansion-panel-header>
+                        <div class="mt-2">
+                          <!--  -->
+                         <!-- <p>Selected:
+                           <span>
+                             <div *ngFor="let item of selections">{{ item }}</div>
+                           </span>
+                         </p> -->
+                         <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+                           <!-- This is the tree node template for leaf nodes -->
+                           <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+                             <li class="mat-tree-node">
+                               <!-- use a disabled button to provide padding for tree leaf -->
+                               <button mat-icon-button disabled></button>
+                               <mat-checkbox (change)="selectionToggleLeaf($event.checked, node)"
+                                 [checked]="node.isSelected">{{node.display}}</mat-checkbox>
+                             </li>
+                           </mat-tree-node>
+                           <!-- This is the tree node template for expandable nodes -->
+                           <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                             <ul class="ml-5">
+                               <li class="mat-tree-node">
+                                 <button mat-icon-button matTreeNodeToggle
+                                         [attr.aria-label]="'toggle ' + node.display">
+                                   <mat-icon class="mat-icon-rtl-mirror">
+                                     {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                   </mat-icon>
+                                 </button>
+                                 <mat-checkbox (change)="selectionToggle($event.checked, node)"
+                                 [indeterminate]="checkDescPartSelection(node)"
+                                 [checked]="descendantsAllSelected(node)">{{node.display}}</mat-checkbox>
+                               </li>
+                               <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+                                 <ng-container matTreeNodeOutlet></ng-container>
+                               </div>
+                              </ul>
+                           </mat-nested-tree-node>
+                         </mat-tree>
+
+                          <!--  -->
+                        </div>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                  <div class="border-b border-gray-200 py-3">
+                    <mat-accordion>
+                      <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header class="text-sm">
+                          <span class="font-medium text-gray-900">Domicile</span>
+                        </mat-expansion-panel-header>
+                        <div class="mt-2">
+                          <div class="flex flex-col">
+                            <select id="status" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                              <option>Dispached Out</option>
+                              <option>In Warehouse</option>
+                              <option>Being Brought In</option>
+                            </select>
+                          </div>
+                        </div>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                  <div class="border-b border-gray-200 py-3">
+                    <mat-accordion>
+                      <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header class="text-sm">
+                          <span class="font-medium text-gray-900">Rating</span>
+                        </mat-expansion-panel-header>
+                        <div class="mt-3">
+                          <div class="flex items-center mb-4">
+                            <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900">
+                              <div class="flex space-x-1 items-center">
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                              </div>
+                            </label>
+                          </div>
+                          <div class="flex items-center mb-4">
+                            <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900">
+                              <div class="flex space-x-1 items-center">
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                              </div>
+                            </label>
+                          </div>
+                          <div class="flex items-center mb-4">
+                            <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900">
+                              <div class="flex space-x-1 items-center">
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                              </div>
+                            </label>
+                          </div>
+                          <div class="flex items-center mb-4">
+                            <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900">
+                              <div class="flex space-x-1 items-center">
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                              </div>
+                            </label>
+                          </div>
+                          <div class="flex items-center">
+                            <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                            <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900">
+                              <div class="flex space-x-1 items-center">
+                                <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                                <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                                  xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                                </svg>
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                  <div class="border-b border-gray-200 py-3">
+                    <mat-accordion>
+                      <mat-expansion-panel (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header class="text-sm">
+                          <span class="font-medium text-gray-900">Available Date</span>
+                        </mat-expansion-panel-header>
+                        <div class="mt-2">
+                          <div class="flex flex-col">
+                            <select id="status" class="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                              <option>Dispached Out</option>
+                              <option>In Warehouse</option>
+                              <option>Being Brought In</option>
+                            </select>
+                          </div>
+                        </div>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </div>
+                </form>
+                <div class="lg:col-span-3 mt-10">
+                  <app-list-vendor></app-list-vendor>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<app-footer></app-footer>

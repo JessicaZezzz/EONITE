@@ -1,0 +1,286 @@
+<!--  -->
+<div class="md:flex">
+  <h2 class="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6">Profile Account</h2>
+</div>
+  <div class="md:flex mb-8">
+    <div class="md:w-1/3">
+      <legend class="uppercase tracking-wide text-sm">PIC Vendor</legend>
+      <p class="text-xs font-light text-red">This entire section is required.</p>
+    </div>
+    <!-- <form class="space-y-2" [formGroup]="Form1">
+      <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+          <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name PIC</label>
+          <div class="mt-1">
+            <input  type="text"
+                    formControlName="firstName"
+                    class="form-control"
+                    placeholder="Enter First Name"
+                    minlength="1" maxlength="250"
+                    [ngClass]="{'border-b-1 border-red-400': firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors?.['required']}"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div>
+          <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
+            <div *ngIf="firstName.errors?.['required']" class="text-xs text-red-400">
+              * Required
+            </div>
+          </div>
+        </div>
+        <div class="sm:col-span-3">
+          <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last Name PIC</label>
+          <div class="mt-1">
+            <input  type="text"
+                    formControlName="lastName"
+                    class="form-control"
+                    placeholder="Enter Last Name"
+                    minlength="1" maxlength="250"
+                    [ngClass]="{'border-b-1 border-red-400': lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors?.['required']}"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div>
+          <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback">
+            <div *ngIf="lastName.errors?.['required']" class="text-xs text-red-400">
+              * Required
+            </div>
+          </div>
+        </div>
+        <div class="sm:col-span-3">
+          <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Birth Date</label>
+          <div class="mt-1">
+            <input  type="date"
+                    formControlName="birthDate"
+                    class="form-control"
+                    [ngClass]="{'border-b-1 border-red-400': birthDate.invalid && (birthDate.dirty || birthDate.touched) && birthDate.errors?.['required']}"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div>
+          <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)" class="invalid-feedback">
+            <div *ngIf="birthDate.errors?.['required']" class="text-xs text-red-400">
+              * Required
+            </div>
+          </div>
+        </div>
+        <div class="sm:col-span-3">
+          <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone PIC</label>
+          <div class="mt-1">
+            <input  type="text"
+                    maxlength="13"
+                    phoneMask
+                    formControlName="phoneNumber"
+                    class="form-control"
+                    [ngClass]="{'border-b-1 border-red-400': phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)}"
+                    placeholder="Enter Phone Number"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div>
+          <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="invalid-feedback">
+            <div *ngIf="phoneNumber.errors?.['required']" class="text-xs text-red-400">
+              * Required
+            </div>
+            <div *ngIf="phoneNumber.errors?.['minlength']" class="text-xs text-red-400">
+              * This field must have at least 10 character.
+            </div>
+            <div *ngIf="phoneNumber.errors?.['pattern']" class="text-xs text-red-400">
+              * Invalid Phone Number
+            </div>
+          </div>
+        </div>
+      </div>
+    </form> -->
+  </div>
+  <div class="md:flex mb-8">
+    <div class="md:w-1/3">
+      <legend class="uppercase tracking-wide text-sm">BUSINESS</legend>
+    </div>
+      <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6">
+        <div class="sm:col-span-full">
+          <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Username Vendor</label>
+          <div class="mt-1">
+            <input formControlName="address"
+                    class="form-control"
+
+                    type="text"
+                    placeholder="Enter Company Address"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div>
+          <!-- <div *ngIf="address.invalid && (address.dirty || address.touched)" class="invalid-feedback">
+            <div *ngIf="address.errors?.['required']" class="text-xs text-red-400">
+              * Required [ngClass]="{'border-b-1 border-red-400': address.invalid && (address.dirty || address.touched)}"
+            </div>
+          </div> -->
+        </div>
+        <div class="sm:col-span-3">
+          <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
+            <select formControlName="categoryId"
+
+                    class="mt-1 block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+              <!-- <option *ngFor="let i of category" [value]="i.id">{{ i.name }}</option> [ngClass]="{'border-b-1 border-red-400': categoryId.invalid && (categoryId.dirty || categoryId.touched)}"-->
+              <option value="A">A</option>
+              <option value="B">B</option>
+            </select>
+            <!-- <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)" class="invalid-feedback">
+              <div *ngIf="categoryId.errors?.['required']" class="text-xs text-red-400">
+                * Required
+              </div>
+            </div> -->
+        </div>
+        <div class="sm:col-span-3">
+          <label for="domicile" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
+            <select formControlName="domicileId"
+
+                    class="mt-1 block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+              <!-- <option *ngFor="let i of domicile" [value]="i.id">{{ i.name }}</option> [ngClass]="{'border-b-1 border-red-400': domicileId.invalid && (domicileId.dirty || domicileId.touched)}"-->
+              <option value="">A</option>
+              <option value="">B</option>
+            </select>
+            <!-- <div *ngIf="domicileId.invalid && (domicileId.dirty || domicileId.touched)" class="invalid-feedback">
+              <div *ngIf="domicileId.errors?.['required']" class="text-xs text-red-400">
+                * Required
+              </div>
+            </div> -->
+        </div>
+        <div class="sm:col-span-3">
+          <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
+          <div class="mt-1">
+            <input  type="text"
+                    maxlength="13"
+                    phoneMask
+                    formControlName="phoneBusiness"
+                    class="form-control"
+
+                    placeholder="Enter Phone Business Number"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div>
+          <!-- <div *ngIf="phoneBusiness.invalid && (phoneBusiness.dirty || phoneBusiness.touched)" class="invalid-feedback">
+            <div *ngIf="phoneBusiness.errors?.['required']" class="text-xs text-red-400">
+              * Required
+            </div> [ngClass]="{'border-b-1 border-red-400': phoneBusiness.invalid && (phoneBusiness.dirty || phoneBusiness.touched)}"
+            <div *ngIf="phoneBusiness.errors?.['minlength']" class="text-xs text-red-400">
+              * This field must have at least 10 character.
+            </div>
+            <div *ngIf="phoneBusiness.errors?.['pattern']" class="text-xs text-red-400">
+              * Invalid Phone Number
+            </div>
+          </div> -->
+        </div>
+        <div class="sm:col-span-3">
+          <label for="opthours" class="block text-sm font-medium leading-6 text-gray-900">Operational Hours</label>
+          <div class=" flex flex-row mt-1 items-center">
+            <div class="">
+              <input  formControlName="startTime"
+                      class="form-control"
+
+                      type="time"
+                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+            </div>
+            <span class="px-1">-</span>
+            <div class="">
+              <input  formControlName="endTime"
+                      class="form-control"
+
+                      type="time"type="time" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+            </div>
+          </div>
+          <!-- <div *ngIf="(startTime.invalid && (startTime.dirty || startTime.touched))||(endTime.invalid && (endTime.dirty || endTime.touched))" class="invalid-feedback">
+            <div *ngIf="phoneNumber.errors?.['required']" class="text-xs text-red-400">
+              * Required [ngClass]="{'border-b-1 border-red-400': startTime.invalid && (startTime.dirty || startTime.touched)}" [ngClass]="{'border-b-1 border-red-400': endTime.invalid && (endTime.dirty || endTime.touched)}"
+            </div>
+          </div> -->
+        </div>
+        <div class="sm:col-span-full">
+          <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Company Address</label>
+          <div class="mt-1">
+            <input formControlName="address"
+                    class="form-control"
+
+                    type="text"
+                    placeholder="Enter Company Address"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div>
+          <!-- <div *ngIf="address.invalid && (address.dirty || address.touched)" class="invalid-feedback">
+            <div *ngIf="address.errors?.['required']" class="text-xs text-red-400">
+              * Required [ngClass]="{'border-b-1 border-red-400': address.invalid && (address.dirty || address.touched)}"
+            </div>
+          </div> -->
+        </div>
+        Inoperative date
+      </div>
+    <!-- </form> -->
+  </div>
+  <div class="md:flex">
+    <div class="md:w-1/3">
+      <legend class="uppercase tracking-wide text-sm">Social</legend>
+    </div>
+    <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
+      <div class="md:flex mb-4">
+        <div class="md:flex-1 md:pr-3">
+          <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Instagram</label>
+          <div class="w-full flex">
+            <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">instagram.com/</span>
+            <input  type="text"
+                    formControlName="lastName"
+                    class="form-control"
+                    placeholder="Enter Last Name"
+                    minlength="1" maxlength="250"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+        <div class="md:flex-1 md:pl-3 mt-2 md:mt-0">
+          <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Twitter</label>
+          <!-- <div class="w-full flex">
+            <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">twitter.com/</span>
+            <input  type="text"
+                    formControlName="lastName"
+                    class="form-control"
+                    placeholder="Enter Last Name"
+                    minlength="1" maxlength="250"
+                    [ngClass]="{'border-b-1 border-red-400': lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors?.['required']}"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="sm:col-span-3">
+    <label for="opthours" class="block text-sm font-medium leading-6 text-gray-900">Operational Hours</label>
+    <div class=" flex flex-row mt-1 items-center">
+      <div class="">
+        <input  formControlName="startTime"
+                class="form-control"
+                [ngClass]="{'border-b-1 border-red-400': startTime.invalid && (startTime.dirty || startTime.touched)}"
+                type="time"
+                class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+      </div>
+      <span class="px-1">-</span>
+      <div class="">
+        <input  formControlName="endTime"
+                class="form-control"
+                [ngClass]="{'border-b-1 border-red-400': endTime.invalid && (endTime.dirty || endTime.touched)}"
+                type="time"type="time" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+      </div>
+    </div>
+    <div *ngIf="(startTime.invalid && (startTime.dirty || startTime.touched))||(endTime.invalid && (endTime.dirty || endTime.touched))" class="invalid-feedback">
+      <div *ngIf="phoneNumber.errors?.['required']" class="text-xs text-red-400">
+        * Required
+      </div>
+    </div>
+  </div> -->
+  <div class="md:flex mb-6">
+    <div class="md:w-1/3">
+      <legend class="uppercase tracking-wide text-sm">Description</legend>
+    </div>
+    <div class="md:flex-1 mt-2 mb:mt-0 md:px-3">
+      <!--  -->
+      <!-- <angular-editor [config]="config"></angular-editor> -->
+      <!-- <textarea class="w-full shadow-inner p-4 border-0" placeholder="We build fine acmes." rows="6"></textarea> -->
+    </div>
+  </div>
+  <div class="md:flex mb-6">
+    <div class="md:w-1/3">
+      <legend class="uppercase tracking-wide text-sm">Cover Image</legend>
+    </div>
+    <div class="md:flex-1 px-3 text-center">
+      <div class="button bg-gold hover:bg-gold-dark text-cream mx-auto cusor-pointer relative">
+        <input class="opacity-0 absolute pin-x pin-y" type="file" name="cover_image">
+        Add Cover Image
+      </div>
+    </div>
+  </div>
+<!--  -->
