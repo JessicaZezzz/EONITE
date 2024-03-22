@@ -21,6 +21,7 @@ import { ProfileUserComponent } from './module/pages/profile-user/profile-user.c
 import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
 import { ProductComponent } from './module/pages/product/product.component';
 import { ServicesProductComponent } from './module/pages/services-product/services-product.component';
+import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/edit-profile-vendor.component';
 
 const routes: Routes = [
   {
@@ -82,6 +83,10 @@ const routes: Routes = [
   {
     path:'profile-vendor',
     component: ProfileVendorComponent,
+  },
+  {
+    path:'edit-profile-vendor',
+    component: EditProfileVendorComponent,
   },
   {
     path:'transaction-details/:id',

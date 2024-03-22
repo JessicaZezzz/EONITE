@@ -112,6 +112,7 @@ export class User{
 }
 
 export class Vendor{
+  id?             :number;
   role?           :string;
   subCategory?    :number[];
   domicile_id?    :number;
@@ -129,18 +130,14 @@ export class Vendor{
   email?          :string;
   password?       :string;
   usernameVendor?   :string;
-  categoryVendors?  :categoryvendor[];
+  categoryVendors?  :number[];
   description?      :string;
-  inporative_date?  :string[];
+  inoperative_date?  :string[];
   instagram_url?    :string;
   rating?           :Number;
   surat_ijin_usaha? :any;
+  flag?             :string;
 }
-
-export class categoryvendor{
-  id?           :number;
-}
-
 
 export class Product{
   id?           : number;

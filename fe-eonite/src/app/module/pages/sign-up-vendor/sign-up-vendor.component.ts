@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Category, Domicile, Vendor } from '../../models/auth.model';
 import { Router } from '@angular/router';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { emailValidator } from '../../services/email-validator.directive';
 import { passwordConfirmationValidator } from '../../services/confirm-password';
-import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { imagedflt } from '../../models/photo.model';
 
@@ -33,7 +32,7 @@ export class SignUpVendorComponent {
   error:string='';
   dfltImg:string = imagedflt;
 
-  constructor(private restService: RestApiServiceService, private router: Router,private httpClinet:HttpClient){
+  constructor(private restService: RestApiServiceService, private router: Router){
     this.vendor = {} as Vendor;
   }
 
@@ -63,6 +62,7 @@ export class SignUpVendorComponent {
       email: new FormControl(this.vendor?.email, [
         Validators.required,
         emailValidator(),
+
       ]),
       password: new FormControl(this.vendor?.password, [
         Validators.required,
@@ -73,7 +73,7 @@ export class SignUpVendorComponent {
         Validators.required
       ]),
     },{
-      validators: passwordConfirmationValidator('password', 'confirmPassword')
+      validators: [passwordConfirmationValidator('password', 'confirmPassword'),this.emailcheckValidator()]
     });
 
     this.Form2 = new FormGroup({
@@ -138,6 +138,19 @@ export class SignUpVendorComponent {
         break;
       }
     }
+  }
+
+  emailcheckValidator(): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const email = formGroup.get('email');
+      if(email?.value!=''){
+        this.restService.checkEmailVendor(email?.value).subscribe(e => {
+          if (e != null) email?.setErrors({ emailCheck: true });
+          return null;
+        });
+      }
+      return null;
+    };
   }
 
   deletePhoto(){
