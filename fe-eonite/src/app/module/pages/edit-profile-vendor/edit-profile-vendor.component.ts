@@ -9,6 +9,8 @@ import { HttpEventType } from '@angular/common/http';
 import * as moment from 'moment';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
 
 export const StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
 
@@ -33,7 +35,6 @@ export class EditProfileVendorComponent implements OnInit {
   subCategory:number[]=[];
   vendor?:Vendor;
   description?:any;
-  openDialogSuccessDiv:boolean=false;
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -73,7 +74,7 @@ export class EditProfileVendorComponent implements OnInit {
     ]
   };
 
-  constructor(private restService: RestApiServiceService, private router: Router,) {
+  constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog) {
     this.vendorId = Number(sessionStorage.getItem('ID')!);
     this.restService.getprofileVendor(this.vendorId).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
@@ -341,8 +342,14 @@ export class EditProfileVendorComponent implements OnInit {
 
     this.restService.updateProfileVendor(JSON.stringify(postVendor)).subscribe(event=>{
       if(event.statusCode == 200){
-        this.openDialogSuccessDiv = true;
-        console.log(this.openDialogSuccessDiv)
+        const dialogRef = this.dialog.open(DialogSuccessComponent, {
+          data: 'Success Update Profile',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+        this.redirect();
       }else if(event.statusCode == 500){
         // this.error='Email is already registered, please use another email';
         // this.openDialogErrorDiv = true;

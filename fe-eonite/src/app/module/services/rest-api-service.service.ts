@@ -55,6 +55,14 @@ export class RestApiServiceService {
     return this.http.put(`${environment.apiUrl}/vendor/updateProfileVendor`,body,{headers:this.headers});
   }
 
+  checkPasswordVendor(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/vendor/checkPasswordVendor`,body,{headers:this.headers});
+  }
+
+  changePasswordVendor(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/vendor/changePasswordVendor`,body,{headers:this.headers});
+  }
+
   getprofileVendor(id:number){
     let params = new HttpParams().append('id',id);
     let path = `${environment.apiUrl}/vendor/vendorProfile`;

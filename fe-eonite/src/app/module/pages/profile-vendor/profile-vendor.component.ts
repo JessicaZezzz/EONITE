@@ -5,6 +5,8 @@ import { HttpEventType } from '@angular/common/http';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogChangePasswordComponent } from '../dialog-change-password/dialog-change-password.component';
 
 @Component({
   selector: 'app-profile-vendor',
@@ -26,7 +28,7 @@ export class ProfileVendorComponent implements OnInit {
     showToolbar: false,
   };
 
-  constructor(private restService:RestApiServiceService, private router:Router) {
+  constructor(private restService:RestApiServiceService, private router:Router,public dialog: MatDialog) {
     this.vendorId = Number(sessionStorage.getItem('ID')!);
   }
 
@@ -82,6 +84,16 @@ export class ProfileVendorComponent implements OnInit {
 
   edit(){
     this.router.navigate(['edit-profile-vendor'])
+  }
+
+  openChangePass(role:string):void{
+    const dialogRef = this.dialog.open(DialogChangePasswordComponent, {
+      data: role,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

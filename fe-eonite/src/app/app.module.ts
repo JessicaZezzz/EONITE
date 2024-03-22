@@ -59,8 +59,10 @@ import { ServicesProductComponent } from './module/pages/services-product/servic
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTreeModule} from '@angular/material/tree';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/edit-profile-vendor.component';
+import { DialogChangePasswordComponent } from './module/pages/dialog-change-password/dialog-change-password.component';
+import { DialogSuccessComponent } from './module/pages/dialog-success/dialog-success.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,8 @@ import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/e
     AddEditProductComponent,
     ServicesProductComponent,
     EditProfileVendorComponent,
+    DialogChangePasswordComponent,
+    DialogSuccessComponent
   ],
   imports: [
     BrowserModule,
