@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  role:string='';
+  constructor(){
+    this.role = sessionStorage.getItem('AUTH')!;
+  }
 }

@@ -5,6 +5,7 @@
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 /* Track */
@@ -21,4 +22,13 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+body { margin: 0; font-family: 'Open Sans';}
+ul{
+  list-style-type: disc;
+}
+
+ol{
+  list-style-type: decimal;
 }

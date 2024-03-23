@@ -13,6 +13,15 @@ import { PageNotFoundComponent } from './module/pages/page-not-found/page-not-fo
 import { AuthGuard } from './module/services/auth.guard';
 import { LogoutComponent } from './module/pages/logout/logout.component';
 import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendor.component';
+import { DetailProductComponent } from './module/pages/detail-product/detail-product.component';
+import { CartComponent } from './module/pages/cart/cart.component';
+import { TransactionComponent } from './module/pages/transaction/transaction.component';
+import { TransactionDetailComponent } from './module/pages/transaction-detail/transaction-detail.component';
+import { ProfileUserComponent } from './module/pages/profile-user/profile-user.component';
+import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
+import { ProductComponent } from './module/pages/product/product.component';
+import { ServicesProductComponent } from './module/pages/services-product/services-product.component';
+import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/edit-profile-vendor.component';
 
 const routes: Routes = [
   {
@@ -48,8 +57,44 @@ const routes: Routes = [
     component: AboutUsComponent,
   },
   {
+    path:'services-product',
+    component: ServicesProductComponent,
+  },
+  {
     path:'details/:id',
     component: DetailVendorComponent,
+  },
+  {
+    path:'product/:id',
+    component: DetailProductComponent,
+  },
+  {
+    path:'cart',
+    component: CartComponent,
+  },
+  {
+    path:'transaction',
+    component: TransactionComponent,
+  },
+  {
+    path:'profile-user',
+    component: ProfileUserComponent,
+  },
+  {
+    path:'profile-vendor',
+    component: ProfileVendorComponent,
+  },
+  {
+    path:'edit-profile-vendor',
+    component: EditProfileVendorComponent,
+  },
+  {
+    path:'transaction-details/:id',
+    component: TransactionDetailComponent,
+  },
+  {
+    path:'product-vendor',
+    component: ProductComponent,
   },
   {
     path:'faq',

@@ -1,0 +1,183 @@
+<app-navbar></app-navbar>
+<div class="w-full flex justify-center">
+  <div class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
+    <div class="relative -z-10 left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="m-2 max-w-screen-xl">
+    <div class="md:flex">
+      <div class="p-4 bg-white shadow-md rounded-lg w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px]">
+        <div class="md:flex flex justify-center">
+          <h2 class="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6 text-center">Profile Account</h2>
+        </div>
+        <div class="flex justify-center mb-2">
+          <div class="flex flex-col justify-center">
+            <div class="flex justify-center mb-4">
+              <img class="object-cover w-20 h-20 p-1 rounded-full ring-2 ring-indigo-500 flex"
+              src="{{'data:image/jpg;base64,' + vendor?.photo}}">
+            </div>
+            <div class="flex justify-center mb-4 items-center">
+              <svg class="w-6 h-6" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M8.10326 1.31699C8.47008 0.57374 9.52992 0.57374 9.89674 1.31699L11.7063 4.98347C11.8519 5.27862 12.1335 5.48319 12.4592 5.53051L16.5054 6.11846C17.3256 6.23765 17.6531 7.24562 17.0596 7.82416L14.1318 10.6781C13.8961 10.9079 13.7885 11.2389 13.8442 11.5632L14.5353 15.5931C14.6754 16.41 13.818 17.033 13.0844 16.6473L9.46534 14.7446C9.17402 14.5915 8.82598 14.5915 8.53466 14.7446L4.91562 16.6473C4.18199 17.033 3.32456 16.41 3.46467 15.5931L4.15585 11.5632C4.21148 11.2389 4.10393 10.9079 3.86825 10.6781L0.940384 7.82416C0.346867 7.24562 0.674378 6.23765 1.4946 6.11846L5.54081 5.53051C5.86652 5.48319 6.14808 5.27862 6.29374 4.98347L8.10326 1.31699Z"
+                    fill="yellow" />
+                </svg>
+                <span class="text-base font-semibold text-indigo-600 items-center">{{ vendor?.rating }}</span>
+            </div>
+            <div class="flex flex-row space-x-2">
+              <button (click)="edit()" class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
+                EDIT PROFILE
+              </button>
+              <button (click)="openChangePass('VENDOR')" class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
+                CHANGE PASSWORD
+              </button>
+              <button class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
+                GET VERIFIED
+              </button>
+            </div>
+          </div>
+        </div>
+          <div class="md:flex mb-4 mt-2 border-b-2 border-[#5C06E4] pb-3">
+            <div class="md:w-1/3">
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">PIC Vendor</legend>
+            </div>
+              <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
+                <div class="sm:col-span-3">
+                  <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name PIC</label>
+                  <div class="mt-1">
+                    <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ vendor?.firstName }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last Name PIC</label>
+                  <div class="mt-1">
+                    <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 ">
+                      {{ vendor?.lastName }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Birth Date</label>
+                  <div class="mt-1">
+                    <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 ">
+                      {{ changeDate(vendor?.birthDate!) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone PIC</label>
+                  <div class="mt-1">
+                    <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 ">
+                      {{ vendor?.phoneNumber }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="md:flex mb-4 border-b-2 border-[#5C06E4] pb-3">
+            <div class="md:w-1/3">
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">BUSINESS</legend>
+            </div>
+              <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
+                <div class="sm:col-span-3">
+                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Username Vendor</label>
+                  <div class="mt-1">
+                    <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ vendor?.usernameVendor }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Email Vendor</label>
+                  <div class="mt-1">
+                    <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ vendor?.email }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
+                  <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                    <div *ngFor="let i of categoryName">
+                      {{ i }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="domicile" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
+                    <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ domicile }}
+                    </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
+                  <div class="mt-1">
+                    <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ vendor?.phoneBusiness }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="opthours" class="block text-sm font-medium leading-6 text-gray-900">Operational Hours</label>
+                  <div class=" flex flex-row mt-1 items-center">
+                    <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ checkTime(vendor?.startTime) }}
+                    </div>
+                    <span class="px-1">-</span>
+                    <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ checkTime(vendor?.endTime) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-full">
+                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Company Address</label>
+                  <div class="mt-1">
+                    <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ checkData(vendor?.address) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-full">
+                  <label for="Inoperative date" class="block text-sm font-medium leading-6 text-gray-900">Inoperative date</label>
+                  <div class="mt-1">
+                    <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ changeFormatInoperative(vendor?.inoperative_date!) }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="md:flex mb-4 border-b-2 border-[#5C06E4] pb-3">
+            <div class="md:w-1/3">
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Social</legend>
+            </div>
+            <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
+              <div class="sm:col-span-full flex">
+                <div>
+                  <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Instagram</label>
+                  <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">instagram.com/</span>
+                </div>
+                <div class="mt-1">
+                  <div class="block px-2 w-full min-w-[100px] rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                    {{ checkData(vendor?.instagram_url) }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="md:flex mb-6">
+          <div class="md:w-1/3">
+            <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Description</legend>
+          </div>
+          <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
+            <div class="sm:col-span-full">
+              <angular-editor [config]="config" [(ngModel)]="vendor!.description"></angular-editor>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

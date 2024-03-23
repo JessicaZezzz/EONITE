@@ -1,0 +1,128 @@
+<div class="w-full flex justify-center">
+  <div class="m-2 max-w-screen-xl">
+    <div class="md:flex">
+      <div class="p-4 rounded-lg w-full">
+        <div class="max-w-7xl mx-3 px-4 sm:px-6 lg:px-8 mt-6">
+          <div class="flex flex-col md:flex-row -mx-4 mb-4">
+            <div class="md:flex-1 px-4 mb-2">
+              <div class="grid gap-4">
+                <div>
+                  <div class="img-wrapper hover:cursor-pointer">
+                    <img *ngIf="cover ==''" class="h-auto max-w-full rounded-lg zoom" src="../assets/icon/bg-default.png" alt="">
+                    <img *ngIf="cover !=''" class="h-auto max-w-full rounded-lg zoom" [src]="cover" alt="">
+                    <div class="content fade" (click)="onClick($event)">
+                      <img [src]="'./assets/icon/icons8-zoom-in-52.png'" alt="">
+                    </div>
+                  </div>
+                  <!-- Modal Image -->
+                  <div *ngIf="zoomImage && cover !=''" class="bg-black/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
+                    <div class="relative p-4 w-full max-w-4xl max-h-full">
+                        <div class="relative  shadow ">
+                            <div class="p-2 text-end">
+                              <button (click)="zoomImage = false" type="button" #closebutton class="text-3xl absolute right-4" data-dismiss="modal">&times;</button>
+                              <img
+                              [src]="cover"
+                              style="width:300%;"
+                              class="rounded-lg modal-hover-opacity"
+                              />
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-5 gap-4">
+                  <div *ngFor="let i of image">
+                    <button (click)="changeImg(i)">
+                      <img  class="h-auto max-w-full rounded-lg hover:scale-110 transition duration-500 cursor-pointer object-cover"
+                      src={{i}}>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="md:flex-1 px-4">
+              <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">{{ product!.name }}</h2>
+
+              <div class="flex items-center space-x-4 my-4">
+                <div>
+                  <div class="rounded-lg bg-gray-100 flex py-2 px-3">
+                    <span class="text-indigo-400 mr-1 mt-1">Rp</span>
+                    <span class="font-bold text-indigo-600 text-3xl">{{ formatPrice(product!.price! | currency) }}</span>
+                  </div>
+                </div>
+                <div class="flex-1">
+                  <!-- <p class="text-green-500 text-xl font-semibold">New!</p> -->
+                  <!-- <p class="text-gray-400 text-sm">Inclusive of all Taxes.</p> -->
+                </div>
+              </div>
+              <div class="text-gray-500 font-semibold">Capacity : {{ product!.capacity }}</div>
+              <p class="text-gray-500 font-semibold">Description :</p>
+              <p class="text-gray-500">{{ product!.description }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="p-6 lg:max-w-7xl max-w-4xl mx-auto border-t-2 border-gray-200">
+          <div>
+            <h3 class="text-lg font-bold text-[#333]">Reviews(10)</h3>
+            <div class="grid md:grid-cols-2 gap-12 mt-4">
+              <div class="space-y-2">
+                <div class="space-y-3" *ngFor="let i of review">
+                  <div class="flex items-center">
+                    <div class="text-sm text-[#333] font-bold">{{ i.rating }}</div>
+                    <svg class="w-5 fill-[#333] ml-1" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                    </svg>
+                    <div class="bg-gray-400 rounded w-full md:w-[400px] h-2 ml-3">
+                      <div class="h-full rounded bg-[#333]" [style.width]="i.bar"></div>
+                    </div>
+                    <div class="text-sm text-[#333] font-bold ml-3">{{ i.total }}%</div>
+                  </div>
+                </div>
+              </div>
+              <div class="">
+                <div class="flex items-start flex-col w-full space-y-2 md:max-h-[500px] md:overflow-y-scroll">
+                  <div class="border-b-2 border-gray-200 pb-2" *ngFor="let i of review">
+                    <img src="https://readymadeui.com/team-2.webp" class="w-12 h-12 rounded-full border-2 border-white ml-3" />
+                    <div class="ml-3 space-y-1">
+                      <div class="text-md font-semibold text-[#333] mt-1">John Doe</div>
+                      <div class="flex space-x-1 items-center">
+                        <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg class="w-4 fill-[#333]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <svg class="w-4 fill-[#CED5D8]" viewBox="0 0 14 13" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                        </svg>
+                        <p class="text-xs !ml-2 font-semibold text-[#333] !m-0">2 mins ago</p>
+                      </div>
+                      <p class="text-sm mt-4 text-[#333]">Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

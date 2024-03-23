@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Category, Domicile, Vendor } from '../../models/auth.model';
 import { Router } from '@angular/router';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { emailValidator } from '../../services/email-validator.directive';
 import { passwordConfirmationValidator } from '../../services/confirm-password';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/app/enviroment/environment';
 import { DatePipe } from '@angular/common';
+import { imagedflt } from '../../models/photo.model';
 
 export const StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
 
@@ -31,29 +30,31 @@ export class SignUpVendorComponent {
   urlImage?:any;
   imageFile:any;
   error:string='';
+  dfltImg:string = imagedflt;
 
-  constructor(private restService: RestApiServiceService, private router: Router,private httpClinet:HttpClient){
+  constructor(private restService: RestApiServiceService, private router: Router){
     this.vendor = {} as Vendor;
+  }
+
+  ngOnInit(): void {
     this.restService.getCategory().subscribe((data) => {
       this.category = data;
     });
     this.restService.getDomicile().subscribe((data) => {
       this.domicile = data;
     });
-  }
 
-  ngOnInit(): void {
     this.Form1 = new FormGroup({
-      firstName: new FormControl(this.vendor?.first_name, [
+      firstName: new FormControl(this.vendor?.firstName, [
         Validators.required,
       ]),
-      lastName: new FormControl(this.vendor?.last_name, [
+      lastName: new FormControl(this.vendor?.lastName, [
         Validators.required,
       ]),
-      birthDate: new FormControl(this.vendor?.birth_date, [
+      birthDate: new FormControl(this.vendor?.birthDate, [
         Validators.required,
       ]),
-      phoneNumber: new FormControl(this.vendor?.phone_number, [
+      phoneNumber: new FormControl(this.vendor?.phoneNumber, [
         Validators.required,
         Validators.pattern("^[0-9]*$"),
         Validators.minLength(10)
@@ -61,6 +62,7 @@ export class SignUpVendorComponent {
       email: new FormControl(this.vendor?.email, [
         Validators.required,
         emailValidator(),
+
       ]),
       password: new FormControl(this.vendor?.password, [
         Validators.required,
@@ -71,30 +73,24 @@ export class SignUpVendorComponent {
         Validators.required
       ]),
     },{
-      validators: passwordConfirmationValidator('password', 'confirmPassword')
+      validators: [passwordConfirmationValidator('password', 'confirmPassword'),this.emailcheckValidator()]
     });
 
     this.Form2 = new FormGroup({
-      categoryId: new FormControl(this.vendor?.category_id, [
+      categoryId: new FormControl(this.vendor?.subCategory, [
         Validators.required,
       ]),
       domicileId: new FormControl(this.vendor?.domicile_id, [
         Validators.required,
       ]),
-      phoneBusiness: new FormControl(this.vendor?.phone_business, [
+      phoneBusiness: new FormControl(this.vendor?.phoneBusiness, [
         Validators.required,
         Validators.pattern("^[0-9]*$"),
         Validators.minLength(10)
       ]),
-      startTime: new FormControl(this.vendor?.startTime, [
+      username: new FormControl(this.vendor?.usernameVendor, [
         Validators.required,
-      ]),
-      endTime: new FormControl(this.vendor?.endTime, [
-        Validators.required,
-      ]),
-      address: new FormControl(this.vendor?.address, [
-        Validators.required,
-        Validators.maxLength(150),
+        Validators.maxLength(50),
       ]),
     });
 
@@ -144,6 +140,19 @@ export class SignUpVendorComponent {
     }
   }
 
+  emailcheckValidator(): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const email = formGroup.get('email');
+      if(email?.value!=''){
+        this.restService.checkEmailVendor(email?.value).subscribe(e => {
+          if (e != null) email?.setErrors({ emailCheck: true });
+          return null;
+        });
+      }
+      return null;
+    };
+  }
+
   deletePhoto(){
     this.urlImage = null;
     this.imageFile = null;
@@ -170,42 +179,34 @@ export class SignUpVendorComponent {
 
   submitForm(){
       let postVendor: Vendor = {};
-        postVendor.first_name = this.Form1.value.firstName;
-        postVendor.last_name = this.Form1.value.lastName;
+      postVendor.role = 'VENDOR';
+      postVendor.subCategory = this.Form2.value.categoryId;
+      postVendor.domicile_id = this.Form2.value.domicileId;
+      postVendor.firstName = this.Form1.value.firstName;
+      postVendor.lastName = this.Form1.value.lastName;
       let dates = this.Form1.value.birthDate;
         var year = dates.substring(0, 4);
         var month = dates.substring(5, 7);
         var day = dates.substring(8, 10);
       const bdate = new DatePipe('en-US');
-        postVendor.birth_date = bdate.transform(new Date(parseInt(year),parseInt(month)-1,parseInt(day)),"yyyy-MM-ddThh:mm:ssZZZZZ")!;
-        postVendor.photo_id = 1;
-        postVendor.phone_number = this.Form1.value.phoneNumber;
+      postVendor.birthDate = bdate.transform(new Date(parseInt(year),parseInt(month)-1,parseInt(day)),"yyyy-MM-ddThh:mm:ssZZZZZ")!;
+      postVendor.phoneNumber = this.Form1.value.phoneNumber;
+      postVendor.usernameVendor = this.Form2.value.username;
+      postVendor.phoneBusiness = this.Form2.value.phoneBusiness;
+      postVendor.photo = this.dfltImg;
+      postVendor.photo_identity = this.urlImage.substring(23)
+      postVendor.status = 'PENDING';
       postVendor.email = this.Form1.value.email;
       postVendor.password = this.Form1.value.password;
-      postVendor.role = 'VENDOR';
-      postVendor.category_id = this.Form2.value.categoryId;
-      postVendor.domicile_id = this.Form2.value.domicileId;
-      postVendor.phone_business = this.Form2.value.phoneBusiness;
-      postVendor.startTime = this.Form2.value.startTime+":00";
-      postVendor.endTime = this.Form2.value.endTime+":00";
-      postVendor.address = this.Form2.value.address;
-      postVendor.status = 'PENDING';
 
-    const uploadImage = new FormData();
-    uploadImage.append('file',this.imageFile,this.imageFile.name);
-    this.httpClinet.post(`${environment.apiUrl}/public/uploadPhoto`,uploadImage).subscribe(res=>{
-      let photo_id:any = res;
-      postVendor.photo_identity = photo_id.id;
-        this.restService.postsignInVendor(JSON.stringify(postVendor)).subscribe(event=>{
-          if(event.statusCode == 200){
-            this.openDialogSuccessDiv = true;
-          }else if(event.statusCode == 500){
-            this.error='Email is already registered, please use another email';
-            this.openDialogErrorDiv = true;
-          }
-      })
-    },err=>{
-      console.log(err)
+    // console.log(postVendor)
+    this.restService.postsignInVendor(JSON.stringify(postVendor)).subscribe(event=>{
+      if(event.statusCode == 200){
+        this.openDialogSuccessDiv = true;
+      }else if(event.statusCode == 500){
+        this.error='Email is already registered, please use another email';
+        this.openDialogErrorDiv = true;
+      }
     })
   }
 
@@ -249,16 +250,8 @@ export class SignUpVendorComponent {
     return this.Form2.get('phoneBusiness')!;
   }
 
-  get startTime() {
-    return this.Form2.get('startTime')!;
-  }
-
-  get endTime() {
-    return this.Form2.get('endTime')!;
-  }
-
-  get address() {
-    return this.Form2.get('address')!;
+  get username() {
+    return this.Form2.get('username')!;
   }
 
   get photoId() {

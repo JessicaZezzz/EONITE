@@ -30,7 +30,42 @@ import { RestApiServiceService } from './module/services/rest-api-service.servic
 import { LogoutComponent } from './module/pages/logout/logout.component';
 import { ListVendorComponent } from './module/pages/list-vendor/list-vendor.component';
 import { DetailVendorComponent } from './module/pages/detail-vendor/detail-vendor.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule} from '@angular/material/tabs';
+import { HomeUserComponent } from './module/pages/home-user/home-user.component';
+import { HomeVendorComponent } from './module/pages/home-vendor/home-vendor.component';
+import { HomeAdminComponent } from './module/pages/home-admin/home-admin.component';
+import { DetailProductComponent } from './module/pages/detail-product/detail-product.component';
+import { DialogCartComponent } from './module/pages/dialog-cart/dialog-cart.component';
+import { MatButtonModule} from '@angular/material/button';
+import { MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatChipsModule} from '@angular/material/chips';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { CartComponent } from './module/pages/cart/cart.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DialogEditCartComponent } from './module/pages/dialog-edit-cart/dialog-edit-cart.component';
+import { DialogBookingComponent } from './module/pages/dialog-booking/dialog-booking.component';
+import { TransactionComponent } from './module/pages/transaction/transaction.component';
+import { TransactionDetailComponent } from './module/pages/transaction-detail/transaction-detail.component';
+import { NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
+import { ProfileUserComponent } from './module/pages/profile-user/profile-user.component';
+import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
+import { ProductComponent } from './module/pages/product/product.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ServicesProductComponent } from './module/pages/services-product/services-product.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTreeModule} from '@angular/material/tree';
+import { MatSelectModule } from '@angular/material/select';
+import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/edit-profile-vendor.component';
+import { DialogChangePasswordComponent } from './module/pages/dialog-change-password/dialog-change-password.component';
+import { DialogSuccessComponent } from './module/pages/dialog-success/dialog-success.component';
+import { DetailProductVendorComponent } from './module/pages/detail-product-vendor/detail-product-vendor.component';
+import { CurrencyPipe } from './module/services/currency.pipe';
+import { AddProductComponent } from './module/pages/add-product/add-product.component';
+import { EditProductComponent } from './module/pages/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +88,27 @@ import {MatTabsModule} from '@angular/material/tabs';
     LogoutComponent,
     ListVendorComponent,
     DetailVendorComponent,
-
+    HomeUserComponent,
+    HomeVendorComponent,
+    HomeAdminComponent,
+    DetailProductComponent,
+    DialogCartComponent,
+    CartComponent,
+    DialogEditCartComponent,
+    DialogBookingComponent,
+    TransactionComponent,
+    TransactionDetailComponent,
+    ProfileUserComponent,
+    ProfileVendorComponent,
+    ProductComponent,
+    ServicesProductComponent,
+    EditProfileVendorComponent,
+    DialogChangePasswordComponent,
+    DialogSuccessComponent,
+    DetailProductVendorComponent,
+    CurrencyPipe,
+    AddProductComponent,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,10 +120,26 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDialogModule,
     BrowserAnimationsModule,
     CommonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    MatRippleModule,
+    MatTableModule,
+    MatCheckboxModule,
+    NgbRatingModule,
+    AngularEditorModule,
+    MatExpansionModule,
+    MatTreeModule,
+    MatRadioModule,
+    MatSelectModule,
   ],
+  entryComponents: [CartComponent],
   providers: [
-    DatePipe,
+    DatePipe,MatDatepickerModule, MatNativeDateModule,
     {
       provide: APP_INITIALIZER,
       useFactory: appInitializer,

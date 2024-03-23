@@ -3,19 +3,29 @@
   <div class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
     <div class="relative -z-10 left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
   </div>
-  <div class="m-2 max-w-screen-lg">
+  <div class="m-2 max-w-screen-xl">
     <div class="md:flex">
       <div class="p-4 bg-white shadow-md rounded-lg w-full">
           <div class="flex flex-col md:flex-row border-b-2 border-gray-300 justify-between p-5 items-stretch">
-            <div class="mr-5 flex items-center justify-center md:justify-content self-center pl-5">
-              <div class="relative flex rounded-full h-[150px] bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                <img class="rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+            <div class="text-[#5C06E4] flex flex-col md:flex-row space-x-5">
+              <div class="mt-2 mr-3">
+                <button style="rotate: 180deg;" class="w-10 h-10 rounded-full align-left absolute z-10">
+                  <svg aria-hidden="true" class="w-6 h-6 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                  fill="black">
+                    <path fill-rule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </button>
               </div>
-            </div>
-            <div class="text-[#5C06E4]">
+              <div class="mr-5 flex items-center justify-center md:justify-content self-center pl-5">
+                <div class="relative flex rounded-full h-[150px] bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <img class="rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                </div>
+              </div>
               <div>
-                <h2 class="font-bold p-2 text-2xl border-b-2 border-[#5C06E4] text-center md:text-left">Luxe Voir Enterprise</h2>
-                <div class="grid grid-cols-2 p-2">
+                <div class="font-semibold p-2 text-2xl border-b-2 border-[#5C06E4] text-center md:text-left">Luxe Voir Enterprise</div>
+                <div class="grid grid-cols-2 p-2 max-w-2xl md:max-w-md">
                   <div class="flex flex-col mr-6">
                     <div class="flex flex-row mt-1 items-center">
                       <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-category-24.png">
@@ -30,8 +40,8 @@
                           Jakarta
                         </span>
                       </div>
-                      <span class="text-sm ml-3 text-gray-400">
-                        Jln. XXX No.2 Jakarta
+                      <span class="text-sm ml-3 text-gray-400 wrap-text">
+                        Jln. XXX No.2 Jakarta XXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
                       </span>
                     </div>
                     <div class="flex flex-row mt-1 items-center">
@@ -61,15 +71,15 @@
                         08717264859272
                       </span>
                     </div>
-                    <div class="flex flex-row mt-1 items-center">
+                    <div class="flex flex-row mt-1 items-center text-wrap">
                       <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-email-24.png">
                       <span class="text-md">
-                        luxeenterprisegmail.com
+                        luxe organizergmail.com
                       </span>
                     </div>
                     <div class="flex flex-row mt-1 items-center">
                       <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-instagram.svg">
-                      <span class="text-md">
+                      <span class="text-md ">
                         luxevoirentp
                       </span>
                     </div>
@@ -84,7 +94,8 @@
               </div>
             </div>
             <div class="flex flex-row md:flex-col ml-3 justify-center space-x-2 self-start">
-              <button class="h-[40px] flex items-center px-4 py-2 text-white font-semibold bg-[#5C06E4] rounded-md active w-[120px] mr-2 md:mb-2 lg:mr-0">
+              <button (click)="clickit()"
+                      class="h-[40px] flex items-center px-4 py-2 text-white font-semibold bg-[#5C06E4] rounded-md active w-[120px] mr-2 md:mb-2 lg:mr-0">
                 <img class="h-5 w-auto mr-1" src="/assets/icon/icons8-calender-64.png">
                 <span>Schedule</span>
               </button>
@@ -94,10 +105,26 @@
               </button>
             </div>
           </div>
+          <div *ngIf="show" class="bg-black/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
+            <div class="relative p-4 w-full max-w-lg max-h-full">
+                <div class="relative shadow">
+                  <div class="p-2 text-end bg-white">
+                    <button (click)="clickit()" type="button" #closebutton class="text-3xl absolute right-4" data-dismiss="modal">&times;</button>
+                    <mat-calendar [dateFilter]="myFilter"></mat-calendar>
+                  </div>
+                  <div class="w-full flex flex-col justify-between items-start bg-indigo-400 mb-2 py-4 px-3">
+                    <div>
+                        <h4 class="text-gray-800 font-bold mb-3">Notes:</h4>
+                        <p class="text-gray-800 text-sm">Disable dates means vendor not available in that day</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
           <div>
             <mat-tab-group>
               <mat-tab>
-                <ng-template mat-tab-label>
+                <ng-template mat-tab-label class="">
                   <span class="tab-text">Detail</span>
                 </ng-template>
                 <div class="p-2">
@@ -112,9 +139,9 @@
                 <ng-template mat-tab-label>
                   <span class="tab-text">Product</span>
                 </ng-template>
-                <div class="w-full grid grid-cols-2 md:grid-cols-4 gap-4 p-2">
+                <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2 items-stretch">
                   <!-- Card Product -->
-                  <div class="group flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white">
+                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
                     <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
                       <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
                       <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
@@ -122,19 +149,17 @@
                       <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
                     </a>
                     <div class="mt-4 px-5 pb-5">
-                      <a href="#">
-                        <h5 class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</h5>
-                      </a>
-                      <div class="mt-2 mb-5 flex items-center justify-between">
+                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
+                      <div class="mt-1 mb-1 flex items-center justify-between">
                         <p>
-                          <span class="text-lg font-bold text-slate-900">Rp 25.000.000,00</span>
+                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
                         </p>
                       </div>
-                      <a href="#" class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
                         See Detail</a>
                     </div>
                   </div>
-                  <div class="group flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white">
+                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
                     <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
                       <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
                       <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
@@ -142,19 +167,17 @@
                       <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
                     </a>
                     <div class="mt-4 px-5 pb-5">
-                      <a href="#">
-                        <h5 class="text-md tracking-tight text-slate-900 text-center">Wedding celebration by XXX</h5>
-                      </a>
-                      <div class="mt-2 mb-5 flex items-center justify-between">
+                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
+                      <div class="mt-1 mb-1 flex items-center justify-between">
                         <p>
-                          <span class="text-lg font-bold text-slate-900">Rp 25.000.000,00</span>
+                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
                         </p>
                       </div>
-                      <a href="#" class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
                         See Detail</a>
                     </div>
                   </div>
-                  <div class="group flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white">
+                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
                     <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
                       <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
                       <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
@@ -162,19 +185,17 @@
                       <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
                     </a>
                     <div class="mt-4 px-5 pb-5">
-                      <a href="#">
-                        <h5 class="text-md tracking-tight text-slate-900 text-center">Wedding celebration by XXX</h5>
-                      </a>
-                      <div class="mt-2 mb-5 flex items-center justify-between">
+                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
+                      <div class="mt-1 mb-1 flex items-center justify-between">
                         <p>
-                          <span class="text-lg font-bold text-slate-900">Rp 25.000.000,00</span>
+                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
                         </p>
                       </div>
-                      <a href="#" class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
                         See Detail</a>
                     </div>
                   </div>
-                  <div class="group flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white">
+                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
                     <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
                       <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
                       <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
@@ -182,19 +203,17 @@
                       <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
                     </a>
                     <div class="mt-4 px-5 pb-5">
-                      <a href="#">
-                        <h5 class="text-md tracking-tight text-slate-900 text-center">Wedding celebration by XXX</h5>
-                      </a>
-                      <div class="mt-2 mb-5 flex items-center justify-between">
+                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
+                      <div class="mt-1 mb-1 flex items-center justify-between">
                         <p>
-                          <span class="text-lg font-bold text-slate-900">Rp 25.000.000,00</span>
+                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
                         </p>
                       </div>
-                      <a href="#" class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
                         See Detail</a>
                     </div>
                   </div>
-                  <div class="group flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white">
+                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
                     <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
                       <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
                       <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
@@ -202,15 +221,13 @@
                       <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
                     </a>
                     <div class="mt-4 px-5 pb-5">
-                      <a href="#">
-                        <h5 class="text-md tracking-tight text-slate-900 text-center">Wedding celebration by XXX</h5>
-                      </a>
-                      <div class="mt-2 mb-5 flex items-center justify-between">
+                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
+                      <div class="mt-1 mb-1 flex items-center justify-between">
                         <p>
-                          <span class="text-lg font-bold text-slate-900">Rp 25.000.000,00</span>
+                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
                         </p>
                       </div>
-                      <a href="#" class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
                         See Detail</a>
                     </div>
                   </div>

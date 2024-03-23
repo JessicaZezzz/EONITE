@@ -55,7 +55,7 @@ export const DROPDOWN_VENDOR:MENU[]=[
   },
   {
     name : 'Product',
-    link : '/product'
+    link : '/product-vendor'
   },
   {
     name : 'Transaction',
@@ -90,13 +90,14 @@ export const MENU_ADMIN:MENU[]=[
 ]
 
 export class Category{
-  id?: String;
-  name?: String;
+  id?: string;
+  name: string='';
+  subCategories?:Category[];
 }
 
 export class Domicile{
-  id?: String;
-  name?: String;
+  id?: string;
+  name?: string;
 }
 
 export class User{
@@ -111,20 +112,51 @@ export class User{
 }
 
 export class Vendor{
-  role?         :string;
-  category_id?  :number;
-  domicile_id?  :number;
-  first_name?   :string;
-  last_name?    :string;
-  birth_date?   :string;
-  phone_number? :string;
-  phone_business?:string;
-  address?      :string;
-  photo_identity?:any;
-  photo_id?     :number;
-  status?       :string;
-  startTime?    :string;
-  endTime?      :string;
-  email?        :string;
-  password?     :string;
+  id?             :number;
+  role?           :string;
+  subCategory?    :number[];
+  domicile_id?    :number;
+  firstName?      :string;
+  lastName?       :string;
+  birthDate?      :string;
+  phoneNumber?    :string;
+  phoneBusiness?  :string;
+  address?        :string;
+  photo_identity? :any;
+  photo?          :any;
+  status?         :string;
+  startTime?      :string;
+  endTime?        :string;
+  email?          :string;
+  password?       :string;
+  usernameVendor?   :string;
+  categoryVendors?  :number[];
+  description?      :string;
+  inoperative_date?  :string[];
+  instagram_url?    :string;
+  rating?           :Number;
+  surat_ijin_usaha? :any;
+  flag?             :string;
+}
+
+export class Cart{
+  id?           : number;
+  name?         : string;
+  qty?          : number;
+  date?         : string[];
+}
+
+export interface Product{
+  id?           : number;
+  name?         : string;
+  price?        : number;
+  description?  : string;
+  capacity?     : number;
+  rating?       : number;
+  photo         : Photo[];
+}
+
+export class Photo{
+  id?           : number;
+  image?        : any;
 }

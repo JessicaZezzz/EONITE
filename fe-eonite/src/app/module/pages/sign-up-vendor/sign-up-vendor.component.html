@@ -21,9 +21,9 @@
         </h2>
       </div>
       <div class="sm:mx-auto sm:w-full sm:max-w-sm mt-1">
-        <ol class="flex items-center justify-center w-full text-sm font-medium text-center text-gray-500 bg-white dark:text-gray-400 sm:text-base sm:space-x-3 rtl:space-x-reverse">
-          <li class="flex items-center text-[#5C06E4] dark:text-[#5C06E4]">
-              <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-[#5C06E4] rounded-full shrink-0 dark:border-[#5C06E4]">
+        <ol class="flex items-center justify-center w-full text-sm font-medium text-center text-gray-500 bg-white sm:text-base sm:space-x-3 rtl:space-x-reverse">
+          <li class="flex items-center text-[#5C06E4]">
+              <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-[#5C06E4] rounded-full shrink-0 border-[#5C06E4]">
                   1
               </span>
               Personal <span class="hidden sm:inline-flex sm:ms-2">Info</span>
@@ -31,8 +31,8 @@
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
               </svg>
           </li>
-          <li class="flex items-center ml-2" [ngClass]="phase >= 2?'text-[#5C06E4] dark:text-[#5C06E4]':''">
-              <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-[#5C06E4] rounded-full shrink-0 dark:border-gray-400" [ngClass]="phase >= 2?'dark:border-[#5C06E4]':''">
+          <li class="flex items-center ml-2" [ngClass]="phase >= 2?'text-[#5C06E4]':''">
+              <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border rounded-full shrink-0 border-gray-400" [ngClass]="phase >= 2?'!border-[#5C06E4]':''">
                   2
               </span>
               Business <span class="hidden sm:inline-flex sm:ms-2">Info</span>
@@ -40,8 +40,8 @@
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
               </svg>
           </li>
-          <li class="flex items-center ml-2" [ngClass]="phase >= 3?'text-[#5C06E4] dark:text-[#5C06E4]':''">
-              <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border border-gray-500 rounded-full shrink-0 dark:border-gray-400" [ngClass]="phase >= 3?'dark:border-[#5C06E4]':''">
+          <li class="flex items-center ml-2" [ngClass]="phase >= 3?'text-[#5C06E4]':''">
+              <span class="flex items-center justify-center w-5 h-5 me-2 text-xs border rounded-full shrink-0 border-gray-400" [ngClass]="phase >= 3?'!border-[#5C06E4]':''">
                   3
               </span>
               Upload
@@ -142,12 +142,15 @@
                 <div *ngIf="!email.errors?.['required'] && email.errors?.['emailValidator']" class="text-xs text-red-400">
                   * Invalid email format
                 </div>
+                <div *ngIf="!email.errors?.['required'] && email.errors?.['emailCheck']" class="text-xs text-red-400">
+                  * Email already taken. Please use another email
+                </div>
               </div>
             </div>
             <div class="col-span-full">
               <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
               <div class="mt-1 relative">
-                <input  #passwords matInput
+                <input  #passwords
                         type="password"
                         placeholder="Enter Your Password"
                         formControlName="password"
@@ -189,7 +192,7 @@
             <div class="col-span-full">
               <label for="confpassword" class="block text-sm font-medium leading-6 text-gray-900">Confirmation Password</label>
               <div class="mt-1 relative">
-                <input #confpassword1 matInput
+                <input #confpassword1
                         type="password"
                         formControlName="confirmPassword"
                         class="form-control"
@@ -237,11 +240,17 @@
           <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6">
             <div class="sm:col-span-3">
               <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
-                <select formControlName="categoryId"
-                        [ngClass]="{'border-b-1 border-red-400': categoryId.invalid && (categoryId.dirty || categoryId.touched)}"
-                        class="mt-1 block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
-                  <option *ngFor="let i of category" [value]="i.id">{{ i.name }}</option>
-                </select>
+                <mat-form-field>
+                  <mat-select formControlName="categoryId" multiple
+                              class="mt-1 block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6"
+                              [ngClass]="{'redborder border-b-1 border-red-400': categoryId.invalid && (categoryId.dirty || categoryId.touched)}">
+                    <mat-optgroup *ngFor="let group of category" [label]="group.name">
+                      <mat-option *ngFor="let task of group.subCategories" [value]="task.id">
+                        {{task.name}}
+                      </mat-option>
+                    </mat-optgroup>
+                  </mat-select>
+                </mat-form-field>
                 <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)" class="invalid-feedback">
                   <div *ngIf="categoryId.errors?.['required']" class="text-xs text-red-400">
                     * Required
@@ -250,11 +259,13 @@
             </div>
             <div class="sm:col-span-3">
               <label for="domicile" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
-                <select formControlName="domicileId"
-                        [ngClass]="{'border-b-1 border-red-400': domicileId.invalid && (domicileId.dirty || domicileId.touched)}"
-                        class="mt-1 block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
-                  <option *ngFor="let i of domicile" [value]="i.id">{{ i.name }}</option>
-                </select>
+                <mat-form-field appearance="fill">
+                  <mat-select formControlName="domicileId"
+                              class="mt-1 block w-full rounded-md border px-2 py-2.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:py-1.5 sm:leading-6"
+                              [ngClass]="{'redborder border-b-1 border-red-400': domicileId.invalid && (domicileId.dirty || domicileId.touched)}">
+                    <mat-option *ngFor="let i of domicile" [value]="i.id">{{ i.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
                 <div *ngIf="domicileId.invalid && (domicileId.dirty || domicileId.touched)" class="invalid-feedback">
                   <div *ngIf="domicileId.errors?.['required']" class="text-xs text-red-400">
                     * Required
@@ -285,42 +296,18 @@
                 </div>
               </div>
             </div>
-            <div class="sm:col-span-3">
-              <label for="opthours" class="block text-sm font-medium leading-6 text-gray-900">Operational Hours</label>
-              <div class=" flex flex-row mt-1 items-center">
-                <div class="">
-                  <input  formControlName="startTime"
-                          class="form-control"
-                          [ngClass]="{'border-b-1 border-red-400': startTime.invalid && (startTime.dirty || startTime.touched)}"
-                          type="time"
-                          class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
-                </div>
-                <span class="px-1">-</span>
-                <div class="">
-                  <input  formControlName="endTime"
-                          class="form-control"
-                          [ngClass]="{'border-b-1 border-red-400': endTime.invalid && (endTime.dirty || endTime.touched)}"
-                          type="time"type="time" class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
-                </div>
-              </div>
-              <div *ngIf="(startTime.invalid && (startTime.dirty || startTime.touched))||(endTime.invalid && (endTime.dirty || endTime.touched))" class="invalid-feedback">
-                <div *ngIf="phoneNumber.errors?.['required']" class="text-xs text-red-400">
-                  * Required
-                </div>
-              </div>
-            </div>
             <div class="sm:col-span-full">
-              <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Company Address</label>
+              <label for="Username Vendor" class="block text-sm font-medium leading-6 text-gray-900">Username Vendor</label>
               <div class="mt-1">
-                <input formControlName="address"
+                <input formControlName="username"
                         class="form-control"
-                        [ngClass]="{'border-b-1 border-red-400': address.invalid && (address.dirty || address.touched)}"
+                        [ngClass]="{'border-b-1 border-red-400': username.invalid && (username.dirty || username.touched)}"
                         type="text"
-                        placeholder="Enter Company Address"
+                        placeholder="Enter Username Vendor"
                         class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
               </div>
-              <div *ngIf="address.invalid && (address.dirty || address.touched)" class="invalid-feedback">
-                <div *ngIf="address.errors?.['required']" class="text-xs text-red-400">
+              <div *ngIf="username.invalid && (username.dirty || username.touched)" class="invalid-feedback">
+                <div *ngIf="username.errors?.['required']" class="text-xs text-red-400">
                   * Required
                 </div>
               </div>
@@ -378,7 +365,7 @@
                         class="form-control"
                         [ngClass]="{'border-b-1 border-red-400': acceptTnC.invalid && (acceptTnC.dirty || acceptTnC.touched)}"
               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-              <p class="ml-2 text-gray-500 text-xs">By registring, I agree to EONITE's <font color="#5C06E4" style="font-weight:bold">Terms and Condition</font></p>
+              <div class="ml-2 text-gray-500 text-xs">By registring, I agree to EONITE's <font color="#5C06E4" style="font-weight:bold">Terms and Condition</font></div>
             </div>
           </div>
           <div class="col-span-3 flex items-center justify-center space-x-2">

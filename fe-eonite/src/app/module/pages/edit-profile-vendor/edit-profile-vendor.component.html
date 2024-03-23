@@ -1,0 +1,321 @@
+<app-navbar></app-navbar>
+<div class="w-full flex justify-center">
+  <div class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
+    <div class="relative -z-10 left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="m-2 max-w-screen-xl">
+    <div class="md:flex">
+      <div class="p-4 bg-white shadow-md rounded-lg w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px]">
+        <div class="md:flex flex justify-center">
+          <h2 class="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6 text-center">Profile Account</h2>
+        </div>
+        <div class="flex justify-center mb-2">
+          <div class="flex flex-col justify-center relative">
+            <div class="flex flex-row absolute bottom-0 right-0">
+              <label for="file-upload" class="rounded-full bg-[#5C06E4] text-white hover:cursor-pointer">
+                <img class="w-8 h-8 p-2" src="../assets/icon/icons8-edit-50.png" alt="">
+                <input id="file-upload" name="file-upload" type="file" (change)="onFileChanged($event)" class="sr-only">
+              </label>
+            </div>
+            <div class="flex justify-center mb-4">
+              <img class="object-cover w-20 h-20 p-1 rounded-full ring-2 ring-indigo-500 flex"
+              src={{urlImage}}>
+            </div>
+          </div>
+        </div>
+        <form class="space-y-2" [formGroup]="Form1">
+          <div class="md:flex mb-4 mt-2 border-b-2 border-[#5C06E4] pb-3">
+            <div class="md:w-1/3">
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">PIC Vendor</legend>
+            </div>
+              <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
+                <div class="sm:col-span-3">
+                  <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name PIC</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                    formControlName="firstName"
+                    class="form-control"
+                    placeholder="Enter First Name"
+                    minlength="1" maxlength="250"
+                    [ngClass]="{'border-b-1 border-red-400': firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors?.['required']}"
+                    class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
+                    <div *ngIf="firstName.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last Name PIC</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                            formControlName="lastName"
+                            class="form-control"
+                            placeholder="Enter Last Name"
+                            minlength="1" maxlength="250"
+                            [ngClass]="{'border-b-1 border-red-400': lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors?.['required']}"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback">
+                    <div *ngIf="lastName.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Birth Date</label>
+                  <div class="mt-1">
+                    <input  type="date"
+                            formControlName="birthDate"
+                            class="form-control"
+                            [ngClass]="{'border-b-1 border-red-400': birthDate.invalid && (birthDate.dirty || birthDate.touched) && birthDate.errors?.['required']}"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)" class="invalid-feedback">
+                    <div *ngIf="birthDate.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone PIC</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                            maxlength="13"
+                            phoneMask
+                            formControlName="phoneNumber"
+                            class="form-control"
+                            [ngClass]="{'border-b-1 border-red-400': phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)}"
+                            placeholder="Enter Phone Number"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="invalid-feedback">
+                    <div *ngIf="phoneNumber.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                    <div *ngIf="phoneNumber.errors?.['minlength']" class="text-xs text-red-400">
+                      * This field must have at least 10 character.
+                    </div>
+                    <div *ngIf="phoneNumber.errors?.['pattern']" class="text-xs text-red-400">
+                      * Invalid Phone Number
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="md:flex mb-4 border-b-2 border-[#5C06E4] pb-3">
+            <div class="md:w-1/3">
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">BUSINESS</legend>
+            </div>
+              <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
+                <div class="sm:col-span-3">
+                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Username Vendor</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                            formControlName="usernameVendor"
+                            class="form-control"
+                            placeholder="Enter Username Vendor"
+                            minlength="1" maxlength="250"
+                            [ngClass]="{'border-b-1 border-red-400': usernameVendor.invalid && (usernameVendor.dirty || usernameVendor.touched) && usernameVendor.errors?.['required']}"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="usernameVendor.invalid && (usernameVendor.dirty || usernameVendor.touched)" class="invalid-feedback">
+                    <div *ngIf="usernameVendor.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Email Vendor</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                            formControlName="email"
+                            class="form-control"
+                            placeholder="Enter Email Vendor"
+                            minlength="1" maxlength="250"
+                            [ngClass]="{'border-b-1 border-red-400': email.invalid && (email.dirty || email.touched) && usernameVendor.errors?.['required']}"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+                    <div *ngIf="email.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                    <div *ngIf="!email.errors?.['required'] && email.errors?.['emailValidator']" class="text-xs text-red-400">
+                      * Invalid email format
+                    </div>
+                    <div *ngIf="!email.errors?.['required'] && email.errors?.['emailCheck']" class="text-xs text-red-400">
+                      * Email already taken. Please use another email
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
+                  <mat-form-field>
+                    <mat-select formControlName="categoryId" multiple
+                                class="mt-1 block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6"
+                                [ngClass]="{'redborder border-b-1 border-red-400': categoryId.invalid && (categoryId.dirty || categoryId.touched)}">
+                      <mat-optgroup *ngFor="let group of category" [label]="group.name">
+                        <mat-option *ngFor="let task of group.subCategories" [value]="task.id">
+                          {{task.name}}
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-select>
+                  </mat-form-field>
+                  <div *ngIf="categoryId.invalid && (categoryId.dirty || categoryId.touched)" class="invalid-feedback">
+                    <div *ngIf="categoryId.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="domicile" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
+                  <mat-form-field appearance="fill">
+                    <mat-select formControlName="domicileId"
+                                class="mt-1 block w-full rounded-md border px-2 py-2.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:py-1.5 sm:leading-6"
+                                [ngClass]="{'redborder border-b-1 border-red-400': domicileId.invalid && (domicileId.dirty || domicileId.touched)}">
+                      <mat-option *ngFor="let i of domicile" [value]="i.id">{{ i.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div *ngIf="domicileId.invalid && (domicileId.dirty || domicileId.touched)" class="invalid-feedback">
+                    <div *ngIf="domicileId.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                            maxlength="13"
+                            phoneMask
+                            formControlName="phoneBusiness"
+                            class="form-control"
+                            [ngClass]="{'border-b-1 border-red-400': phoneBusiness.invalid && (phoneBusiness.dirty || phoneBusiness.touched)}"
+                            placeholder="Enter Phone Business"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="phoneBusiness.invalid && (phoneBusiness.dirty || phoneBusiness.touched)" class="invalid-feedback">
+                    <div *ngIf="phoneBusiness.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                    <div *ngIf="phoneBusiness.errors?.['minlength']" class="text-xs text-red-400">
+                      * This field must have at least 10 character.
+                    </div>
+                    <div *ngIf="phoneBusiness.errors?.['pattern']" class="text-xs text-red-400">
+                      * Invalid Phone Number
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="opthours" class="block text-sm font-medium leading-6 text-gray-900">Operational Hours</label>
+                  <div class=" flex flex-row mt-1 items-center">
+                    <input  formControlName="startTime"
+                            class="form-control"
+                            type="time"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                    <span class="px-1">-</span>
+                    <input  formControlName="endTime"
+                            class="form-control"
+                            type="time"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+
+                <div class="sm:col-span-full">
+                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Company Address</label>
+                  <div class="mt-1">
+                    <input formControlName="address"
+                            class="form-control"
+                            type="text"
+                            placeholder="Enter Company Address"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+
+                <div class="sm:col-span-full">
+                  <label for="Inoperative date" class="block text-sm font-medium leading-6 text-gray-900">Inoperative date</label>
+                  <div class="mt-1">
+                    <mat-form-field>
+                      <mat-chip-list #chipList (click)="picker.open()">
+                        <mat-chip
+                          *ngFor="let value of model"
+                          [selectable]="false"
+                          [removable]="true"
+                          (removed)="remove(value)"
+                        >
+                          {{ value | date }}
+                          <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                        </mat-chip>
+                        <input
+                          [value]="resetModel"
+                          matInput
+                          [matDatepicker]="picker"
+                          placeholder="Choose Inoperative Date"
+                          (dateChange)="dateChanged($event)"
+                          [matChipInputFor]="chipList"
+                          hidden
+                        />
+                      </mat-chip-list>
+                      <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker
+                        #picker
+                        [startAt]="init"
+                        [dateClass]="dateClass"
+                      ></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+          <div class="md:flex mb-4 border-b-2 border-[#5C06E4] pb-3">
+            <div class="md:w-1/3">
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Social</legend>
+            </div>
+            <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
+              <div class="sm:col-span-full flex">
+                <div>
+                  <label class="block uppercase tracking-wide text-charcoal-darker text-xs font-bold">Instagram</label>
+                  <span class="text-xs py-4 px-2 bg-grey-light text-grey-dark">instagram.com/</span>
+                </div>
+                <div class="mt-1">
+                  <input  type="text"
+                            formControlName="instagram"
+                            class="form-control"
+                            placeholder="Enter Instagram Url"
+                            minlength="1" maxlength="250"
+                            [ngClass]="{'border-b-1 border-red-400': instagram.invalid && (instagram.dirty || lastName.touched) && usernameVendor.errors?.['required']}"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                </div>
+            </div>
+          </div>
+        </form>
+          <div class="md:flex mb-6">
+            <div class="md:w-1/3">
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Description</legend>
+            </div>
+            <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
+              <div class="sm:col-span-full">
+                <angular-editor [config]="config" [(ngModel)]="description"></angular-editor>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-row justify-center space-x-3">
+            <button (click)="redirect()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-5 py-2 md:py-3 text-md font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">CANCEL</button>
+            <button (click)="updateVendor()" type="button" class="inline-flex w-full justify-center rounded-md text-[#5C06E4] border-[2px] border-[#5C06E4] px-8 py-2 md:py-3 text-md font-semibold hover:text-white shadow-sm hover:bg-[#5C06E4] sm:ml-3 sm:w-auto">SAVE</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
