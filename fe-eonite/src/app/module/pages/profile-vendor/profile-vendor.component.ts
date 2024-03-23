@@ -50,10 +50,12 @@ export class ProfileVendorComponent implements OnInit {
 
   changeFormatInoperative(listDate: string[]){
     let dates:string[]=[];
-    for(let i of listDate){
-      dates.push(this.changeDate(i))
-    }
-    return dates.toString();
+    if(listDate != null){
+      for(let i of listDate){
+        dates.push(this.changeDate(i))
+      }
+      return dates.toString();
+    }else return '-';
   }
 
   checkData(data:any){

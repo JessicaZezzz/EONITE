@@ -27,6 +27,12 @@ export class NavbarComponent implements OnInit {
     if(this.role=='USER' || this.role==null){
       this.menu = MENU_PUBLIC;
       this.dropdown = DROPDOWN_USER;
+      this.restService.getprofileUser(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
+        if(event.type == HttpEventType.Response && event.body && event.ok){
+          let data = Object(event.body)['users'];
+          this.imgProfile = data[0].photo;
+        }
+      })
     }else if(this.role=='VENDOR'){
       this.menu = MENU_VENDOR;
       this.dropdown = DROPDOWN_VENDOR;

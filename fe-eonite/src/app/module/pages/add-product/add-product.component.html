@@ -87,7 +87,7 @@
                   <textarea
                         formControlName="description"
                         class="form-control"
-                        minlength="1" maxlength="500"
+                        minlength="1" maxlength="1000"
                         [ngClass]="{'border-b-1 border-red-400': description.invalid && (description.dirty || description.touched) && description.errors?.['required']}"
                         rows="8"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="Write a product description here..."></textarea>

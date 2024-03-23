@@ -70,11 +70,10 @@ export class DialogChangePasswordComponent implements OnInit {
             return null;
           });
         }else if(this.role=='USER'){
-        // this.restService.checkEmailVendor(email?.value).subscribe(e => {
-        //   let vendor:any=e;
-        //   if (e != null && vendor.id != this.id) email?.setErrors({ emailCheck: true });
-        //   return null;
-        // });
+          this.restService.checkPasswordUser(JSON.stringify(idpass)).subscribe(e => {
+            if (e.statusCode == 500) oldpassword?.setErrors({ passwordMatch: true });
+              return null;
+          });
         }
       }
       return null;
@@ -94,18 +93,33 @@ export class DialogChangePasswordComponent implements OnInit {
       id: this.id,
       password: this.Form1.controls['newpasswords'].value
     }
-    this.restService.changePasswordVendor(JSON.stringify(newpass)).subscribe(e => {
-      if(e.statusCode == 200){
-        const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Success Update Password',
-        });
+    if(this.role=='VENDOR'){
+      this.restService.changePasswordVendor(JSON.stringify(newpass)).subscribe(e => {
+        if(e.statusCode == 200){
+          const dialogRef = this.dialog.open(DialogSuccessComponent, {
+            data: 'Success Update Password',
+          });
 
-        dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-        });
-        this.dialogRef.close();
-      }
-    });
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+          });
+          this.dialogRef.close();
+        }
+      });
+    }else if(this.role=='USER'){
+      this.restService.changePasswordUser(JSON.stringify(newpass)).subscribe(e => {
+        if(e.statusCode == 200){
+          const dialogRef = this.dialog.open(DialogSuccessComponent, {
+            data: 'Success Update Password',
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+          });
+          this.dialogRef.close();
+        }
+      });
+    }
   }
 
   onNoClick(): void {

@@ -101,14 +101,15 @@ export class Domicile{
 }
 
 export class User{
-  first_name?  :string;
-  last_name?   :string;
-  birth_date?  :Date | any;
-  phone_number?:string;
-  photo_id?    :number;
-  email?       :string;
-  password?    :string;
-  role?        :string;
+  id?         :number;
+  firstName?  :string;
+  lastName?   :string;
+  birthDate?  :Date | any;
+  phoneNumber?:string;
+  photo?      :any;
+  email?      :string;
+  password?   :string;
+  role?       :string;
 }
 
 export class Vendor{

@@ -1,3 +1,4 @@
+import { DialogChangePasswordComponent } from './../dialog-change-password/dialog-change-password.component';
 import { Component, OnInit } from '@angular/core';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { Router } from '@angular/router';
@@ -5,6 +6,10 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { emailValidator } from '../../services/email-validator.directive';
 import { User } from '../../models/auth.model';
+import { HttpEventType } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { EditProfileUserComponent } from '../edit-profile-user/edit-profile-user.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profile-user',
@@ -17,51 +22,49 @@ export class ProfileUserComponent implements OnInit {
   confPassword?:string;
   openDialogErrorDiv: boolean = false;
   openDialogSuccessDiv: boolean = false;
+  urlImage?:any;
 
-  constructor(private restService: RestApiServiceService, private router: Router) {
+  constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog) {
     this.user = {} as User;
   }
 
   ngOnInit(): void {
-    this.reactiveForm = new FormGroup({
-      firstName: new FormControl(this.user?.first_name, [
-        Validators.required,
-      ]),
-      lastName: new FormControl(this.user?.last_name, [
-        Validators.required,
-      ]),
-      birthDate: new FormControl(this.user?.birth_date, [
-        Validators.required,
-      ]),
-      phoneNumber: new FormControl(this.user?.phone_number, [
-        Validators.required,
-        Validators.pattern("^[0-9]*$"),
-        Validators.minLength(10)
-      ]),
-      email: new FormControl(this.user?.email, [
-        Validators.required,
-        emailValidator(),
-      ])
+    this.getDataProfile();
+  }
+
+  getDataProfile(){
+    this.restService.getprofileUser(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let data = Object(event.body)['users'];
+        this.user = data[0];
+        this.urlImage = 'data:image/jpeg;base64,'+this.user?.photo;
+      }
+    })
+  }
+
+  changeDate(date:string){
+    let dt = moment(date).utc().format('DD MMMM YYYY');
+    return dt;
+  }
+
+  changePassword(role:string){
+    const dialogRef = this.dialog.open(DialogChangePasswordComponent, {
+      data: role,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 
-  get firstName() {
-    return this.reactiveForm.get('firstName')!;
+  editProfile(){
+    const dialogRef = this.dialog.open(EditProfileUserComponent, {
+      data: '',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.getDataProfile();
+    });
   }
 
-  get lastName() {
-    return this.reactiveForm.get('lastName')!;
-  }
-
-  get birthDate() {
-    return this.reactiveForm.get('birthDate')!;
-  }
-
-  get phoneNumber() {
-    return this.reactiveForm.get('phoneNumber')!;
-  }
-
-  get email() {
-    return this.reactiveForm.get('email')!;
-  }
 }

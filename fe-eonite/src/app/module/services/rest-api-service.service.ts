@@ -13,8 +13,8 @@ export class RestApiServiceService {
     "Accept": "application/json",
     'Authorization': `Bearer ${sessionStorage.getItem('ACCESS_TOKEN')}`
   });
-  constructor(private http: HttpClient) {
-  }
+  
+  constructor(private http: HttpClient) {}
 
   getCategory(): Observable<any>{
     return this.http.get(`${environment.apiUrl}/public/categoryAll`).pipe(retry(1), catchError(this.handleError));
@@ -40,32 +40,63 @@ export class RestApiServiceService {
   }
 
   postsignInUser(body: any): Observable<any>{
-    return this.http.post(`${environment.apiUrl}/auth/signupUser`,body);
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    return this.http.post(`${environment.apiUrl}/auth/signupUser`,body,{headers:headers});
   }
 
   postsignInVendor(body: any): Observable<any>{
-    return this.http.post(`${environment.apiUrl}/auth/signupVendor`,body);
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    return this.http.post(`${environment.apiUrl}/auth/signupVendor`,body,{headers:headers});
   }
 
   checkEmailVendor(email:string){
     return this.http.get(`${environment.apiUrl}/auth/checkEmailVendor/${email}`).pipe(retry(1), catchError(this.handleError));
   }
 
+  checkEmailUser(email:string){
+    return this.http.get(`${environment.apiUrl}/auth/checkEmailUser/${email}`).pipe(retry(1), catchError(this.handleError));
+  }
+
   updateProfileVendor(body: any): Observable<any>{
     return this.http.put(`${environment.apiUrl}/vendor/updateProfileVendor`,body,{headers:this.headers});
+  }
+
+  updateProfileUser(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/user/updateProfile`,body,{headers:this.headers});
   }
 
   checkPasswordVendor(body: any): Observable<any>{
     return this.http.post(`${environment.apiUrl}/vendor/checkPasswordVendor`,body,{headers:this.headers});
   }
 
+  checkPasswordUser(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/user/checkPassword`,body,{headers:this.headers});
+  }
+
   changePasswordVendor(body: any): Observable<any>{
     return this.http.post(`${environment.apiUrl}/vendor/changePasswordVendor`,body,{headers:this.headers});
+  }
+
+  changePasswordUser(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/user/changePassword`,body,{headers:this.headers});
   }
 
   getprofileVendor(id:number){
     let params = new HttpParams().append('id',id);
     let path = `${environment.apiUrl}/vendor/vendorProfile`;
+    const request = new HttpRequest('GET',path,{params:params,headers:this.headers})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getprofileUser(id:number){
+    let params = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/user/userProfile`;
     const request = new HttpRequest('GET',path,{params:params,headers:this.headers})
     return this.http.request(request).pipe(timeout(200000));
   }
@@ -93,7 +124,11 @@ export class RestApiServiceService {
   }
 
   loginUser(body: any): Observable<any>{
-    return this.http.post(`${environment.apiUrl}/auth/signinUser`,body);
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    return this.http.post(`${environment.apiUrl}/auth/signinUser`,body,{headers:headers});
   }
 
   loginVendor(body: any): Observable<any>{

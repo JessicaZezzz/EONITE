@@ -66,6 +66,7 @@ import { DetailProductVendorComponent } from './module/pages/detail-product-vend
 import { CurrencyPipe } from './module/services/currency.pipe';
 import { AddProductComponent } from './module/pages/add-product/add-product.component';
 import { EditProductComponent } from './module/pages/edit-product/edit-product.component';
+import { EditProfileUserComponent } from './module/pages/edit-profile-user/edit-profile-user.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { EditProductComponent } from './module/pages/edit-product/edit-product.c
     CurrencyPipe,
     AddProductComponent,
     EditProductComponent,
+    EditProfileUserComponent,
   ],
   imports: [
     BrowserModule,
