@@ -14,7 +14,7 @@
                     List Product
                   </div>
                   <div>
-                    <button class="flex items-center justify-center mt-2 sm:mt-0 rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    <button (click)="addProduct()" class="flex items-center justify-center mt-2 sm:mt-0 rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
                       Add New Product
                     </button>
                   </div>
@@ -23,120 +23,32 @@
                   <span class="tab-text">Product</span>
                 </ng-template>
                 <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2 items-stretch">
-                  <!-- Card Product -->
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
+                  <div *ngFor="let i of listProduct" class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
+                    <div class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl">
+                      <img *ngIf="i.photo[0] == undefined" class="peer absolute top-0 right-0 h-full w-full object-cover" src="../assets/icon/bg-default.png"/>
+                      <img *ngIf="i.photo[0] != undefined" class="peer absolute top-0 right-0 h-full object-cover" src="{{'data:image/jpg;base64,' + i.photo[0].image}}"/>
+                      <img *ngIf="i.photo[1] != undefined" class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="{{'data:image/jpg;base64,' + i.photo[1].image}}" alt="product image" />
                       <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-                        <button class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500">
-                          EDIT</button>
-                        <button class="flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-500">
-                          DELETE</button>
-                      </div>
+                      <button (click)="clickPreview(i.id!)" class="absolute top-0 right-0 m-2 rounded-md py-1 bg-[#5C06E4] px-2 text-center text-sm font-medium text-white hover:bg-[#5C06E4] hover:bg-indigo-500">View Detail</button>
                     </div>
-                  </div>
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
                     <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
+                      <div class="text-md tracking-tight text-slate-900">{{ i.name }}</div>
                       <div class="mt-1 mb-1 flex items-center justify-between">
                         <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
+                          <span class="text-lg font-bold text-slate-900 text-center">{{ i.price! | currency }}</span>
                         </p>
                       </div>
                       <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-                        <button class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500">
-                          EDIT</button>
-                        <button class="flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-500">
-                          DELETE</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-                        <button class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500">
-                          EDIT</button>
-                        <button class="flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-500">
-                          DELETE</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-                        <button class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500">
-                          EDIT</button>
-                        <button class="flex items-center justify-center rounded-md bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-500">
-                          DELETE</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
-                        <button class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500">
-                          EDIT</button>
-                          <button type="button" class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                            <svg class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                            DELETE
+                        <button (click)="editProduct(i.id!)" type="button" class="text-[#5C06E4] inline-flex justify-center hover:text-white border border-[#5C06E4] hover:bg-[#5C06E4] focus:ring-4 focus:outline-none focus:ring-[#5C06E4] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                          EDIT
+                        </button>
+                        <button type="button" class="text-red-600 inline-flex justify-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                          <svg class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                          DELETE
                         </button>
                       </div>
                     </div>
                   </div>
-                  <!-- End -->
                 </div>
               </div>
             </div>
@@ -145,5 +57,4 @@
     </div>
   </div>
 </div>
-<app-add-edit-product></app-add-edit-product>
 <app-footer></app-footer>

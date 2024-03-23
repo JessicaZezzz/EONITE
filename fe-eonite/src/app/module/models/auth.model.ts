@@ -55,7 +55,7 @@ export const DROPDOWN_VENDOR:MENU[]=[
   },
   {
     name : 'Product',
-    link : '/product'
+    link : '/product-vendor'
   },
   {
     name : 'Transaction',
@@ -139,9 +139,24 @@ export class Vendor{
   flag?             :string;
 }
 
-export class Product{
+export class Cart{
   id?           : number;
   name?         : string;
   qty?          : number;
   date?         : string[];
+}
+
+export interface Product{
+  id?           : number;
+  name?         : string;
+  price?        : number;
+  description?  : string;
+  capacity?     : number;
+  rating?       : number;
+  photo         : Photo[];
+}
+
+export class Photo{
+  id?           : number;
+  image?        : any;
 }

@@ -66,7 +66,6 @@ export class DialogChangePasswordComponent implements OnInit {
         }
         if(this.role=='VENDOR'){
           this.restService.checkPasswordVendor(JSON.stringify(idpass)).subscribe(e => {
-            console.log(e.statusCode)
             if (e.statusCode == 500) oldpassword?.setErrors({ passwordMatch: true });
             return null;
           });

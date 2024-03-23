@@ -70,6 +70,28 @@ export class RestApiServiceService {
     return this.http.request(request).pipe(timeout(200000));
   }
 
+  getProductbyVendorId(id:number){
+    let params = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/public/getProductbyVendorId`;
+    const request = new HttpRequest('GET',path,{params:params})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getDetailProductById(id: number){
+    let params = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/public/getProductbyId`;
+    const request = new HttpRequest('GET',path,{params:params})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  addProduct(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/vendor/addProduct`,body,{headers:this.headers});
+  }
+
+  updateProduct(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/vendor/updateProduct`,body,{headers:this.headers});
+  }
+
   loginUser(body: any): Observable<any>{
     return this.http.post(`${environment.apiUrl}/auth/signinUser`,body);
   }

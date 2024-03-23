@@ -54,7 +54,6 @@ import { ProfileUserComponent } from './module/pages/profile-user/profile-user.c
 import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-vendor.component';
 import { ProductComponent } from './module/pages/product/product.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { AddEditProductComponent } from './module/pages/add-edit-product/add-edit-product.component';
 import { ServicesProductComponent } from './module/pages/services-product/services-product.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
@@ -63,6 +62,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/edit-profile-vendor.component';
 import { DialogChangePasswordComponent } from './module/pages/dialog-change-password/dialog-change-password.component';
 import { DialogSuccessComponent } from './module/pages/dialog-success/dialog-success.component';
+import { DetailProductVendorComponent } from './module/pages/detail-product-vendor/detail-product-vendor.component';
+import { CurrencyPipe } from './module/services/currency.pipe';
+import { AddProductComponent } from './module/pages/add-product/add-product.component';
+import { EditProductComponent } from './module/pages/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -98,11 +101,14 @@ import { DialogSuccessComponent } from './module/pages/dialog-success/dialog-suc
     ProfileUserComponent,
     ProfileVendorComponent,
     ProductComponent,
-    AddEditProductComponent,
     ServicesProductComponent,
     EditProfileVendorComponent,
     DialogChangePasswordComponent,
-    DialogSuccessComponent
+    DialogSuccessComponent,
+    DetailProductVendorComponent,
+    CurrencyPipe,
+    AddProductComponent,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,
