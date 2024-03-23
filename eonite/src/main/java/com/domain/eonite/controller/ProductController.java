@@ -23,16 +23,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/addProduct")
-    public ResponseEntity<ProductRes> addProduct(@RequestBody ProductRes request){
-        return ResponseEntity.ok(productService.addProduct(request));
-    }
-
-    @PutMapping("/updateProduct")
-    public ResponseEntity<ProductRes> updateProduct(@RequestBody ProductRes request){
-        return ResponseEntity.ok(productService.updateProduct(request));
-    }
-
     @GetMapping("/getProductbyId")
     public ResponseEntity<ProductRes> getProduct(@RequestParam(required = true,name = "id") Integer id){
         return ResponseEntity.ok(productService.getProduct(id));

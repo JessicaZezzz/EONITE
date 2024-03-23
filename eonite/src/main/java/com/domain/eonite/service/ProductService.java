@@ -28,6 +28,9 @@ public class ProductService {
     @Autowired
     private TransactionDetailRepo TransactionDetailRepo;
 
+    @Autowired
+    private PhotoRepo PhotoRepo;
+
     public ProductRes addProduct(ProductRes request){
         ProductRes resp =  new ProductRes();
         vendorRepo.findById(request.getVendorId()).ifPresentOrElse((Vendor)->{
@@ -38,9 +41,15 @@ public class ProductService {
             product.setCapacity(request.getCapacity());
             product.setRating((float) 0);
             product.setVendor(Vendor);
-            ProductRepo.save(product);
+            Product result = ProductRepo.save(product);
             List<Product> products = new ArrayList<Product>();
             products.add(product);
+            for(byte[] index : request.getPhoto()){
+                Photo photoProduct = new Photo();
+                photoProduct.setImage(index);
+                photoProduct.setProduct(result);
+                PhotoRepo.save(photoProduct);
+            }
             try{
                 resp.setProducts(products);
                 resp.setMessage("Success Add Product");
@@ -64,7 +73,16 @@ public class ProductService {
             product.setPrice(request.getPrice());
             product.setDescription(request.getDescription());
             product.setCapacity(request.getCapacity());
-            ProductRepo.save(product);     
+            Product result = ProductRepo.save(product);  
+            for(Photo p: PhotoRepo.findByProductId(request.getId())){
+                PhotoRepo.delete(p);
+            }   
+            for(byte[] index : request.getPhoto()){
+                Photo photoProduct = new Photo();
+                photoProduct.setImage(index);
+                photoProduct.setProduct(result);
+                PhotoRepo.save(photoProduct);
+            }
             try{
                 resp.setMessage("Success Update Product");
                 resp.setStatusCode(200);

@@ -99,65 +99,35 @@ public class VendorService {
             Vendor.setPhoneBusiness(request.getPhoneBusiness());
             Vendor.setInstagram_url(request.getInstagram_url());
             Vendor.setInoperative_date(request.getInoperative_date());
+            Vendor.setEmail(request.getEmail());
+                Vendor vendorResult = vendorRepository.save(Vendor);
+                List<Vendor> VendorList = new ArrayList<Vendor>();
+                VendorList.add(Vendor);
+                categoryVendorRepository.deleteCategoryVendor(request.getId());
 
-            vendorRepository.findByEmail(request.getEmail()).ifPresentOrElse((email)->{
-                if(email.getId().equals(request.getId())){
-                    Vendor.setEmail(request.getEmail());
-                    Vendor vendorResult = vendorRepository.save(Vendor);
-                    List<Vendor> VendorList = new ArrayList<Vendor>();
-                    VendorList.add(Vendor);
-                    categoryVendorRepository.deleteCategoryVendor(request.getId());
-
-                    List<Integer> subcategories = request.getSubCategory();
-                    for(Integer index : subcategories){
-                        CategoryVendor categoryVendor = new CategoryVendor();
-                        SubCategory sub = subCategoryRepo.findById(index).get();
-                        categoryVendor.setSubcategory(sub);
-                        categoryVendor.setVendor(vendorResult);
-                        categoryVendorRepository.save(categoryVendor);
-                    }
-
-                    try{
-                        resp.setVendor(VendorList);
-                        resp.setMessage("Success Update Profile Vendor");
-                        resp.setStatusCode(200);
-            
-                    }catch(Exception e){
-                        resp.setStatusCode(500);
-                        resp.setError(e.getMessage());
-                    }
-                }else{
-                    resp.setStatusCode(500);
-                    resp.setError("Sorry, Email already taken");
+                for(Integer index : categoryVendorRepository.findByVendorId(request.getId())){
+                    categoryVendorRepository.deleteById(index);
                 }
-            }, ()->{
-                Vendor.setEmail(request.getEmail());
-                    Vendor vendorResult = vendorRepository.save(Vendor);
-                    List<Vendor> VendorList = new ArrayList<Vendor>();
-                    VendorList.add(Vendor);
-                    categoryVendorRepository.deleteCategoryVendor(request.getId());
 
-                    List<Integer> subcategories = request.getSubCategory();
-                    for(Integer index : subcategories){
-                        CategoryVendor categoryVendor = new CategoryVendor();
-                        SubCategory sub = subCategoryRepo.findById(index).get();
-                        categoryVendor.setSubcategory(sub);
-                        categoryVendor.setVendor(vendorResult);
-                        categoryVendorRepository.save(categoryVendor);
-                    }
+                List<Integer> subcategories = request.getSubCategory();
+                for(Integer index : subcategories){
+                    CategoryVendor categoryVendor = new CategoryVendor();
+                    SubCategory sub = subCategoryRepo.findById(index).get();
+                    categoryVendor.setSubcategory(sub);
+                    categoryVendor.setVendor(vendorResult);
+                    categoryVendorRepository.save(categoryVendor);
+                }
 
-                    try{
-                        resp.setVendor(VendorList);
-                        resp.setMessage("Success Update Profile Vendor");
-                        resp.setStatusCode(200);
-            
-                    }catch(Exception e){
-                        resp.setStatusCode(500);
-                        resp.setError(e.getMessage());
-                    }
-            });
-        },
-        ()->{
+                try{
+                    resp.setVendor(VendorList);
+                    resp.setMessage("Success Update Profile Vendor");
+                    resp.setStatusCode(200);
+        
+                }catch(Exception e){
+                    resp.setStatusCode(500);
+                    resp.setError(e.getMessage());
+                }
+        },()->{
             resp.setStatusCode(500);
             resp.setError("Vendor not found");
         });

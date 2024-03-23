@@ -1,6 +1,8 @@
 package com.domain.eonite.dto;
 
 import java.util.List;
+
+import com.domain.eonite.entity.Photo;
 import com.domain.eonite.entity.Product;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,5 +23,6 @@ public class ProductRes {
     private String description;
     private Integer capacity;
     private Float rating;
+    private List<byte[]> photo;
     private List<Product> products;
 }
