@@ -51,6 +51,7 @@ public class Vendor implements UserDetails {
     private String status;
     private Time startTime;
     private Time endTime;
+    private String flag;
     private String email;
     private String password;
     @Column (name = "surat_ijin_usaha", columnDefinition="LONGTEXT")

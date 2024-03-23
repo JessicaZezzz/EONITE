@@ -95,6 +95,7 @@ public class AuthService {
             vendors.setPhoneBusiness(registrationRequest.getPhoneBusiness());
             vendors.setUsernameVendor(registrationRequest.getUsernameVendor());
             vendors.setPhoto(registrationRequest.getPhoto());
+            vendors.setPhoto_identity(registrationRequest.getPhoto_identity());
             vendors.setStatus(registrationRequest.getStatus());
             vendors.setEmail(registrationRequest.getEmail());
             vendors.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));

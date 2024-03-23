@@ -4,4 +4,6 @@ import com.domain.eonite.entity.Photo;
 
 public interface PhotoRepo extends JpaRepository<Photo, Integer>  {
 
+    Photo[] findByProductId(Integer id);
+
 }

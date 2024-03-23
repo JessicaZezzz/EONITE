@@ -4,16 +4,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.domain.eonite.dto.BankRes;
+import com.domain.eonite.dto.ProductRes;
 import com.domain.eonite.dto.VendorRes;
 import com.domain.eonite.entity.Vendor;
+import com.domain.eonite.service.ProductService;
 import com.domain.eonite.service.VendorService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/public")
+@RequestMapping("/vendor")
 public class VendorController {
     @Autowired
     private VendorService vendorService;
+    
+    @Autowired
+    private ProductService productService;
+
+    @PostMapping("/addProduct")
+    public ResponseEntity<ProductRes> addProduct(@RequestBody ProductRes request){
+        return ResponseEntity.ok(productService.addProduct(request));
+    }
+
+    @PutMapping("/updateProduct")
+    public ResponseEntity<ProductRes> updateProduct(@RequestBody ProductRes request){
+        return ResponseEntity.ok(productService.updateProduct(request));
+    }
     
     // @GetMapping("/getAllVendor")
     // public ResponseEntity<VendorRes> getAllUser(  @RequestParam(required = false,name = "sortBy") String sortBy, 
