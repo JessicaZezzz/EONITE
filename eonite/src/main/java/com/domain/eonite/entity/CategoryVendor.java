@@ -18,7 +18,6 @@ public class CategoryVendor {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="subcategory_id")
-    @JsonBackReference
     private SubCategory subcategory;
 
     @JsonIgnore

@@ -9,7 +9,7 @@ import com.domain.eonite.service.UserService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/public")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;

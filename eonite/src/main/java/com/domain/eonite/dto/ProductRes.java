@@ -18,6 +18,7 @@ public class ProductRes {
     private String message;
     private Integer id;
     private Integer vendorId;
+    private String usernameVendor;
     private String name;
     private Integer price;
     private String description;
@@ -25,4 +26,5 @@ public class ProductRes {
     private Float rating;
     private List<byte[]> photo;
     private List<Product> products;
+    private Long length;
 }

@@ -1,12 +1,18 @@
 package com.domain.eonite.service;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import java.util.stream.Collectors;
 import com.domain.eonite.dto.*;
 import com.domain.eonite.entity.*;
 import com.domain.eonite.repository.*;
@@ -28,43 +34,38 @@ public class VendorService {
     @Autowired
     private BankAccountRepo bankAccountRepo;
 
-    // public VendorRes getAllUser(String searchBy, String searchParam, String sortBy, String sortDir, Boolean pagination, Integer pageSize, Integer pageIndex){
-    //     VendorRes resp =  new VendorRes();
+    public VendorRes getAllVendor(String sortBy, String sortDir, Boolean pagination, Integer pageSize, Integer pageIndex, String search, String categoryId,Integer domicileId,Integer rating){
+        VendorRes resp = new VendorRes();
+        Pageable paging;
+            if(sortBy != null && sortDir != null){
+                Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+                paging = PageRequest.of(pageIndex,pageSize,sort);
+            }else paging = PageRequest.of(pageIndex,pageSize);
+        
+        Specification<Vendor> spec1 = VendorSpecs.vendorsearch(search);
+        Specification<Vendor> spec2 = VendorSpecs.vendordomicile(domicileId);
+        List<Integer> listCategory = null;
+        System.out.println("testi");
+        if(categoryId != null){
+            System.out.println("test");
+            listCategory = Arrays.stream(categoryId.split(",")).map(String::trim).map(Integer::parseInt).collect(Collectors.toList());
+        }
+        Specification<Vendor> spec3 = VendorSpecs.distinctvendorCategory(listCategory);
+        Specification<Vendor> spec4 = VendorSpecs.ratinglessThan(rating);
+        Specification<Vendor> spec = Specification.where(spec1).and(spec2).and(spec3).and(spec4);
+        Page<Vendor> allVendor = vendorRepository.findAll(spec,paging);
 
-    //     Pageable paging;
-    //         if(sortBy != null && sortDir != null){
-    //             Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-    //             paging = PageRequest.of(pageIndex,pageSize,sort);
-    //         }else paging = PageRequest.of(pageIndex,pageSize);
-
-    //     String firstname = null;
-    //     String lastname = null;
-    //     String email = null;
-    //     String phonenumber = null;
-    //     if(searchBy != null){
-    //         if(searchBy.equals("first_name")){
-    //             firstname = searchBy;
-    //         }else if(searchBy.equals("last_name")){
-    //             lastname = searchBy;
-    //         }else if(searchBy.equals("email")){
-    //             email = searchBy;
-    //         }else if(searchBy.equals("phone_number")){
-    //             phonenumber = searchBy;
-    //         }
-    //     }
-    //     Page<Vendor> allVendor = vendorRepository.findAll("USER",firstname,lastname,email,phonenumber,searchParam,paging);
-
-    //     try{
-    //         resp.setLength(allVendor.getTotalElements());
-    //         resp.setVendor(allVendor.getContent());
-    //         resp.setMessage("Get All Vendor");
-    //         resp.setStatusCode(200);
-    //     }catch(Exception e){
-    //         resp.setStatusCode(500);
-    //         resp.setError(e.getMessage());
-    //     }
-    //     return resp;
-    // }
+        try{
+            resp.setLength(allVendor.getTotalElements());
+            resp.setVendor(allVendor.getContent());
+            resp.setMessage("Success Get All Vendor");
+            resp.setStatusCode(200);
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
 
     public VendorRes getProfileVendor(Integer id){
         VendorRes resp =  new VendorRes();

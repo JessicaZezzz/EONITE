@@ -29,22 +29,6 @@ public class VendorController {
     public ResponseEntity<ProductRes> updateProduct(@RequestBody ProductRes request){
         return ResponseEntity.ok(productService.updateProduct(request));
     }
-    
-    // @GetMapping("/getAllVendor")
-    // public ResponseEntity<VendorRes> getAllUser(  @RequestParam(required = false,name = "sortBy") String sortBy, 
-    //                                 @RequestParam(required = false,name = "sortDir") String sortDir, 
-    //                                 @RequestParam(required = false,name = "pagination") Boolean pagination, 
-    //                                 @RequestParam(required = false,name = "pageSize") Integer pageSize, 
-    //                                 @RequestParam(required = false,name = "pageIndex") Integer pageIndex,
-    //                                 @RequestParam(required = false,name = "searchBy") String searchBy, 
-    //                                 @RequestParam(required = false,name = "searchParam") String searchParam){
-    //     return ResponseEntity.ok(vendorService.getAllUser(searchBy, searchParam, sortBy, sortDir, pagination, pageSize, pageIndex));
-    // }
-
-    @GetMapping("/vendorProfile")
-    public ResponseEntity<VendorRes> getProfile(  @RequestParam(required = true,name = "id") Integer id){
-        return ResponseEntity.ok(vendorService.getProfileVendor(id));
-    }
 
     @PutMapping("/updateProfileVendor")
     public ResponseEntity<VendorRes> updateProfile(@RequestBody VendorRes request){

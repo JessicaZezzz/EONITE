@@ -29,6 +29,7 @@ J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\V
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\Domicile.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\dto\CartItem.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\TransactionDetail.java
+J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\VendorSpecs.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\ProductReviewRepo.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\controller\UserController.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\controller\Public.java

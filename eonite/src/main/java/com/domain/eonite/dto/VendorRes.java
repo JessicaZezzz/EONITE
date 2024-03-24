@@ -44,5 +44,5 @@ public class VendorRes {
     private String email;
     private String password;
     private String surat_ijin_usaha;
-
+    private Long length;
 }

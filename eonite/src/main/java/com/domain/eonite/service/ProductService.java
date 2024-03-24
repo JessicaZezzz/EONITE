@@ -2,8 +2,12 @@ package com.domain.eonite.service;
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
 import com.domain.eonite.dto.*;
 import com.domain.eonite.entity.*;
 import com.domain.eonite.repository.*;
@@ -30,6 +34,34 @@ public class ProductService {
 
     @Autowired
     private PhotoRepo PhotoRepo;
+
+    public ProductRes getAllProduct(String sortBy, String sortDir, Boolean pagination, Integer pageSize, Integer pageIndex, String search, Integer min,Integer max,Integer rating,Integer vendorId){
+        ProductRes resp = new ProductRes();
+        Pageable paging;
+            if(sortBy != null && sortDir != null){
+                Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+                paging = PageRequest.of(pageIndex,pageSize,sort);
+            }else paging = PageRequest.of(pageIndex,pageSize);
+        Specification<Product> spec0 = ProductSpecs.ProductVendorId(vendorId);
+        Specification<Product> spec1 = ProductSpecs.Productsearch(search);
+        Specification<Product> spec2 = ProductSpecs.ProductPricemin(min);
+        Specification<Product> spec3 = ProductSpecs.ProductPricemax(max);
+        Specification<Product> spec4 = ProductSpecs.ratinglessThan(rating);
+        Specification<Product> specs = Specification.where(spec1).and(spec2).and(spec3).and(spec4).and(spec0);
+
+        Page<Product> allProduct= ProductRepo.findAll(specs,paging);
+        try{
+            resp.setLength(allProduct.getTotalElements());
+            resp.setProducts(allProduct.getContent());
+            resp.setMessage("Success Get All Product");
+            resp.setStatusCode(200);
+
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
 
     public ProductRes addProduct(ProductRes request){
         ProductRes resp =  new ProductRes();
@@ -101,8 +133,11 @@ public class ProductService {
     public ProductRes getProduct(Integer id){
         ProductRes resp =  new ProductRes();
         List<Product> products = ProductRepo.findAllById(id);
+        Vendor vendor = products.get(0).getVendor();
         try{
             resp.setProducts(products);
+            resp.setUsernameVendor(vendor.getUsernameVendor());
+            resp.setVendorId(vendor.getId());
             resp.setMessage("Success Get Product with Id "+id);
             resp.setStatusCode(200);
 
