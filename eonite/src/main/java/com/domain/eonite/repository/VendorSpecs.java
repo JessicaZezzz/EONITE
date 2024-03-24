@@ -22,6 +22,13 @@ public class VendorSpecs {
                builder.equal(root.get("domicile_id"), domicileId);
     }
 
+    public static Specification<Vendor> vendorstatus(List<String> status) {
+      return (root, query, builder) -> 
+      status == null ? 
+               builder.conjunction() :
+               root.get("status").in(status).not();
+    }
+
     public static Specification<Vendor> vendorCategory(List<Integer> category) {
       return (root, query, builder) -> 
       category == null ? 

@@ -106,7 +106,7 @@ public class CartService {
     public CartRes getCart(Integer id){
         CartRes resp = new CartRes();
         userRepository.findById(id).ifPresentOrElse((user)->{
-            List<Tuple> list = cartRepository.getCartUser(5);
+            List<Tuple> list = cartRepository.getCartUser(id);
             List<CartItem> cartList = list.stream().map(c-> new CartItem(
                 c.get(0,Integer.class),
                 c.get(1,String.class),

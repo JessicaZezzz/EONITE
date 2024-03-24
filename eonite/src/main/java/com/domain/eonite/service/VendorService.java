@@ -45,14 +45,15 @@ public class VendorService {
         Specification<Vendor> spec1 = VendorSpecs.vendorsearch(search);
         Specification<Vendor> spec2 = VendorSpecs.vendordomicile(domicileId);
         List<Integer> listCategory = null;
-        System.out.println("testi");
         if(categoryId != null){
-            System.out.println("test");
             listCategory = Arrays.stream(categoryId.split(",")).map(String::trim).map(Integer::parseInt).collect(Collectors.toList());
         }
         Specification<Vendor> spec3 = VendorSpecs.distinctvendorCategory(listCategory);
         Specification<Vendor> spec4 = VendorSpecs.ratinglessThan(rating);
-        Specification<Vendor> spec = Specification.where(spec1).and(spec2).and(spec3).and(spec4);
+        List<String> state = new ArrayList<>();
+        state.add("PENDING"); state.add("BLOCKED");
+        Specification<Vendor> spec5 = VendorSpecs.vendorstatus(state);
+        Specification<Vendor> spec = Specification.where(spec1).and(spec2).and(spec3).and(spec4).and(spec5);
         Page<Vendor> allVendor = vendorRepository.findAll(spec,paging);
 
         try{

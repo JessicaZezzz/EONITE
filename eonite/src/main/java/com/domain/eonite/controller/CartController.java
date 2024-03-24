@@ -18,7 +18,7 @@ import com.domain.eonite.service.CartService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/public")
+@RequestMapping("/user")
 public class CartController {
     @Autowired
     private CartService cartService;
