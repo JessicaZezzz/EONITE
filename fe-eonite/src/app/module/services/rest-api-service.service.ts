@@ -135,6 +135,25 @@ export class RestApiServiceService {
     return this.http.put(`${environment.apiUrl}/vendor/updateProduct`,body,{headers:this.headers});
   }
 
+  addCart(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/user/addCart`,body,{headers:this.headers});
+  }
+
+  updateCart(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/user/updateCart`,body,{headers:this.headers});
+  }
+
+  deleteCart(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/user/deleteCart`,body,{headers:this.headers});
+  }
+
+  getCart(id:number){
+    let param = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/user/getCartbyId`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
   loginUser(body: any): Observable<any>{
     let headers = new HttpHeaders({
       "Content-Type": "application/json",

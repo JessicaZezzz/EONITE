@@ -4,6 +4,8 @@ import { Product } from '../../models/auth.model';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCartComponent } from '../dialog-cart/dialog-cart.component';
 
 @Component({
   selector: 'app-detail-product',
@@ -11,7 +13,6 @@ import { HttpEventType } from '@angular/common/http';
   styleUrls: ['./detail-product.component.css']
 })
 export class DetailProductComponent implements OnInit {
-  openCart: boolean = false;
   zoomImage:boolean = false;
   vendorId?:number;
   vendorName?:string;
@@ -47,7 +48,7 @@ export class DetailProductComponent implements OnInit {
   cover:string='';
   product? :Product;
 
-  constructor(private location: Location,private restService:RestApiServiceService,private router:ActivatedRoute,private routes:Router) {
+  constructor(private location: Location,private restService:RestApiServiceService,private router:ActivatedRoute,private routes:Router,private dialog:MatDialog) {
     this.cover =this.image[0];
   }
 
@@ -67,11 +68,13 @@ export class DetailProductComponent implements OnInit {
   }
 
   addtoCart(){
-    this.openCart = true;
-  }
+    const dialogRef = this.dialog.open(DialogCartComponent, {
+      data:this.product?.id
+    });
 
-  closeCart(event:boolean){
-    this.openCart = event;
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 
   changeImg(index:string){
@@ -93,6 +96,8 @@ export class DetailProductComponent implements OnInit {
   redirectVendor(){
     this.routes.navigate([`/details/${this.vendorId}`])
   }
+
+
 }
 
 export interface review{

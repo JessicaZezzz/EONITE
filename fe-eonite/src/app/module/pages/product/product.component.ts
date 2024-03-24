@@ -15,9 +15,18 @@ import { EditProductComponent } from '../edit-product/edit-product.component';
 export class ProductComponent implements OnInit {
   vendorId!:number;
   listProduct:Product[] = [];
+  stateVendor?:string;
+  tooltip:string='';
 
   constructor(private restService:RestApiServiceService,public dialog: MatDialog) {
     this.vendorId = Number(sessionStorage.getItem('ID')!);
+    this.restService.getprofileVendor(this.vendorId).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let data = Object(event.body)['vendor'];
+        this.stateVendor = data[0].status;
+        if(this.stateVendor == 'PENDING') this.tooltip='Your Status need to be confirmed first!'
+      }
+    })
   }
 
   ngOnInit(): void {

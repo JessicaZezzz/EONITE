@@ -14,7 +14,7 @@
                     List Product
                   </div>
                   <div>
-                    <button (click)="addProduct()" class="flex items-center justify-center mt-2 sm:mt-0 rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    <button matTooltip="{{ tooltip }}" (click)="addProduct()" [disabled]="stateVendor == 'PENDING'" class="flex items-center justify-center mt-2 sm:mt-0 rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-gray-300">
                       Add New Product
                     </button>
                   </div>

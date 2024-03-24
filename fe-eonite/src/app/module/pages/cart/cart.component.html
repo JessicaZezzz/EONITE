@@ -13,14 +13,14 @@
             <ng-container matColumnDef="image">
               <th mat-header-cell *matHeaderCellDef class="h-[0px]"></th>
               <td mat-cell *matCellDef="let element" class="font-semibold text-[#5C06E4] text-[16px] w-[90px]">
-                <img class="ml-5 h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <img class="ml-5 h-8 w-8 rounded-full border-[1px] border-[#5C06E4]" src="{{'data:image/jpg;base64,' + element?.cart[0].photo}}">
               </td>
             </ng-container>
 
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef class="h-[0px]"></th>
-              <td mat-cell *matCellDef="let element" class="font-semibold text-[#5C06E4] text-[16px]">
-                {{ element['name'] }}
+              <td mat-cell *matCellDef="let element" class="font-medium text-[#5C06E4] text-[16px]">
+                {{ element.cart[0].usernameVendor! }}
               </td>
             </ng-container>
 
@@ -29,7 +29,7 @@
               </th>
               <td mat-cell *matCellDef="let element" class="font-semibold text-[#5C06E4] text-[16px]">
                 <div class="relative flex items-center justify-end">
-                  <button (click)="deleteItem = true" class="md:ml-3 rounded-md px-5 py-2">
+                  <button matTooltip="{{ getError(element) }}" (click)="deleteCart(element)" [disabled]="checkDelete(element)" class="md:ml-3 rounded-md px-5 py-2">
                     <svg class="w-6 h-6 mx-auto" aria-hidden="true" fill="gray" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                   </button>
                 </div>
@@ -40,37 +40,24 @@
               <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
                 <div class="example-element-detail">
                   <div style="width: 100%; margin-left: 20px;">
-                    <table mat-table [dataSource]="element.addresses" multiTemplateDataRows matSort>
+                    <table mat-table [dataSource]="element.cart" multiTemplateDataRows matSort>
                       <ng-container matColumnDef="select">
                         <th *matHeaderCellDef class="w-[20px]">
-                            <mat-checkbox (change)="$event ? UserMasterToggle(element.id) : null"
-                                          [checked]="userSelectionMap.get(element.id)?.hasValue() && isAllUserSelected(element.id)"
-                                          [indeterminate]="checkIndeterminate(element.id)">
+                            <mat-checkbox (change)="$event ? UserMasterToggle(element.vendorId) : null"
+                                          [checked]="userSelectionMap.get(element.vendorId)?.hasValue() && isAllUserSelected(element.vendorId)"
+                                          [indeterminate]="checkIndeterminate(element.vendorId)">
                             </mat-checkbox>
                         </th>
                         <td *matCellDef="let row; let i = index;" >
                             <mat-checkbox (click)="$event.stopPropagation()"
-                                          (change)="$event ? userSelectionMap.get(element.id)?.toggle(row) : null"
-                                          [checked]="userSelectionMap.get(element.id)?.isSelected(row)">
+                                          (change)="$event ? userSelectionMap.get(element.vendorId)?.toggle(row) : null"
+                                          [checked]="userSelectionMap.get(element.vendorId)?.isSelected(row)">
                             </mat-checkbox>
                         </td>
                       </ng-container>
-                      <ng-container matColumnDef="image">
-                        <th mat-header-cell *matHeaderCellDef class="md:mx-0 text-[14px] text-[#5C06E4]">
-                          <div class="pl-3">
-                          Image
-                          </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" class="w-[120px]">
-                          <div class="p-2">
-                            <img  class="h-[50px] rounded-md"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">
-                          </div>
-                        </td>
-                      </ng-container>
 
-                      <ng-container matColumnDef="productName">
-                        <th mat-header-cell *matHeaderCellDef class="mx-1 md:mx-0 text-[14px] text-[#5C06E4]">Product Name</th>
+                      <ng-container matColumnDef="productName" class="ml-2">
+                        <th mat-header-cell *matHeaderCellDef class="ml-3 mx-1 md:mx-0 text-[14px] text-[#5C06E4]">Product Name</th>
                         <td mat-cell *matCellDef="let element">
                           {{ element.productName }}
                         </td>
@@ -79,21 +66,21 @@
                       <ng-container matColumnDef="qty">
                         <th mat-header-cell *matHeaderCellDef class="mx-1 md:mx-0 text-[14px] text-[#5C06E4]">Qty</th>
                         <td mat-cell *matCellDef="let element">
-                          {{ element.qty }}
+                          {{ element.quantity }}
                         </td>
                       </ng-container>
 
                       <ng-container matColumnDef="date">
                         <th mat-header-cell *matHeaderCellDef class="hidden md:table-cell text-[14px] text-[#5C06E4]">Booking Date</th>
                         <td mat-cell *matCellDef="let element" class="hidden md:table-cell ">
-                          {{ element.date }}
+                          {{ changeFormatDate(element.bookdate) }}
                         </td>
                       </ng-container>
 
                       <ng-container matColumnDef="price">
                         <th mat-header-cell *matHeaderCellDef class="hidden sm:table-cell mx-1 md:mx-0 text-[14px] text-[#5C06E4]">Price</th>
                         <td mat-cell *matCellDef="let element" class="hidden sm:table-cell">
-                          {{ element.price }}
+                          {{ element.productPrice | currency }}
                         </td>
                       </ng-container>
 
@@ -101,7 +88,7 @@
                         <th mat-header-cell *matHeaderCellDef class="mx-1 md:mx-0 text-[14px] text-[#5C06E4]">Action</th>
                         <td mat-cell *matCellDef="let element">
                           <div class="flex flex-col md:flex-row items-center space-y-2 my-2 md:my-0 md:space-y-0">
-                            <button (click)="openDialogCart(element)" class="rounded-md px-6 md:px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-500">EDIT</button>
+                            <button (click)="openDialogCart(element)" class="rounded-md px-6 md:px-4 py-2 text-[#5C06E4] border-[1px] border-[#5C06E4] bg-white hover:text-white hover:bg-[#5C06E4]">EDIT</button>
                           </div>
                         </td>
                       </ng-container>
@@ -115,8 +102,6 @@
                 </div>
               </td>
             </ng-container>
-
-            <!-- <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr> -->
             <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
               [class.example-element-row]="element.addresses?.length" [class.example-expanded-row]="element?.expanded"
               (click)="element.expanded = !element?.expanded">
@@ -124,17 +109,30 @@
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
           </table>
         </div>
-        <div class="mt-3 flex items-center justify-center md:justify-end font-bold text-md text-[#5C06E4]">
-          <button (click)="this.bookingDialog = true" class="rounded-md px-8 md:px-6 py-3 text-white bg-indigo-600 hover:bg-indigo-500">CHECKOUT</button>
+        <div *ngIf="data?.length! > 0" class="mt-3 flex items-center justify-center md:justify-end font-medium text-md text-[#5C06E4]">
+          <button matTooltip="{{ error }}" [disabled]="checkButton()" (click)="createBooking()" class="rounded-md px-8 md:px-6 py-3 text-white bg-[#5C06E4] hover:bg-indigo-500 disabled:bg-gray-300">CHECKOUT</button>
+        </div>
+        <div *ngIf="data?.length! == 0" class="w-full">
+          <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
+            <div class="grid gap-4 w-60">
+              <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full shadow-sm justify-center items-center inline-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                  <g id="File Serch">
+                    <path id="Vector" d="M19.9762 4V8C19.9762 8.61954 19.9762 8.92931 20.0274 9.18691C20.2379 10.2447 21.0648 11.0717 22.1226 11.2821C22.3802 11.3333 22.69 11.3333 23.3095 11.3333H27.3095M18.6429 19.3333L20.6429 21.3333M19.3095 28H13.9762C10.205 28 8.31934 28 7.14777 26.8284C5.9762 25.6569 5.9762 23.7712 5.9762 20V12C5.9762 8.22876 5.9762 6.34315 7.14777 5.17157C8.31934 4 10.205 4 13.9762 4H19.5812C20.7604 4 21.35 4 21.8711 4.23403C22.3922 4.46805 22.7839 4.90872 23.5674 5.79006L25.9624 8.48446C26.6284 9.23371 26.9614 9.60833 27.1355 10.0662C27.3095 10.524 27.3095 11.0253 27.3095 12.0277V20C27.3095 23.7712 27.3095 25.6569 26.138 26.8284C24.9664 28 23.0808 28 19.3095 28ZM19.3095 16.6667C19.3095 18.5076 17.8171 20 15.9762 20C14.1352 20 12.6429 18.5076 12.6429 16.6667C12.6429 14.8257 14.1352 13.3333 15.9762 13.3333C17.8171 13.3333 19.3095 14.8257 19.3095 16.6667Z" stroke="#4F46E5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-center text-black text-xl font-semibold">There’s no items Cart here</h2>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div *ngIf="openCart">
-  <app-dialog-edit-cart (openCart)="closeCart($event)"></app-dialog-edit-cart>
-</div>
-<div *ngIf="deleteItem" class="bg-gray-200/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
+<div *ngIf="deleteItem" class="bg-black/[.30] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
   <div class="relative p-4 text-center bg-white rounded-lg shadow sm:p-5">
     <button (click)="deleteItem = false" type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="deleteModal">
         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -146,14 +144,11 @@
         <button (click)="deleteItem = false" data-modal-toggle="deleteModal" type="button" class="rounded-md px-7 md:px-5 py-2 text-white bg-indigo-600 hover:bg-indigo-500">
             No, cancel
         </button>
-        <button type="submit" class="md:ml-3 rounded-md px-5 py-2 text-white bg-red-600 hover:bg-red-500">
+        <button (click)="onDelete()" class="md:ml-3 rounded-md px-5 py-2 text-white bg-red-600 hover:bg-red-500">
             Yes, I'm sure
         </button>
     </div>
   </div>
-</div>
-<div *ngIf="bookingDialog">
-  <app-dialog-booking (openBooking)="closeBooking($event)"></app-dialog-booking>
 </div>
 <app-footer></app-footer>
 

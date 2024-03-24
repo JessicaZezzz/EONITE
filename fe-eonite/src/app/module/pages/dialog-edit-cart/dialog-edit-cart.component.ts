@@ -1,5 +1,9 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
+import { RestApiServiceService } from '../../services/rest-api-service.service';
 
 @Component({
   selector: 'app-dialog-edit-cart',
@@ -10,22 +14,21 @@ export class DialogEditCartComponent implements OnInit {
   public CLOSE_ON_SELECTED = false;
   public init = new Date();
   public resetModel = new Date(0);
-  public qty = 1;
   public display = false;
-  public model = [
-    new Date('7/15/1966'),
-    new Date('3/23/1968'),
-    new Date('7/4/1992'),
-    new Date('1/25/1994'),
-    new Date('6/17/1998')
-  ];
+  public model :Date[]=[];
+  errorDate:string='';
+  errorQty:string='';
 
   @Output() openCart = new EventEmitter<boolean>();
   @ViewChild('picker', { static: true }) _picker?: MatDatepicker<Date>;
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<DialogEditCartComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,private dialog:MatDialog, private restService:RestApiServiceService) {
+
+  }
 
   ngOnInit(): void {
+    this.changeFormatDate(this.data.bookdate);
   }
 
   public dateClass = (date: Date) => {
@@ -54,6 +57,7 @@ export class DialogEditCartComponent implements OnInit {
         });
       }
     }
+    if(this.model.length>=1) this.errorDate = '';
   }
 
   public remove(date: Date): void {
@@ -65,20 +69,80 @@ export class DialogEditCartComponent implements OnInit {
     return this.model.map((m) => +m).indexOf(+date);
   }
 
+  formatPrice(number:string){
+    return number.substring(2);
+  }
+
+  changeFormatDate(dtae:string){
+    let dt = dtae.split(',');
+    if(dtae != null){
+      for(let i of dt){
+        var year = i.substring(6, 10);
+        var month = i.substring(3, 5);
+        var day = i.substring(0, 2);
+        var datePipe = new DatePipe("en-US");
+        this.model.push(new Date(parseInt(year),parseInt(month)-1,parseInt(day)));
+      }
+    }
+ }
+
   add(){
-    this.qty++;
+    this.data.quantity++;
+    if(this.data.quantity>=1) this.errorQty = '';
   }
 
   min(){
-    if(this.qty != 1) this.qty--;
+    if(this.data.quantity > 1){
+      this.data.quantity--; this.errorQty = '';
+    }
   }
 
   close(){
     this.openCart.emit(false);
   }
 
-  submitCart(){
-    // add to cart endpoint
-    this.display = true;
+  submit(){
+    this.errorDate = '';
+    this.errorQty = '';
+    if(this.model.length == 0) this.errorDate ='*Please select booking date!';
+    if(this.data.quantity <= 0) this.errorQty = '*Quantity can not less than 0!';
+    if(this.model.length >= 1 && this.data.quantity >=1){
+       this.updateCart();
+    }
+    console.log(this.data.quantity)
   }
+
+  updateCart(){
+    let postCart:postCart={};
+    postCart.id = this.data.id;
+    let bookingDate:string[]=[];
+      this.model.forEach(e=>{
+        const dDate = new DatePipe('en-US');
+        bookingDate.push(dDate.transform(new Date(e),"dd-MM-yyyy")!.toString());
+      })
+    postCart.bookdate = bookingDate.toString();
+    postCart.quantity = this.data.quantity;
+    this.restService.updateCart(JSON.stringify(postCart)).subscribe(event=>{
+      if(event.statusCode == 200){
+        const dialogRef = this.dialog.open(DialogSuccessComponent, {
+          data: 'Success Update Product In Cart',
+        });
+        this.onNoClick();
+
+      }else if(event.statusCode == 500){
+        // this.error='Email is already registered, please use another email';
+        // this.openDialogErrorDiv = true;
+      }
+    })
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+export interface postCart{
+  id?:number;
+  bookdate?:string;
+  quantity?:number;
 }

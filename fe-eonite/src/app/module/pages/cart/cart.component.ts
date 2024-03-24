@@ -2,6 +2,12 @@ import { Component, ViewChild, ViewChildren, QueryList} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogEditCartComponent } from '../dialog-edit-cart/dialog-edit-cart.component';
+import { RestApiServiceService } from '../../services/rest-api-service.service';
+import { HttpEventType } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
 
 @Component({
   selector: 'app-cart',
@@ -12,68 +18,117 @@ import { SelectionModel } from '@angular/cdk/collections';
 export class CartComponent{
   @ViewChild('outerSort', { static: true }) sort!: MatSort;
   @ViewChildren('innerSort') innerSort!: QueryList<MatSort>;
-  @ViewChildren('innerTables') innerTables!: QueryList<MatTable<Address>>;
-
-  data: User[] = USERS;
-  openCart: boolean = false;
+  @ViewChildren('innerTables') innerTables!: QueryList<MatTable<Product>>;
+  listCart?:any[];
+  data: any[]=[];
+  tempId?:number;
   deleteItem:boolean = false;
-  dataSource!: MatTableDataSource<User>;
-  usersData: User[] = [];
+  dataSource!: MatTableDataSource<Vendor>;
+  cartData: Vendor[] = [];
   columnsToDisplay = ['image','name','action'];
-  innerDisplayedColumns = ['select','image', 'productName', 'qty','date','price','action'];
+  innerDisplayedColumns = ['select', 'productName', 'qty','date','price','action'];
   userSelection = new SelectionModel<any>(true, []);
   userSSelection = new SelectionModel<any>(true, []);
   userSelectionMap: Map<number, SelectionModel<any>> = new Map<number,SelectionModel<any>>();
-  bookingDialog:boolean = false;
+  error:string='';
 
-  constructor() {}
+  constructor(private datePipe: DatePipe,private dialog:MatDialog, private restService:RestApiServiceService) {}
 
   ngOnInit() {
-    USERS.forEach(user => {
-      if (
-        user.addresses &&
-        Array.isArray(user.addresses) &&
-        user.addresses.length
-      ) {
-        this.usersData = [
-          ...this.usersData,
-          { ...user, addresses: new MatTableDataSource(user.addresses) }
-        ];
-      } else {
-        this.usersData = [...this.usersData, user];
+    this.getDataCart()
+  }
+
+  getDataCart(){
+    this.data=[];
+    let groupedData: any;
+    this.restService.getCart(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        this.listCart = Object(event.body)['cartItems'];
       }
-    });
-    this.dataSource = new MatTableDataSource(this.usersData);
-    this.dataSource.sort = this.sort;
-    this.dataSource.data.forEach(row=>{
-      this.userSelectionMap.set(row.id, new SelectionModel<any>(true,[]));
+      groupedData = this.listCart?.reduce((acc,curr)=>{
+      const vendorId = curr.vendorId;
+        if (!acc[vendorId]) {
+          acc[vendorId] = [];
+        }
+        acc[vendorId].push(curr);
+        return acc;
+      },{});
+      const groupArrays = Object.keys(groupedData).map(vendorId => {
+        return {
+          vendorId,
+          cart: groupedData[vendorId]
+        };
+      });
+      this.data = groupArrays;
+      this.init();
     })
   }
 
+  init(){
+    this.data.forEach(list => {
+      if (
+        list.cart &&
+        Array.isArray(list.cart) &&
+        list.cart.length
+      ) {
+        this.cartData = [
+          ...this.cartData,
+          { ...list, cart: new MatTableDataSource(list.cart) }
+        ];
+      } else {
+        this.cartData = [...this.cartData, list];
+      }
+    });
+    this.userSelectionMap= new Map<number,SelectionModel<any>>();
+    this.dataSource = new MatTableDataSource(this.cartData);
+    this.dataSource.data.forEach(row=>{
+      this.userSelectionMap.set(row.vendorId, new SelectionModel<any>(true,[]));
+    })
+    console.log(this.userSelectionMap)
+  }
+
+  changeFormatDate(dtae:string){
+    let dt = dtae.split(',');
+    let dates:string[]=[];
+    if(dtae != null){
+      for(let i of dt){
+        var year = i.substring(6, 10);
+        var month = i.substring(3, 5);
+        var day = i.substring(0, 2);
+        var datePipe = new DatePipe("en-US");
+        dates.push(datePipe.transform(new Date(parseInt(year),parseInt(month)-1,parseInt(day)),"dd MMMM YYYY")!)
+      }
+      return dates.toString();
+    }else return '-';
+ }
+
   createBooking(){
-    this.bookingDialog = !this.bookingDialog;
+    //call dialog booking
+    console.log(this.userSelectionMap)
+    console.log(this.userSSelection)
+    console.log(this.userSelection)
   }
 
-  closeCart(event:boolean){
-    this.openCart = event;
-  }
+  checkButton():boolean{
+    let flag = 0;
+    this.data.forEach(e=>{
+      if(this.userSelectionMap.get(e.vendorId)!.selected.length>0) flag++;
+    })
 
-  closeBooking(event:boolean){
-    this.bookingDialog = event;
+    if(flag == 1){
+      this.error=''; return false;
+    }else if(flag > 1) this.error='You can only checkout products from the same vendor'
+    else if(flag == 0) this.error='No product selected';
+    return true;
   }
 
   openDialogCart(element:any){
-    this.openCart =true;
-  }
-
-  dm(){
-    console.log(this.userSSelection.selected)
-  }
-
-  checkSelected(element:any){
-    if(this.userSSelection.selected.find(x => x.id == element.id) != undefined){
-      return true;
-    }return false;
+    const dialogRef = this.dialog.open(DialogEditCartComponent, {
+      data:element
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.getDataCart()
+    });
   }
 
   checkIndeterminate(elementId:number){
@@ -83,148 +138,77 @@ export class CartComponent{
   // Child Checkbox
   isAllUserSelected(elementId: number) {
     const numSelected = this.userSelectionMap.get(elementId)!.selected.length;
-    let temp = this.dataSource.data.find(x=>x.id == elementId);
-    const numRows = temp?.addresses?.filteredData!.length;
+    let temp = this.dataSource.data.find(x=>x.vendorId == elementId);
+    const numRows = temp?.cart?.filteredData!.length;
     return numSelected == numRows;
   }
 
   UserMasterToggle(elementId: number) {
     this.isAllUserSelected(elementId) ? this.userSelectionMap.get(elementId)!.clear()
-      : this.dataSource.data.find(x=>x.id == elementId)?.addresses.filteredData.forEach((row: any) =>
+      : this.dataSource.data.find(x=>x.vendorId == elementId)?.cart.filteredData.forEach((row: any) =>
           this.userSelectionMap.get(elementId)!.select(row)
         );
   }
 
-  // Parent checkbox
-  isAllUserSSelected() {
-    const numSelected = this.userSSelection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected == numRows;
+  deleteCart(element:any){
+    this.deleteItem = true;
+    this.tempId = element.vendorId;
   }
 
-  UserSMasterToggle() {
-    if(this.isAllUserSSelected()){
-      this.dataSource.data.forEach(row =>{
-        this.getAllChildCheck(row);
-      })
-        this.userSSelection.clear();
-    }else{
-      this.userSSelection.clear();
-      this.dataSource.data.forEach(row =>{
-        this.getAllChildCheck(row);
-        this.userSSelection.select(row);
-      })
-    }
+  checkDelete(element:any){
+    if(this.userSelectionMap.get(element.vendorId)!.selected.length>0)return false;
+    return true;
   }
 
-  getAllChildCheck(row:any){
-    if(this.checkSelected(row)){
-      this.userSelectionMap.get(row.id)!.clear();
-    }else{
-      this.userSelectionMap.get(row.id)!.clear();
-      this.dataSource.data.find(x=>x.id == row.id)?.addresses.filteredData.forEach((row: any) =>
-          this.userSelectionMap.get(row.id)!.select(row)
-        );
-    }
+  getError(element:any){
+    if(this.userSelectionMap.get(element.vendorId)!.selected.length>0)return '';
+    return 'No product selected';
+  }
+
+  onDelete(){
+    let postDelete:postDelete={
+      deletes: []
+    };
+    this.userSelectionMap.get(this.tempId!)!.selected.forEach(e=>{
+      postDelete.deletes.push(e.id);
+    })
+
+    this.restService.deleteCart(JSON.stringify(postDelete)).subscribe(event=>{
+      if(event.statusCode == 200){
+        const dialogRef = this.dialog.open(DialogSuccessComponent, {
+          data: 'Success Delete Product From Cart',
+        });
+        this.deleteItem=false;
+        dialogRef.afterClosed().subscribe(result => {
+          window.location.reload();
+        });
+      }else if(event.statusCode == 500){
+        // this.error='Email is already registered, please use another email';
+        // this.openDialogErrorDiv = true;
+      }
+    })
   }
 
 }
 
-export interface User {
+export interface postDelete{
+  deletes:number[];
+}
+
+export interface Vendor {
+  vendorId:number;
+  cart: Product|any | MatTableDataSource<Product>;
+}
+
+export interface Product {
   id:number;
-  name: string;
-  email: string;
-  phone: string;
-  addresses?: any | MatTableDataSource<Address>;
+  photo:string;
+  productId:number;
+  productName:string;
+  productPrice:number;
+  productRating:number;
+  quantity: number;
+  usernameVendor:string;
+  bookdate?: string;
+  vendorId?:number;
 }
-
-export interface Address {
-  id:number;
-  image: string;
-  productName: string;
-  qty: string;
-  price:number;
-  date?: string[];
-}
-
-const USERS: User[] = [
-  {
-    id:1,
-    name: 'Mason',
-    email: 'mason@test.com',
-    phone: '9864785214',
-    addresses: [
-      {
-        id:1,
-        image: 'Image 1',
-        productName: '78542',
-        qty: 'Kansas',
-        price:1500000,
-        date: [
-          "14-03-20023",
-          "15-03-2023"
-        ]
-      },
-      {
-        id:1,
-        image: 'Image 2',
-        productName: '78554',
-        qty: 'Texas',
-        price:1500000,
-        date: [
-          "14-03-20023",
-          "15-03-2023"
-        ]
-      }
-    ]
-  },
-  {
-    id:2,
-    name: 'Eugene',
-    email: 'eugene@test.com',
-    phone: '8786541234',
-    addresses: [
-      {
-        id:2,
-        image: 'Image 5',
-        productName: '23547',
-        qty: 'Utah',
-        price:1500000,
-        date: [
-          "14-03-20023",
-          "15-03-2023"
-        ]
-      },
-      {
-        id:2,
-        image: 'Image 5',
-        productName: '23547',
-        qty: 'Ohio',
-        price:1500000,
-        date: [
-          "14-03-20023",
-          "15-03-2023"
-        ]
-      }
-    ]
-  },
-  {
-    id:3,
-    name: 'Jason',
-    email: 'jason@test.com',
-    phone: '7856452187',
-    addresses: [
-      {
-        id:3,
-        image: 'Image 5',
-        productName: '23547',
-        qty: 'Utah',
-        price:1500000,
-        date: [
-          "14-03-20023",
-          "15-03-2023"
-        ]
-      }
-    ]
-  }
-];
