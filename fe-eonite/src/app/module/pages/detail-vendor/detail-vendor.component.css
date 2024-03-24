@@ -17,3 +17,9 @@
   transition-duration: 0ms!important;
   transition-delay: 0ms!important;
 }
+
+::ng-deep .mat-calendar-body-cell.mat-calendar-body-disabled{
+  background-color: #d6bcff;
+  border-radius: 100%;
+  color:red
+}

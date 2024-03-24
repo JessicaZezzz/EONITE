@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   menu : MENU[] = [];
   dropdown : MENU[] = [];
   imgProfile: string='';
+  search:string='';
 
   constructor(private router: Router,private restService:RestApiServiceService){
 
@@ -63,6 +64,14 @@ export class NavbarComponent implements OnInit {
   redirectPage(number: number){
     if(number == 1) this.router.navigateByUrl('/login');
     else this.router.navigateByUrl('/signup');
+  }
+  onSearch(event:any){
+    const params = {
+      search: this.search
+    }
+    if(this.search!=''){
+      this.router.navigate(['/services'],{queryParams:params})
+    }
   }
 
 }

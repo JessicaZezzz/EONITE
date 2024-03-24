@@ -9,8 +9,12 @@ export const MENU_PUBLIC:MENU[]=[
     link : '/home'
   },
   {
-    name : 'Services',
-    link : '/services'
+    name : 'Vendor',
+    link : '/services-vendor'
+  },
+  {
+    name : 'Product',
+    link : '/services-product'
   },
   {
     name : 'About Us',
@@ -160,4 +164,10 @@ export interface Product{
 export class Photo{
   id?           : number;
   image?        : any;
+}
+
+export interface page{
+  pageSize?:number;
+  pageIndex?:number;
+  length?:number;
 }

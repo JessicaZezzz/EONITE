@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
-import { Category, Domicile, page, Product } from '../../models/auth.model';
+import { Category, Domicile, page, Vendor } from '../../models/auth.model';
 import { HttpEventType, HttpParams } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 export interface filter{
   search?:string;
-  min?:number;
-  max?:number;
+  categoryId?:number[];
+  domicileId?:number;
   rating?:number;
   sortBy?:string;
 }
 
 @Component({
-  selector: 'app-services-product',
-  templateUrl: './services-product.component.html',
-  styleUrls: ['./services-product.component.css']
+  selector: 'app-services-vendor',
+  templateUrl: './services-vendor.component.html',
+  styleUrls: ['./services-vendor.component.css']
 })
-export class ServicesProductComponent implements OnInit {
+export class ServicesVendorComponent implements OnInit {
   panelOpenState = false;
   category : Category[] = [];
   domicile : Domicile[] = [];
-  listProduct:Product[] = [];
   filter:filter={};
+  listVendor:Vendor[]=[];
   page:page={
     pageSize:20,
     pageIndex:0,
@@ -41,31 +41,23 @@ export class ServicesProductComponent implements OnInit {
     this.restService.getDomicile().subscribe((data) => {
       this.domicile = data;
     });
-    this.getDataProduct();
+    this.getDataVendor();
   }
 
-  getDataProduct(){
+  getDataVendor(){
     let params = new HttpParams().append('pagination',true)
-                                .append('pageSize',this.page.pageSize!)
-                                .append('pageIndex',this.page.pageIndex!);
-    if(this.filter.min != null) params = params.append('min',this.filter.min!);
-    if(this.filter.max != null) params = params.append('max',this.filter.max!);
+                                  .append('pageSize',this.page.pageSize!)
+                                  .append('pageIndex',this.page.pageIndex!);
+    if(this.filter.categoryId != null) params = params.append('category',this.filter.categoryId!.toString());
+    if(this.filter.domicileId != null) params = params.append('domicile',this.filter.domicileId!);
     if(this.filter.rating != null) params = params.append('rating',this.filter.rating!);
     if(this.filter.search != null) params = params.append('search',this.filter.search!);
     if(this.filter.sortBy == 'nameAsc'){
-      params = params.append('sortBy','name');
+      params = params.append('sortBy','usernameVendor');
       params = params.append('sortDir','asc');
     }
     if(this.filter.sortBy == 'nameDesc'){
-      params = params.append('sortBy','name');
-      params = params.append('sortDir','desc');
-    }
-    if(this.filter.sortBy == 'priceAsc'){
-      params = params.append('sortBy','price');
-      params = params.append('sortDir','asc');
-    }
-    if(this.filter.sortBy == 'priceDesc'){
-      params = params.append('sortBy','price');
+      params = params.append('sortBy','usernameVendor');
       params = params.append('sortDir','desc');
     }
     if(this.filter.sortBy == 'ratingAsc'){
@@ -76,31 +68,32 @@ export class ServicesProductComponent implements OnInit {
       params = params.append('sortBy','rating');
       params = params.append('sortDir','desc');
     }
-    this.restService.getAllProduct(params).subscribe((event)=>{
+    this.restService.getAllVendor(params).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
-        let data = Object(event.body)['products'];
-        this.listProduct = data;
+        let data = Object(event.body)['vendor'];
+        this.listVendor = data;
         this.page.length = Object(event.body)['length'];
       }
     })
   }
 
-  setSort(event:any){
-    this.getDataProduct();
-  }
-
   reset(){
     this.filter = {};
-    this.getDataProduct();
+    this.getDataVendor();
   }
 
   apply(){
-    this.getDataProduct();
+    this.getDataVendor();
+  }
+
+  setSort(event:any){
+    this.getDataVendor();
   }
 
   emitPaging(event:any){
+    console.log(event)
     this.page.pageIndex = event.pageIndex;
     this.page.pageSize = event.pageSize;
-    this.getDataProduct();
+    this.getDataVendor();
   }
 }

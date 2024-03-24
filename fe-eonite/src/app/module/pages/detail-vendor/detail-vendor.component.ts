@@ -1,4 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { RestApiServiceService } from '../../services/rest-api-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpEventType, HttpParams } from '@angular/common/http';
+import { page, Product, Vendor } from '../../models/auth.model';
+import * as moment from 'moment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detail-vendor',
@@ -8,22 +15,113 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class DetailVendorComponent implements OnInit {
   tabActive: boolean = true;
   show:boolean = false;
-  constructor() { }
+  categoryName:string[]=[];
+  listProduct:Product[] = [];
+  vendor?:Vendor;
+  domicile:string='-';
+  config: AngularEditorConfig = {
+    editable: false,
+    spellcheck: true,
+    minHeight: '20rem',
+    maxHeight: '20rem',
+    defaultFontName: 'Arial',
+    showToolbar: false,
+  };
+  page:page={
+    pageSize:20,
+    pageIndex:0,
+    length:0
+  }
+
+  constructor(private restService:RestApiServiceService, private router:ActivatedRoute,private routes:Router) { }
 
   ngOnInit(): void {
+    this.restService.getprofileVendor(this.router.snapshot.params['id']).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let data = Object(event.body)['vendor'];
+        this.vendor = data[0];
+        this.getCategory(this.vendor?.categoryVendors)
+        this.getDomicile(this.vendor?.domicile_id!)
+        this.getDataProduct();
+      }
+    })
+  }
+
+  getDataProduct(){
+    let params = new HttpParams().append('pagination',true)
+                                .append('pageSize',this.page.pageSize!)
+                                .append('pageIndex',this.page.pageIndex!)
+                                .append('id',this.vendor?.id!);
+    this.restService.getAllProduct(params).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let data = Object(event.body)['products'];
+        this.listProduct = data;
+        this.page.length = Object(event.body)['length'];
+      }
+    })
   }
 
   myFilter = (d: Date): boolean => {
-    const testDates: Date[] = [
-       new Date('2024-03-30T00:00'),
-       new Date('2024-03-28T00:00'),
-       new Date('2024-03-21T00:00'),
-       new Date('2024-03-23T00:00')
-     ];
+    const testDates: Date[] = [];
+     this.vendor?.inoperative_date?.forEach(e=>{
+      testDates.push(new Date(e));
+     })
      return testDates.findIndex(testDate => d.toDateString() === testDate.toDateString()) <= 0;
   }
 
   clickit(){
     this.show = !this.show;
   }
+
+  changeDate(date:string){
+    let dt = moment(date).utc().format('DD MMMM YYYY');
+    return dt;
+  }
+
+  changeFormatInoperative(listDate: string[]){
+    let dates:string[]=[];
+    if(listDate != null){
+      for(let i of listDate){
+        dates.push(this.changeDate(i))
+      }
+      return dates.toString();
+    }else return '-';
+  }
+
+  checkData(data:any){
+    if(data == null) return '-';
+    else return data;
+  }
+
+  checkTime(data:any){
+    if(data == null) return '00:00';
+    else return data.toString().substring(0,5);
+  }
+
+  getCategory(categoryId :any){
+    if(categoryId != null){
+      categoryId.forEach((e: any)=>{
+        this.restService.getCategorybyId(e.id).subscribe((data) => {
+          this.categoryName.push(data);
+        });
+      })
+    }
+  }
+
+  getDomicile(id: number){
+    this.restService.getDomicilebyId(id).subscribe((data) => {
+      this.domicile = data.name;
+    });
+  }
+
+  back(){
+    this.routes.navigate([`/services-vendor`])
+  }
+
+  emitPaging(event:any){
+    this.page.pageIndex = event.pageIndex;
+    this.page.pageSize = event.pageSize;
+    this.getDataProduct();
+  }
+
 }

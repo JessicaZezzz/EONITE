@@ -9,7 +9,7 @@
           <div class="flex flex-col md:flex-row border-b-2 border-gray-300 justify-between p-5 items-stretch">
             <div class="text-[#5C06E4] flex flex-col md:flex-row space-x-5">
               <div class="mt-2 mr-3">
-                <button style="rotate: 180deg;" class="w-10 h-10 rounded-full align-left absolute z-10">
+                <button (click)="back()" style="rotate: 180deg;" class="w-10 h-10 rounded-full align-left absolute z-10">
                   <svg aria-hidden="true" class="w-6 h-6 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                   fill="black">
                     <path fill-rule="evenodd"
@@ -19,35 +19,31 @@
                 </button>
               </div>
               <div class="mr-5 flex items-center justify-center md:justify-content self-center pl-5">
-                <div class="relative flex rounded-full h-[150px] bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  <img class="rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                <div class="relative flex rounded-full h-[150px] w-[150px] bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <img class="rounded-full" src="{{'data:image/jpg;base64,' + vendor?.photo}}">
                 </div>
               </div>
               <div>
-                <div class="font-semibold p-2 text-2xl border-b-2 border-[#5C06E4] text-center md:text-left">Luxe Voir Enterprise</div>
+                <div class="font-semibold p-2 text-2xl border-b-2 border-[#5C06E4] text-center md:text-left">{{ vendor?.usernameVendor }}</div>
                 <div class="grid grid-cols-2 p-2 max-w-2xl md:max-w-md">
                   <div class="flex flex-col mr-6">
                     <div class="flex flex-row mt-1 items-center">
                       <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-category-24.png">
-                      <span class="text-md">
-                        Entertaiment (Music)
+                      <span class="text-md flex flex-col space-y-1">
+                        <div *ngFor="let i of categoryName" class="text-center p-1 rounded-lg bg-indigo-100">
+                          {{ i }}
+                        </div>
                       </span>
                     </div>
                     <div class="flex flex-col mt-1">
                       <div class="flex flex-row items-center">
                         <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-location-50.png">
                         <span class="text-md">
-                          Jakarta
+                          {{ domicile }}
                         </span>
                       </div>
                       <span class="text-sm ml-3 text-gray-400 wrap-text">
-                        Jln. XXX No.2 Jakarta XXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
-                      </span>
-                    </div>
-                    <div class="flex flex-row mt-1 items-center">
-                      <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-price-50.png">
-                      <span class="text-md">
-                        10 - 15 jt
+                        {{ checkData(vendor?.address) }}
                       </span>
                     </div>
                     <div class="flex flex-row mt-1 items-center">
@@ -55,38 +51,32 @@
                         <path d="M8.10326 1.31699C8.47008 0.57374 9.52992 0.57374 9.89674 1.31699L11.7063 4.98347C11.8519 5.27862 12.1335 5.48319 12.4592 5.53051L16.5054 6.11846C17.3256 6.23765 17.6531 7.24562 17.0596 7.82416L14.1318 10.6781C13.8961 10.9079 13.7885 11.2389 13.8442 11.5632L14.5353 15.5931C14.6754 16.41 13.818 17.033 13.0844 16.6473L9.46534 14.7446C9.17402 14.5915 8.82598 14.5915 8.53466 14.7446L4.91562 16.6473C4.18199 17.033 3.32456 16.41 3.46467 15.5931L4.15585 11.5632C4.21148 11.2389 4.10393 10.9079 3.86825 10.6781L0.940384 7.82416C0.346867 7.24562 0.674378 6.23765 1.4946 6.11846L5.54081 5.53051C5.86652 5.48319 6.14808 5.27862 6.29374 4.98347L8.10326 1.31699Z"
                             fill="#ffd233" />
                       </svg>
-                      <span span class="text-md">4.9</span>
+                      <span span class="text-md">{{ vendor?.rating }}</span>
                     </div>
                   </div>
                   <div class="flex flex-col">
                     <div class="flex flex-row mt-1 items-center">
                       <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-clock-24.png">
                       <span class="text-md">
-                        08:00 - 18:00
+                        {{ checkTime(vendor?.startTime) }} - {{ checkTime(vendor?.endTime) }}
                       </span>
                     </div>
                     <div class="flex flex-row items-center mt-1">
                       <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-phone-26.png">
                       <span class="text-md">
-                        08717264859272
+                        {{ vendor?.phoneBusiness }}
                       </span>
                     </div>
                     <div class="flex flex-row mt-1 items-center text-wrap">
                       <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-email-24.png">
                       <span class="text-md">
-                        luxe organizergmail.com
+                        {{ vendor?.email }}
                       </span>
                     </div>
                     <div class="flex flex-row mt-1 items-center">
                       <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-instagram.svg">
                       <span class="text-md ">
-                        luxevoirentp
-                      </span>
-                    </div>
-                    <div class="flex flex-row mt-1 items-center">
-                      <img class="h-4 w-auto mr-1" src="/assets/icon/icons8-twitter.svg">
-                      <span class="text-md">
-                        luxe.voir
+                        {{ checkData(vendor?.instagram_url) }}
                       </span>
                     </div>
                   </div>
@@ -97,12 +87,12 @@
               <button (click)="clickit()"
                       class="h-[40px] flex items-center px-4 py-2 text-white font-semibold bg-[#5C06E4] rounded-md active w-[120px] mr-2 md:mb-2 lg:mr-0">
                 <img class="h-5 w-auto mr-1" src="/assets/icon/icons8-calender-64.png">
-                <span>Schedule</span>
+                <div class="text-white font-medium">Schedule</div>
               </button>
-              <button class="h-[40px] flex items-center px-4 py-2 text-white font-semibold bg-[#5C06E4] rounded-md active w-[120px]" style="margin: 0 !important;">
+              <!-- <button class="h-[40px] flex items-center px-4 py-2 text-white font-semibold bg-[#5C06E4] rounded-md active w-[120px]" style="margin: 0 !important;">
                 <img class="h-5 mr-1" src="/assets/icon/icons8-chat-24.png">
                 <span>Chat</span>
-              </button>
+              </button> -->
             </div>
           </div>
           <div *ngIf="show" class="bg-black/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
@@ -112,10 +102,10 @@
                     <button (click)="clickit()" type="button" #closebutton class="text-3xl absolute right-4" data-dismiss="modal">&times;</button>
                     <mat-calendar [dateFilter]="myFilter"></mat-calendar>
                   </div>
-                  <div class="w-full flex flex-col justify-between items-start bg-indigo-400 mb-2 py-4 px-3">
+                  <div class="w-full flex flex-col justify-between items-start bg-[#d6bcff] mb-2 py-3 px-3">
                     <div>
-                        <h4 class="text-gray-800 font-bold mb-3">Notes:</h4>
-                        <p class="text-gray-800 text-sm">Disable dates means vendor not available in that day</p>
+                        <div class="text-gray-800 font-bold mb-1">Notes:</div>
+                        <p class="text-gray-800 text-sm">Disabled dates indicate that the vendor is not available or already fully booked</p>
                     </div>
                   </div>
                 </div>
@@ -128,110 +118,17 @@
                   <span class="tab-text">Detail</span>
                 </ng-template>
                 <div class="p-2">
-                  <span>
-                    Service include:
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    Facilities include:
-                  </span>
+                  <div class="sm:col-span-full">
+                    <angular-editor [config]="config" [(ngModel)]="vendor!.description"></angular-editor>
+                  </div>
                 </div>
               </mat-tab>
               <mat-tab>
                 <ng-template mat-tab-label>
                   <span class="tab-text">Product</span>
                 </ng-template>
-                <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2 items-stretch">
-                  <!-- Card Product -->
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                        See Detail</a>
-                    </div>
-                  </div>
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                        See Detail</a>
-                    </div>
-                  </div>
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                        See Detail</a>
-                    </div>
-                  </div>
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                        See Detail</a>
-                    </div>
-                  </div>
-                  <div class="flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
-                    <a class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl" href="#">
-                      <img class="peer absolute top-0 right-0 h-full w-full object-cover" src="/assets/icon/birthday.jpg" alt="product image" />
-                      <img class="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0" src="/assets/icon/graduation.jpg" alt="product image" />
-                      <svg class="pointer-events-none absolute inset-x-0 bottom-5 mx-auto text-3xl text-white  transition-opacity group-hover:animate-ping group-hover:opacity-30 peer-hover:opacity-0" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32"><path fill="currentColor" d="M2 10a4 4 0 0 1 4-4h20a4 4 0 0 1 4 4v10a4 4 0 0 1-2.328 3.635a2.996 2.996 0 0 0-.55-.756l-8-8A3 3 0 0 0 14 17v7H6a4 4 0 0 1-4-4V10Zm14 19a1 1 0 0 0 1.8.6l2.7-3.6H25a1 1 0 0 0 .707-1.707l-8-8A1 1 0 0 0 16 17v12Z" /></svg>
-                      <!-- <span class="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white">39% OFF</span> -->
-                    </a>
-                    <div class="mt-4 px-5 pb-5">
-                      <div class="text-md tracking-tight text-slate-900">Wedding celebration by XXX</div>
-                      <div class="mt-1 mb-1 flex items-center justify-between">
-                        <p>
-                          <span class="text-lg font-bold text-slate-900 text-center">Rp 25.000.000,00</span>
-                        </p>
-                      </div>
-                      <a href="/product/1" class="flex items-center justify-center rounded-md bg-[#5C06E4] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                        See Detail</a>
-                    </div>
-                  </div>
-                  <!-- End -->
+                <div class="w-full p-2">
+                  <app-list-product [data]="listProduct" [paging]="page" (pages)="emitPaging($event)"></app-list-product>
                 </div>
               </mat-tab>
             </mat-tab-group>

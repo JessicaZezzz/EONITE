@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { Product } from '../../models/auth.model';
+import { RestApiServiceService } from '../../services/rest-api-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-detail-product',
@@ -9,6 +13,8 @@ import { Location } from '@angular/common';
 export class DetailProductComponent implements OnInit {
   openCart: boolean = false;
   zoomImage:boolean = false;
+  vendorId?:number;
+  vendorName?:string;
   scale:string ='50%';
   review : review[]=[
     {
@@ -37,22 +43,27 @@ export class DetailProductComponent implements OnInit {
       total:20
     },
   ];
-  image:string[]=[
-    'https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg',
-    'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg',
-    'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg',
-    'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg',
-    'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg',
-    'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg',
-    'https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg'
-  ]
+  image:string[]=[]
   cover:string='';
+  product? :Product;
 
-  constructor(private location: Location) {
+  constructor(private location: Location,private restService:RestApiServiceService,private router:ActivatedRoute,private routes:Router) {
     this.cover =this.image[0];
   }
 
   ngOnInit(): void {
+    this.restService.getDetailProductById(this.router.snapshot.params['id']).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let data = Object(event.body)['products'];
+        this.product = data[0];
+        this.vendorId =  Object(event.body)['vendorId'];
+        this.vendorName = Object(event.body)['usernameVendor'];
+      }
+      this.product?.photo.forEach(e=>{
+        this.image.push('data:image/jpeg;base64,'+e.image)
+      })
+      if(this.image.length > 0) this.cover=this.image[0];
+    })
   }
 
   addtoCart(){
@@ -73,6 +84,14 @@ export class DetailProductComponent implements OnInit {
 
   back(){
     this.location.back();
+  }
+
+  formatPrice(number:string){
+    return number.substring(2)
+  }
+
+  redirectVendor(){
+    this.routes.navigate([`/details/${this.vendorId}`])
   }
 }
 

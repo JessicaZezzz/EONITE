@@ -67,6 +67,10 @@ import { CurrencyPipe } from './module/services/currency.pipe';
 import { AddProductComponent } from './module/pages/add-product/add-product.component';
 import { EditProductComponent } from './module/pages/edit-product/edit-product.component';
 import { EditProfileUserComponent } from './module/pages/edit-profile-user/edit-profile-user.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { ServicesVendorComponent } from './module/pages/services-vendor/services-vendor.component';
+import { ListProductComponent } from './module/pages/list-product/list-product.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -111,6 +115,8 @@ import { EditProfileUserComponent } from './module/pages/edit-profile-user/edit-
     AddProductComponent,
     EditProductComponent,
     EditProfileUserComponent,
+    ServicesVendorComponent,
+    ListProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -138,6 +144,8 @@ import { EditProfileUserComponent } from './module/pages/edit-profile-user/edit-
     MatTreeModule,
     MatRadioModule,
     MatSelectModule,
+    MatPaginatorModule,
+    MatTooltipModule
   ],
   entryComponents: [CartComponent],
   providers: [

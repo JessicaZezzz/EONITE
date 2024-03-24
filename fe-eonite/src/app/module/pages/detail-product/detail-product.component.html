@@ -22,13 +22,14 @@
               <div class="grid gap-4">
                 <div>
                   <div class="img-wrapper hover:cursor-pointer">
-                    <img class="h-auto max-w-full rounded-lg zoom" [src]="cover" alt="">
+                    <img *ngIf="cover ==''" class="h-auto max-w-full rounded-lg zoom" src="../assets/icon/bg-default.png" alt="">
+                    <img *ngIf="cover !=''" class="h-auto max-w-full rounded-lg zoom" [src]="cover" alt="">
                     <div class="content fade" (click)="onClick($event)">
                       <img [src]="'./assets/icon/icons8-zoom-in-52.png'" alt="">
                     </div>
                   </div>
                   <!-- Modal Image -->
-                  <div *ngIf="zoomImage" class="bg-black/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
+                  <div *ngIf="zoomImage && cover !=''" class="bg-black/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
                     <div class="relative p-4 w-full max-w-4xl max-h-full">
                         <div class="relative  shadow ">
                             <div class="p-2 text-end">
@@ -47,29 +48,31 @@
                   <div *ngFor="let i of image">
                     <button (click)="changeImg(i)">
                       <img  class="h-auto max-w-full rounded-lg hover:scale-110 transition duration-500 cursor-pointer object-cover"
-                            [src]="i" alt="">
+                            src={{i}} alt="">
                     </button>
                   </div>
                 </div>
               </div>
             </div>
             <div class="md:flex-1 px-4">
-              <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">Lorem ipsum dolor, sit amet consectetur, adipisicing elit.</h2>
-              <p class="text-gray-500 text-sm">By <a href="#" class="text-indigo-600 hover:underline">ABC Company</a></p>
+              <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">{{ product!.name }}</h2>
+              <p class="text-gray-500 text-sm">By <button (click)="redirectVendor()" class="text-indigo-600 hover:underline">{{ vendorName }}</button></p>
 
               <div class="flex items-center space-x-4 my-4">
                 <div>
                   <div class="rounded-lg bg-gray-100 flex py-2 px-3">
                     <span class="text-indigo-400 mr-1 mt-1">Rp</span>
-                    <span class="font-bold text-indigo-600 text-3xl">250.000,00</span>
+                    <span class="font-bold text-indigo-600 text-3xl">{{ formatPrice(product!.price! | currency) }}</span>
                   </div>
                 </div>
                 <div class="flex-1">
-                  <p class="text-green-500 text-xl font-semibold">New!</p>
+                  <!-- <p class="text-green-500 text-xl font-semibold">New!</p> -->
                   <!-- <p class="text-gray-400 text-sm">Inclusive of all Taxes.</p> -->
                 </div>
               </div>
-              <p class="text-gray-500">Lorem ipsum, dolor sit, amet consectetur adipisicing elit. Vitae exercitationem porro saepe ea harum corrupti vero id laudantium enim, libero blanditiis expedita cupiditate a est.</p>
+              <div class="text-gray-500 font-semibold">Capacity : {{ product!.capacity }}</div>
+              <p class="text-gray-500 font-semibold">Description :</p>
+              <p class="text-gray-500">{{ product!.description }}</p>
               <div class="flex py-1 space-x-4">
                 <button (click)="addtoCart()"
                         type="button"  class="py-3 px-4 font-semibold rounded-md bg-indigo-600 hover:bg-indigo-500 text-white">

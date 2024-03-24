@@ -13,7 +13,7 @@ export class RestApiServiceService {
     "Accept": "application/json",
     'Authorization': `Bearer ${sessionStorage.getItem('ACCESS_TOKEN')}`
   });
-  
+
   constructor(private http: HttpClient) {}
 
   getCategory(): Observable<any>{
@@ -89,8 +89,8 @@ export class RestApiServiceService {
 
   getprofileVendor(id:number){
     let params = new HttpParams().append('id',id);
-    let path = `${environment.apiUrl}/vendor/vendorProfile`;
-    const request = new HttpRequest('GET',path,{params:params,headers:this.headers})
+    let path = `${environment.apiUrl}/public/vendorProfile`;
+    const request = new HttpRequest('GET',path,{params:params})
     return this.http.request(request).pipe(timeout(200000));
   }
 
@@ -112,6 +112,18 @@ export class RestApiServiceService {
     let params = new HttpParams().append('id',id);
     let path = `${environment.apiUrl}/public/getProductbyId`;
     const request = new HttpRequest('GET',path,{params:params})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getAllVendor(param : HttpParams){
+    let path = `${environment.apiUrl}/public/getallVendor`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getAllProduct(param : HttpParams){
+    let path = `${environment.apiUrl}/public/getallProduct`;
+    const request = new HttpRequest('GET',path,{params:param})
     return this.http.request(request).pipe(timeout(200000));
   }
 

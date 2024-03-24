@@ -22,6 +22,7 @@ import { ProfileVendorComponent } from './module/pages/profile-vendor/profile-ve
 import { ProductComponent } from './module/pages/product/product.component';
 import { ServicesProductComponent } from './module/pages/services-product/services-product.component';
 import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/edit-profile-vendor.component';
+import { ServicesVendorComponent } from './module/pages/services-vendor/services-vendor.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,10 @@ const routes: Routes = [
     component: SignUpVendorComponent,
   },
   {
+    path:'services-vendor',
+    component: ServicesVendorComponent,
+  },
+  {
     path:'services',
     component: ServicesComponent,
   },
@@ -71,35 +76,41 @@ const routes: Routes = [
   {
     path:'cart',
     component: CartComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'transaction',
     component: TransactionComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'profile-user',
     component: ProfileUserComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'profile-vendor',
     component: ProfileVendorComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'edit-profile-vendor',
     component: EditProfileVendorComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'transaction-details/:id',
     component: TransactionDetailComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'product-vendor',
     component: ProductComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'faq',
-    component: FaqComponent,
-    canActivate: [AuthGuard]
+    component: FaqComponent
   },
   {
     path: 'logout',
