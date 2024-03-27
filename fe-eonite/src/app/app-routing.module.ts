@@ -23,6 +23,8 @@ import { ProductComponent } from './module/pages/product/product.component';
 import { ServicesProductComponent } from './module/pages/services-product/services-product.component';
 import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/edit-profile-vendor.component';
 import { ServicesVendorComponent } from './module/pages/services-vendor/services-vendor.component';
+import { TransactionVendorComponent } from './module/pages/transaction-vendor/transaction-vendor.component';
+import { TransactionVendorDetailsComponent } from './module/pages/transaction-vendor-details/transaction-vendor-details.component';
 
 const routes: Routes = [
   {
@@ -84,6 +86,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path:'transaction-vendor',
+    component: TransactionVendorComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path:'profile-user',
     component: ProfileUserComponent,
     canActivate: [AuthGuard]
@@ -101,6 +108,11 @@ const routes: Routes = [
   {
     path:'transaction-details/:id',
     component: TransactionDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'transaction-vendor-details/:id',
+    component: TransactionVendorDetailsComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -123,7 +135,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    scrollPositionRestoration:'top'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

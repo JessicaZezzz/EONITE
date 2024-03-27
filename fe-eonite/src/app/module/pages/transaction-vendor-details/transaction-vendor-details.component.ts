@@ -6,16 +6,15 @@ import { HttpEventType } from '@angular/common/http';
 import { Transaction } from '../../models/auth.model';
 import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogCancelTransactionComponent } from '../dialog-cancel-transaction/dialog-cancel-transaction.component';
-import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-transaction-detail',
-  templateUrl: './transaction-detail.component.html',
-  styleUrls: ['./transaction-detail.component.css']
+  selector: 'app-transaction-vendor-details',
+  templateUrl: './transaction-vendor-details.component.html',
+  styleUrls: ['./transaction-vendor-details.component.css']
 })
-export class TransactionDetailComponent implements OnInit {
+export class TransactionVendorDetailsComponent implements OnInit {
   Form!: FormGroup;
   payments: any;
   urlImage?:any;
@@ -23,20 +22,12 @@ export class TransactionDetailComponent implements OnInit {
   error:string='';
   starRating:number = 0;
   list?: Transaction;
-  bankAccount?: string;
-  constructor(private route: ActivatedRoute,private routes:Router,private restService:RestApiServiceService,private dialog:MatDialog) {
+  
+  constructor(private dialog:MatDialog,private route: ActivatedRoute,private routes:Router,private restService:RestApiServiceService) {
     this.getData(this.route.snapshot.params['id']);
   }
 
   ngOnInit(): void {
-    this.Form = new FormGroup({
-      name: new FormControl(this.bankAccount, [
-        Validators.required,
-      ]),
-      payment: new FormControl(this.payments, [
-        Validators.required,
-      ])
-    });
   }
 
   getData(id:number): void {
@@ -44,22 +35,8 @@ export class TransactionDetailComponent implements OnInit {
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['transaction'];
         this.list=data;
-        if(this.list?.payment.state != 'NONE'){
-          console.log(this.list?.payment.state)
-          this.urlImage = 'data:image/jpg;base64,'+this.list?.payment.image;
-          this.Form.get('payment')!.setValue(this.urlImage);
-          this.Form.get('name')!.setValue(this.list?.payment.bankAccount);
-        }
       }
     })
-  }
-
-  get name() {
-    return this.Form.get('name')!;
-  }
-
-  get payment() {
-    return this.Form.get('payment')!;
   }
 
   deletePhoto(){
@@ -95,7 +72,7 @@ export class TransactionDetailComponent implements OnInit {
   }
 
   back(){
-    this.routes.navigate([`/transaction`])
+    this.routes.navigate([`/transaction-vendor`])
   }
 
   changeFormatDate(dtae:string){
@@ -128,33 +105,6 @@ export class TransactionDetailComponent implements OnInit {
     });
   }
 
-  onSubmit(){
-    if (this.Form.invalid) {
-      for (const control of Object.keys(this.Form.controls)) {
-        this.Form.controls[control].markAsTouched();
-      }
-    }else this.updatePayment();
-  }
-
-  updatePayment(){
-    let postTrans :uploadPayment={};
-    postTrans.transId = this.list?.id;
-    postTrans.bankAccount = this.Form.value.name;
-    postTrans.image = this.urlImage.substring(23);
-    this.restService.updatePayment(JSON.stringify(postTrans)).subscribe(event => {
-      if(event.statusCode == 200){
-        const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Transaction updated successfully',
-        });
-        this.back();
-
-      }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
-      }
-    })
-  }
-
 }
 
 export interface postTransaction{
@@ -163,10 +113,4 @@ export interface postTransaction{
   action?:string;
   description?:string;
   quest?:string;
-}
-
-export interface uploadPayment{
-  transId?:number;
-  bankAccount?:string;
-  image?:any;
 }

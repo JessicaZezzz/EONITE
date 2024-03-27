@@ -1,0 +1,8 @@
+.mat-paginator{
+  background-color: transparent !important;
+}
+.overflow-text {
+  white-space: nowrap;      /* Prevent text from wrapping */
+  overflow: hidden;         /* Hide overflow text */
+  text-overflow: ellipsis;  /* Display ellipsis (...) when text overflows */
+}

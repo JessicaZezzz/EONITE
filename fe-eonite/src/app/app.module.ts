@@ -71,6 +71,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ServicesVendorComponent } from './module/pages/services-vendor/services-vendor.component';
 import { ListProductComponent } from './module/pages/list-product/list-product.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TransactionVendorComponent } from './module/pages/transaction-vendor/transaction-vendor.component';
+import { TransactionVendorDetailsComponent } from './module/pages/transaction-vendor-details/transaction-vendor-details.component';
+import { DialogCancelTransactionComponent } from './module/pages/dialog-cancel-transaction/dialog-cancel-transaction.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +120,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     EditProfileUserComponent,
     ServicesVendorComponent,
     ListProductComponent,
+    TransactionVendorComponent,
+    TransactionVendorDetailsComponent,
+    DialogCancelTransactionComponent,
   ],
   imports: [
     BrowserModule,

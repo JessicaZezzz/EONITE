@@ -63,7 +63,7 @@ export const DROPDOWN_VENDOR:MENU[]=[
   },
   {
     name : 'Transaction',
-    link : '/transaction'
+    link : '/transaction-vendor'
   },
   {
     name : 'Logout',
@@ -158,7 +158,7 @@ export interface Product{
   description?  : string;
   capacity?     : number;
   rating?       : number;
-  photo         : Photo[];
+  photo        : Photo[];
 }
 
 export class Photo{
@@ -170,4 +170,25 @@ export interface page{
   pageSize?:number;
   pageIndex?:number;
   length?:number;
+}
+
+export interface Transaction{
+  id?           :number;
+  description?  :string;
+  payment?      :any;
+  state?        :string;
+  total?        :number;
+  transdate?    :string;
+  invoice?      :string;
+  transDet      :TransDet[];
+  vendor?       :Vendor;
+  user?         :User;
+}
+
+export interface TransDet{
+  id?           :number;
+  bookdate?     :string;
+  product?      :Product;
+  productReview?:any;
+  quantity?     :number;
 }

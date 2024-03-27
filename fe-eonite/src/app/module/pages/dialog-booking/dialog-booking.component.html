@@ -35,7 +35,11 @@
         <div class="text-md font-semibold text-[#5C06E4] mr-2 mt-2">Grand Total</div>
         <div class="text-lg font-semibold mt-2">{{ grandTotal|currency }}</div>
       </div>
-      <div class="text-sm text-center text-[#5C06E4]">Dengan melakukan booking, anda sudah setuju dengan <a href="#"><b>Terms and Condition EONITE</b></a></div>
+      <div class="mb-1 w-full">
+        <div class="flex tex-left justify-start font-semibold">Notes:</div>
+        <textarea rows="3" class="w-full border-gray-300 border-2 rounded-md p-2" [(ngModel)]="desc"></textarea>
+      </div>
+      <div class="text-xs text-center text-[#5C06E4]">Dengan melakukan booking, anda sudah setuju dengan <a href="#"><b>Terms and Condition EONITE</b></a></div>
     </div>
   </div>
   <div class="px-4 py-3 flex flex-row sm:px-6 justify-center space-x-3">

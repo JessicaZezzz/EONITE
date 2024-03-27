@@ -158,6 +158,37 @@ export class RestApiServiceService {
     return this.http.post(`${environment.apiUrl}/trans/addTransaction`,body,{headers:this.headers});
   }
 
+  getTransactionUser(id:number,state:string){
+    let param = new HttpParams().append('id',id)
+                                .append('state',state);
+    let path = `${environment.apiUrl}/trans/getTransactionUsers`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getTransactionVendor(id:number,state:string){
+    let param = new HttpParams().append('id',id)
+                                .append('state',state);
+    let path = `${environment.apiUrl}/trans/getTransactionVendor`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getDetailTransaction(id:number){
+    let param = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/trans/getTransaction`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  updateTransaction(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/trans/updateState`,body,{headers:this.headers});
+  }
+
+  updatePayment(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/trans/updatePayment`,body,{headers:this.headers});
+  }
+
   loginUser(body: any): Observable<any>{
     let headers = new HttpHeaders({
       "Content-Type": "application/json",

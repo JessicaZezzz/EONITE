@@ -6,12 +6,11 @@ import { Transaction } from '../../models/auth.model';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-transaction',
-  templateUrl: './transaction.component.html',
-  styleUrls: ['./transaction.component.css']
+  selector: 'app-transaction-vendor',
+  templateUrl: './transaction-vendor.component.html',
+  styleUrls: ['./transaction-vendor.component.css']
 })
-export class TransactionComponent implements OnInit {
-
+export class TransactionVendorComponent implements OnInit {
   listAll       : Transaction[]     =[];
   listConfirmation : Transaction[]  =[];
   listPayment   :Transaction[]      =[];
@@ -34,7 +33,7 @@ export class TransactionComponent implements OnInit {
   }
 
   getTransaction(state:string): void {
-    this.restService.getTransactionUser(Number(sessionStorage.getItem('ID')),state).subscribe((event)=>{
+    this.restService.getTransactionVendor(Number(sessionStorage.getItem('ID')),state).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['transactions'];
         switch(state){
@@ -77,6 +76,7 @@ export class TransactionComponent implements OnInit {
   }
 
   redirectDetail(id:number){
-    this.router.navigate(['transaction-details', id]);
+    this.router.navigate(['transaction-vendor-details', id]);
   }
+
 }

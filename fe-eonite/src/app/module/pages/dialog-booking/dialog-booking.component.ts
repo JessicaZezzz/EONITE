@@ -17,6 +17,7 @@ export class DialogBookingComponent implements OnInit {
   grandTotal:number=0;
   cartData: Product[] = [];
   vendor?:Vendor;
+  desc:string='';
 
   @Output() openBooking = new EventEmitter<boolean>();
   @ViewChild('picker', { static: true }) _picker?: MatDatepicker<Date>;
@@ -65,13 +66,15 @@ export class DialogBookingComponent implements OnInit {
     let carts:postCart={
       userId: 0,
       vendorId: 0,
-      cartId: []
+      cartId: [],
+      description:'',
     };
     carts.userId = Number(sessionStorage.getItem('ID'));
     carts.vendorId = this.vendor?.id!;
     this.cartData.forEach(element => {
       carts.cartId.push(element.id);
     });
+    carts.description = this.desc;
 
     this.restService.addBooking(JSON.stringify(carts)).subscribe(event => {
       if(event.statusCode == 200){
@@ -92,6 +95,7 @@ export interface postCart{
   userId:number;
   vendorId:number;
   cartId:number[];
+  description:string;
 }
 export interface Product {
   id:number;

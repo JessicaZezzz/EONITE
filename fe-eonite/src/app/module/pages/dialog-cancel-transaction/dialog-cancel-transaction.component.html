@@ -1,0 +1,20 @@
+<div class="flex flex-col p-4 text-center sm:p-5 justify-center items-center">
+  <img src="../assets/icon/icons8-transaction-list-64.png" alt="">
+  <div class="">{{ quest }}</div>
+  <div *ngIf="this.data.action == 'CANCEL_USER' || this.data.action == 'CANCEL_VENDOR'" class="w-full">
+    <div class="font-semibold">
+      Reason for canceling transaction
+    </div>
+    <input type="text" minlength="1" maxlength="50" [(ngModel)]="alasanReject"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+  </div>
+  <div class="text-[10px] text-center text-red-500 mb-2">By taking this action you agree to <a href="#"><b>Terms and Condition EONITE</b></a></div>
+  <div class="flex justify-center items-center space-x-4">
+      <button (click)="onNoClick()" data-modal-toggle="deleteModal" type="button" class="rounded-md px-7 md:px-5 py-2 text-white bg-indigo-600 hover:bg-indigo-500">
+          No, cancel
+      </button>
+      <button (click)="submit()" class="md:ml-3 rounded-md px-5 py-2 text-white bg-red-600 hover:bg-red-500">
+          Yes, I'm sure
+      </button>
+  </div>
+</div>
