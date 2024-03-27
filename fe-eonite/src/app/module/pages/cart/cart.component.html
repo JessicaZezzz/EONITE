@@ -48,7 +48,7 @@
                                           [indeterminate]="checkIndeterminate(element.vendorId)">
                             </mat-checkbox>
                         </th>
-                        <td *matCellDef="let row; let i = index;" >
+                        <td *matCellDef="let row; let i = index;">
                             <mat-checkbox (click)="$event.stopPropagation()"
                                           (change)="$event ? userSelectionMap.get(element.vendorId)?.toggle(row) : null"
                                           [checked]="userSelectionMap.get(element.vendorId)?.isSelected(row)">

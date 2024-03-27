@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<div class="flex w-full justify-end mt-3" *ngIf="paging?.length!>0">
+<div class="flex justify-end mt-3" *ngIf="paging?.length!>0">
   <mat-paginator  [length]="paging?.length!"
                   [pageSize]="paging?.pageSize!"
                   [pageSizeOptions]="[20,50, 100]"

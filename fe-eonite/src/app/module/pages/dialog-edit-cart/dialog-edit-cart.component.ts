@@ -109,7 +109,6 @@ export class DialogEditCartComponent implements OnInit {
     if(this.model.length >= 1 && this.data.quantity >=1){
        this.updateCart();
     }
-    console.log(this.data.quantity)
   }
 
   updateCart(){
@@ -127,7 +126,7 @@ export class DialogEditCartComponent implements OnInit {
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
           data: 'Success Update Product In Cart',
         });
-        this.onNoClick();
+        this.dialogRef.close(true);
 
       }else if(event.statusCode == 500){
         // this.error='Email is already registered, please use another email';
@@ -137,7 +136,7 @@ export class DialogEditCartComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }
 

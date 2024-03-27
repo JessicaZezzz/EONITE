@@ -1,5 +1,11 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Vendor } from '../../models/auth.model';
+import { HttpEventType, HttpParams } from '@angular/common/http';
+import { RestApiServiceService } from '../../services/rest-api-service.service';
+import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
 
 @Component({
   selector: 'app-dialog-booking',
@@ -8,77 +14,94 @@ import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepi
 })
 export class DialogBookingComponent implements OnInit {
   public CLOSE_ON_SELECTED = false;
-  public init = new Date();
-  public resetModel = new Date(0);
-  public qty = 1;
-  public display = false;
-  public model = [
-    new Date('7/15/1966'),
-    new Date('3/23/1968'),
-    new Date('7/4/1992'),
-    new Date('1/25/1994'),
-    new Date('6/17/1998')
-  ];
+  grandTotal:number=0;
+  cartData: Product[] = [];
+  vendor?:Vendor;
 
   @Output() openBooking = new EventEmitter<boolean>();
   @ViewChild('picker', { static: true }) _picker?: MatDatepicker<Date>;
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<DialogBookingComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private restService:RestApiServiceService,private dialog:MatDialog,) {  }
 
   ngOnInit(): void {
+    this.cartData = this.data
+    this.cartData.forEach(element => {
+      let price = element.productPrice * element.quantity;
+      this.grandTotal += price;
+    });
+    this.getDataVendor();
   }
 
-  public dateClass = (date: Date) => {
-    if (this._findDate(date) !== -1) {
-      return [ 'selected' ];
-    }
-    return [ ];
+  onNoClick(): void {
+    this.dialogRef.close(false);
   }
 
-  public dateChanged(event: MatDatepickerInputEvent<Date>): void {
-    if (event.value) {
-      const date = event.value;
-      const index = this._findDate(date);
-      if (index === -1) {
-        this.model.push(date);
-      } else {
-        this.model.splice(index, 1)
+  getDataVendor(){
+    this.restService.getprofileVendor(this.cartData[0]?.vendorId!).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let data = Object(event.body)['vendor'];
+        this.vendor = data[0];
       }
-      this.resetModel = new Date(0);
-      if (!this.CLOSE_ON_SELECTED) {
-        const closeFn = this._picker!.close;
-        this._picker!.close = () => { };
-        this._picker!['_componentRef'].instance._calendar.monthView._createWeekCells()
-        setTimeout(() => {
-          this._picker!.close = closeFn;
+    })
+  }
+
+  changeFormatDate(dtae:string){
+    let dt = dtae.split(',');
+    let dates:string[]=[];
+    if(dtae != null){
+      for(let i of dt){
+        var year = i.substring(6, 10);
+        var month = i.substring(3, 5);
+        var day = i.substring(0, 2);
+        var datePipe = new DatePipe("en-US");
+        dates.push(datePipe.transform(new Date(parseInt(year),parseInt(month)-1,parseInt(day)),"dd MMMM YYYY")!)
+      }
+      return dates.toString();
+    }else return '-';
+  }
+
+  submitBooking(){
+    let carts:postCart={
+      userId: 0,
+      vendorId: 0,
+      cartId: []
+    };
+    carts.userId = Number(sessionStorage.getItem('ID'));
+    carts.vendorId = this.vendor?.id!;
+    this.cartData.forEach(element => {
+      carts.cartId.push(element.id);
+    });
+
+    this.restService.addBooking(JSON.stringify(carts)).subscribe(event => {
+      if(event.statusCode == 200){
+        const dialogRef = this.dialog.open(DialogSuccessComponent, {
+          data: 'Success Add Booking',
         });
+        this.dialogRef.close(true);
+
+      }else if(event.statusCode == 500){
+        // this.error='Email is already registered, please use another email';
+        // this.openDialogErrorDiv = true;
       }
-    }
+    })
   }
+}
 
-  public remove(date: Date): void {
-    const index = this._findDate(date);
-    this.model.splice(index, 1)
-  }
-
-  private _findDate(date: Date): number {
-    return this.model.map((m) => +m).indexOf(+date);
-  }
-
-  add(){
-    this.qty++;
-  }
-
-  min(){
-    if(this.qty != 1) this.qty--;
-  }
-
-  close(){
-    this.openBooking.emit(false);
-  }
-
-  submitCart(){
-    // add to cart endpoint
-    this.display = true;
-  }
+export interface postCart{
+  userId:number;
+  vendorId:number;
+  cartId:number[];
+}
+export interface Product {
+  id:number;
+  photo:string;
+  productId:number;
+  productName:string;
+  productPrice:number;
+  productRating:number;
+  quantity: number;
+  usernameVendor:string;
+  bookdate?: string;
+  vendorId?:number;
 }

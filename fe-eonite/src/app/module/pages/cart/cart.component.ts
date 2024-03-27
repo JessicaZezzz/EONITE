@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewChildren, QueryList} from '@angular/core';
+import { Component, ViewChild, ViewChildren, QueryList, OnInit} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -8,6 +8,9 @@ import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { HttpEventType } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
+import { DialogBookingComponent } from '../dialog-booking/dialog-booking.component';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +18,7 @@ import { DialogSuccessComponent } from '../dialog-success/dialog-success.compone
   styleUrls: ['./cart.component.css']
 })
 
-export class CartComponent{
+export class CartComponent implements OnInit {
   @ViewChild('outerSort', { static: true }) sort!: MatSort;
   @ViewChildren('innerSort') innerSort!: QueryList<MatSort>;
   @ViewChildren('innerTables') innerTables!: QueryList<MatTable<Product>>;
@@ -27,12 +30,11 @@ export class CartComponent{
   cartData: Vendor[] = [];
   columnsToDisplay = ['image','name','action'];
   innerDisplayedColumns = ['select', 'productName', 'qty','date','price','action'];
-  userSelection = new SelectionModel<any>(true, []);
   userSSelection = new SelectionModel<any>(true, []);
   userSelectionMap: Map<number, SelectionModel<any>> = new Map<number,SelectionModel<any>>();
   error:string='';
 
-  constructor(private datePipe: DatePipe,private dialog:MatDialog, private restService:RestApiServiceService) {}
+  constructor(private datePipe: DatePipe,private dialog:MatDialog, private restService:RestApiServiceService,private router:Router) {}
 
   ngOnInit() {
     this.getDataCart()
@@ -40,8 +42,9 @@ export class CartComponent{
 
   getDataCart(){
     this.data=[];
+    this.listCart=[];
     let groupedData: any;
-    this.restService.getCart(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
+    this.restService.getCart(Number(sessionStorage.getItem('ID')!)).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         this.listCart = Object(event.body)['cartItems'];
       }
@@ -84,7 +87,6 @@ export class CartComponent{
     this.dataSource.data.forEach(row=>{
       this.userSelectionMap.set(row.vendorId, new SelectionModel<any>(true,[]));
     })
-    console.log(this.userSelectionMap)
   }
 
   changeFormatDate(dtae:string){
@@ -100,13 +102,22 @@ export class CartComponent{
       }
       return dates.toString();
     }else return '-';
- }
+  }
 
   createBooking(){
-    //call dialog booking
-    console.log(this.userSelectionMap)
-    console.log(this.userSSelection)
-    console.log(this.userSelection)
+    let cart :any;
+    this.userSelectionMap.forEach(e=>{
+      if(e.selected.length>0) cart = e;
+    })
+    const dialogRef = this.dialog.open(DialogBookingComponent, {
+      data:cart._selected
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) window.location.reload();
+      else this.data.forEach((e)=>{
+        this.userSelectionMap.get(e.vendorId)!.clear()
+      })
+    });
   }
 
   checkButton():boolean{
@@ -117,8 +128,13 @@ export class CartComponent{
 
     if(flag == 1){
       this.error=''; return false;
-    }else if(flag > 1) this.error='You can only checkout products from the same vendor'
-    else if(flag == 0) this.error='No product selected';
+    }else if(flag > 1){
+      this.error='You can only checkout products from the same vendor';
+      return true;
+    }else if(flag == 0){
+      this.error='No product selected';
+      return true;
+    }
     return true;
   }
 
@@ -127,7 +143,10 @@ export class CartComponent{
       data:element
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.getDataCart()
+      if(result) window.location.reload();
+      else this.data.forEach((e)=>{
+        this.userSelectionMap.get(e.vendorId)!.clear()
+      })
     });
   }
 

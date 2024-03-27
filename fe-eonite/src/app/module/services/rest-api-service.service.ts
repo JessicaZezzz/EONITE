@@ -154,6 +154,10 @@ export class RestApiServiceService {
     return this.http.request(request).pipe(timeout(200000));
   }
 
+  addBooking(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/trans/addTransaction`,body,{headers:this.headers});
+  }
+
   loginUser(body: any): Observable<any>{
     let headers = new HttpHeaders({
       "Content-Type": "application/json",
