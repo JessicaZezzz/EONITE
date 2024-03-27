@@ -2,6 +2,7 @@ package com.domain.eonite.entity;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -21,21 +22,18 @@ public class Transaction {
     private Integer total;
     private String state;
     private String description;
+    private String invoice;
 
-    @JsonIgnore
     @ManyToOne(optional=true)
     @JoinColumn(name="user_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     private Users user;
 
-    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="vendor_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     private Vendor vendor;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy="transaction", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    private Payment payment;
+    public Payment payment;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy="transaction", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     public List<TransactionDetail> transDet;

@@ -12,4 +12,5 @@ public interface TransactionRepo extends JpaRepository<Transaction,Integer> {
     List<Transaction> findByUserAndState(Users user, String state);
     List<Transaction> findByVendorAndState(Vendor vendor, String state);
     List<Transaction> findByUser(Users users);
+    List<Transaction> findByVendor(Vendor vendor);
 }

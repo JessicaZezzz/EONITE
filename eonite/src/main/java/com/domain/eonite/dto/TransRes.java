@@ -3,7 +3,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.domain.eonite.entity.Transaction;
-import com.domain.eonite.entity.TransactionDetail;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -20,6 +19,7 @@ public class TransRes {
     private Date transdate;
     private Integer total;
     private String state;
+    private String invoice;
     private String description;
     private Integer userId;
     private Integer vendorId;

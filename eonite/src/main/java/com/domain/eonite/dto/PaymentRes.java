@@ -20,4 +20,5 @@ public class PaymentRes {
     private String state;
     private String description;
     private Integer transId;
+    private String bankAccount;
 }

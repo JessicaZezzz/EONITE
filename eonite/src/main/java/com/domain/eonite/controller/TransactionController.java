@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/public")
+@RequestMapping("/trans")
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;

@@ -1,18 +1,28 @@
 package com.domain.eonite.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.domain.eonite.dto.PaymentRes;
 import com.domain.eonite.dto.TransRes;
+import com.domain.eonite.entity.FundTransaction;
 import com.domain.eonite.entity.Payment;
 import com.domain.eonite.entity.Product;
 import com.domain.eonite.entity.Transaction;
 import com.domain.eonite.entity.TransactionDetail;
 import com.domain.eonite.repository.CartRepo;
+import com.domain.eonite.repository.FundTransRepo;
 import com.domain.eonite.repository.PaymentRepo;
 import com.domain.eonite.repository.ProductRepo;
 import com.domain.eonite.repository.TransactionDetailRepo;
@@ -46,17 +56,23 @@ public class TransactionService {
     @Autowired 
     private PaymentRepo paymentRepo;
 
+    @Autowired
+    private FundTransRepo fundTransRepo;
+
     private Integer totals;
 
     public TransRes addTransaction(TransRes request){
         TransRes resp = new TransRes();
             Transaction trans = new Transaction();
-                trans.setDescription(null);
+                trans.setDescription(request.getDescription());
                 trans.setState("WAITING-CONFIRMATION");
                 trans.setTransdate(new Date());
                 trans.setTotal(0);
                 trans.setUser(userRepo.findById(request.getUserId()).get());
                 trans.setVendor(vendorRepo.findById(request.getVendorId()).get());
+        String timestamp = Long.toString(System.currentTimeMillis());
+        String randomPart = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 9);
+                trans.setInvoice("INV/" + timestamp + "/EONITE/" + randomPart);
             Integer transId = transactionRepo.save(trans).getId();
             totals=0;
         for(Integer index : request.getCartId()){
@@ -89,7 +105,7 @@ public class TransactionService {
         }
         return resp;
     }
-
+    private Double totalRefund = 0.0;
     public TransRes updateState(TransRes request){
         TransRes resp = new TransRes();
         switch(request.getPrevState()){
@@ -104,12 +120,12 @@ public class TransactionService {
                             paymentRepo.save(p);
                             transactionRepo.save(trans);
                         },null);
+                        // kirim email
                     break;
 
                     case "REJECT":
                         transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
                             trans.setState("CANCELLED");
-                            trans.setDescription("Rejected caused: "+request.getDescription());
                             transactionRepo.save(trans);
                         },null);
                     break;
@@ -135,6 +151,7 @@ public class TransactionService {
                             },null);
                             transactionRepo.save(trans);
                         },null);
+                        // kirim
                     break;
 
                     case "REJECT":
@@ -156,15 +173,104 @@ public class TransactionService {
 
             case "ON-GOING":
                 switch(request.getAction()){
+                    case "CANCEL_USER":
+                        transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
+                            trans.setState("CANCELLED");
+                            transactionRepo.save(trans);
+                        },null);
+                        FundTransaction funding = new FundTransaction();
+                        funding.setRejectedBy("USER");
+                        funding.setAlasanRejected(request.getDescription());
+                        funding.setTimestamp(new Date());
+                        paymentRepo.findByTransaction(transactionRepo.findById(request.getId()).get()).ifPresentOrElse((payment)->{
+                            funding.setBankAccountUser(payment.getBankAccount());
+                        },null);
+                        funding.setState("WAITING-REFUND");
+                        funding.setTransId(request.getId());
+                        funding.setUserId(transactionRepo.findById(request.getId()).get().getUser().getId());
+                        funding.setVendorId(transactionRepo.findById(request.getId()).get().getVendor().getId());
+                        totalRefund = 0.0;
+                        transactionRepo.findById(request.getId()).get().getTransDet().forEach((trans)->{
+                            String[] dateArray = trans.getBookdate().split(",");
+                            List<LocalDate> localDates = new ArrayList<>();
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                            for (String dateStr : dateArray) {
+                                LocalDate localDate = LocalDate.parse(dateStr, formatter);
+                                localDates.add(localDate);
+                            }
+                            LocalDate rejectedDate = null;
+                            for (LocalDate date : localDates) {
+                                if (rejectedDate == null || date.isBefore(rejectedDate)) {
+                                    rejectedDate = date;
+                                }
+                            }
+                            Double totaltransDet=0.0;
+                            Date currentDate = new Date();
+                            LocalDate transDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                            // Check Rejected Date must less than booking date
+                            // If rejected date greater than booking date, then refund to user automatically 0 and refund to vendor 100%;
+                            if(transDate.compareTo(rejectedDate)<0){
+                                long daysDifference = ChronoUnit.DAYS.between(transDate, rejectedDate);
+                                if(daysDifference >= 15){
+                                    totaltransDet = (double) (trans.getQuantity()*trans.getProduct().getPrice()*1.0);
+                                }else if(daysDifference <=14 && daysDifference >7){
+                                    totaltransDet = (double) (trans.getQuantity()*trans.getProduct().getPrice()*0.5);
+                                }else if(daysDifference <=7 && daysDifference >3){
+                                    totaltransDet = (double) (trans.getQuantity()*trans.getProduct().getPrice()*0.25);
+                                }else if(daysDifference <=3){
+                                    totaltransDet = (double) (trans.getQuantity()*trans.getProduct().getPrice()*0.0);
+                                }
+                            }else{
+                                totaltransDet = (double) (trans.getQuantity()*trans.getProduct().getPrice()*0.0);
+                            }
+                            totalRefund += totaltransDet;
+                        });
+
+                        funding.setTotalFundUser(totalRefund);
+                        funding.setTotalFundVendor(transactionRepo.findById(request.getId()).get().getTotal()-totalRefund);
+                        fundTransRepo.save(funding);
+                    break;
+                    case "CANCEL_VENDOR":
+                        transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
+                            trans.setState("CANCELLED");
+                            transactionRepo.save(trans);
+                        },null);
+                        FundTransaction fundings = new FundTransaction();
+                        fundings.setRejectedBy("VENDOR");
+                        fundings.setAlasanRejected(request.getDescription());
+                        fundings.setTimestamp(new Date());
+                        paymentRepo.findByTransaction(transactionRepo.findById(request.getId()).get()).ifPresentOrElse((payment)->{
+                            fundings.setBankAccountUser(payment.getBankAccount());
+                        },null);
+                        fundings.setState("WAITING-REFUND");
+                        fundings.setTransId(request.getId());
+                        fundings.setUserId(transactionRepo.findById(request.getId()).get().getUser().getId());
+                        fundings.setVendorId(transactionRepo.findById(request.getId()).get().getVendor().getId());
+                        fundings.setTotalFundUser(transactionRepo.findById(request.getId()).get().getTotal()*1.0);
+                        fundings.setTotalFundVendor(0.0);
+                        fundTransRepo.save(fundings);
+                    break;
                     case "DONE":
                         transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
                             trans.setState("COMPLETED");
                             transactionRepo.save(trans);
                         },null);
+                        FundTransaction fundings2 = new FundTransaction();
+                        fundings2.setAlasanRejected("Payment Completed Transaction");
+                        fundings2.setTimestamp(new Date());
+                        paymentRepo.findByTransaction(transactionRepo.findById(request.getId()).get()).ifPresentOrElse((payment)->{
+                            fundings2.setBankAccountUser(payment.getBankAccount());
+                        },null);
+                        fundings2.setState("WAITING-REFUND");
+                        fundings2.setTransId(request.getId());
+                        fundings2.setUserId(transactionRepo.findById(request.getId()).get().getUser().getId());
+                        fundings2.setVendorId(transactionRepo.findById(request.getId()).get().getVendor().getId());
+                        fundings2.setTotalFundUser(0.0);
+                        fundings2.setTotalFundVendor(transactionRepo.findById(request.getId()).get().getTotal()*1.0);
+                        fundTransRepo.save(fundings2);
                     break;
                 }
             break;
-
             default:
             break;
         }
@@ -186,6 +292,7 @@ public class TransactionService {
             payment.setImage(request.getImage());
             payment.setState("WAITING-CONFIRMATION");
             payment.setDescription(null);
+            payment.setBankAccount(request.getBankAccount());
             paymentRepo.save(payment);
         }, null);
         try{
@@ -216,7 +323,12 @@ public class TransactionService {
 
     public TransRes getAllUserTransaction(Integer id,String state){
         TransRes resp = new TransRes();	
-        List<Transaction> trans = transactionRepo.findByUserAndState(userRepo.findById(id).get(),state);
+        List<Transaction> trans = new ArrayList<Transaction>();
+        if(state.equals("ALL")) trans = transactionRepo.findByUser(userRepo.findById(id).get());
+        else trans = transactionRepo.findByUserAndState(userRepo.findById(id).get(),state);
+        trans.forEach((e)->{
+            e.setVendor(e.getVendor());
+        });
         try{
             resp.setTransactions(trans);
             resp.setMessage("Success Get Detail Transaction");
@@ -231,7 +343,9 @@ public class TransactionService {
 
     public TransRes getAllVendorTransaction(Integer id, String state){
         TransRes resp = new TransRes();	
-        List<Transaction> trans = transactionRepo.findByVendorAndState(vendorRepo.findById(id).get(),state);
+        List<Transaction> trans = new ArrayList<Transaction>();
+        if(state.equals("ALL")) trans = transactionRepo.findByVendor(vendorRepo.findById(id).get());
+        else trans = transactionRepo.findByVendorAndState(vendorRepo.findById(id).get(),state);
         try{
             resp.setTransactions(trans);
             resp.setMessage("Success Get Detail Transaction");
@@ -243,6 +357,8 @@ public class TransactionService {
         }
         return resp;
     }
+
+    // public 
 
 
 }

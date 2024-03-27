@@ -20,10 +20,11 @@ public class Payment {
     private byte[] image;
     private String state;
     private String description;
+    private String bankAccount;
     
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="transaction_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     private Transaction transaction;
-}
+} 

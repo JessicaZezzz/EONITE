@@ -54,5 +54,6 @@ J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\reposito
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\dto\TransRes.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\dto\ProductReviewRes.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\VendorRepo.java
+J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\ProductSpecs.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\TransactionRepo.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\dto\VendorRes.java
