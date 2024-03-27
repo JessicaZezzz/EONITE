@@ -74,6 +74,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TransactionVendorComponent } from './module/pages/transaction-vendor/transaction-vendor.component';
 import { TransactionVendorDetailsComponent } from './module/pages/transaction-vendor-details/transaction-vendor-details.component';
 import { DialogCancelTransactionComponent } from './module/pages/dialog-cancel-transaction/dialog-cancel-transaction.component';
+import { DialogReviewComponent } from './module/pages/dialog-review/dialog-review.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { DialogCancelTransactionComponent } from './module/pages/dialog-cancel-t
     TransactionVendorComponent,
     TransactionVendorDetailsComponent,
     DialogCancelTransactionComponent,
+    DialogReviewComponent,
   ],
   imports: [
     BrowserModule,

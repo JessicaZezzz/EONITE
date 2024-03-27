@@ -3,12 +3,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { HttpEventType } from '@angular/common/http';
-import { Transaction } from '../../models/auth.model';
+import { Transaction, TransDet } from '../../models/auth.model';
 import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCancelTransactionComponent } from '../dialog-cancel-transaction/dialog-cancel-transaction.component';
 import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
+import { DialogReviewComponent } from '../dialog-review/dialog-review.component';
 
 @Component({
   selector: 'app-transaction-detail',
@@ -21,7 +22,6 @@ export class TransactionDetailComponent implements OnInit {
   urlImage?:any;
   openDialogErrorDiv: boolean = false;
   error:string='';
-  starRating:number = 0;
   list?: Transaction;
   bankAccount?: string;
   constructor(private route: ActivatedRoute,private routes:Router,private restService:RestApiServiceService,private dialog:MatDialog) {
@@ -45,7 +45,6 @@ export class TransactionDetailComponent implements OnInit {
         let data = Object(event.body)['transaction'];
         this.list=data;
         if(this.list?.payment.state != 'NONE'){
-          console.log(this.list?.payment.state)
           this.urlImage = 'data:image/jpg;base64,'+this.list?.payment.image;
           this.Form.get('payment')!.setValue(this.urlImage);
           this.Form.get('name')!.setValue(this.list?.payment.bankAccount);
@@ -155,6 +154,30 @@ export class TransactionDetailComponent implements OnInit {
     })
   }
 
+  review(element:TransDet,state:string){
+    let review:reviewProduct={};
+    review.state = state;
+    review.transaction_detail_id = element.id;
+    review.product_id = element.product?.id;
+    review.user_id = Number(sessionStorage.getItem('ID'));
+    if(element.productReview == null){
+      review.rating=0;
+      review.review='';
+    }else{
+      review.id = element.productReview.id;
+      review.rating=element.productReview.rating;
+      review.review=element.productReview.review;
+    }
+
+    const dialogRef = this.dialog.open(DialogReviewComponent, {
+      data: review
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) window.location.reload();
+    });
+  }
+
 }
 
 export interface postTransaction{
@@ -169,4 +192,14 @@ export interface uploadPayment{
   transId?:number;
   bankAccount?:string;
   image?:any;
+}
+
+export interface reviewProduct{
+    state?:string;
+    transaction_detail_id?:number;
+    id?:number;
+    rating?:number;
+    review?:string;
+    user_id?:number;
+    product_id?:number;
 }

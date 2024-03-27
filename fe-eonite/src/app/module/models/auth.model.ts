@@ -192,3 +192,10 @@ export interface TransDet{
   productReview?:any;
   quantity?     :number;
 }
+
+export interface productReview{
+  id?:number;
+  rating?:number;
+  review?:string;
+  user?:User;
+}
