@@ -126,15 +126,16 @@
             </div>
           <!-- Table Product -->
           <div class="mt-6 border border-gray-200 p-4 rounded-lg space-y-4 dark:border-gray-700">
-            <div class="hidden sm:grid sm:grid-cols-6">
+            <div class="hidden sm:grid sm:grid-cols-6" [ngClass]="{'sm:grid-cols-7':list?.state == 'COMPLETED'}">
               <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">Product</div>
               <div class="text-start text-xs font-medium text-gray-500 uppercase">Booking Date</div>
               <div class="text-start text-xs font-medium text-gray-500 uppercase">Qty</div>
               <div class="text-start text-xs font-medium text-gray-500 uppercase">Amount</div>
               <div class="text-end text-xs font-medium text-gray-500 uppercase">Total</div>
+              <div *ngIf="list?.state == 'COMPLETED'" class="text-center text-xs font-medium text-gray-500 uppercase">Review</div>
             </div>
             <div class="hidden sm:block border-b border-gray-700"></div>
-            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" *ngFor="let i of list?.transDet">
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" *ngFor="let i of list?.transDet" [ngClass]="{'sm:grid-cols-7':list?.state == 'COMPLETED'}">
               <div class="col-span-full sm:col-span-2">
                 <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Product</h5>
                 <p class="font-medium text-gray-800">{{ i.product?.name }}</p>
@@ -154,6 +155,17 @@
               <div>
                 <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Total</h5>
                 <p class="sm:text-end text-gray-800">{{ (i.quantity!*i.product?.price!) | currency }}</p>
+              </div>
+              <div *ngIf="list?.state == 'COMPLETED'">
+                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Review</h5>
+                <p class="sm:text-center text-gray-800">
+                  <button *ngIf="i.productReview == null" (click)="review(i,'ADD')" class="text-[#5C06E4] font-semibold">
+                    Give Review
+                  </button>
+                  <button *ngIf="i.productReview != null" (click)="review(i,'UPDATE')" class="text-[#5C06E4] font-semibold">
+                    Update Review
+                  </button>
+                </p>
               </div>
             </div>
           </div>
@@ -262,24 +274,6 @@
               </div>
             </div>
 
-
-            <!-- STATE COMPLETED -->
-            <div class="flex flex-col items-center space-y-2" *ngIf="list?.state! == 'COMPLETED'">
-              <div class="font-semibold text-md">
-                How was the service?
-              </div>
-              <div><ngb-rating [max]=5 [rate]="starRating"></ngb-rating></div>
-              <div class="font-semibold text-md">
-                Tell us more!
-              </div>
-              <div>
-                <textarea class="rounded-md border-[1px] border-[#5C06E4]" cols="40" rows="5"></textarea>
-              </div>
-              <div>
-                <button class="text-white bg-indigo-600 py-2 px-6 rounded-md hover:bg-indigo-500 font-semibold text-md">SUBMIT</button>
-              </div>
-            </div>
-
             <!-- STATE WAITING ON GOING -->
             <div *ngIf="list?.state! == 'ON-GOING'">
               <button (click)="submitState('CANCEL_USER','ON-GOING','Are you sure want to cancel this transaction?')" class="text-white bg-red-600 py-2 px-6 rounded-md hover:bg-red-500 font-medium text-md">
@@ -296,7 +290,7 @@
             <h4 class="text-lg font-semibold text-gray-800">Thank you!</h4>
             <p class="text-gray-500">If you have any questions concerning this invoice, use the following contact information:</p>
             <div class="mt-1">
-              <p class="block text-sm font-medium text-gray-800">eonite@gmail.com</p>
+              <p class="block text-sm font-medium text-gray-800">eonite&#64;gmail.com</p>
               <p class="block text-sm font-medium text-gray-800">(0274) 109-9222</p>
             </div>
           </div>

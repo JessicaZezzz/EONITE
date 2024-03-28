@@ -189,6 +189,21 @@ export class RestApiServiceService {
     return this.http.put(`${environment.apiUrl}/trans/updatePayment`,body,{headers:this.headers});
   }
 
+  addReview(body: any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/public/addReview`,body,{headers:this.headers});
+  }
+
+  updateReview(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/public/updateProductReview`,body,{headers:this.headers});
+  }
+
+  getReview(id:number){
+    let param = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/public/getAllProductReview`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
   loginUser(body: any): Observable<any>{
     let headers = new HttpHeaders({
       "Content-Type": "application/json",
