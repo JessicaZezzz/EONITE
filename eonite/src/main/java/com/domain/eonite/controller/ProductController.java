@@ -52,4 +52,9 @@ public class ProductController {
     public ResponseEntity<ProductReviewRes> getProductReviewbyProduct(@RequestParam(required = true,name = "id") Integer id){
         return ResponseEntity.ok(productService.getProductReviewbyProduct(id));
     }
+
+    @GetMapping("/getProductReviewHome")
+    public ResponseEntity<ProductReviewRes> getProductReview(){
+        return ResponseEntity.ok(productService.getProductReview());
+    }
 }
