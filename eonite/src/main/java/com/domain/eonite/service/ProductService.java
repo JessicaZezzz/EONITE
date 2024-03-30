@@ -255,4 +255,19 @@ public class ProductService {
         }
         return resp;
     }
+
+    public ProductReviewRes getProductReview(){
+        ProductReviewRes resp =  new ProductReviewRes();
+        List<ProductReview> products = productReviewRepo.findFirst6ByOrderByRatingDesc();
+        try{
+            resp.setProductReview(products);
+            resp.setMessage("Success Get All Review Product");
+            resp.setStatusCode(200);
+
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
 }
