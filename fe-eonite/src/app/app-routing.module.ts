@@ -25,6 +25,8 @@ import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/e
 import { ServicesVendorComponent } from './module/pages/services-vendor/services-vendor.component';
 import { TransactionVendorComponent } from './module/pages/transaction-vendor/transaction-vendor.component';
 import { TransactionVendorDetailsComponent } from './module/pages/transaction-vendor-details/transaction-vendor-details.component';
+import { DashboardComponent } from './module/pages/dashboard/dashboard.component';
+import { ChatComponent } from './module/pages/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -81,6 +83,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path:'chat',
+    component: ChatComponent,
+  },
+  {
     path:'transaction',
     component: TransactionComponent,
     canActivate: [AuthGuard]
@@ -118,6 +124,11 @@ const routes: Routes = [
   {
     path:'product-vendor',
     component: ProductComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'dashboard',
+    component: DashboardComponent,
     canActivate: [AuthGuard]
   },
   {

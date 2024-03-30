@@ -24,9 +24,9 @@
           <div class="text-[13px] font-medium text-[#5C06E4]">{{ getDomicile(i.domicile_id!) }}</div>
         </div>
       </div>
-      <div class="flex mt-4">
-          <button class="inline-flex items-center py-2 px-5 text-sm font-semibold text-white focus:outline-none bg-[#5C06E4] rounded-md border border-gray-200 hover:bg-indigo-500 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100">CHAT</button>
-          <button (click)="redirect(i.id!)" class="py-2 px-5 ms-2 text-sm font-semibold text-white focus:outline-none bg-[#5C06E4] rounded-md border border-gray-200 hover:bg-indigo-500 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100">DETAIL</button>
+      <div class="flex mt-4 flex-col sm:flex-row">
+          <button (click)="chatVendor(i?.id!)" class="mb-2 sm:mb-0 text-center py-2 px-5 text-sm font-medium text-white focus:outline-none bg-[#5C06E4] rounded-md border border-gray-200 hover:bg-indigo-500 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100">CHAT</button>
+          <button (click)="redirect(i.id!)" class="py-2 px-7 sm:px-5 sm:ms-2 text-sm font-medium text-white focus:outline-none bg-[#5C06E4] rounded-md border border-gray-200 hover:bg-indigo-500 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100">DETAIL</button>
       </div>
     </div>
   </div>

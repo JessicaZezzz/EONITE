@@ -85,14 +85,14 @@
             </div>
             <div class="flex flex-row md:flex-col ml-3 justify-center space-x-2 self-start">
               <button (click)="clickit()"
-                      class="h-[40px] flex items-center px-4 py-2 text-white font-semibold bg-[#5C06E4] rounded-md active w-[120px] mr-2 md:mb-2 lg:mr-0">
+                      class="h-[40px] flex items-center px-4 py-2 text-white font-medium bg-[#5C06E4] rounded-md active w-[120px] mr-2 md:mb-2 lg:mr-0">
                 <img class="h-5 w-auto mr-1" src="/assets/icon/icons8-calender-64.png">
                 <div class="text-white font-medium">Schedule</div>
               </button>
-              <!-- <button class="h-[40px] flex items-center px-4 py-2 text-white font-semibold bg-[#5C06E4] rounded-md active w-[120px]" style="margin: 0 !important;">
+              <button (click)="chatVendor(vendor?.id!)" class="h-[40px] flex items-center px-4 py-2 text-white font-medium bg-[#5C06E4] rounded-md active w-[120px]" style="margin: 0 !important;">
                 <img class="h-5 mr-1" src="/assets/icon/icons8-chat-24.png">
                 <span>Chat</span>
-              </button> -->
+              </button>
             </div>
           </div>
           <div *ngIf="show" class="bg-black/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">

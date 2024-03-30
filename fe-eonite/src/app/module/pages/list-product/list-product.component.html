@@ -15,7 +15,7 @@
   </div>
 </div>
 <div *ngIf="paging?.length!>0" class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
-  <div *ngFor="let i of data" class="flex w-[210px] max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
+  <div *ngFor="let i of data" class="flex w-[180px] md:w-[200px] max-w-xs flex-col overflow-hidden rounded-lg border border-indigo-100 bg-white">
     <div class="relative mx-3 mt-3 flex h-[150px] overflow-hidden rounded-xl">
       <img *ngIf="i.photo[0] == undefined" class="peer absolute top-0 right-0 h-full w-full object-cover" src="../assets/icon/bg-default.png"/>
       <img *ngIf="i.photo[0] != undefined" class="peer absolute top-0 right-0 h-full object-cover" src="{{'data:image/jpg;base64,' + i.photo[0].image}}"/>

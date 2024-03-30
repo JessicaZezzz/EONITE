@@ -75,6 +75,9 @@ import { TransactionVendorComponent } from './module/pages/transaction-vendor/tr
 import { TransactionVendorDetailsComponent } from './module/pages/transaction-vendor-details/transaction-vendor-details.component';
 import { DialogCancelTransactionComponent } from './module/pages/dialog-cancel-transaction/dialog-cancel-transaction.component';
 import { DialogReviewComponent } from './module/pages/dialog-review/dialog-review.component';
+import { DashboardComponent } from './module/pages/dashboard/dashboard.component';
+import {  NgxSlickJsModule } from 'ngx-slickjs';
+import { ChatComponent } from './module/pages/chat/chat.component'
 
 @NgModule({
   declarations: [
@@ -125,6 +128,8 @@ import { DialogReviewComponent } from './module/pages/dialog-review/dialog-revie
     TransactionVendorDetailsComponent,
     DialogCancelTransactionComponent,
     DialogReviewComponent,
+    DashboardComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -153,7 +158,15 @@ import { DialogReviewComponent } from './module/pages/dialog-review/dialog-revie
     MatRadioModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxSlickJsModule.forRoot({
+      links: {
+        jquery: "https://code.jquery.com/jquery-3.4.0.min.js",
+        slickJs: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js",
+        slickCss: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css",
+        slickThemeCss: "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+      }
+    })
   ],
   entryComponents: [CartComponent],
   providers: [

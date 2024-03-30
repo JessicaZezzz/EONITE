@@ -39,6 +39,10 @@ export const DROPDOWN_USER:MENU[]=[
     link : '/profile-user'
   },
   {
+    name : 'Chat',
+    link : '/chat'
+  },
+  {
     name : 'Cart',
     link : '/cart'
   },
@@ -60,6 +64,10 @@ export const DROPDOWN_VENDOR:MENU[]=[
   {
     name : 'Product',
     link : '/product-vendor'
+  },
+  {
+    name : 'Chat',
+    link : '/chat'
   },
   {
     name : 'Transaction',
@@ -198,4 +206,16 @@ export interface productReview{
   rating?:number;
   review?:string;
   user?:User;
+}
+
+export interface ChatMessage {
+  id:number;
+  chatId:string;
+  senderId:string;
+  recipientId:string;
+  senderName:string;
+  recipientName:string;
+  content:string;
+  timestamp:any;
+  status:any;
 }

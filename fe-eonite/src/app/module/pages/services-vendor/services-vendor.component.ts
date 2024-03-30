@@ -35,12 +35,17 @@ export class ServicesVendorComponent implements OnInit {
 
   ngOnInit() {
     if(this.router.snapshot.queryParamMap.get('search')! != null) this.filter.search = this.router.snapshot.queryParamMap.get('search')!;
+    if(this.router.snapshot.queryParamMap.get('category')! != null){
+      this.filter.categoryId = [];
+      this.filter.categoryId?.push(Number(this.router.snapshot.queryParamMap.get('category')!));
+    }
     this.restService.getCategory().subscribe((data) => {
       this.category = data;
     });
     this.restService.getDomicile().subscribe((data) => {
       this.domicile = data;
     });
+    console.log( this.router.snapshot.queryParamMap.get('category'))
     this.getDataVendor();
   }
 

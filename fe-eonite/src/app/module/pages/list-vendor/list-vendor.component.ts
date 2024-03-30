@@ -45,4 +45,12 @@ export class ListVendorComponent implements OnInit {
     this.router.navigate([`/details/${id}`]);
   }
 
+  chatVendor(id:number){
+    const params = {
+      vendorId: id,
+      userId:sessionStorage.getItem('ID')
+    }
+    this.router.navigate(['/chat'],{queryParams:params})
+  }
+
 }

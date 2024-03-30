@@ -124,4 +124,12 @@ export class DetailVendorComponent implements OnInit {
     this.getDataProduct();
   }
 
+  chatVendor(id:number){
+    const params = {
+      vendorId: id,
+      userId:sessionStorage.getItem('ID')
+    }
+    this.routes.navigate(['/chat'],{queryParams:params})
+  }
+
 }

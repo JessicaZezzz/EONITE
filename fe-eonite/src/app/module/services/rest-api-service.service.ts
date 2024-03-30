@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { request } from 'http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, timeout } from 'rxjs/operators';
 import { environment } from 'src/app/enviroment/environment';
@@ -201,6 +202,54 @@ export class RestApiServiceService {
     let param = new HttpParams().append('id',id);
     let path = `${environment.apiUrl}/public/getAllProductReview`;
     const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getTop6Review(){
+    let path = `${environment.apiUrl}/public/getProductReviewHome`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  countNewMessages(senderId:string,recipientId:string){
+    let path = `${environment.chatUrl}/messages/${senderId}/${recipientId}/count`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  findChatMessages(senderId:number,recipientId:number,userType:string){
+    let path = `${environment.chatUrl}/messages/${senderId}/${recipientId}/${userType}`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  findMessageVendor(id:number){
+    let path = `${environment.chatUrl}/messages-vendor/${id}`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  findMessageUser(id:number){
+    let path = `${environment.chatUrl}/messages-user/${id}`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getChatRoom(senderId:number,recipientId:number){
+    let path = `${environment.chatUrl}/chatroom/${senderId}/${recipientId}`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getNotif(chatId:string){
+    let path = `${environment.chatUrl}/notif/${chatId}`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  deleteChatRoom(senderId:number,recipientId:number){
+    let path = `${environment.chatUrl}/delchatroom/${senderId}/${recipientId}`;
+    const request = new HttpRequest('GET',path)
     return this.http.request(request).pipe(timeout(200000));
   }
 

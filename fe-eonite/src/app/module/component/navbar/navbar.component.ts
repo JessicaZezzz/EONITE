@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DROPDOWN_ADMIN, DROPDOWN_USER, DROPDOWN_VENDOR, MENU, MENU_ADMIN, MENU_PUBLIC, MENU_VENDOR } from '../../models/auth.model';
 import { Router } from '@angular/router';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   role: string = '';
   menu : MENU[] = [];
   dropdown : MENU[] = [];
-  imgProfile: string='';
+  @Input() imgProfile: string='';
   search:string='';
 
   constructor(private router: Router,private restService:RestApiServiceService){
@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
       this.restService.getprofileUser(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
         if(event.type == HttpEventType.Response && event.body && event.ok){
           let data = Object(event.body)['users'];
-          this.imgProfile = data[0].photo;
+          this.imgProfile ='data:image/jpg;base64,'+data[0].photo;
         }
       })
     }else if(this.role=='VENDOR'){
@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
       this.restService.getprofileVendor(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
         if(event.type == HttpEventType.Response && event.body && event.ok){
           let data = Object(event.body)['vendor'];
-          this.imgProfile = data[0].photo;
+          this.imgProfile = 'data:image/jpg;base64,'+data[0].photo;
         }
       })
     }else if(this.role=='ADMIN'){
