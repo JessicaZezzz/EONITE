@@ -77,7 +77,9 @@ import { DialogCancelTransactionComponent } from './module/pages/dialog-cancel-t
 import { DialogReviewComponent } from './module/pages/dialog-review/dialog-review.component';
 import { DashboardComponent } from './module/pages/dashboard/dashboard.component';
 import {  NgxSlickJsModule } from 'ngx-slickjs';
-import { ChatComponent } from './module/pages/chat/chat.component'
+import { ChatComponent } from './module/pages/chat/chat.component';
+import { GenerateOtpComponent } from './module/pages/generate-otp/generate-otp.component';
+import { DialogResetPasswordComponent } from './module/pages/dialog-reset-password/dialog-reset-password.component'
 
 @NgModule({
   declarations: [
@@ -130,6 +132,8 @@ import { ChatComponent } from './module/pages/chat/chat.component'
     DialogReviewComponent,
     DashboardComponent,
     ChatComponent,
+    GenerateOtpComponent,
+    DialogResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

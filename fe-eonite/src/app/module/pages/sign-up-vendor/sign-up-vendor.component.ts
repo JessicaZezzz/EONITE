@@ -7,6 +7,8 @@ import { emailValidator } from '../../services/email-validator.directive';
 import { passwordConfirmationValidator } from '../../services/confirm-password';
 import { DatePipe } from '@angular/common';
 import { imagedflt } from '../../models/photo.model';
+import { GenerateOtpComponent } from '../generate-otp/generate-otp.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export const StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
 
@@ -32,7 +34,7 @@ export class SignUpVendorComponent {
   error:string='';
   dfltImg:string = imagedflt;
 
-  constructor(private restService: RestApiServiceService, private router: Router){
+  constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog){
     this.vendor = {} as Vendor;
   }
 
@@ -200,14 +202,26 @@ export class SignUpVendorComponent {
       postVendor.password = this.Form1.value.password;
 
     // console.log(postVendor)
-    this.restService.postsignInVendor(JSON.stringify(postVendor)).subscribe(event=>{
-      if(event.statusCode == 200){
-        this.openDialogSuccessDiv = true;
-      }else if(event.statusCode == 500){
-        this.error='Email is already registered, please use another email';
-        this.openDialogErrorDiv = true;
-      }
-    })
+    let generateOTP:otp={
+      userType:postVendor.role,
+      email:postVendor.email!,
+      option:'signup'
+    };
+    const dialogRef = this.dialog.open(GenerateOtpComponent, {
+      data:generateOTP
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.restService.postsignInVendor(JSON.stringify(postVendor)).subscribe(event=>{
+          if(event.statusCode == 200){
+            this.openDialogSuccessDiv = true;
+          }else if(event.statusCode == 500){
+            this.openDialogErrorDiv = true;
+          }
+        })
+      }else{};
+    });
   }
 
   get firstName() {
@@ -269,4 +283,11 @@ export class SignUpVendorComponent {
   back(){
     this.router.navigate(['/signup']);
   }
+}
+
+export interface otp{
+  userType: string;
+  email: string;
+  option:string;
+  confirmationToken?:string;
 }

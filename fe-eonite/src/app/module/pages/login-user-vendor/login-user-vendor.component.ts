@@ -5,6 +5,9 @@ import { emailValidator } from '../../services/email-validator.directive';
 import { Router } from '@angular/router';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { GenerateOtpComponent } from '../generate-otp/generate-otp.component';
+import { DialogResetPasswordComponent } from '../dialog-reset-password/dialog-reset-password.component';
 
 @Component({
   selector: 'app-login-user-vendor',
@@ -20,7 +23,7 @@ export class LoginUserVendorComponent implements OnInit {
 
   constructor(private restService: RestApiServiceService,
               private activeRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router, private dialog:MatDialog) {
     this.role = this.activeRoute.snapshot.params['role'];
   }
 
@@ -56,32 +59,46 @@ export class LoginUserVendorComponent implements OnInit {
     let loginUser: login = {};
       loginUser.email = this.reactiveForm.value.email;
       loginUser.password = this.reactiveForm.value.password;
-    if(this.role == 'USER') this.loginUser(JSON.stringify(loginUser));
-    else if(this.role == 'VENDOR') this.loginVendor(JSON.stringify(loginUser));
+    if(this.role == 'USER') this.loginUser(loginUser);
+    else if(this.role == 'VENDOR') this.loginVendor(loginUser);
   }
 
   loginUser(body :any){
-    this.restService.loginUser(body).subscribe(event=>{
-      this.validationLogIn(event)
+    this.restService.loginUser(JSON.stringify(body)).subscribe(event=>{
+      this.validationLogIn(event,body,'USER');
     })
+
   }
 
   loginVendor(body :any){
-    this.restService.loginVendor(body).subscribe(event=>{
-      this.validationLogIn(event)
+    this.restService.loginVendor(JSON.stringify(body)).subscribe(event=>{
+      this.validationLogIn(event,body,'VENDOR');
     })
   }
 
-  validationLogIn(status:any){
+  validationLogIn(status:any,body:any,role:string){
+    console.log(body.email)
     if(status.statusCode == 200){
-      sessionStorage.setItem('ID', status.id);
-      sessionStorage.setItem('ACCESS_TOKEN',status.token);
-      sessionStorage.setItem('REFRESH_TOKEN',status.refreshToken);
-      var base64Url = status.token.split('.')[1];
-      var base64 = base64Url.replace('-', '+').replace('_', '/');
-      let temp = JSON.parse(window.atob(base64));
-      sessionStorage.setItem('AUTH',temp.data_users[0].authority);
-      this.router.navigate(['/home']);
+      let generateOTP:otp={
+        userType:role,
+        email:body.email!,
+        option:'login'
+      };
+      const dialogRef = this.dialog.open(GenerateOtpComponent, {
+        data:generateOTP
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          sessionStorage.setItem('ID', status.id);
+          sessionStorage.setItem('ACCESS_TOKEN',status.token);
+          sessionStorage.setItem('REFRESH_TOKEN',status.refreshToken);
+          var base64Url = status.token.split('.')[1];
+          var base64 = base64Url.replace('-', '+').replace('_', '/');
+          let temp = JSON.parse(window.atob(base64));
+          sessionStorage.setItem('AUTH',temp.data_users[0].authority);
+          this.router.navigate(['/home']);
+        }else{};
+      });
     }else if(status.statusCode == 500){
       if(status.error == 'Bad credentials'){
         this.openDialogError2 = true;
@@ -95,9 +112,25 @@ export class LoginUserVendorComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  forgotPass(){
+    const dialogRef = this.dialog.open(DialogResetPasswordComponent, {
+      data:this.role
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
 }
 
 export class login{
   email?:string;
   password?:string;
+}
+
+export interface otp{
+  userType: string;
+  email: string;
+  option:string;
+  confirmationToken?:string;
 }

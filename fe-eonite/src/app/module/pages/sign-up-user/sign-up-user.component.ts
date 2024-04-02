@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { User } from '../../models/auth.model';
 import { emailValidator } from '../../services/email-validator.directive';
@@ -7,6 +7,8 @@ import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { imagedflt } from '../../models/photo.model';
+import { MatDialog } from '@angular/material/dialog';
+import { GenerateOtpComponent } from '../generate-otp/generate-otp.component';
 
 export const StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\D*\d).{8,}$/;
 
@@ -24,7 +26,7 @@ export class SignUpUserComponent {
   openDialogSuccessDiv: boolean = false;
   dfltImg:string = imagedflt;
 
-  constructor(private restService: RestApiServiceService, private router: Router) {
+  constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog) {
     this.user = {} as User;
   }
 
@@ -133,14 +135,26 @@ export class SignUpUserComponent {
       postUser.role = 'USER';
       console.log(JSON.stringify(postUser));
 
-      this.restService.postsignInUser(JSON.stringify(postUser)).subscribe(event=>{
-        if(event.statusCode == 200){
-          this.openDialogSuccessDiv = true;
-        }else if(event.statusCode == 500){
-          this.openDialogErrorDiv = true;
-        }
-      })
+      let generateOTP:otp={
+        userType:postUser.role,
+        email:postUser.email!,
+        option:'signup'
+      };
+      const dialogRef = this.dialog.open(GenerateOtpComponent, {
+        data:generateOTP
+      });
 
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.restService.postsignInUser(JSON.stringify(postUser)).subscribe(event=>{
+            if(event.statusCode == 200){
+              this.openDialogSuccessDiv = true;
+            }else if(event.statusCode == 500){
+              this.openDialogErrorDiv = true;
+            }
+          });
+        }else{};
+      });
   }
 
   redirect(): void {
@@ -151,4 +165,11 @@ export class SignUpUserComponent {
     this.router.navigate(['/signup']);
   }
 
+}
+
+export interface otp{
+  userType: string;
+  email: string;
+  option:string;
+  confirmationToken?:string;
 }

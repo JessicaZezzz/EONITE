@@ -27,6 +27,7 @@ import { TransactionVendorComponent } from './module/pages/transaction-vendor/tr
 import { TransactionVendorDetailsComponent } from './module/pages/transaction-vendor-details/transaction-vendor-details.component';
 import { DashboardComponent } from './module/pages/dashboard/dashboard.component';
 import { ChatComponent } from './module/pages/chat/chat.component';
+import { GenerateOtpComponent } from './module/pages/generate-otp/generate-otp.component';
 
 const routes: Routes = [
   {
@@ -85,6 +86,7 @@ const routes: Routes = [
   {
     path:'chat',
     component: ChatComponent,
+    canActivate: [AuthGuard]
   },
   {
     path:'transaction',
@@ -134,6 +136,10 @@ const routes: Routes = [
   {
     path:'faq',
     component: FaqComponent
+  },
+  {
+    path:'email',
+    component: GenerateOtpComponent
   },
   {
     path: 'logout',

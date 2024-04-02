@@ -253,6 +253,38 @@ export class RestApiServiceService {
     return this.http.request(request).pipe(timeout(200000));
   }
 
+  generateOTP(body: any): Observable<any>{
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    return this.http.post(`${environment.apiUrl}/auth/generate-otp`,body,{headers:headers});
+  }
+
+  generateOTPlogin(body: any): Observable<any>{
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    return this.http.post(`${environment.apiUrl}/auth/generate-otp-login`,body,{headers:headers});
+  }
+
+  checkOTP(body: any): Observable<any>{
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    return this.http.post(`${environment.apiUrl}/auth/check-otp`,body,{headers:headers});
+  }
+
+  resetPassword(body: any): Observable<any>{
+    let headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    return this.http.post(`${environment.apiUrl}/auth/reset-password`,body,{headers:headers});
+  }
+
   loginUser(body: any): Observable<any>{
     let headers = new HttpHeaders({
       "Content-Type": "application/json",
