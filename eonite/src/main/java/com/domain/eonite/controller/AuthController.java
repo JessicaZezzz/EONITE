@@ -1,13 +1,15 @@
 package com.domain.eonite.controller;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.domain.eonite.dto.*;
 import com.domain.eonite.entity.*;
 import com.domain.eonite.service.*;
+
+import jakarta.mail.MessagingException;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @CrossOrigin("*")
@@ -16,6 +18,9 @@ public class AuthController {
     
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/signupUser")
     public ResponseEntity<UserRes> signUp(@RequestBody Users signUpRequest){
@@ -50,6 +55,26 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<ReqRes> refreshToken(@RequestBody ReqRes refreshTokenRequest){
         return ResponseEntity.ok(authService.refreshToken(refreshTokenRequest));
+    }
+
+    @PostMapping("/generate-otp")
+    public ResponseEntity<TokenRes> generateOTP(@RequestBody TokenRes generateOTPRequest) throws MessagingException {
+        return ResponseEntity.ok(emailService.generateOTP(generateOTPRequest));
+    }
+
+    @PostMapping("/generate-otp-login")
+    public ResponseEntity<TokenRes> generateOTPlogin(@RequestBody TokenRes generateOTPRequest) throws MessagingException {
+        return ResponseEntity.ok(emailService.generateOTPlogin(generateOTPRequest));
+    }
+
+    @PostMapping("/check-otp")
+    public ResponseEntity<TokenRes> checkOTP(@RequestBody TokenRes generateOTPRequest) throws MessagingException {
+        return ResponseEntity.ok(emailService.checkOTP(generateOTPRequest));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<TokenRes> resetPassword(@RequestBody TokenRes generateOTPRequest) throws MessagingException {
+        return ResponseEntity.ok(emailService.resetPassword(generateOTPRequest));
     }
     
 }
