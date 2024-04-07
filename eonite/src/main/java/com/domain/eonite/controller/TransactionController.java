@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.domain.eonite.dto.FundTransRes;
 import com.domain.eonite.dto.PaymentRes;
 import com.domain.eonite.dto.TransRes;
 import com.domain.eonite.service.TransactionService;
@@ -52,6 +53,31 @@ public class TransactionController {
     public ResponseEntity<TransRes> getAllTransactionVendor(@RequestParam(required = true,name = "id") Integer id,
                                                             @RequestParam(required = true,name = "state") String state){
         return ResponseEntity.ok(transactionService.getAllVendorTransaction(id,state));
+    }
+
+    @GetMapping("/getTransactionPending")
+    public ResponseEntity<TransRes> getPendingPaymentTransaction(){
+        return ResponseEntity.ok(transactionService.getPendingPaymentTransaction());
+    }
+
+    @GetMapping("/getRefundTransaction")
+    public ResponseEntity<TransRes> getAllRefundTrans(){
+        return ResponseEntity.ok(transactionService.getAllRefundTrans());
+    }
+
+    @GetMapping("/getRefundTransactionUser")
+    public ResponseEntity<TransRes> getAllRefundTransByUser(@RequestParam(required = true,name = "id") Integer id){
+        return ResponseEntity.ok(transactionService.getAllRefundTransByUser(id));
+    }
+
+    @GetMapping("/getRefundTransactionVendor")
+    public ResponseEntity<TransRes> getAllRefundTransByVendor(@RequestParam(required = true,name = "id") Integer id){
+        return ResponseEntity.ok(transactionService.getAllRefundTransByVendor(id));
+    }
+
+    @PutMapping("/updateRefund")
+    public ResponseEntity<TransRes> updateRefund(@RequestBody FundTransRes request){
+        return ResponseEntity.ok(transactionService.updateRefund(request));
     }
     
 }

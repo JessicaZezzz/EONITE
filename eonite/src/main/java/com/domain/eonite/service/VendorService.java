@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import com.domain.eonite.dto.*;
 import com.domain.eonite.entity.*;
 import com.domain.eonite.repository.*;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -30,9 +29,6 @@ public class VendorService {
 
     @Autowired
     private SubCategoryRepo subCategoryRepo;
-
-    @Autowired
-    private BankAccountRepo bankAccountRepo;
 
     public VendorRes getAllVendor(String sortBy, String sortDir, Boolean pagination, Integer pageSize, Integer pageIndex, String search, String categoryId,Integer domicileId,Integer rating){
         VendorRes resp = new VendorRes();
@@ -102,6 +98,7 @@ public class VendorService {
             Vendor.setInstagram_url(request.getInstagram_url());
             Vendor.setInoperative_date(request.getInoperative_date());
             Vendor.setEmail(request.getEmail());
+            Vendor.setBankAccount(request.getBankAccount());
                 Vendor vendorResult = vendorRepository.save(Vendor);
                 List<Vendor> VendorList = new ArrayList<Vendor>();
                 VendorList.add(Vendor);
@@ -180,91 +177,59 @@ public class VendorService {
         return resp;
     }
 
-    public BankRes addBankAccount(BankRes request){
-        BankRes resp =  new BankRes();
-        vendorRepository.findById(request.getVendorid()).ifPresentOrElse((Vendor)->{
-            BankAccount bankacc = new BankAccount();
-            bankacc.setIdbank(request.getIdbank());
-            bankacc.setNoAccount(request.getNoAccount());
-            bankacc.setVendor(Vendor);
-            bankAccountRepo.save(bankacc);
+    public VendorRes getVendorPending(){
+        VendorRes res = new VendorRes();
+        List<Vendor> lists = vendorRepository.findAllByStatus("PENDING");
+        try{
+            res.setVendor(lists);
+            res.setMessage("Success get All Pending Vendor");
+            res.setStatusCode(200);
+        }catch(Exception e){
+            res.setStatusCode(500);
+            res.setError(e.getMessage());
+        }
+        return res;
+    }
 
-            try{
-                resp.setMessage("Success Add Bank Account");
-                resp.setStatusCode(200);
-    
-            }catch(Exception e){
-                resp.setStatusCode(500);
-                resp.setError(e.getMessage());
-            }
-        }, ()->{
+    public VendorRes updateVendorState(VendorRes request){
+        VendorRes resp =  new VendorRes();
+        vendorRepository.findById(request.getId()).ifPresentOrElse((Vendor) ->{
+            Vendor.setStatus(request.getStatus());
+            Vendor.setStatus_reject(request.getStatus_reject());
+            vendorRepository.save(Vendor);        
+                try{
+                    resp.setMessage("Success Update State Vendor");
+                    resp.setStatusCode(200);
+                }catch(Exception e){
+                    resp.setStatusCode(500);
+                    resp.setError(e.getMessage());
+                }
+        },()->{
             resp.setStatusCode(500);
-            resp.setError("Vendor Not Found");
+            resp.setError("Vendor not found");
         });
         return resp;
     }
 
-    public BankRes updateBankAccount(BankRes request){
-        BankRes resp =  new BankRes();
-        vendorRepository.findById(request.getVendorid()).ifPresentOrElse((Vendor)->{
-            bankAccountRepo.findById(request.getId()).ifPresentOrElse((BankAccount)->{
-                BankAccount.setIdbank(request.getIdbank());
-                BankAccount.setNoAccount(request.getNoAccount());
-                BankAccount.setVendor(Vendor);
-                bankAccountRepo.save(BankAccount);
-            },()->{});
-            
-            try{
-                resp.setMessage("Success Update Bank Account");
-                resp.setStatusCode(200);
-    
-            }catch(Exception e){
-                resp.setStatusCode(500);
-                resp.setError(e.getMessage());
-            }
-        }, ()->{
+    public VendorRes editPhotoId(VendorRes request){
+        VendorRes resp =  new VendorRes();
+        vendorRepository.findById(request.getId()).ifPresentOrElse((Vendor) ->{
+            Vendor.setPhoto_identity(request.getPhoto_identity());
+            Vendor.setStatus_reject("");
+            vendorRepository.save(Vendor);        
+                try{
+                    resp.setMessage("Success Update Photo ID Vendor");
+                    resp.setStatusCode(200);
+                }catch(Exception e){
+                    resp.setStatusCode(500);
+                    resp.setError(e.getMessage());
+                }
+        },()->{
             resp.setStatusCode(500);
-            resp.setError("Vendor Not Found");
+            resp.setError("Vendor not found");
         });
         return resp;
     }
 
-    public BankRes getBankAccount(Integer id){
-        BankRes resp =  new BankRes();
-        vendorRepository.findById(id).ifPresentOrElse((Vendor)->{
-            List<BankAccount> bankAcc = bankAccountRepo.getBankAccount(id);
-            try{
-                resp.setBankAccounts(bankAcc);
-                resp.setMessage("Success Get Bank Account for Vendor Id " + id);
-                resp.setStatusCode(200);
-    
-            }catch(Exception e){
-                resp.setStatusCode(500);
-                resp.setError(e.getMessage());
-            }
-        }, ()->{
-            resp.setStatusCode(500);
-            resp.setError("Vendor Not Found");
-        });
-        return resp;
-    }
 
-    public BankRes deleteBankAccount(Integer id){
-        BankRes resp =  new BankRes();
-        bankAccountRepo.findById(id).ifPresentOrElse((bankacc)->{
-            bankAccountRepo.deleteBankAccount(id);
-            try{
-                resp.setMessage("Success Delete Bank Account for Id " + id);
-                resp.setStatusCode(200);
-    
-            }catch(Exception e){
-                resp.setStatusCode(500);
-                resp.setError(e.getMessage());
-            }
-        }, ()->{
-            resp.setStatusCode(500);
-            resp.setError("Bank Account Not Found");
-        });
-        return resp;
-    }
 }

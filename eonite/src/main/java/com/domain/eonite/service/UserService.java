@@ -17,7 +17,7 @@ import com.domain.eonite.repository.TransactionRepo;
 import com.domain.eonite.repository.UserRepo;
 
 import jakarta.transaction.Transactional;
-
+import java.util.Base64;
 @Service
 @Transactional
 public class UserService {

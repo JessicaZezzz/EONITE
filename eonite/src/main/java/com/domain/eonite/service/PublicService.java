@@ -8,12 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.domain.eonite.entity.Category;
 import com.domain.eonite.entity.Domicile;
-import com.domain.eonite.entity.SubCategory;
 import com.domain.eonite.repository.CategoryRepo;
 import com.domain.eonite.repository.DomicileRepo;
 import com.domain.eonite.repository.SubCategoryRepo;
-
-import jakarta.persistence.Tuple;
 import jakarta.transaction.Transactional;
 
 @Service

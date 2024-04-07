@@ -37,12 +37,12 @@ public class VendorRes {
     private String[] inoperative_date;
     private String instagram_url;
     private Integer rating;
-    private Integer penalty;
     private String status;
     private Time startTime;
     private Time endTime;
     private String email;
+    private String bankAccount;
     private String password;
-    private String surat_ijin_usaha;
+    private String status_reject;
     private Long length;
 }
