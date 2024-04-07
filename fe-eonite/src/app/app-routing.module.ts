@@ -25,11 +25,17 @@ import { EditProfileVendorComponent } from './module/pages/edit-profile-vendor/e
 import { ServicesVendorComponent } from './module/pages/services-vendor/services-vendor.component';
 import { TransactionVendorComponent } from './module/pages/transaction-vendor/transaction-vendor.component';
 import { TransactionVendorDetailsComponent } from './module/pages/transaction-vendor-details/transaction-vendor-details.component';
-import { DashboardComponent } from './module/pages/dashboard/dashboard.component';
 import { ChatComponent } from './module/pages/chat/chat.component';
-import { GenerateOtpComponent } from './module/pages/generate-otp/generate-otp.component';
+import { HomeAdminComponent } from './module/pages/home-admin/home-admin.component';
+import { RefundUserComponent } from './module/pages/refund-user/refund-user.component';
+import { PaymentVendorComponent } from './module/pages/payment-vendor/payment-vendor.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
   {
     path:'home',
     component: HomeComponent,
@@ -129,8 +135,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path:'dashboard',
-    component: DashboardComponent,
+    path:'home-admin',
+    component: HomeAdminComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -138,8 +144,14 @@ const routes: Routes = [
     component: FaqComponent
   },
   {
-    path:'email',
-    component: GenerateOtpComponent
+    path:'refund',
+    component: RefundUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'payment',
+    component: PaymentVendorComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'logout',
@@ -148,7 +160,8 @@ const routes: Routes = [
   {
     path: '**',
     component: PageNotFoundComponent
-  }
+  },
+
 ];
 
 @NgModule({

@@ -230,6 +230,23 @@
                   </div>
                 </div>
 
+                <div class="sm:col-span-3">
+                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Bank Account</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                            formControlName="bankAccount"
+                            class="form-control"
+                            [ngClass]="{'border-b-1 border-red-400': bankAccount.invalid && (bankAccount.dirty || bankAccount.touched)}"
+                            placeholder="Enter Bank Account"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="bankAccount.invalid && (bankAccount.dirty || bankAccount.touched)" class="invalid-feedback">
+                    <div *ngIf="bankAccount.errors?.['required']" class="text-xs text-red-400">
+                      * Required
+                    </div>
+                  </div>
+                </div>
+
                 <div class="sm:col-span-full">
                   <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Company Address</label>
                   <div class="mt-1">

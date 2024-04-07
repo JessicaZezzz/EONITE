@@ -1,0 +1,44 @@
+<div class="sm:px-6 w-full">
+  <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+    <h2 class="mb-4 text-2xl font-semibold leading-tight">Vendor list needs confirmation</h2>
+      <div class="mt-7">
+        <div class="flex flex-col">
+          <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+              <div class="overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Username Vendor</th>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">First Name PIC</th>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Last Name PIC</th>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Email</th>
+                      <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Status</th>
+                      <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr *ngFor="let i of listVendor">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ i.usernameVendor }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{{ i.firstName }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{{ i.lastName }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{{ i.email }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm">
+                        <div class="text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
+                          {{ i.status }}
+                        </div>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                        <button *ngIf="i.status_reject == '' || i.status_reject == undefined" (click)="confirm(i)" type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-[#5C06E4]">CONFIRM</button>
+                        <button *ngIf="i.status_reject != '' && i.status_reject != undefined" [disabled]="true" matTooltip="Action has been taken, waiting for vendor revision" type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-gray-400">WAITING</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

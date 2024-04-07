@@ -1,0 +1,94 @@
+<div class="bg-white overflow-hidden border relative">
+  <button (click)="onNoClick()" type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="deleteModal">
+    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  </button>
+  <div class="px-4 py-2 sm:px-6 ">
+      <div class="text-lg leading-6 font-medium text-gray-900 text-center">
+          Vendor Profile
+      </div>
+      <div class="mt-1 max-w-2xl text-sm text-gray-500 text-center">
+          This is some information about the vendor
+      </div>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+      <dl class="sm:divide-y sm:divide-gray-200">
+          <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">
+                  First Name
+              </dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ dataVendor.firstName }}
+              </dd>
+          </div>
+          <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">
+                  Last Name
+              </dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ dataVendor.lastName }}
+              </dd>
+          </div>
+          <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">
+                Username Vendor
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {{  dataVendor.usernameVendor }}
+            </dd>
+          </div>
+          <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">
+                Email
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {{ dataVendor.email }}
+            </dd>
+          </div>
+          <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">
+                  Birth Date
+              </dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                  {{ getDate(dataVendor.birthDate!) }}
+              </dd>
+          </div>
+          <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">
+                Phone number
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                {{ dataVendor.phoneBusiness }}
+            </dd>
+          </div>
+          <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt class="text-sm font-medium text-gray-500">
+                  Photo Identity
+              </dt>
+              <dd (click)="zoomImage=true" class="mt-1 text-sm text-[#5C06E4] font-semibold sm:mt-0 sm:col-span-2 cursor-pointer">
+                  See Photo
+              </dd>
+          </div>
+      </dl>
+  </div>
+  <div>
+    <div class="bg-gray-50 px-4 py-3 flex flex-row sm:px-6 justify-center space-x-3 mt-2 w-full">
+      <button (click)="reject()" type="button" class="w-full justify-center rounded-md bg-red-600 px-5 py-2 md:py-3 text-sm font-medium text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">REJECT</button>
+      <button (click)="confirm()" type="button" class="w-full justify-center rounded-md bg-indigo-500 px-5 py-2 md:py-3 text-sm font-medium text-white shadow-sm hover:bg-indigo-400 sm:ml-3 sm:w-auto">CONFIRM</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="zoomImage" class="bg-black/[.70] overflow-x-hidden fixed z-50 flex justify-center items-center w-full inset-0 h-[calc(100%)]">
+  <div class="relative p-4 w-full max-w-4xl max-h-full">
+      <div class="relative  shadow ">
+          <div class="p-2 text-end">
+            <button (click)="zoomImage = false" type="button" #closebutton class="text-3xl absolute right-4" data-dismiss="modal">&times;</button>
+            <img
+            [src]="cover"
+            style="width:100%;"
+            class="rounded-lg modal-hover-opacity"
+            />
+          </div>
+      </div>
+  </div>
+</div>

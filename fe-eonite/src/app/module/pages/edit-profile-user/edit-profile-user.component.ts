@@ -135,7 +135,8 @@ export class EditProfileUserComponent implements OnInit {
       const bdate = new DatePipe('en-US');
     postUser.birthDate = bdate.transform(new Date(parseInt(year),parseInt(month)-1,parseInt(day)),"yyyy-MM-ddThh:mm:ssZZZZZ")!;
     postUser.phoneNumber = this.reactiveForm.value.phoneNumber;
-    postUser.photo = this.urlImage.substring(23);
+    let img = this.urlImage!.split(',')[1];
+    postUser.photo = img;
     postUser.email = this.reactiveForm.value.email;
 
     this.restService.updateProfileUser(JSON.stringify(postUser)).subscribe(event=>{

@@ -23,15 +23,43 @@
                 </svg>
                 <span class="text-base font-semibold text-indigo-600 items-center">{{ vendor?.rating }}</span>
             </div>
-            <div class="flex flex-row space-x-2">
+            <div class="flex justify-center mb-4">
+              <div *ngIf="vendor?.status=='PENDING'">
+                <div *ngIf="vendor?.status_reject == '' || vendor?.status_reject == undefined">
+                  <button [disabled]="true" class="text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end" matTooltip="Your account is still under admin review">
+                    {{ vendor?.status }}
+                  </button>
+                </div>
+                <div *ngIf="vendor?.status_reject != '' && vendor?.status_reject != undefined" class="flex flex-row space-x-2 text-center">
+                  <div class="flex flex-col">
+                    <div class="space-x-2">
+                      <button [disabled]="true" class="text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
+                        {{ vendor?.status }}
+                      </button>
+                      <input id="file-upload" name="file-upload" type="file" (change)="onFileChanged($event)" accept="image/jpeg, image/png" class="">
+                      <button (click)="upload()" [disabled]="urlImage == undefined" class="text-[12px] font-medium bg-[#5C06E4] p-1 text-white rounded-md md:px-3 text-center items-end">
+                        UPLOAD
+                      </button>
+                    </div>
+                    <div class="text-red-400 text-sm">
+                      *Your status cannot be confirmed because <b> {{  vendor?.status_reject }} </b>.Please upload your identity photo again!
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="vendor?.status!='PENDING'">
+                <button [disabled]="true" class="text-[12px] font-semibold bg-green-300 p-1 text-green-600 rounded-md md:px-3 text-center items-end">
+                  {{ vendor?.status }}
+                </button>
+              </div>
+
+            </div>
+            <div class="flex flex-row justify-center space-x-2">
               <button (click)="edit()" class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
                 EDIT PROFILE
               </button>
               <button (click)="openChangePass('VENDOR')" class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
                 CHANGE PASSWORD
-              </button>
-              <button class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
-                GET VERIFIED
               </button>
             </div>
           </div>
@@ -127,6 +155,14 @@
                     <span class="px-1">-</span>
                     <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                       {{ checkTime(vendor?.endTime) }}
+                    </div>
+                  </div>
+                </div>
+                <div class="sm:col-span-3">
+                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Bank Account</label>
+                  <div class="mt-1">
+                    <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
+                      {{ checkData(vendor?.bankAccount) }}
                     </div>
                   </div>
                 </div>

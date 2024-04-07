@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { HttpEventType } from '@angular/common/http';
 import { Transaction, TransDet } from '../../models/auth.model';
-import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCancelTransactionComponent } from '../dialog-cancel-transaction/dialog-cancel-transaction.component';
@@ -24,7 +23,7 @@ export class TransactionDetailComponent implements OnInit {
   error:string='';
   list?: Transaction;
   bankAccount?: string;
-  constructor(private route: ActivatedRoute,private routes:Router,private restService:RestApiServiceService,private dialog:MatDialog) {
+  constructor(private datePipe:DatePipe,private route: ActivatedRoute,private routes:Router,private restService:RestApiServiceService,private dialog:MatDialog) {
     this.getData(this.route.snapshot.params['id']);
   }
 
@@ -84,8 +83,7 @@ export class TransactionDetailComponent implements OnInit {
   }
 
   changeDate(date:string){
-    let dt = moment(date).utc().format('DD MMMM YYYY');
-    return dt;
+    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
   }
 
   check(text:string){

@@ -25,7 +25,7 @@ export const MENU_PUBLIC:MENU[]=[
 export const MENU_VENDOR:MENU[]=[
   {
     name : 'Dashboard',
-    link : '/dashboard'
+    link : '/home'
   },
   {
     name : 'About Us',
@@ -51,6 +51,10 @@ export const DROPDOWN_USER:MENU[]=[
     link : '/transaction'
   },
   {
+    name : 'Refund',
+    link : '/refund'
+  },
+  {
     name : 'Logout',
     link : '/logout'
   }
@@ -72,6 +76,10 @@ export const DROPDOWN_VENDOR:MENU[]=[
   {
     name : 'Transaction',
     link : '/transaction-vendor'
+  },
+  {
+    name : 'Payment',
+    link : '/payment'
   },
   {
     name : 'Logout',
@@ -143,13 +151,13 @@ export class Vendor{
   email?          :string;
   password?       :string;
   usernameVendor?   :string;
+  bankAccount?:string;
   categoryVendors?  :number[];
   description?      :string;
   inoperative_date?  :string[];
   instagram_url?    :string;
   rating?           :Number;
-  surat_ijin_usaha? :any;
-  flag?             :string;
+  status_reject? :any;
 }
 
 export class Cart{
@@ -199,6 +207,20 @@ export interface TransDet{
   product?      :Product;
   productReview?:any;
   quantity?     :number;
+}
+
+export interface refund{
+  id?             : number;
+  rejectedBy?     :string;
+  alasanRejected? :string;
+  timestamp?      :string;
+  bankAccountUser? :string
+  state?          :string;
+  totalFundUser?  :number;
+  totalFundVendor?:number;
+  tfUser?         :any;
+  tfVendor?       :any;
+  transaction?    :Transaction;
 }
 
 export interface productReview{

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,8 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
   role:string='';
-  constructor(){
+  constructor(private router:Router){
     this.role = sessionStorage.getItem('AUTH')!;
+    if(this.role == 'ADMIN') this.router.navigate(['/home-admin']);
   }
 }

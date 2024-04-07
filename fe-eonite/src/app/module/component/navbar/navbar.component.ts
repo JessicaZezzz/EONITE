@@ -44,6 +44,7 @@ export class NavbarComponent implements OnInit {
         }
       })
     }else if(this.role=='ADMIN'){
+      sessionStorage.setItem('tab',"managevendor")
       this.menu = MENU_ADMIN;
       this.dropdown = DROPDOWN_ADMIN;
     }

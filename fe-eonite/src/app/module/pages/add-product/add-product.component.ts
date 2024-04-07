@@ -140,7 +140,8 @@ export class AddProductComponent implements OnInit {
       postProduct.description = this.Form1.value.description;
     let photo:string[]=[];
       this.base64ImgArray.forEach(e=>{
-        photo.push(e.substring(23))
+        let img = e.split(',')[1];
+        photo.push(img)
       })
       postProduct.photo = photo;
     this.restService.addProduct(JSON.stringify(postProduct)).subscribe(event=>{

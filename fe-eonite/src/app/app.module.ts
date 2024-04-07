@@ -15,7 +15,6 @@ import { AboutUsComponent } from './module/pages/about-us/about-us.component';
 import { HeaderPublicComponent } from './module/pages/header-public/header-public.component';
 import { TestimonialComponent } from './module/pages/testimonial/testimonial.component';
 import { FaqComponent } from './module/pages/faq/faq.component';
-import { SlideBarHomeComponent } from './module/pages/slide-bar-home/slide-bar-home.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -75,11 +74,20 @@ import { TransactionVendorComponent } from './module/pages/transaction-vendor/tr
 import { TransactionVendorDetailsComponent } from './module/pages/transaction-vendor-details/transaction-vendor-details.component';
 import { DialogCancelTransactionComponent } from './module/pages/dialog-cancel-transaction/dialog-cancel-transaction.component';
 import { DialogReviewComponent } from './module/pages/dialog-review/dialog-review.component';
-import { DashboardComponent } from './module/pages/dashboard/dashboard.component';
-import {  NgxSlickJsModule } from 'ngx-slickjs';
+import { NgxSlickJsModule } from 'ngx-slickjs';
 import { ChatComponent } from './module/pages/chat/chat.component';
 import { GenerateOtpComponent } from './module/pages/generate-otp/generate-otp.component';
 import { DialogResetPasswordComponent } from './module/pages/dialog-reset-password/dialog-reset-password.component'
+import { NgApexchartsModule } from "ng-apexcharts";
+import { ManageVendorComponent } from './module/pages/manage-vendor/manage-vendor.component';
+import { ManageTransactionComponent } from './module/pages/manage-transaction/manage-transaction.component';
+import { DialogManagDetailVendorComponent } from './module/pages/dialog-manag-detail-vendor/dialog-manag-detail-vendor.component';
+import { DialogRejectVendorComponent } from './module/pages/dialog-reject-vendor/dialog-reject-vendor.component';
+import { DialogConfirmPaymentComponent } from './module/pages/dialog-confirm-payment/dialog-confirm-payment.component';
+import { DialogRejectPaymentComponent } from './module/pages/dialog-reject-payment/dialog-reject-payment.component';
+import { RefundUserComponent } from './module/pages/refund-user/refund-user.component';
+import { DialogConfirmRefundComponent } from './module/pages/dialog-confirm-refund/dialog-confirm-refund.component';
+import { PaymentVendorComponent } from './module/pages/payment-vendor/payment-vendor.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +104,6 @@ import { DialogResetPasswordComponent } from './module/pages/dialog-reset-passwo
     HeaderPublicComponent,
     TestimonialComponent,
     FaqComponent,
-    SlideBarHomeComponent,
     LoginUserVendorComponent,
     PageNotFoundComponent,
     LogoutComponent,
@@ -130,10 +137,18 @@ import { DialogResetPasswordComponent } from './module/pages/dialog-reset-passwo
     TransactionVendorDetailsComponent,
     DialogCancelTransactionComponent,
     DialogReviewComponent,
-    DashboardComponent,
     ChatComponent,
     GenerateOtpComponent,
     DialogResetPasswordComponent,
+    ManageVendorComponent,
+    ManageTransactionComponent,
+    DialogManagDetailVendorComponent,
+    DialogRejectVendorComponent,
+    DialogConfirmPaymentComponent,
+    DialogRejectPaymentComponent,
+    RefundUserComponent,
+    DialogConfirmRefundComponent,
+    PaymentVendorComponent,
   ],
   imports: [
     BrowserModule,
@@ -163,6 +178,7 @@ import { DialogResetPasswordComponent } from './module/pages/dialog-reset-passwo
     MatSelectModule,
     MatPaginatorModule,
     MatTooltipModule,
+    NgApexchartsModule,
     NgxSlickJsModule.forRoot({
       links: {
         jquery: "https://code.jquery.com/jquery-3.4.0.min.js",

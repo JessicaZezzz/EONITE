@@ -9,7 +9,6 @@ import { HttpEventType } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
 import { DialogBookingComponent } from '../dialog-booking/dialog-booking.component';
-import { BehaviorSubject, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
