@@ -2,14 +2,12 @@ import { DialogChangePasswordComponent } from './../dialog-change-password/dialo
 import { Component, OnInit } from '@angular/core';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { Router } from '@angular/router';
-
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { emailValidator } from '../../services/email-validator.directive';
+import { FormGroup } from '@angular/forms';
 import { User } from '../../models/auth.model';
 import { HttpEventType } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { EditProfileUserComponent } from '../edit-profile-user/edit-profile-user.component';
-import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-user',
@@ -24,7 +22,7 @@ export class ProfileUserComponent implements OnInit {
   openDialogSuccessDiv: boolean = false;
   urlImage?:any;
 
-  constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog) {
+  constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog,private datePipe:DatePipe) {
     this.user = {} as User;
   }
 
@@ -43,8 +41,7 @@ export class ProfileUserComponent implements OnInit {
   }
 
   changeDate(date:string){
-    let dt = moment(date).utc().format('DD MMMM YYYY');
-    return dt;
+    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
   }
 
   changePassword(role:string){

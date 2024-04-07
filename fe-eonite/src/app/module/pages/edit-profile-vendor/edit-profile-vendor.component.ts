@@ -154,6 +154,9 @@ export class EditProfileVendorComponent implements OnInit {
         Validators.required,
         emailValidator(),
       ]),
+      bankAccount:new FormControl(this.vendor?.bankAccount, [
+        Validators.required,
+      ]),
     },{
       validators: this.emailcheckValidator()
     });
@@ -218,6 +221,10 @@ export class EditProfileVendorComponent implements OnInit {
 
   get phoneBusiness() {
     return this.Form1.get('phoneBusiness')!;
+  }
+
+  get bankAccount() {
+    return this.Form1.get('bankAccount')!;
   }
 
   get usernameVendor() {
@@ -330,9 +337,11 @@ export class EditProfileVendorComponent implements OnInit {
     postVendor.startTime = this.convertTimeFormat(this.Form1.value.startTime);
     postVendor.endTime = this.convertTimeFormat(this.Form1.value.endTime);
     postVendor.instagram_url = this.Form1.value.instagram;
-    postVendor.photo = this.urlImage.substring(23);
+    let img = this.urlImage!.split(',')[1];
+    postVendor.photo = img;
     postVendor.email = this.Form1.value.email;
     postVendor.description = this.description;
+    postVendor.bankAccount = this.Form1.value.bankAccount;
       let inoperative:string[]=[];
       this.model.forEach(e=>{
         const dDate = new DatePipe('en-US');

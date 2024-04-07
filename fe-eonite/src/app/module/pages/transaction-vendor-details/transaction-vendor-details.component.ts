@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { HttpEventType } from '@angular/common/http';
 import { Transaction } from '../../models/auth.model';
 import * as moment from 'moment';
-import { DatePipe } from '@angular/common';
 import { DialogCancelTransactionComponent } from '../dialog-cancel-transaction/dialog-cancel-transaction.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-transaction-vendor-details',
@@ -22,8 +22,8 @@ export class TransactionVendorDetailsComponent implements OnInit {
   error:string='';
   starRating:number = 0;
   list?: Transaction;
-  
-  constructor(private dialog:MatDialog,private route: ActivatedRoute,private routes:Router,private restService:RestApiServiceService) {
+
+  constructor(private dialog:MatDialog,private route: ActivatedRoute,private datePipe: DatePipe,private routes:Router,private restService:RestApiServiceService) {
     this.getData(this.route.snapshot.params['id']);
   }
 
@@ -62,8 +62,7 @@ export class TransactionVendorDetailsComponent implements OnInit {
   }
 
   changeDate(date:string){
-    let dt = moment(date).utc().format('DD MMMM YYYY');
-    return dt;
+    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
   }
 
   check(text:string){

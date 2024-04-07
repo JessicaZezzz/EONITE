@@ -5,7 +5,7 @@ import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import { environment } from 'src/app/enviroment/environment';
 import { HttpEventType } from '@angular/common/http';
-import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -22,7 +22,7 @@ export class ChatComponent implements OnInit {
   activeMessage:boolean= false;
   chatRoomId?:Room;
 
-  constructor(private restService:RestApiServiceService, private route: ActivatedRoute,private router: Router,private ngZone: NgZone){
+  constructor(private restService:RestApiServiceService, private route: ActivatedRoute,private router: Router,private ngZone: NgZone,private datePipe:DatePipe){
     if(this.route.snapshot.queryParamMap.get('vendorId')! && this.route.snapshot.queryParamMap.get('userId')!) this.findSelectedMessages(this.route.snapshot.queryParamMap.get('vendorId')!,this.route.snapshot.queryParamMap.get('userId')!);
   }
 
@@ -165,8 +165,7 @@ export class ChatComponent implements OnInit {
   }
 
   changeDate(date:string){
-    let dt = moment(date).utc().format('DD MMMM YYYY HH:mm');
-    return dt;
+    return this.datePipe.transform(date, 'DD MMMM YYYY HH:mm') || '';
   }
 }
 

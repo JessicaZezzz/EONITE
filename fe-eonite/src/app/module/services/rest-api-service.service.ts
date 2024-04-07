@@ -68,6 +68,10 @@ export class RestApiServiceService {
     return this.http.put(`${environment.apiUrl}/vendor/updateProfileVendor`,body,{headers:this.headers});
   }
 
+  updatePhotoId(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/vendor/updatePhotoIdVendor`,body,{headers:this.headers});
+  }
+
   updateProfileUser(body: any): Observable<any>{
     return this.http.put(`${environment.apiUrl}/user/updateProfile`,body,{headers:this.headers});
   }
@@ -175,11 +179,41 @@ export class RestApiServiceService {
     return this.http.request(request).pipe(timeout(200000));
   }
 
+  getTransactionPending(){
+    let path = `${environment.apiUrl}/trans/getTransactionPending`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getTransactionRefund(){
+    let path = `${environment.apiUrl}/trans/getRefundTransaction`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getTransactionRefundUser(id:number){
+    let param = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/trans/getRefundTransactionUser`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getTransactionRefundVendor(id:number){
+    let param = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/trans/getRefundTransactionVendor`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
   getDetailTransaction(id:number){
     let param = new HttpParams().append('id',id);
     let path = `${environment.apiUrl}/trans/getTransaction`;
     const request = new HttpRequest('GET',path,{params:param})
     return this.http.request(request).pipe(timeout(200000));
+  }
+
+  updateRefund(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/trans/updateRefund`,body,{headers:this.headers});
   }
 
   updateTransaction(body: any): Observable<any>{
@@ -233,6 +267,16 @@ export class RestApiServiceService {
     let path = `${environment.chatUrl}/messages-user/${id}`;
     const request = new HttpRequest('GET',path)
     return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getAllVendorPending(){
+    let path = `${environment.apiUrl}/admin/get-vendor-pending`;
+    const request = new HttpRequest('GET',path)
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  updateVendorState(body: any): Observable<any>{
+    return this.http.put(`${environment.apiUrl}/admin/update-state-vendor`,body,{headers:this.headers});
   }
 
   getChatRoom(senderId:number,recipientId:number){

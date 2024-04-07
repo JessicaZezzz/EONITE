@@ -1,0 +1,104 @@
+<div class="container p-2 mx-auto sm:p-4 dark:text-gray-800">
+  <div class="sm:flex items-center justify-between mb-2">
+    <div class="flex items-center">
+        <button class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800">
+            <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
+                <div>Waiting Confirmation</div>
+            </div>
+        </button>
+    </div>
+  </div>
+	<div class="overflow-x-auto">
+		<table class="min-w-full text-xs">
+			<thead class="dark:bg-gray-100">
+				<tr class="text-left">
+					<th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Invoice #</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">User</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Vendor</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Transaction Date</th>
+					<th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Total Amount</th>
+					<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">State</th>
+          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Action</th>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-gray-200">
+				<tr *ngFor="let i of listTrans">
+					<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+						{{ i.invoice }}
+					</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+						{{ i.user?.firstName }} {{ i.user?.lastName }}
+					</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+						{{ i.vendor?.usernameVendor }}
+					</td>
+					<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+						{{ getDate(i.transdate!) }}
+					</td>
+					<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 text-end">
+						{{ i.total! | currency }}
+					</td>
+					<td class="px-6 py-4 text-sm text-gray-800 text-center">
+						{{ i.state }}
+					</td>
+          <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+						<button (click)="confirmPayment(i)" class="p-2 bg-[#5C06E4] rounded-md text-white hover:bg-indigo-400">
+              CONFIRM
+            </button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+  <div class="sm:flex items-center justify-between mb-2 mt-8">
+    <div class="flex items-center">
+      <button class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800">
+        <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
+            <div>Refund User/Pay Vendor</div>
+        </div>
+      </button>
+    </div>
+  </div>
+	<div class="overflow-x-auto">
+		<table class="min-w-full text-xs">
+			<thead class="dark:bg-gray-100">
+				<tr class="text-left">
+					<th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Invoice #</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">User</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Vendor</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Transaction Date</th>
+					<th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Total Amount</th>
+					<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">State</th>
+          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Action</th>
+				</tr>
+			</thead>
+			<tbody class="divide-y divide-gray-200">
+				<tr *ngFor="let i of listRefund">
+					<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+						{{ i.transaction?.invoice }}
+					</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+						{{ i.transaction?.user?.firstName }} {{ i.transaction?.user?.lastName }}
+					</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+						{{ i.transaction?.vendor?.usernameVendor }}
+					</td>
+					<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+						{{ getDate(i.transaction?.transdate!) }}
+					</td>
+					<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 text-end">
+						{{ i.transaction?.total! | currency }}
+					</td>
+					<td class="px-6 py-4 text-sm text-gray-800 text-center">
+						{{ i.transaction?.state }}
+					</td>
+          <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+						<button (click)="confirmRefund(i)" class="p-2 bg-[#5C06E4] rounded-md text-white hover:bg-indigo-400">
+              CONFIRM
+            </button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

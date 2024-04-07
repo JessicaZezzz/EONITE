@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Vendor } from '../../models/auth.model';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { HttpEventType } from '@angular/common/http';
-import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogChangePasswordComponent } from '../dialog-change-password/dialog-change-password.component';
+import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-vendor',
@@ -19,6 +20,7 @@ export class ProfileVendorComponent implements OnInit {
   vendorId!:number;
   categoryName:string[]=[];
   domicile:string='-';
+  urlImage:any;
   config: AngularEditorConfig = {
     editable: false,
     spellcheck: true,
@@ -28,11 +30,15 @@ export class ProfileVendorComponent implements OnInit {
     showToolbar: false,
   };
 
-  constructor(private restService:RestApiServiceService, private router:Router,public dialog: MatDialog) {
+  constructor(private restService:RestApiServiceService, private router:Router,public dialog: MatDialog,private datePipe:DatePipe) {
     this.vendorId = Number(sessionStorage.getItem('ID')!);
   }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData(){
     this.restService.getprofileVendor(this.vendorId).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['vendor'];
@@ -43,9 +49,41 @@ export class ProfileVendorComponent implements OnInit {
     })
   }
 
+  onFileChanged(event:any) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.urlImage = reader.result;
+        }
+    }
+  }
+
+  upload(){
+    let postVendor: Vendor = {};
+    let img = this.urlImage!.split(',')[1];
+    postVendor.id = this.vendorId;
+    postVendor.photo_identity = img;
+      this.restService.updatePhotoId(JSON.stringify(postVendor)).subscribe(event=>{
+        if(event.statusCode == 200){
+          const dialogRef = this.dialog.open(DialogSuccessComponent, {
+            data: 'Success Update Photo Identity',
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            this.getData();
+          });
+        }else if(event.statusCode == 500){}
+      })
+  }
+
+  bankAccount(){
+
+  }
+
   changeDate(date:string){
-    let dt = moment(date).utc().format('DD MMMM YYYY');
-    return dt;
+    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
   }
 
   changeFormatInoperative(listDate: string[]){

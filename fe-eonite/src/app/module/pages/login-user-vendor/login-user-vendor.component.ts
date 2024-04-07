@@ -77,18 +77,17 @@ export class LoginUserVendorComponent implements OnInit {
   }
 
   validationLogIn(status:any,body:any,role:string){
-    console.log(body.email)
     if(status.statusCode == 200){
       let generateOTP:otp={
         userType:role,
         email:body.email!,
         option:'login'
       };
-      const dialogRef = this.dialog.open(GenerateOtpComponent, {
-        data:generateOTP
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
+      // const dialogRef = this.dialog.open(GenerateOtpComponent, {
+      //   data:generateOTP
+      // });
+      // dialogRef.afterClosed().subscribe(result => {
+      //   if(result){
           sessionStorage.setItem('ID', status.id);
           sessionStorage.setItem('ACCESS_TOKEN',status.token);
           sessionStorage.setItem('REFRESH_TOKEN',status.refreshToken);
@@ -97,8 +96,8 @@ export class LoginUserVendorComponent implements OnInit {
           let temp = JSON.parse(window.atob(base64));
           sessionStorage.setItem('AUTH',temp.data_users[0].authority);
           this.router.navigate(['/home']);
-        }else{};
-      });
+      //   }else{};
+      // });
     }else if(status.statusCode == 500){
       if(status.error == 'Bad credentials'){
         this.openDialogError2 = true;

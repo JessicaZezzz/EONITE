@@ -4,8 +4,7 @@ import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEventType, HttpParams } from '@angular/common/http';
 import { page, Product, Vendor } from '../../models/auth.model';
-import * as moment from 'moment';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 
 @Component({
   selector: 'app-detail-vendor',
@@ -33,7 +32,7 @@ export class DetailVendorComponent implements OnInit {
     length:0
   }
 
-  constructor(private restService:RestApiServiceService, private router:ActivatedRoute,private routes:Router) { }
+  constructor(private restService:RestApiServiceService, private router:ActivatedRoute,private routes:Router,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
     this.restService.getprofileVendor(this.router.snapshot.params['id']).subscribe((event)=>{
@@ -74,8 +73,7 @@ export class DetailVendorComponent implements OnInit {
   }
 
   changeDate(date:string){
-    let dt = moment(date).utc().format('DD MMMM YYYY');
-    return dt;
+    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
   }
 
   changeFormatInoperative(listDate: string[]){

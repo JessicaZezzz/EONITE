@@ -196,7 +196,8 @@ export class SignUpVendorComponent {
       postVendor.usernameVendor = this.Form2.value.username;
       postVendor.phoneBusiness = this.Form2.value.phoneBusiness;
       postVendor.photo = this.dfltImg;
-      postVendor.photo_identity = this.urlImage.substring(23)
+      let img = this.urlImage!.split(',')[1];
+      postVendor.photo_identity = img
       postVendor.status = 'PENDING';
       postVendor.email = this.Form1.value.email;
       postVendor.password = this.Form1.value.password;
