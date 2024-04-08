@@ -352,7 +352,7 @@ export class EditProfileVendorComponent implements OnInit {
     this.restService.updateProfileVendor(JSON.stringify(postVendor)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Success Update Profile',
+          data: 'Successfully updated profile',
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -360,8 +360,6 @@ export class EditProfileVendorComponent implements OnInit {
         });
         this.redirect();
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
       }
     })
   }

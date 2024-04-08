@@ -106,13 +106,11 @@ export class DialogCartComponent implements OnInit {
     this.restService.addCart(JSON.stringify(postCart)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Success Add Product To Cart',
+          data: 'Successfully added product to cart',
         });
         this.onNoClick();
 
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
       }
     })
   }

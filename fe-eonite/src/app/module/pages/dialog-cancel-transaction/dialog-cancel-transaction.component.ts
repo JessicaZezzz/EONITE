@@ -38,8 +38,6 @@ export class DialogCancelTransactionComponent implements OnInit {
         this.dialogRef.close(true);
 
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
       }
     })
   }

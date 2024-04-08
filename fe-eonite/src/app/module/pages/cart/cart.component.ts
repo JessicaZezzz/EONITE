@@ -131,7 +131,7 @@ export class CartComponent implements OnInit {
       this.error='You can only checkout products from the same vendor';
       return true;
     }else if(flag == 0){
-      this.error='No product selected';
+      this.error='No products selected';
       return true;
     }
     return true;
@@ -180,7 +180,7 @@ export class CartComponent implements OnInit {
 
   getError(element:any){
     if(this.userSelectionMap.get(element.vendorId)!.selected.length>0)return '';
-    return 'No product selected';
+    return 'No products selected';
   }
 
   onDelete(){
@@ -194,15 +194,13 @@ export class CartComponent implements OnInit {
     this.restService.deleteCart(JSON.stringify(postDelete)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Success Delete Product From Cart',
+          data: 'Successfully removed product from cart',
         });
         this.deleteItem=false;
         dialogRef.afterClosed().subscribe(result => {
           window.location.reload();
         });
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
       }
     })
   }

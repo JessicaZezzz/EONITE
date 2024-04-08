@@ -162,13 +162,10 @@ export class EditProductComponent implements OnInit {
     this.restService.updateProduct(JSON.stringify(postProduct)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Success Update Product',
+          data: 'Successfully updated the product',
         });
         this.onNoClick();
-
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
       }
     })
   }

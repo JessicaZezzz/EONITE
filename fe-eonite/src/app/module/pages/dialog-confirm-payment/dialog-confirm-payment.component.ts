@@ -22,7 +22,7 @@ export class DialogConfirmPaymentComponent implements OnInit {
   }
 
   getDate(date:string){
-    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
   }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class DialogConfirmPaymentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Success Reject Payment"
+          data:"Successfully rejected payment"
         });
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);
@@ -53,7 +53,7 @@ export class DialogConfirmPaymentComponent implements OnInit {
     this.restService.updateTransaction(JSON.stringify(postTrans)).subscribe((event)=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Success Confirm Payment"
+          data:"Successfully confirmed payment"
         });
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);

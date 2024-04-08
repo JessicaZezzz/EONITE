@@ -1,30 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ChartComponent,
-  ApexDataLabels,
-  ApexPlotOptions,
-  ApexYAxis,
-  ApexLegend,
-  ApexStroke,
-  ApexXAxis,
-  ApexFill,
-  ApexTooltip
-} from "ng-apexcharts";
+import { Component, OnInit } from '@angular/core';
+import { RestApiServiceService } from '../../services/rest-api-service.service';
+import { HttpEventType } from '@angular/common/http';
 
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  yaxis: ApexYAxis;
-  xaxis: ApexXAxis;
-  fill: ApexFill;
-  tooltip: ApexTooltip;
-  stroke: ApexStroke;
-  legend: ApexLegend;
-};
+export const COLOR_BLUE = 'rgb(53,117,221)';
+export const COLOR_PURPLE = '#5C06E4';
 
 @Component({
   selector: 'app-home-vendor',
@@ -32,77 +11,101 @@ export type ChartOptions = {
   styleUrls: ['./home-vendor.component.css']
 })
 export class HomeVendorComponent implements OnInit {
-  @ViewChild("chart") chart?: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
-  constructor() {
-    this.chartOptions = {
-      series: [
-        {
-          name: "Waiting Confirmation",
-          data: [44, 55, 57, 56, 61]
-        },
-        {
-          name: "Waiting Payment",
-          data: [44, 55, 57, 56, 61]
-        },
-        {
-          name: "On Going",
-          data: [76, 85, 101, 98, 87]
-        },
-        {
-          name: "Completed",
-          data: [35, 41, 36, 26, 45]
-        },
-        {
-          name: "Cancelled",
-          data: [76, 85, 101, 98, 87]
-        }
-      ],
-      chart: {
-        type: "bar",
-        height: 350
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"]
-      },
-      xaxis: {
-        categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-        ]
-      },
-      yaxis: {
-        title: {
-          text: "Total (orders)"
-        }
-      },
-      fill: {
-        opacity: 1
-      },
-      tooltip: {
-        y: {
-          formatter: function(val) {
-            return "Total " + val + " Order";
-          }
-        }
+  data: any;
+  options: any;
+  dashboarddata:dashboard={};
+
+  constructor(private restService:RestApiServiceService){
+    this.restService.getDashboard(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let totalProduct = Object(event.body)['totalProduct'];
+        this.dashboarddata!.totalProduct = totalProduct;
+
+        let totalReview = Object(event.body)['totalReview'];
+        this.dashboarddata!.totalReview = totalReview;
+
+        let totalRequest = Object(event.body)['totalRequest'];
+        this.dashboarddata!.totalRequest = totalRequest;
+
+        let orderCancelled = Object(event.body)['orderCancelled'];
+        this.dashboarddata!.orderCancelled = orderCancelled;
+
+        let orderCompleted = Object(event.body)['orderCompleted'];
+        this.dashboarddata!.orderCompleted = orderCompleted;
+        console.log(this.dashboarddata.orderCancelled)
+        this.setDashboard();
       }
-    };
+    })
   }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
+  ngOnInit() {
+
   }
+
+  setDashboard(){
+    const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = COLOR_PURPLE;
+      const textColorSecondary = COLOR_BLUE;
+      const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+      this.data = {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          datasets: [
+              {
+                  label: 'Completed Order',
+                  data: this.dashboarddata.orderCompleted,
+                  fill: false,
+                  borderColor: COLOR_BLUE,
+                  tension: 0.4
+              },
+              {
+                  label: 'Cancelled Order',
+                  data: this.dashboarddata.orderCancelled,
+                  fill: false,
+                  borderColor: COLOR_PURPLE,
+                  tension: 0.4
+              }
+          ]
+      };
+
+      this.options = {
+          maintainAspectRatio: false,
+          aspectRatio: 0.6,
+          plugins: {
+              legend: {
+                  labels: {
+                      color: textColor
+                  }
+              }
+          },
+          scales: {
+              x: {
+                  ticks: {
+                      color: textColorSecondary
+                  },
+                  grid: {
+                      color: surfaceBorder,
+                      drawBorder: false
+                  }
+              },
+              y: {
+                  ticks: {
+                      color: textColorSecondary
+                  },
+                  grid: {
+                      color: surfaceBorder,
+                      drawBorder: false
+                  }
+              }
+          }
+      };
+  }
+}
+
+export interface dashboard{
+  totalProduct?:number;
+  totalReview?:number;
+  totalRequest?:number;
+  orderCancelled?:number;
+  orderCompleted?:number;
 }

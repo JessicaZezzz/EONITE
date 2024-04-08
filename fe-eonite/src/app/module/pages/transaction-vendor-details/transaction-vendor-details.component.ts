@@ -62,7 +62,7 @@ export class TransactionVendorDetailsComponent implements OnInit {
   }
 
   changeDate(date:string){
-    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
   }
 
   check(text:string){

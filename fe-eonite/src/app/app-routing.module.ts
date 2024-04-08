@@ -29,6 +29,8 @@ import { ChatComponent } from './module/pages/chat/chat.component';
 import { HomeAdminComponent } from './module/pages/home-admin/home-admin.component';
 import { RefundUserComponent } from './module/pages/refund-user/refund-user.component';
 import { PaymentVendorComponent } from './module/pages/payment-vendor/payment-vendor.component';
+import { PrivacyPolicyComponent } from './module/pages/privacy-policy/privacy-policy.component';
+import { TnCComponent } from './module/pages/tn-c/tn-c.component';
 
 const routes: Routes = [
   {
@@ -142,6 +144,14 @@ const routes: Routes = [
   {
     path:'faq',
     component: FaqComponent
+  },
+  {
+    path:'privacy-policy',
+    component: PrivacyPolicyComponent
+  },
+  {
+    path:'tnc',
+    component: TnCComponent
   },
   {
     path:'refund',

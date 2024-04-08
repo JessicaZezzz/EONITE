@@ -140,6 +140,10 @@ export class RestApiServiceService {
     return this.http.put(`${environment.apiUrl}/vendor/updateProduct`,body,{headers:this.headers});
   }
 
+  deleteProduct(body:any): Observable<any>{
+    return this.http.post(`${environment.apiUrl}/vendor/deleteProduct`,body,{headers:this.headers});
+  }
+
   addCart(body: any): Observable<any>{
     return this.http.post(`${environment.apiUrl}/user/addCart`,body,{headers:this.headers});
   }
@@ -201,6 +205,13 @@ export class RestApiServiceService {
   getTransactionRefundVendor(id:number){
     let param = new HttpParams().append('id',id);
     let path = `${environment.apiUrl}/trans/getRefundTransactionVendor`;
+    const request = new HttpRequest('GET',path,{params:param})
+    return this.http.request(request).pipe(timeout(200000));
+  }
+
+  getDashboard(id:number){
+    let param = new HttpParams().append('id',id);
+    let path = `${environment.apiUrl}/trans/getDashboard`;
     const request = new HttpRequest('GET',path,{params:param})
     return this.http.request(request).pipe(timeout(200000));
   }

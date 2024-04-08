@@ -46,7 +46,7 @@
         </div>
         <div class="border-l-2 border-l-[#5C06E4] pl-2 mb-3">Proof of payment</div>
         <div class="rounded-xl bg-gray-100 mt-4 justify-center">
-          <img class="w-64 rounded-md" [src]="getImg(i)">
+          <img *ngIf="i.tfUser != undefined" class="w-64 rounded-md" [src]="getImg(i)">
         </div>
         <div class="mt-6 border-t pt-5 text-sm flex items-center">Total payment to User：<span class="text-base text-red-500 font-bold">{{ i.totalFundUser!|currency }}</span></div>
       </div>

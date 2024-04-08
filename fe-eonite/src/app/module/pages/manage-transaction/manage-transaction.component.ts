@@ -64,6 +64,6 @@ export class ManageTransactionComponent implements OnInit {
   }
 
   getDate(date:string){
-    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
   }
 }

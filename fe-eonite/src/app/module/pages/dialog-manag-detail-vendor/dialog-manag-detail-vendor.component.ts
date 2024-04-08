@@ -37,7 +37,7 @@ export class DialogManagDetailVendorComponent implements OnInit {
     this.restService.updateVendorState(JSON.stringify(dt)).subscribe((event)=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Success Confirm Vendor"
+          data:"Successfully confirmed vendor"
         });
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);
@@ -53,7 +53,7 @@ export class DialogManagDetailVendorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Success Reject Vendor"
+          data:"Successfully rejected vendor"
         });
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);
@@ -67,7 +67,7 @@ export class DialogManagDetailVendorComponent implements OnInit {
   }
 
   getDate(date:string){
-    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
   }
 
 }

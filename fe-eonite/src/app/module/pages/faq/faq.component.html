@@ -1,28 +1,24 @@
-<!-- <app-navbar></app-navbar>
-<section class="relative z-20 overflow-hidden bg-white dark:bg-dark pt-10 pb-12 lg:pt-[10px] lg:pb-[90px]">
+<app-navbar></app-navbar>
+<section class="w-full flex justify-center">
   <div class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
     <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
   </div>
   <div class="container mx-auto p-12">
       <div class="flex flex-wrap -mx-4">
          <div class="w-full px-4">
-            <div class="mx-auto mb-[60px] max-w-[520px] text-center lg:mb-20">
+            <div class="mx-auto mb-5 max-w-[520px] text-center lg:mb-5">
                <span class="block mb-2 text-lg font-semibold text-primary">
                FAQ
                </span>
-               <h2 class="mb-4 text-3xl font-bold sm:text-[40px]/[48px]">
+               <h2 class="mb-2 text-3xl font-bold sm:text-[40px]/[48px]">
                   Any Questions? Look Here
                </h2>
-               <p class="text-base text-body-color dark:text-dark-6">
-                  There are many variations of passages of Lorem Ipsum available
-                  but the majority have suffered alteration in some form.
-               </p>
             </div>
          </div>
       </div>
       <div class="flex flex-wrap -mx-4">
          <div class="w-full px-4 lg:w-1/2">
-            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+            <div class="w-full p-4 mb-4 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
                <button class="flex w-full text-left faq-btn" (click)="openFaq(1)">
                   <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
                      <svg
@@ -40,21 +36,18 @@
                      </svg>
                   </div>
                   <div class="w-full">
-                     <h4 class="mt-1 text-lg font-semibold">
-                        How long we deliver your first blog post?
-                     </h4>
+                     <div class="mt-1 text-lg font-semibold">
+                      How can I place an order for the services provided by EONITE?
+                     </div>
                   </div>
                </button>
                <div *ngIf="openFaq1" class="faq-content pl-[62px]">
-                  <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
-                     It takes 2-3 weeks to get your first blog post ready. That
-                     includes the in-depth research & creation of your monthly
-                     content marketing strategy that we do before writing your
-                     first blog post, Ipsum available .
+                  <p class="py-3 text-base text-body-color dark:text-dark-6">
+                    First, you must register yourself as a 'USER'. Then, if you have logged in as 'USER', you can browse the products provided by EONITE and add the product to the cart. You can checkout products that you feel confident about ordering.
                   </p>
                </div>
             </div>
-            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+            <div class="w-full p-4 mb-4 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
                <button class="flex w-full text-left faq-btn" (click)="openFaq(2)">
                   <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
                      <svg
@@ -72,21 +65,18 @@
                      </svg>
                   </div>
                   <div class="w-full">
-                     <h4 class="mt-1 text-lg font-semibold">
-                        How long we deliver your first blog post?
-                     </h4>
+                     <div class="mt-1 text-lg font-semibold">
+                      Can I register myself as USER and VENDOR at the same time?
+                     </div>
                   </div>
                </button>
                <div *ngIf="openFaq2" class="faq-content pl-[62px]">
                   <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
-                     It takes 2-3 weeks to get your first blog post ready. That
-                     includes the in-depth research & creation of your monthly
-                     content marketing strategy that we do before writing your
-                     first blog post, Ipsum available .
+                    Of course, you can register yourself as a user and vendor with the same email. When you log in, make sure you log in according to the desired role.
                   </p>
                </div>
             </div>
-            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+            <div class="w-full p-4 mb-4 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
                <button class="flex w-full text-left faq-btn" (click)="openFaq(3)">
                   <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
                      <svg
@@ -104,23 +94,20 @@
                      </svg>
                   </div>
                   <div class="w-full">
-                     <h4 class="mt-1 text-lg font-semibold">
-                        How long we deliver your first blog post?
-                     </h4>
+                     <div class="mt-1 text-lg font-semibold">
+                      What if I want to cancel a transaction that has already been paid?
+                     </div>
                   </div>
                </button>
                <div *ngIf="openFaq3" class="faq-content pl-[62px]">
                   <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
-                     It takes 2-3 weeks to get your first blog post ready. That
-                     includes the in-depth research & creation of your monthly
-                     content marketing strategy that we do before writing your
-                     first blog post, Ipsum available .
+                    You can still cancel orders that have already been paid for with the conditions that apply to EONITE. For more detailed provisions, see EONITE's Terms and Conditions.
                   </p>
                </div>
             </div>
          </div>
          <div class="w-full px-4 lg:w-1/2">
-            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+            <div class="w-full p-4 mb-4 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
                <button class="flex w-full text-left faq-btn" (click)="openFaq(4)">
                   <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
                      <svg
@@ -138,23 +125,20 @@
                      </svg>
                   </div>
                   <div class="w-full">
-                     <h4 class="mt-1 text-lg font-semibold">
-                        How long we deliver your first blog post?
-                     </h4>
+                     <div class="mt-1 text-lg font-semibold">
+                      How can I contact customer support?
+                     </div>
                   </div>
                </button>
                <div *ngIf="openFaq4" class="faq-content pl-[62px]">
                   <p
                      class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                      >
-                     It takes 2-3 weeks to get your first blog post ready. That
-                     includes the in-depth research & creation of your monthly
-                     content marketing strategy that we do before writing your
-                     first blog post, Ipsum available .
+                     If you encounter difficulties, you can contact us via email eoniteapp@gmail.com or telephone (0274) 109-9222
                   </p>
                </div>
             </div>
-            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+            <div class="w-full p-4 mb-4 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
                <button class="flex w-full text-left faq-btn" (click)="openFaq(5)">
                   <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
                      <svg
@@ -172,21 +156,18 @@
                      </svg>
                   </div>
                   <div class="w-full">
-                     <h4 class="mt-1 text-lg font-semibold">
-                        How long we deliver your first blog post?
-                     </h4>
+                     <div class="mt-1 text-lg font-semibold">
+                      What payment methods do you accept?
+                     </div>
                   </div>
                </button>
                <div *ngIf="openFaq5" class="faq-content pl-[62px]">
                   <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
-                     It takes 2-3 weeks to get your first blog post ready. That
-                     includes the in-depth research & creation of your monthly
-                     content marketing strategy that we do before writing your
-                     first blog post, Ipsum available .
+                    We only serve payments using the official EONITE bank account transfer method. Buyers can upload proof of payment and the admin will immediately confirm the payment the buyer has made.
                   </p>
                </div>
             </div>
-            <div class="w-full p-4 mb-8 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
+            <div class="w-full p-4 mb-4 bg-white rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_10px_55px_0px_rgba(0,0,0,0.15)] dark:bg-dark-2 sm:p-8 lg:px-6 xl:px-8">
                <button class="flex w-full text-left faq-btn" (click)="openFaq(6)">
                   <div class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg">
                      <svg
@@ -203,17 +184,14 @@
                      </svg>
                   </div>
                   <div class="w-full">
-                     <h4 class="mt-1 text-lg font-semibold">
-                        How long we deliver your first blog post?
-                     </h4>
+                     <div class="mt-1 text-lg font-semibold">
+                      Can I communicate with vendors?
+                     </div>
                   </div>
                </button>
                <div *ngIf="openFaq6" class="faq-content pl-[62px]">
                   <p class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6">
-                     It takes 2-3 weeks to get your first blog post ready. That
-                     includes the in-depth research & creation of your monthly
-                     content marketing strategy that we do before writing your
-                     first blog post, Ipsum available .
+                    Of course you can communicate with the vendors you want. EONITE provides a chat feature that helps facilitate communication between users and vendors.
                   </p>
                </div>
             </div>
@@ -221,4 +199,4 @@
       </div>
   </div>
 </section>
-<app-footer></app-footer> -->
+<app-footer></app-footer>

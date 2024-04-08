@@ -88,6 +88,9 @@ import { DialogRejectPaymentComponent } from './module/pages/dialog-reject-payme
 import { RefundUserComponent } from './module/pages/refund-user/refund-user.component';
 import { DialogConfirmRefundComponent } from './module/pages/dialog-confirm-refund/dialog-confirm-refund.component';
 import { PaymentVendorComponent } from './module/pages/payment-vendor/payment-vendor.component';
+import { ChartModule } from 'primeng/chart';
+import { PrivacyPolicyComponent } from './module/pages/privacy-policy/privacy-policy.component';
+import { TnCComponent } from './module/pages/tn-c/tn-c.component';
 
 @NgModule({
   declarations: [
@@ -149,6 +152,8 @@ import { PaymentVendorComponent } from './module/pages/payment-vendor/payment-ve
     RefundUserComponent,
     DialogConfirmRefundComponent,
     PaymentVendorComponent,
+    PrivacyPolicyComponent,
+    TnCComponent,
   ],
   imports: [
     BrowserModule,
@@ -179,6 +184,7 @@ import { PaymentVendorComponent } from './module/pages/payment-vendor/payment-ve
     MatPaginatorModule,
     MatTooltipModule,
     NgApexchartsModule,
+    ChartModule,
     NgxSlickJsModule.forRoot({
       links: {
         jquery: "https://code.jquery.com/jquery-3.4.0.min.js",
