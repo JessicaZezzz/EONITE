@@ -165,7 +165,7 @@ export class ChatComponent implements OnInit {
   }
 
   changeDate(date:string){
-    return this.datePipe.transform(date, 'DD MMMM YYYY HH:mm') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY HH:mm') || '';
   }
 }
 

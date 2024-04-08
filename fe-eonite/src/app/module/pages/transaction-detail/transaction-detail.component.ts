@@ -83,7 +83,7 @@ export class TransactionDetailComponent implements OnInit {
   }
 
   changeDate(date:string){
-    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
   }
 
   check(text:string){
@@ -137,7 +137,8 @@ export class TransactionDetailComponent implements OnInit {
     let postTrans :uploadPayment={};
     postTrans.transId = this.list?.id;
     postTrans.bankAccount = this.Form.value.name;
-    postTrans.image = this.urlImage.substring(23);
+    let img = this.urlImage!.split(',')[1];
+    postTrans.image = img;
     this.restService.updatePayment(JSON.stringify(postTrans)).subscribe(event => {
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {

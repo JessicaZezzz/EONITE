@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { User } from '../../models/auth.model';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
-import { Router } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
 import { emailValidator } from '../../services/email-validator.directive';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -142,7 +141,7 @@ export class EditProfileUserComponent implements OnInit {
     this.restService.updateProfileUser(JSON.stringify(postUser)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Success Update Profile',
+          data: 'Successfully updated profile',
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -150,8 +149,6 @@ export class EditProfileUserComponent implements OnInit {
         });
         this.onNoClick();
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
       }
     })
   }

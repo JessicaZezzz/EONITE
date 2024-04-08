@@ -1,13 +1,13 @@
 <div class="flex flex-col text-center justify-center items-center">
   <div class="w-full my-2">
     <div class="font-semibold">
-      Reason for reject Vendor
+      Reason for Vendor Rejection
     </div>
     <input type="text" minlength="1" maxlength="50" [(ngModel)]="alasanReject"
           class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
   </div>
   <div class="flex justify-center items-center space-x-4">
-      <button (click)="onNoClick()" data-modal-toggle="deleteModal" type="button" class="rounded-md px-7 md:px-5 py-2 text-white bg-indigo-600 hover:bg-indigo-500">
+      <button (click)="onNoClick()" data-modal-toggle="deleteModal" type="button" class="rounded-md px-7 md:px-5 py-2 text-white bg-[#5C06E4] hover:bg-indigo-500">
           No, cancel
       </button>
       <button [disabled]="alasanReject == ''" (click)="submit()" class="md:ml-3 rounded-md px-5 py-2 text-white bg-red-600 hover:bg-red-500 disabled:bg-gray-300">

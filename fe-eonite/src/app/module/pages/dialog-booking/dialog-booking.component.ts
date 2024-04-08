@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDatepicker } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Vendor } from '../../models/auth.model';
-import { HttpEventType, HttpParams } from '@angular/common/http';
+import { HttpEventType } from '@angular/common/http';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
 
@@ -79,13 +79,11 @@ export class DialogBookingComponent implements OnInit {
     this.restService.addBooking(JSON.stringify(carts)).subscribe(event => {
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Success Add Booking',
+          data: 'Successfully made a booking',
         });
         this.dialogRef.close(true);
 
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
       }
     })
   }

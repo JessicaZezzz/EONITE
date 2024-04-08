@@ -41,7 +41,7 @@ export class ProfileUserComponent implements OnInit {
   }
 
   changeDate(date:string){
-    return this.datePipe.transform(date, 'DD MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
   }
 
   changePassword(role:string){

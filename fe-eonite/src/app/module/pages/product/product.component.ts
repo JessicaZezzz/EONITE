@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DetailProductVendorComponent } from '../detail-product-vendor/detail-product-vendor.component';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { EditProductComponent } from '../edit-product/edit-product.component';
+import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
 
 @Component({
   selector: 'app-product',
@@ -17,6 +18,8 @@ export class ProductComponent implements OnInit {
   listProduct:Product[] = [];
   stateVendor?:string;
   tooltip:string='';
+  deleteItem:boolean=false;
+  deleteItemId?:number;
 
   constructor(private restService:RestApiServiceService,public dialog: MatDialog) {
     this.vendorId = Number(sessionStorage.getItem('ID')!);
@@ -72,6 +75,29 @@ export class ProductComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getData();
     });
+  }
+
+  deleteProduct(id:number){
+    this.deleteItem = true;
+    this.deleteItemId = id;
+  }
+
+  onDelete(){
+    let postDelete ={
+      id:this.deleteItemId!
+    }
+    this.restService.deleteProduct(JSON.stringify(postDelete)).subscribe(event=>{
+      if(event.statusCode == 200){
+        const dialogRef = this.dialog.open(DialogSuccessComponent, {
+          data: 'Successfully deleted the product',
+        });
+        this.deleteItem=false;
+        dialogRef.afterClosed().subscribe(result => {
+          this.getData();
+        });
+      }else if(event.statusCode == 500){
+      }
+    })
   }
 
 }

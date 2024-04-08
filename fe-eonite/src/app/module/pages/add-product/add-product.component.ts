@@ -68,7 +68,7 @@ export class AddProductComponent implements OnInit {
       // Size Filter Bytes
       this.rawFileArray.push(fileInput.target.files[0]);
       const max_size = 10000000;
-      const allowed_types = ['image/png', 'image/jpeg'];
+      const allowed_types = ['image/png', 'image/jpeg', 'image/jpg'];
       const max_height = 15200;
       const max_width = 25600;
 
@@ -147,13 +147,11 @@ export class AddProductComponent implements OnInit {
     this.restService.addProduct(JSON.stringify(postProduct)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Success Add Product',
+          data: 'Successfully added new product',
         });
         this.onNoClick();
-
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
+
       }
     })
   }
