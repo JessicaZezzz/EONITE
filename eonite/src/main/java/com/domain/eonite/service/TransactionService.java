@@ -1,6 +1,5 @@
 package com.domain.eonite.service;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -9,11 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.domain.eonite.dto.FundTransRes;
 import com.domain.eonite.dto.PaymentRes;
 import com.domain.eonite.dto.TransRes;
 import com.domain.eonite.entity.FundTransaction;
@@ -285,6 +285,24 @@ public class TransactionService {
         return resp;
     }
 
+    public TransRes getPendingPaymentTransaction(){
+        TransRes resp = new TransRes();	
+        List<Transaction> trans = transactionRepo.findAllByState("WAITING-PAYMENT")
+                                                .stream()
+                                                .filter(f->f.getPayment().getState().equals("WAITING-CONFIRMATION"))
+                                                .collect(Collectors.toList());
+        try{
+            resp.setTransactions(trans);
+            resp.setMessage("Success Get Pending Transaction");
+            resp.setStatusCode(200);
+
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
+
     public PaymentRes updatePayment(PaymentRes request){
         PaymentRes resp = new PaymentRes();
         paymentRepo.findByTransaction(transactionRepo.findById(request.getTransId()).get()).ifPresentOrElse((payment)->{
@@ -358,7 +376,117 @@ public class TransactionService {
         return resp;
     }
 
-    // public 
+    public TransRes getAllRefundTrans(){
+        TransRes resp = new TransRes();	
+        List<FundTransRes> funds = new ArrayList<FundTransRes>();
+        List<FundTransaction> fundTranss = fundTransRepo.findAllByState("WAITING-REFUND");
+        fundTranss.forEach((fund)->{
+            FundTransRes res = new FundTransRes();
+            res.setId(fund.getId());
+            res.setRejectedBy(fund.getRejectedBy());
+            res.setAlasanRejected(fund.getAlasanRejected());
+            res.setTimestamp(fund.getTimestamp());
+            res.setBankAccountUser(fund.getBankAccountUser());
+            res.setState(fund.getState());
+            res.setTotalFundUser(fund.getTotalFundUser());
+            res.setTotalFundVendor(fund.getTotalFundVendor());
+            res.setTfUser(fund.getTfUser());
+            res.setTfVendor(fund.getTfVendor());
+            res.setTransaction(transactionRepo.findById(fund.getTransId()).get());
+            funds.add(res);
+        });
+        try{
+            resp.setFundTransactions(funds);
+            resp.setMessage("Success Get All Refund Transaction");
+            resp.setStatusCode(200);
 
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
+
+    public TransRes getAllRefundTransByUser(Integer id){
+        TransRes resp = new TransRes();	
+        List<FundTransRes> funds = new ArrayList<FundTransRes>();
+        List<FundTransaction> fundTranss = fundTransRepo.findAllByUserId(id);
+        fundTranss.forEach((fund)->{
+            FundTransRes res = new FundTransRes();
+            res.setId(fund.getId());
+            res.setRejectedBy(fund.getRejectedBy());
+            res.setAlasanRejected(fund.getAlasanRejected());
+            res.setTimestamp(fund.getTimestamp());
+            res.setBankAccountUser(fund.getBankAccountUser());
+            res.setState(fund.getState());
+            res.setTotalFundUser(fund.getTotalFundUser());
+            res.setTotalFundVendor(fund.getTotalFundVendor());
+            res.setTfUser(fund.getTfUser());
+            res.setTfVendor(fund.getTfVendor());
+            res.setTransaction(transactionRepo.findById(fund.getTransId()).get());
+            funds.add(res);
+        });
+        try{
+            resp.setFundTransactions(funds);
+            resp.setMessage("Success Get All Refund Transaction");
+            resp.setStatusCode(200);
+
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
+
+    public TransRes getAllRefundTransByVendor(Integer id){
+        TransRes resp = new TransRes();	
+        List<FundTransRes> funds = new ArrayList<FundTransRes>();
+        List<FundTransaction> fundTranss = fundTransRepo.findAllByVendorId(id);
+        fundTranss.forEach((fund)->{
+            FundTransRes res = new FundTransRes();
+            res.setId(fund.getId());
+            res.setRejectedBy(fund.getRejectedBy());
+            res.setAlasanRejected(fund.getAlasanRejected());
+            res.setTimestamp(fund.getTimestamp());
+            res.setBankAccountUser(fund.getBankAccountUser());
+            res.setState(fund.getState());
+            res.setTotalFundUser(fund.getTotalFundUser());
+            res.setTotalFundVendor(fund.getTotalFundVendor());
+            res.setTfUser(fund.getTfUser());
+            res.setTfVendor(fund.getTfVendor());
+            res.setTransaction(transactionRepo.findById(fund.getTransId()).get());
+            funds.add(res);
+        });
+        try{
+            resp.setFundTransactions(funds);
+            resp.setMessage("Success Get All Refund Transaction");
+            resp.setStatusCode(200);
+
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
+
+    public TransRes updateRefund(FundTransRes request){
+        TransRes resp = new TransRes();	
+        fundTransRepo.findById(request.getId()).ifPresentOrElse((fund)->{
+            fund.setTfUser(request.getTfUser());
+            fund.setTfVendor(request.getTfVendor());
+            fund.setState("COMPLETED");
+            fundTransRepo.save(fund);
+        },null);
+       
+        try{
+            resp.setMessage("Success Update Refund Transaction");
+            resp.setStatusCode(200);
+
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
 
 }

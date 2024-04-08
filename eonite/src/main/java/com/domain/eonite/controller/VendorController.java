@@ -2,8 +2,6 @@ package com.domain.eonite.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.domain.eonite.dto.BankRes;
 import com.domain.eonite.dto.ProductRes;
 import com.domain.eonite.dto.VendorRes;
 import com.domain.eonite.entity.Vendor;
@@ -35,6 +33,11 @@ public class VendorController {
         return ResponseEntity.ok(vendorService.editProfile(request));
     }
 
+    @PutMapping("/updatePhotoIdVendor")
+    public ResponseEntity<VendorRes> updatePhotoId(@RequestBody VendorRes request){
+        return ResponseEntity.ok(vendorService.editPhotoId(request));
+    }
+
     @PostMapping("/checkPasswordVendor")
     public ResponseEntity<VendorRes> checkPassword(@RequestBody Vendor request){
         return ResponseEntity.ok(vendorService.checkPassword(request));
@@ -43,25 +46,5 @@ public class VendorController {
     @PostMapping("/changePasswordVendor")
     public ResponseEntity<VendorRes> changePassword(@RequestBody Vendor request){
         return ResponseEntity.ok(vendorService.changePassword(request));
-    }
-
-    @PostMapping("/addBankAccount")
-    public ResponseEntity<BankRes> addBankAccount(@RequestBody BankRes request){
-        return ResponseEntity.ok(vendorService.addBankAccount(request));
-    }
-
-    @PutMapping("/updateBankAccount")
-    public ResponseEntity<BankRes> updateBankAccount(@RequestBody BankRes request){
-        return ResponseEntity.ok(vendorService.updateBankAccount(request));
-    }
-
-    @GetMapping("/bankAccount")
-    public ResponseEntity<BankRes> getBankAccount(@RequestParam(required = true,name = "id") Integer id){
-        return ResponseEntity.ok(vendorService.getBankAccount(id));
-    }
-
-    @DeleteMapping("/deleteBankAccount/{id}")
-    public ResponseEntity<BankRes> deleteBankAccount(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(vendorService.deleteBankAccount(id));
     }
 }

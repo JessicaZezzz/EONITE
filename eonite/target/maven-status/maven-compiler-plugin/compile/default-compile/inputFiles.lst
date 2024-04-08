@@ -1,4 +1,5 @@
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\service\TransactionService.java
+J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\controller\AdminController.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\Users.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\service\JWTUtils.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\CartRepo.java
@@ -13,7 +14,6 @@ J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\EoniteAp
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\PaymentRepo.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\service\UserService.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\CategoryVendor.java
-J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\BankAccountRepo.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\controller\CartController.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\Product.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\service\AuthService.java
@@ -42,10 +42,8 @@ J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\service\
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\config\EmailConfig.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\UserRepo.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\repository\FundTransRepo.java
-J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\dto\BankRes.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\ProductReview.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\dto\UserRes.java
-J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\BankAccount.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\SubCategory.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\entity\Payment.java
 J:\Applications\github-be\EONITE\eonite\src\main\java\com\domain\eonite\service\VendorService.java

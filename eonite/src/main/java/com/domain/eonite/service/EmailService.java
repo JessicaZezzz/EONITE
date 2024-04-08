@@ -1,11 +1,8 @@
 package com.domain.eonite.service;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,11 +13,9 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import com.domain.eonite.dto.TokenRes;
 import com.domain.eonite.entity.ConfirmationToken;
-import com.domain.eonite.entity.Users;
 import com.domain.eonite.repository.ConfirmationTokenRepository;
 import com.domain.eonite.repository.UserRepo;
 import com.domain.eonite.repository.VendorRepo;
-
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import java.nio.file.Path;
@@ -53,7 +48,7 @@ public class EmailService {
     public TokenRes generateOTP(TokenRes generateOTPRequest)throws MessagingException {
         TokenRes token = new TokenRes();
         confirmationTokenRepository.findByUserTypeAndEmail(generateOTPRequest.getUserType(), generateOTPRequest.getEmail()).ifPresentOrElse((tk)->{
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             LocalDateTime tokenGeneratedTime = LocalDateTime.parse(tk.getCreatedDate().toString(),formatter);
             boolean isExpired = isOTPExpired(tokenGeneratedTime);
             if(isExpired){
@@ -100,7 +95,7 @@ public class EmailService {
     public TokenRes generateOTPlogin(TokenRes generateOTPRequest)throws MessagingException {
         TokenRes token = new TokenRes();
         confirmationTokenRepository.findByUserTypeAndEmail(generateOTPRequest.getUserType(), generateOTPRequest.getEmail()).ifPresentOrElse((tk)->{
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             LocalDateTime tokenGeneratedTime = LocalDateTime.parse(tk.getCreatedDate().toString(),formatter);
             boolean isExpired = isOTPExpired(tokenGeneratedTime);
             if(isExpired){
@@ -147,7 +142,7 @@ public class EmailService {
     public TokenRes checkOTP(TokenRes generateOTPRequest){
         TokenRes token = new TokenRes();
         confirmationTokenRepository.findByUserTypeAndEmail(generateOTPRequest.getUserType(), generateOTPRequest.getEmail()).ifPresentOrElse((tk)->{
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             LocalDateTime tokenGeneratedTime = LocalDateTime.parse(tk.getCreatedDate().toString(),formatter);
             boolean isExpired = isOTPExpired(tokenGeneratedTime);
             if(!isExpired){

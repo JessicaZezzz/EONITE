@@ -47,15 +47,14 @@ public class Vendor implements UserDetails {
     private String[] inoperative_date;
     private String instagram_url;
     private float rating;
-    private Integer penalty;
     private String status;
     private Time startTime;
     private Time endTime;
     private String flag;
+    private String bankAccount;
     private String email;
     private String password;
-    @Column (name = "surat_ijin_usaha", columnDefinition="LONGTEXT")
-    private String surat_ijin_usaha;
+    private String status_reject;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
     @OneToMany(fetch = FetchType.LAZY, mappedBy="vendor", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})

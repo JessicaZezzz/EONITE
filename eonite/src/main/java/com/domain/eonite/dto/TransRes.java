@@ -28,4 +28,5 @@ public class TransRes {
     private List<Integer> cartId;
     private Transaction transaction;
     private List<Transaction> transactions;
+    private List<FundTransRes> fundTransactions;
 }
