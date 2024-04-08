@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.domain.eonite.dto.ProductRes;
 import com.domain.eonite.dto.ProductReviewRes;
 import com.domain.eonite.service.ProductService;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @CrossOrigin("*")
@@ -32,11 +30,6 @@ public class ProductController {
     public ResponseEntity<ProductRes> getProductbyVendor(@RequestParam(required = true,name = "id") Integer id){
         return ResponseEntity.ok(productService.getProductbyVendor(id));
     }
-
-    // @DeleteMapping("/deleteProduct/{id}")
-    // public ResponseEntity<ProductRes> deleteProduct(@PathVariable("id") Integer id){
-    //     return ResponseEntity.ok(productService.deleteProduct(id));
-    // }
 
     @PostMapping("/addReview")
     public ResponseEntity<ProductReviewRes> addProductReview(@RequestBody ProductReviewRes request){

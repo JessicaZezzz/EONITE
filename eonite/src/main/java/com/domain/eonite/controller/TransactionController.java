@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.domain.eonite.dto.DashboardRes;
 import com.domain.eonite.dto.FundTransRes;
 import com.domain.eonite.dto.PaymentRes;
 import com.domain.eonite.dto.TransRes;
@@ -78,6 +79,11 @@ public class TransactionController {
     @PutMapping("/updateRefund")
     public ResponseEntity<TransRes> updateRefund(@RequestBody FundTransRes request){
         return ResponseEntity.ok(transactionService.updateRefund(request));
+    }
+
+    @GetMapping("/getDashboard")
+    public ResponseEntity<DashboardRes> getDashboard(@RequestParam(required = true,name = "id") Integer id){
+        return ResponseEntity.ok(transactionService.getDashboard(id));
     }
     
 }

@@ -28,6 +28,11 @@ public class VendorController {
         return ResponseEntity.ok(productService.updateProduct(request));
     }
 
+    @PostMapping("/deleteProduct")
+    public ResponseEntity<ProductRes> deleteProduct(@RequestBody ProductRes request){
+        return ResponseEntity.ok(productService.deleteProduct(request));
+    }
+
     @PutMapping("/updateProfileVendor")
     public ResponseEntity<VendorRes> updateProfile(@RequestBody VendorRes request){
         return ResponseEntity.ok(vendorService.editProfile(request));

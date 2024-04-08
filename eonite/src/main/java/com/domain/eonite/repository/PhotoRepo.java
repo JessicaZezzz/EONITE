@@ -6,4 +6,6 @@ public interface PhotoRepo extends JpaRepository<Photo, Integer>  {
 
     Photo[] findByProductId(Integer id);
 
+    void deleteAllByProductId(Integer id);
+
 }

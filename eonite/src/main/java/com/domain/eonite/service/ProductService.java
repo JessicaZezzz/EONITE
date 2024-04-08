@@ -27,6 +27,9 @@ public class ProductService {
     private UserRepo userRepo;
 
     @Autowired
+    private CartRepo cartRepo;
+
+    @Autowired
     private ProductReviewRepo productReviewRepo;
 
     @Autowired
@@ -163,24 +166,23 @@ public class ProductService {
         return resp;
     }
 
-    // public ProductRes deleteProduct(Integer id){
-    //     ProductRes resp =  new ProductRes();
-    //     bankAccountRepo.findById(id).ifPresentOrElse((bankacc)->{
-    //         bankAccountRepo.deleteBankAccount(id);
-    //         try{
-    //             resp.setMessage("Success Delete Bank Account for Id " + id);
-    //             resp.setStatusCode(200);
-    
-    //         }catch(Exception e){
-    //             resp.setStatusCode(500);
-    //             resp.setError(e.getMessage());
-    //         }
-    //     }, ()->{
-    //         resp.setStatusCode(500);
-    //         resp.setError("Bank Account Not Found");
-    //     });
-    //     return resp;
-    // }
+    public ProductRes deleteProduct(ProductRes request){
+        ProductRes resp =  new ProductRes();
+        cartRepo.deleteAllByProductId(request.getId());
+        productReviewRepo.deleteAllByProductId(request.getId());
+        TransactionDetailRepo.deleteAllByProductId(request.getId());
+        PhotoRepo.deleteAllByProductId(request.getId());
+        ProductRepo.deleteAllById(request.getId());
+        try{
+            resp.setMessage("Success Delete Bank Account for Id " + request.getId());
+            resp.setStatusCode(200);
+
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
 
     public ProductReviewRes addProductReview(ProductReviewRes request){
         ProductReviewRes resp =  new ProductReviewRes();

@@ -17,4 +17,12 @@ public interface ProductRepo extends JpaRepository<Product, Integer>,JpaSpecific
 
     @Query(value="SELECT SUM(pr.rating)/count(*) FROM product_review pr JOIN product p ON p.id = pr.product_id where p.vendor_id = :id",nativeQuery = true)
     float updateRatingVendor(Integer id);
+
+    @Query(value="SELECT COUNT(*) FROM product WHERE vendor_id= :id",nativeQuery=true)
+    Long countProduct(Integer id);
+
+    @Query(value="SELECT COUNT(*) FROM product_review pr JOIN product p ON p.id = pr.product_id WHERE p.vendor_id=:id",nativeQuery=true)
+    Long countProductReview(Integer id);
+
+    void deleteAllById(Integer id);
 }

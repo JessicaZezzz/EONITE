@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.domain.eonite.dto.DashboardRes;
 import com.domain.eonite.dto.FundTransRes;
 import com.domain.eonite.dto.PaymentRes;
 import com.domain.eonite.dto.TransRes;
@@ -482,6 +483,29 @@ public class TransactionService {
             resp.setMessage("Success Update Refund Transaction");
             resp.setStatusCode(200);
 
+        }catch(Exception e){
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
+
+    public DashboardRes getDashboard(Integer id){
+        DashboardRes resp = new DashboardRes();
+        resp.setTotalProduct(productRepo.countProduct(id));
+        resp.setTotalRequest(transactionRepo.countRequestTransaction(id));
+        resp.setTotalReview(productRepo.countProductReview(id));
+        List<Long> cancelled = new ArrayList<Long>();
+        List<Long> completed = new ArrayList<Long>();
+        for(int i = 1; i <=6; i++){
+            cancelled.add(transactionRepo.countTransactionCancelled(id, i));
+            completed.add(transactionRepo.countTransactionCompleted(id, i));
+        }
+        resp.setOrderCancelled(cancelled);
+        resp.setOrderCompleted(completed);
+        try{
+            resp.setMessage("Success Get Dashboard Information");
+            resp.setStatusCode(200);
         }catch(Exception e){
             resp.setStatusCode(500);
             resp.setError(e.getMessage());

@@ -23,4 +23,6 @@ public interface CartRepo extends JpaRepository<Cart,Integer> {
                 "where c.user_id = :id",nativeQuery = true)
     List<Tuple> getCartUser(@Param("id") Integer id);
 
+    void deleteAllByProductId(Integer id);
+
 }

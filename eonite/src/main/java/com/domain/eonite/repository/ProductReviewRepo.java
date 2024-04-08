@@ -9,4 +9,6 @@ public interface ProductReviewRepo extends JpaRepository<ProductReview, Integer>
     List<ProductReview> findAllByProductId(Integer id);
 
     List<ProductReview> findFirst6ByOrderByRatingDesc();
+
+    void deleteAllByProductId(Integer id);
 }
