@@ -11,6 +11,9 @@ import com.domain.eonite.dto.FundTransRes;
 import com.domain.eonite.dto.PaymentRes;
 import com.domain.eonite.dto.TransRes;
 import com.domain.eonite.service.TransactionService;
+
+import jakarta.mail.MessagingException;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +28,12 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @PostMapping("/addTransaction")
-    public ResponseEntity<TransRes> addTransaction(@RequestBody TransRes request){
+    public ResponseEntity<TransRes> addTransaction(@RequestBody TransRes request) throws MessagingException{
         return ResponseEntity.ok(transactionService.addTransaction(request));
     }
     
     @PutMapping("/updateState")
-    public ResponseEntity<TransRes> updateTransaction(@RequestBody TransRes request){
+    public ResponseEntity<TransRes> updateTransaction(@RequestBody TransRes request) throws MessagingException{
         return ResponseEntity.ok(transactionService.updateState(request));
     }
 

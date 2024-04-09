@@ -1,6 +1,7 @@
 package com.domain.eonite.entity;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -31,4 +32,9 @@ public class Transaction {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy="transaction", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     public List<TransactionDetail> transDet;
+
+    public Optional<Users> findAllById(Integer id2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAllById'");
+    }
 }
