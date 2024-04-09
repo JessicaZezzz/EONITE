@@ -114,9 +114,13 @@ public class TransactionService {
         transactionRepo.findById(transId).ifPresentOrElse((transD)->{
             transD.setTotal(totals);
             transactionRepo.save(transD);
+            try {
+                sendEmailInvoice(transId,"USER");
+                sendEmailInvoice(transId,"VENDOR");
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
         },null);
-        sendEmailInvoice(transId,"USER");
-        sendEmailInvoice(transId,"VENDOR");
         try{
             resp.setMessage("Success Add Transaction");
             resp.setStatusCode(200);
@@ -157,10 +161,12 @@ public class TransactionService {
                 } 
                 context.setVariable("invoice",trans.getInvoice());
 
+                LocalDateTime localDateTime = trans.getTransdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
                 DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
                 DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-                LocalDateTime localDate = LocalDateTime.parse(trans.getTransdate().toString(), inputFormatter);
-                String formattedDate = localDate.format(outputFormatter);
+                // LocalDate localDate = LocalDate.parse(trans.getTransdate().toString(), inputFormatter);
+                
+                String formattedDate = localDateTime.format(outputFormatter);
                 context.setVariable("transDt", formattedDate);
 
                 context.setVariable("usernameVendor", trans.getVendor().getUsernameVendor());
@@ -173,25 +179,30 @@ public class TransactionService {
                 context.setVariable("phoneUser", trans.getUser().getPhoneNumber());
 
                 List<emailInvoice> productList = new ArrayList<emailInvoice>();
-                trans.getTransDet().forEach(t->{
-                    emailInvoice tmp = new emailInvoice();
-                    tmp.setName(t.getProduct().getName());
-                    BigDecimal amount = new BigDecimal(t.getProduct().getPrice()*t.getQuantity()); // Your BigDecimal here
-                    Locale indonesiaLocale = new Locale("id", "ID");
-                    NumberFormat formatIDR = NumberFormat.getCurrencyInstance(indonesiaLocale);
-                    String formattedIDR = formatIDR.format(amount);
-                    tmp.setPrice(formattedIDR);
-                    tmp.setQty(t.getQuantity());
-                    String[] dateArray = t.getBookdate().split(",");
-                    List<LocalDate> localDates = new ArrayList<>();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                        for (String dateStr : dateArray) {
-                            LocalDate localDt = LocalDate.parse(dateStr, formatter);
-                            localDates.add(localDt);
-                        }
-                    tmp.setBookingDate(localDates.toString());
-                    productList.add(tmp);
-                });
+                List<TransactionDetail> transDet =  transactionDetailRepo.findAllByTransactionId(id);
+                
+                if(transDet != null){
+                    transDet.forEach(t->{
+                        emailInvoice tmp = new emailInvoice();
+                        tmp.setName(t.getProduct().getName());
+                        BigDecimal amount = new BigDecimal(t.getProduct().getPrice()*t.getQuantity()); // Your BigDecimal here
+                        Locale indonesiaLocale = new Locale("id", "ID");
+                        NumberFormat formatIDR = NumberFormat.getCurrencyInstance(indonesiaLocale);
+                        String formattedIDR = formatIDR.format(amount);
+                        tmp.setPrice(formattedIDR);
+                        tmp.setQty(t.getQuantity());
+                        String[] dateArray = t.getBookdate().split(",");
+                        List<LocalDate> localDates = new ArrayList<>();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                            for (String dateStr : dateArray) {
+                                LocalDate localDt = LocalDate.parse(dateStr, formatter);
+                                localDates.add(localDt);
+                            }
+                        tmp.setBookingDate(localDates.toString());
+                        productList.add(tmp);
+                    });
+                }
+                
                 context.setVariable("productList",productList);
 
                 BigDecimal amount = new BigDecimal(trans.getTotal().toString()); // Your BigDecimal here
