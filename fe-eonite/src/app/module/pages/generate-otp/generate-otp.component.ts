@@ -15,6 +15,7 @@ export class GenerateOtpComponent implements OnInit {
   timerSubscription?: Subscription;
   otp:string[]=['','','','','',''];
   error:string='';
+  loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<GenerateOtpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: otp,private restService:RestApiServiceService) {
       this.resendOTP();
@@ -47,6 +48,7 @@ export class GenerateOtpComponent implements OnInit {
   }
 
   resendOTP(){
+    this.loader=true;
     if(this.data.option=='signup'){
       let sendOTP:otp={
         userType: this.data.userType,
@@ -55,6 +57,7 @@ export class GenerateOtpComponent implements OnInit {
       this.restService.generateOTP(JSON.stringify(sendOTP)).subscribe(event=>{
         if(event.statusCode == 200){
           this.startTimer();
+          this.loader=false;
         }else if(event.statusCode == 500){
           this.dialogRef.close(false);
         }
@@ -67,6 +70,7 @@ export class GenerateOtpComponent implements OnInit {
       this.restService.generateOTPlogin(JSON.stringify(sendOTP)).subscribe(event=>{
         if(event.statusCode == 200){
           this.startTimer();
+          this.loader=false;
         }else if(event.statusCode == 500){
           this.dialogRef.close(false);
         }
