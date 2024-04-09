@@ -18,18 +18,18 @@ export class TransactionVendorComponent implements OnInit {
   listCompleted : Transaction[]     =[];
   listCancelled : Transaction[]     =[];
   listRefund    :Transaction[]      =[];
-
+  loader:boolean=false;
   pages: number = 1;
   constructor(private sanitization:DomSanitizer,private router: Router,private restService:RestApiServiceService) { }
 
   ngOnInit(): void {
+    this.loader=true;
     this.getTransaction('ALL');
     this.getTransaction('WAITING-CONFIRMATION');
     this.getTransaction('WAITING-PAYMENT');
     this.getTransaction('ON-GOING');
     this.getTransaction('COMPLETED');
     this.getTransaction('CANCELLED');
-    this.getTransaction('WAITING-REFUND');
   }
 
   getTransaction(state:string): void {
@@ -59,10 +59,7 @@ export class TransactionVendorComponent implements OnInit {
           }
           case('CANCELLED'):{
             this.listCancelled = data;
-            break;
-          }
-          case('WAITING-REFUND'):{
-            this.listRefund = data;
+            this.loader=false;
             break;
           }
         }

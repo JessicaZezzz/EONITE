@@ -24,12 +24,13 @@ export class ServicesComponent implements OnInit {
     pageIndex:0,
     length:0
   }
-
+  loader:boolean=false;
   constructor(private restService: RestApiServiceService,private route:ActivatedRoute,private router:Router){
   }
 
   ngOnInit(){
     this.search = this.route.snapshot.queryParamMap.get('search')!;
+    this.loader=true;
     this.getDataVendor();
     this.getDataProduct();
   }
@@ -59,6 +60,7 @@ export class ServicesComponent implements OnInit {
         let data = Object(event.body)['products'];
         this.listProduct = data;
         this.pageProduct.length = Object(event.body)['length'];
+        this.loader=false;
       }
     })
   }

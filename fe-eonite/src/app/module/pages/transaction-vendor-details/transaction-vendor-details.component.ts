@@ -22,7 +22,7 @@ export class TransactionVendorDetailsComponent implements OnInit {
   error:string='';
   starRating:number = 0;
   list?: Transaction;
-
+  loader:boolean=false;
   constructor(private dialog:MatDialog,private route: ActivatedRoute,private datePipe: DatePipe,private routes:Router,private restService:RestApiServiceService) {
     this.getData(this.route.snapshot.params['id']);
   }
@@ -31,10 +31,12 @@ export class TransactionVendorDetailsComponent implements OnInit {
   }
 
   getData(id:number): void {
+    this.loader=true;
     this.restService.getDetailTransaction(id).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['transaction'];
         this.list=data;
+        this.loader=false;
       }
     })
   }

@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
   userType?: string;
   activeMessage:boolean= false;
   chatRoomId?:Room;
-
+  loader:boolean=false;
   constructor(private restService:RestApiServiceService, private route: ActivatedRoute,private router: Router,private ngZone: NgZone,private datePipe:DatePipe){
     if(this.route.snapshot.queryParamMap.get('vendorId')! && this.route.snapshot.queryParamMap.get('userId')!) this.findSelectedMessages(this.route.snapshot.queryParamMap.get('vendorId')!,this.route.snapshot.queryParamMap.get('userId')!);
   }
@@ -38,6 +38,7 @@ export class ChatComponent implements OnInit {
   }
 
   getChatRoom(){
+    this.loader=true;
     if(this.userType =='USER') this.restService.findMessageUser(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         this.chatRoom = Object(event.body);
@@ -48,6 +49,7 @@ export class ChatComponent implements OnInit {
               e.lastText = data.message;
               e.notification = data.total;
               e.recType = data.recType;
+              this.loader=false;
             }
           })
         })
@@ -63,6 +65,7 @@ export class ChatComponent implements OnInit {
               e.lastText = data.message;
               e.notification = data.total;
               e.recType = data.recType;
+              this.loader=false;
             }
           })
         })

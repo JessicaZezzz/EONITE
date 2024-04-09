@@ -28,7 +28,7 @@ export class ServicesProductComponent implements OnInit {
     pageIndex:0,
     length:0
   }
-
+  loader:boolean=false;
   constructor(private restService: RestApiServiceService,private router:ActivatedRoute) {
 
   }
@@ -45,6 +45,7 @@ export class ServicesProductComponent implements OnInit {
   }
 
   getDataProduct(){
+    this.loader=true;
     let params = new HttpParams().append('pagination',true)
                                 .append('pageSize',this.page.pageSize!)
                                 .append('pageIndex',this.page.pageIndex!);
@@ -81,6 +82,7 @@ export class ServicesProductComponent implements OnInit {
         let data = Object(event.body)['products'];
         this.listProduct = data;
         this.page.length = Object(event.body)['length'];
+        this.loader=false;
       }
     })
   }

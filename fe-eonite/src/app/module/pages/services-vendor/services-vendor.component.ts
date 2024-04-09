@@ -28,7 +28,7 @@ export class ServicesVendorComponent implements OnInit {
     pageIndex:0,
     length:0
   }
-
+  loader:boolean=false;
   constructor(private restService: RestApiServiceService,private router:ActivatedRoute) {
 
   }
@@ -50,6 +50,7 @@ export class ServicesVendorComponent implements OnInit {
   }
 
   getDataVendor(){
+    this.loader=true;
     let params = new HttpParams().append('pagination',true)
                                   .append('pageSize',this.page.pageSize!)
                                   .append('pageIndex',this.page.pageIndex!);
@@ -78,6 +79,7 @@ export class ServicesVendorComponent implements OnInit {
         let data = Object(event.body)['vendor'];
         this.listVendor = data;
         this.page.length = Object(event.body)['length'];
+        this.loader=false;
       }
     })
   }

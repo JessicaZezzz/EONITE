@@ -14,8 +14,9 @@ export class HomeVendorComponent implements OnInit {
   data: any;
   options: any;
   dashboarddata:dashboard={};
-
+  loader:boolean=false;
   constructor(private restService:RestApiServiceService){
+    this.loader=true;
     this.restService.getDashboard(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let totalProduct = Object(event.body)['totalProduct'];
@@ -34,6 +35,7 @@ export class HomeVendorComponent implements OnInit {
         this.dashboarddata!.orderCompleted = orderCompleted;
         console.log(this.dashboarddata.orderCancelled)
         this.setDashboard();
+        this.loader=false;
       }
     })
   }

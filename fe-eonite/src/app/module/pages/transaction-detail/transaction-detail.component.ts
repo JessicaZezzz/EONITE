@@ -23,6 +23,7 @@ export class TransactionDetailComponent implements OnInit {
   error:string='';
   list?: Transaction;
   bankAccount?: string;
+  loader:boolean=false;
   constructor(private datePipe:DatePipe,private route: ActivatedRoute,private routes:Router,private restService:RestApiServiceService,private dialog:MatDialog) {
     this.getData(this.route.snapshot.params['id']);
   }
@@ -39,6 +40,7 @@ export class TransactionDetailComponent implements OnInit {
   }
 
   getData(id:number): void {
+    this.loader=true;
     this.restService.getDetailTransaction(id).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['transaction'];
@@ -48,6 +50,7 @@ export class TransactionDetailComponent implements OnInit {
           this.Form.get('payment')!.setValue(this.urlImage);
           this.Form.get('name')!.setValue(this.list?.payment.bankAccount);
         }
+        this.loader=false;
       }
     })
   }

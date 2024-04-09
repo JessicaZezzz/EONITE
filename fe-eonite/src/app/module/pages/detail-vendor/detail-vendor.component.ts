@@ -65,7 +65,10 @@ export class DetailVendorComponent implements OnInit {
      this.vendor?.inoperative_date?.forEach(e=>{
       testDates.push(new Date(e));
      })
-     return testDates.findIndex(testDate => d.toDateString() === testDate.toDateString()) <= 0;
+     const tmp = testDates.find(x=> x.toDateString() === d.toDateString());
+    //  return testDates.findIndex(testDate =>d.toDateString() === testDate.toDateString() ) <= 0;
+    return tmp==undefined;
+
   }
 
   clickit(){

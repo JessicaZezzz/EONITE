@@ -18,7 +18,7 @@ export class DialogBookingComponent implements OnInit {
   cartData: Product[] = [];
   vendor?:Vendor;
   desc:string='';
-
+  loader:boolean=false;
   @Output() openBooking = new EventEmitter<boolean>();
   @ViewChild('picker', { static: true }) _picker?: MatDatepicker<Date>;
 
@@ -63,6 +63,7 @@ export class DialogBookingComponent implements OnInit {
   }
 
   submitBooking(){
+    this.loader=true;
     let carts:postCart={
       userId: 0,
       vendorId: 0,
@@ -82,7 +83,7 @@ export class DialogBookingComponent implements OnInit {
           data: 'Successfully made a booking',
         });
         this.dialogRef.close(true);
-
+        this.loader=false;
       }else if(event.statusCode == 500){
       }
     })

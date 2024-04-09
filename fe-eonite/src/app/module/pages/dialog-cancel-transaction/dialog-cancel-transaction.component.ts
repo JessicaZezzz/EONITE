@@ -13,6 +13,7 @@ export class DialogCancelTransactionComponent implements OnInit {
 
   quest?:string;
   alasanReject?:string;
+  loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<DialogBookingComponent>,
     @Inject(MAT_DIALOG_DATA) public data: postTransaction, private restService:RestApiServiceService,private dialog:MatDialog) { }
 
@@ -25,6 +26,7 @@ export class DialogCancelTransactionComponent implements OnInit {
   }
 
   submit(){
+    this.loader=true;
     let postTrans :postTransaction={};
     postTrans.id = this.data.id;
     postTrans.prevState = this.data.prevState;
@@ -36,7 +38,7 @@ export class DialogCancelTransactionComponent implements OnInit {
           data: 'Transaction updated successfully',
         });
         this.dialogRef.close(true);
-
+        this.loader=false;
       }else if(event.statusCode == 500){
       }
     })

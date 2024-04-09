@@ -100,6 +100,7 @@ export class EditProfileVendorComponent implements OnInit {
     this.Form1.controls['email'].setValue(this.vendor?.email)
     this.Form1.controls['startTime'].setValue(this.vendor?.startTime)
     this.Form1.controls['endTime'].setValue(this.vendor?.endTime)
+    this.Form1.controls['bankAccount'].setValue(this.vendor?.bankAccount)
     this.description = this.vendor?.description;
     if(this.vendor?.inoperative_date != null && this.vendor?.inoperative_date!.length! >= 1){
       this.vendor?.inoperative_date!.forEach(e=>{
