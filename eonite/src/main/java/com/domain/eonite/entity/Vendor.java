@@ -34,14 +34,14 @@ public class Vendor implements UserDetails {
     private Date birthDate;
     private String phoneNumber;
     @Lob
-    @Column (name = "photo_identity", columnDefinition="BLOB")
+    @Column (name = "photo_identity", columnDefinition="LONGBLOB")
     private byte[] photo_identity;
 
     private String usernameVendor;
     private String phoneBusiness;
     private String address;
     @Lob
-    @Column (name = "photo", columnDefinition="BLOB")
+    @Column (name = "photo", columnDefinition="LONGBLOB")
     private byte[] photo;
     private String description;
     private String[] inoperative_date;

@@ -114,12 +114,12 @@ public class TransactionService {
         transactionRepo.findById(transId).ifPresentOrElse((transD)->{
             transD.setTotal(totals);
             transactionRepo.save(transD);
-            try {
-                sendEmailInvoice(transId,"USER");
-                sendEmailInvoice(transId,"VENDOR");
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
+            // try {
+            //     sendEmailInvoice(transId,"USER");
+            //     sendEmailInvoice(transId,"VENDOR");
+            // } catch (MessagingException e) {
+            //     e.printStackTrace();
+            // }
         },null);
         try{
             resp.setMessage("Success Add Transaction");
@@ -162,7 +162,7 @@ public class TransactionService {
                 context.setVariable("invoice",trans.getInvoice());
 
                 LocalDateTime localDateTime = trans.getTransdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+                // DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
                 DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
                 // LocalDate localDate = LocalDate.parse(trans.getTransdate().toString(), inputFormatter);
                 
@@ -268,12 +268,12 @@ public class TransactionService {
                             p.setTransaction(trans);
                             paymentRepo.save(p);
                             transactionRepo.save(trans);
-                            String messageUser = "Your order "+ trans.getInvoice() +" has been accepted by the vendor. Please continue payment by uploading proof of payment on the transaction page. If payment has not been completed within 24 hours, the system will automatically cancel the order. We will notify you of any new updates via this email.";
-                            String messageVendor = "Thank you for confirming the order "+ trans.getInvoice() +". Please wait for payment from the User. We will notify you if there are any new updates via this email.";
-                            try {
-                                sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
-                                sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "Your order "+ trans.getInvoice() +" has been accepted by the vendor. Please continue payment by uploading proof of payment on the transaction page. If payment has not been completed within 24 hours, the system will automatically cancel the order. We will notify you of any new updates via this email.";
+                            // String messageVendor = "Thank you for confirming the order "+ trans.getInvoice() +". Please wait for payment from the User. We will notify you if there are any new updates via this email.";
+                            // try {
+                            //     sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
+                            //     sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
+                            // } catch (MessagingException e) {}
                         },null);
                     break;
 
@@ -281,26 +281,48 @@ public class TransactionService {
                         transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
                             trans.setState("CANCELLED");
                             transactionRepo.save(trans);
-                            String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been rejected by the vendor. We value your business and look forward to serving you again.Thank you for using EONITE.";
-                            String messageVendor = "Thank you for confirming the order "+ trans.getInvoice() +". We will notify the user that this order is cancelled.We value your business and look forward to serving you again.Thank you for using EONITE.";
-                            try {
-                                sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
-                                sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been rejected by the vendor. We value your business and look forward to serving you again.Thank you for using EONITE.";
+                            // String messageVendor = "Thank you for confirming the order "+ trans.getInvoice() +". We will notify the user that this order is cancelled.We value your business and look forward to serving you again.Thank you for using EONITE.";
+                            // try {
+                            //     sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
+                            //     sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
+                            // } catch (MessagingException e) {}
                         },null);
+                        FundTransaction fundings = new FundTransaction();
+                        fundings.setRejectedBy("VENDOR");
+                        fundings.setAlasanRejected(request.getDescription());
+                        fundings.setTimestamp(new Date());
+                        fundings.setState("COMPLETED");
+                        fundings.setTransId(request.getId());
+                        fundings.setUserId(transactionRepo.findById(request.getId()).get().getUser().getId());
+                        fundings.setVendorId(transactionRepo.findById(request.getId()).get().getVendor().getId());
+                        fundings.setTotalFundUser(0.0);
+                        fundings.setTotalFundVendor(0.0);
+                        fundTransRepo.save(fundings);
                     break;
 
                     case "CANCEL":
                         transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
                             trans.setState("CANCELLED");
                             transactionRepo.save(trans);
-                            String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been canceled. We value your business and look forward to serving you again.Thank You!";
-                            String messageVendor = "Sorry, your order #"+ trans.getInvoice() +" has been canceled. We value your business and look forward to serving you again.Thank You!";
-                            try {
-                                sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
-                                sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been canceled. We value your business and look forward to serving you again.Thank You!";
+                            // String messageVendor = "Sorry, your order #"+ trans.getInvoice() +" has been canceled. We value your business and look forward to serving you again.Thank You!";
+                            // try {
+                            //     sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
+                            //     sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
+                            // } catch (MessagingException e) {}
                         },null);
+                        FundTransaction funding = new FundTransaction();
+                        funding.setRejectedBy("USER");
+                        funding.setAlasanRejected(request.getDescription());
+                        funding.setTimestamp(new Date());
+                        funding.setState("COMPLETED");
+                        funding.setTransId(request.getId());
+                        funding.setUserId(transactionRepo.findById(request.getId()).get().getUser().getId());
+                        funding.setVendorId(transactionRepo.findById(request.getId()).get().getVendor().getId());
+                        funding.setTotalFundUser(0.0);
+                        funding.setTotalFundVendor(0.0);
+                        fundTransRepo.save(funding);
                     break;
                 }
             break;
@@ -316,12 +338,12 @@ public class TransactionService {
                                 paymentRepo.save(payment);
                             },null);
                             transactionRepo.save(trans);
-                            String messageUser = "We have received proof of payment for your order #"+ trans.getInvoice() +" and the order can proceed to the next stage [ON GOING]. Thank you!";
-                            String messageVendor = "The buyer has finished making payment, and the order #"+ trans.getInvoice() +" has proceeded to the next stage [ON GOING]. You can now follow up on your order. Thank You!";
-                            try {
-                                sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
-                                sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "We have received proof of payment for your order #"+ trans.getInvoice() +" and the order can proceed to the next stage [ON GOING]. Thank you!";
+                            // String messageVendor = "The buyer has finished making payment, and the order #"+ trans.getInvoice() +" has proceeded to the next stage [ON GOING]. You can now follow up on your order. Thank You!";
+                            // try {
+                            //     sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
+                            //     sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
+                            // } catch (MessagingException e) {}
                         },null);
                     break;
 
@@ -330,10 +352,10 @@ public class TransactionService {
                             payment.setState("REJECTED");
                             payment.setDescription(request.getDescription());
                             paymentRepo.save(payment);
-                            String messageUser = "Sorry, your proof of payment for order #"+ transactionRepo.findById(request.getId()).get().getInvoice() +" was rejected due to "+ request.getDescription() +".Please re-upload proof of payment to proceed to the next stage. Thank You";
-                            try {
-                                sendEmailOrder(transactionRepo.findById(request.getId()).get().getUser().getEmail(),messageUser,transactionRepo.findById(request.getId()).get().getUser().getFirstName()+" "+transactionRepo.findById(request.getId()).get().getUser().getLastName());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "Sorry, your proof of payment for order #"+ transactionRepo.findById(request.getId()).get().getInvoice() +" was rejected due to "+ request.getDescription() +".Please re-upload proof of payment to proceed to the next stage. Thank You";
+                            // try {
+                            //     sendEmailOrder(transactionRepo.findById(request.getId()).get().getUser().getEmail(),messageUser,transactionRepo.findById(request.getId()).get().getUser().getFirstName()+" "+transactionRepo.findById(request.getId()).get().getUser().getLastName());
+                            // } catch (MessagingException e) {}
                         },null);
                     break;
 
@@ -341,13 +363,24 @@ public class TransactionService {
                         transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
                             trans.setState("CANCELLED");
                             transactionRepo.save(trans);
-                            String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been canceled. We value your business and look forward to serving you again.Thank You!";
-                            String messageVendor = "Sorry, your order #"+ trans.getInvoice() +" has been canceled. We value your business and look forward to serving you again.Thank You!";
-                            try {
-                                sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
-                                sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been canceled. We value your business and look forward to serving you again.Thank You!";
+                            // String messageVendor = "Sorry, your order #"+ trans.getInvoice() +" has been canceled. We value your business and look forward to serving you again.Thank You!";
+                            // try {
+                            //     sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
+                            //     sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
+                            // } catch (MessagingException e) {}
                         },null);
+                        FundTransaction fundings = new FundTransaction();
+                        fundings.setRejectedBy("USER");
+                        fundings.setAlasanRejected(request.getDescription());
+                        fundings.setTimestamp(new Date());
+                        fundings.setState("COMPLETED");
+                        fundings.setTransId(request.getId());
+                        fundings.setUserId(transactionRepo.findById(request.getId()).get().getUser().getId());
+                        fundings.setVendorId(transactionRepo.findById(request.getId()).get().getVendor().getId());
+                        fundings.setTotalFundUser(0.0);
+                        fundings.setTotalFundVendor(0.0);
+                        fundTransRepo.save(fundings);
                     break;
                 }
             break;
@@ -358,12 +391,12 @@ public class TransactionService {
                         transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
                             trans.setState("CANCELLED");
                             transactionRepo.save(trans);
-                            String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been canceled by "+trans.getUser().getFirstName()+" "+trans.getUser().getLastName() +" due to "+ request.getDescription() +". We will refund the payments made according to EONITE's rules and regulations. You can check your payment returns periodically in the Refund feature. Thankyou!";
-                            String messageVendor = "Sorry, your order #"+ trans.getInvoice() +" has been canceled by "+trans.getUser().getFirstName()+" "+trans.getUser().getLastName() +" due to "+ request.getDescription() +". We will transfer funds to you in accordance with EONITE's rules and regulations. You can check your payments periodically in the Payment feature. Thankyou!";
-                            try {
-                                sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
-                                sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been canceled by "+trans.getUser().getFirstName()+" "+trans.getUser().getLastName() +" due to "+ request.getDescription() +". We will refund the payments made according to EONITE's rules and regulations. You can check your payment returns periodically in the Refund feature. Thankyou!";
+                            // String messageVendor = "Sorry, your order #"+ trans.getInvoice() +" has been canceled by "+trans.getUser().getFirstName()+" "+trans.getUser().getLastName() +" due to "+ request.getDescription() +". We will transfer funds to you in accordance with EONITE's rules and regulations. You can check your payments periodically in the Payment feature. Thankyou!";
+                            // try {
+                            //     sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
+                            //     sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
+                            // } catch (MessagingException e) {}
                         },null);
                         FundTransaction funding = new FundTransaction();
                         funding.setRejectedBy("USER");
@@ -421,12 +454,12 @@ public class TransactionService {
                         transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
                             trans.setState("CANCELLED");
                             transactionRepo.save(trans);
-                            String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been canceled by "+trans.getVendor().getUsernameVendor() +" due to "+ request.getDescription() +". We will refund the payments made according to EONITE's rules and regulations. You can check your payment returns periodically in the Refund feature. Thankyou!";
-                            String messageVendor = "Sorry, your order #"+ trans.getInvoice() +" has been canceled by "+trans.getVendor().getUsernameVendor() +" due to "+ request.getDescription() +". We will transfer funds to you in accordance with EONITE's rules and regulations. You can check your payments periodically in the Payment feature. Thankyou!";
-                            try {
-                                sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
-                                sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "Sorry, your order #"+ trans.getInvoice() +" has been canceled by "+trans.getVendor().getUsernameVendor() +" due to "+ request.getDescription() +". We will refund the payments made according to EONITE's rules and regulations. You can check your payment returns periodically in the Refund feature. Thankyou!";
+                            // String messageVendor = "Sorry, your order #"+ trans.getInvoice() +" has been canceled by "+trans.getVendor().getUsernameVendor() +" due to "+ request.getDescription() +". We will transfer funds to you in accordance with EONITE's rules and regulations. You can check your payments periodically in the Payment feature. Thankyou!";
+                            // try {
+                            //     sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
+                            //     sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
+                            // } catch (MessagingException e) {}
                         },null);
                         FundTransaction fundings = new FundTransaction();
                         fundings.setRejectedBy("VENDOR");
@@ -447,12 +480,12 @@ public class TransactionService {
                         transactionRepo.findById(request.getId()).ifPresentOrElse((trans)->{
                             trans.setState("COMPLETED");
                             transactionRepo.save(trans);
-                            String messageUser = "Congratulations! You have completed your order #"+ trans.getInvoice() +". Thank you for transacting using EONITE. You can provide suggestions and input on the Transactions page. Contact EONITE if you experience difficulties. Thankyou!";
-                            String messageVendor = "Congratulations! You have completed order #"+ trans.getInvoice() +". We will process your payment immediately. Please check the payment features regularly. Thank You!";
-                            try {
-                                sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
-                                sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
-                            } catch (MessagingException e) {}
+                            // String messageUser = "Congratulations! You have completed your order #"+ trans.getInvoice() +". Thank you for transacting using EONITE. You can provide suggestions and input on the Transactions page. Contact EONITE if you experience difficulties. Thankyou!";
+                            // String messageVendor = "Congratulations! You have completed order #"+ trans.getInvoice() +". We will process your payment immediately. Please check the payment features regularly. Thank You!";
+                            // try {
+                            //     sendEmailOrder(trans.getUser().getEmail(),messageUser,trans.getUser().getFirstName()+" "+trans.getUser().getLastName());
+                            //     sendEmailOrder(trans.getVendor().getEmail(),messageVendor,trans.getVendor().getUsernameVendor());
+                            // } catch (MessagingException e) {}
                         },null);
                         FundTransaction fundings2 = new FundTransaction();
                         fundings2.setAlasanRejected("Payment Completed Transaction");
@@ -511,10 +544,10 @@ public class TransactionService {
             payment.setDescription(null);
             payment.setBankAccount(request.getBankAccount());
             paymentRepo.save(payment);
-            String messageUser = "You have just uploaded proof of payment for the order #"+ transactionRepo.findById(request.getTransId()).get().getInvoice() +". Please wait for confirmation from us for the next stage. We are processing your payment. Thank You!";
-            try {
-                sendEmailOrder(transactionRepo.findById(request.getTransId()).get().getUser().getEmail(),messageUser,transactionRepo.findById(request.getTransId()).get().getUser().getFirstName()+" "+transactionRepo.findById(request.getTransId()).get().getUser().getLastName());
-            } catch (MessagingException e) {}
+            // String messageUser = "You have just uploaded proof of payment for the order #"+ transactionRepo.findById(request.getTransId()).get().getInvoice() +". Please wait for confirmation from us for the next stage. We are processing your payment. Thank You!";
+            // try {
+            //     sendEmailOrder(transactionRepo.findById(request.getTransId()).get().getUser().getEmail(),messageUser,transactionRepo.findById(request.getTransId()).get().getUser().getFirstName()+" "+transactionRepo.findById(request.getTransId()).get().getUser().getLastName());
+            // } catch (MessagingException e) {}
         }, null);
         try{
             resp.setMessage("Success Update Payment");
@@ -530,7 +563,9 @@ public class TransactionService {
     public TransRes getTransactionDetail(Integer id){
         TransRes resp = new TransRes();	
         Transaction trans = transactionRepo.findById(id).get();
+        List<FundTransaction> funds = fundTransRepo.findByTransId(id);
         try{
+            resp.setFund(funds);
             resp.setTransaction(trans);
             resp.setMessage("Success Get Detail Transaction");
             resp.setStatusCode(200);
@@ -545,7 +580,7 @@ public class TransactionService {
     public TransRes getAllUserTransaction(Integer id,String state){
         TransRes resp = new TransRes();	
         List<Transaction> trans = new ArrayList<Transaction>();
-        if(state.equals("ALL")) trans = transactionRepo.findByUser(userRepo.findById(id).get());
+        if(state.equals("ALL")) trans = transactionRepo.findByUserIdAndOrderByTransdateAsc(id);
         else trans = transactionRepo.findByUserAndState(userRepo.findById(id).get(),state);
         trans.forEach((e)->{
             e.setVendor(e.getVendor());
@@ -565,7 +600,7 @@ public class TransactionService {
     public TransRes getAllVendorTransaction(Integer id, String state){
         TransRes resp = new TransRes();	
         List<Transaction> trans = new ArrayList<Transaction>();
-        if(state.equals("ALL")) trans = transactionRepo.findByVendor(vendorRepo.findById(id).get());
+        if(state.equals("ALL")) trans = transactionRepo.findByVendorIdAndOrderByTransdateAsc(id);
         else trans = transactionRepo.findByVendorAndState(vendorRepo.findById(id).get(),state);
         try{
             resp.setTransactions(trans);
@@ -679,12 +714,12 @@ public class TransactionService {
             fund.setTfVendor(request.getTfVendor());
             fund.setState("COMPLETED");
             fundTransRepo.save(fund);
-            String messageUser = "You have received a refund for your order #"+ transactionRepo.findById(fund.getTransId()).get().getInvoice() +".Please check the details in the Refund feature. If there are problems, please contact EONITE. Thank You!";
-            String messageVendor = "You have received a payment for your order #"+ transactionRepo.findById(fund.getTransId()).get().getInvoice() +".Please check the details in the Payment feature. If there are problems, please contact EONITE. Thank You!";
-            try {
-                if(fund.getTotalFundUser() > 0) sendEmailOrder(transactionRepo.findById(fund.getTransId()).get().getUser().getEmail(),messageUser,transactionRepo.findById(fund.getTransId()).get().getUser().getFirstName()+" "+transactionRepo.findById(fund.getTransId()).get().getUser().getLastName());
-                if(fund.getTotalFundVendor() > 0) sendEmailOrder(transactionRepo.findById(fund.getTransId()).get().getVendor().getEmail(),messageVendor,transactionRepo.findById(fund.getTransId()).get().getVendor().getUsernameVendor());
-            } catch (MessagingException e) {}
+            // String messageUser = "You have received a refund for your order #"+ transactionRepo.findById(fund.getTransId()).get().getInvoice() +".Please check the details in the Refund feature. If there are problems, please contact EONITE. Thank You!";
+            // String messageVendor = "You have received a payment for your order #"+ transactionRepo.findById(fund.getTransId()).get().getInvoice() +".Please check the details in the Payment feature. If there are problems, please contact EONITE. Thank You!";
+            // try {
+            //     if(fund.getTotalFundUser() > 0) sendEmailOrder(transactionRepo.findById(fund.getTransId()).get().getUser().getEmail(),messageUser,transactionRepo.findById(fund.getTransId()).get().getUser().getFirstName()+" "+transactionRepo.findById(fund.getTransId()).get().getUser().getLastName());
+            //     if(fund.getTotalFundVendor() > 0) sendEmailOrder(transactionRepo.findById(fund.getTransId()).get().getVendor().getEmail(),messageVendor,transactionRepo.findById(fund.getTransId()).get().getVendor().getUsernameVendor());
+            // } catch (MessagingException e) {}
         },null);
         
         try{
@@ -721,35 +756,35 @@ public class TransactionService {
         return resp;
     }
 
-    @Scheduled(fixedRate = 60000)
-    public void killOrder()throws MessagingException {
-        transactionRepo.findAll().forEach((trans)->{
-            if(trans.getState().equals("WAITING-PAYMENT") && paymentRepo.findByTransactionId(trans.getId()).get().getState().equals("NONE")){
-                String dateString = trans.getTransdate().toString();
-                Date today = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-                Date inputDate = null;
-                try {
-                    inputDate = dateFormat.parse(dateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                long differenceInMillis = today.getTime() - inputDate.getTime();
-                long differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24);
-                if(differenceInDays == 1){
-                    transactionRepo.findById(trans.getId()).ifPresentOrElse((trx)->{
-                        trx.setState("CANCELLED");
-                        transactionRepo.save(trx);
-                        String messageUser = "Sorry, your order #"+ trx.getInvoice() +" has been canceled because you have passed the payment expiration date. We value your business and look forward to serving you again.Thank You!";
-                        String messageVendor = "Sorry, your order #"+ trx.getInvoice() +" has been canceled because user have passed the payment expiration date.. We value your business and look forward to serving you again.Thank You!";
-                        try {
-                            sendEmailOrder(trx.getUser().getEmail(),messageUser,trx.getUser().getFirstName()+" "+trx.getUser().getLastName());
-                            sendEmailOrder(trx.getVendor().getEmail(),messageVendor,trx.getVendor().getUsernameVendor());
-                        } catch (MessagingException e) {}
-                    },null);
-                }
-            }
-        });
-    }
+    // @Scheduled(fixedRate = 60000)
+    // public void killOrder()throws MessagingException {
+    //     transactionRepo.findAll().forEach((trans)->{
+    //         if(trans.getState().equals("WAITING-PAYMENT") && paymentRepo.findByTransactionId(trans.getId()).get().getState().equals("NONE")){
+    //             String dateString = trans.getTransdate().toString();
+    //             Date today = new Date();
+    //             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    //             Date inputDate = null;
+    //             try {
+    //                 inputDate = dateFormat.parse(dateString);
+    //             } catch (ParseException e) {
+    //                 e.printStackTrace();
+    //             }
+    //             long differenceInMillis = today.getTime() - inputDate.getTime();
+    //             long differenceInDays = differenceInMillis / (1000 * 60 * 60 * 24);
+    //             if(differenceInDays == 1){
+    //                 transactionRepo.findById(trans.getId()).ifPresentOrElse((trx)->{
+    //                     trx.setState("CANCELLED");
+    //                     transactionRepo.save(trx);
+                        // String messageUser = "Sorry, your order #"+ trx.getInvoice() +" has been canceled because you have passed the payment expiration date. We value your business and look forward to serving you again.Thank You!";
+                        // String messageVendor = "Sorry, your order #"+ trx.getInvoice() +" has been canceled because user have passed the payment expiration date.. We value your business and look forward to serving you again.Thank You!";
+                        // try {
+                        //     sendEmailOrder(trx.getUser().getEmail(),messageUser,trx.getUser().getFirstName()+" "+trx.getUser().getLastName());
+                        //     sendEmailOrder(trx.getVendor().getEmail(),messageVendor,trx.getVendor().getUsernameVendor());
+                        // } catch (MessagingException e) {}
+    //                 },null);
+    //             }
+    //         }
+    //     });
+    // }
 
 }

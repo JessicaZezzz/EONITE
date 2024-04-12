@@ -72,6 +72,7 @@ public class ProductService {
             Product product = new Product();
             product.setName(request.getName());
             product.setPrice(request.getPrice());
+            product.setMax(request.getMax());
             product.setDescription(request.getDescription());
             product.setCapacity(request.getCapacity());
             product.setRating((float) 0);
@@ -106,6 +107,7 @@ public class ProductService {
         ProductRepo.findById(request.getId()).ifPresentOrElse((product)->{
             product.setName(request.getName());
             product.setPrice(request.getPrice());
+            product.setMax(request.getMax());
             product.setDescription(request.getDescription());
             product.setCapacity(request.getCapacity());
             Product result = ProductRepo.save(product);  

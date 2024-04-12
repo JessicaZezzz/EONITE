@@ -15,7 +15,7 @@ public class Photo {
     private Integer id;
     
     @Lob
-    @Column (name = "image", columnDefinition="BLOB")
+    @Column (name = "image", columnDefinition="LONGBLOB")
     private byte[] image;
 
     @JsonIgnore

@@ -25,7 +25,7 @@ public class Users implements UserDetails {
     private String phoneNumber;
     
     @Lob
-    @Column (name = "photo", columnDefinition="BLOB")
+    @Column (name = "photo", columnDefinition="LONGBLOB")
     private byte[] photo;
 
     private String email;

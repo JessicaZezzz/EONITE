@@ -19,10 +19,10 @@ public class FundTransaction {
     private Double totalFundUser;
     private Double totalFundVendor;
     @Lob
-    @Column (name = "tfUser", columnDefinition="BLOB")
+    @Column (name = "tfUser", columnDefinition="LONGBLOB")
     private byte[] tfUser;
     @Lob
-    @Column (name = "tfVendor", columnDefinition="BLOB")
+    @Column (name = "tfVendor", columnDefinition="LONGBLOB")
     private byte[] tfVendor;
     private Integer transId;
     private Integer userId;

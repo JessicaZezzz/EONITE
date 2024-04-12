@@ -96,7 +96,6 @@ public class VendorService {
             Vendor.setPhoto(request.getPhoto());
             Vendor.setPhoneBusiness(request.getPhoneBusiness());
             Vendor.setInstagram_url(request.getInstagram_url());
-            Vendor.setInoperative_date(request.getInoperative_date());
             Vendor.setEmail(request.getEmail());
             Vendor.setBankAccount(request.getBankAccount());
                 Vendor vendorResult = vendorRepository.save(Vendor);

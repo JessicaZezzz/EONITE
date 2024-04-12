@@ -25,4 +25,10 @@ public interface TransactionRepo extends JpaRepository<Transaction,Integer> {
     @Query(value="SELECT COUNT(*) FROM transaction t WHERE t.vendor_id=:id AND t.state='CANCELLED' AND MONTH(t.transdate) =:month",nativeQuery=true)
     Long countTransactionCancelled(Integer id, Integer month);
 
+    @Query(value="SELECT * FROM transaction t WHERE t.user_id=:id ORDER BY t.transdate DESC",nativeQuery=true)
+    List<Transaction> findByUserIdAndOrderByTransdateAsc(Integer id);
+
+    @Query(value="SELECT * FROM transaction t WHERE t.vendor_id=:id ORDER BY t.transdate DESC",nativeQuery=true)
+    List<Transaction> findByVendorIdAndOrderByTransdateAsc(Integer id);
+
 }
