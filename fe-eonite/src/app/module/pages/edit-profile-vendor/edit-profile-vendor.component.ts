@@ -20,7 +20,7 @@ export const StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\
   styleUrls: ['./edit-profile-vendor.component.css']
 })
 export class EditProfileVendorComponent implements OnInit {
-
+  maxDate: string;
   @ViewChild('picker', { static: true }) _picker?: MatDatepicker<Date>;
   public CLOSE_ON_SELECTED = false;
   public init = new Date();
@@ -40,7 +40,7 @@ export class EditProfileVendorComponent implements OnInit {
     spellcheck: true,
     minHeight: '20rem',
     maxHeight: '20rem',
-    placeholder: 'Enter text here...',
+    placeholder: 'Isi deskripsi disini...',
     translate: 'no',
     sanitize: false,
     toolbarPosition: 'top',
@@ -76,6 +76,9 @@ export class EditProfileVendorComponent implements OnInit {
 
   constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog) {
     this.vendorId = Number(sessionStorage.getItem('ID')!);
+    const today = new Date();
+    const eightYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    this.maxDate = eightYearsAgo.toISOString().split('T')[0];
     this.restService.getprofileVendor(this.vendorId).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['vendor'];
@@ -248,43 +251,6 @@ export class EditProfileVendorComponent implements OnInit {
     return this.Form1.get('address')!;
   }
 
-  public dateClass = (date: Date) => {
-    if (this._findDate(date) !== -1) {
-      return [ 'selected' ];
-    }
-    return [ ];
-  }
-
-  public dateChanged(event: MatDatepickerInputEvent<Date>): void {
-    if (event.value) {
-      const date = event.value;
-      const index = this._findDate(date);
-      if (index === -1) {
-        this.model.push(date);
-      } else {
-        this.model.splice(index, 1)
-      }
-      this.resetModel = new Date(0);
-      if (!this.CLOSE_ON_SELECTED) {
-        const closeFn = this._picker!.close;
-        this._picker!.close = () => { };
-        this._picker!['_componentRef'].instance._calendar.monthView._createWeekCells()
-        setTimeout(() => {
-          this._picker!.close = closeFn;
-        });
-      }
-    }
-  }
-
-  public remove(date: Date): void {
-    const index = this._findDate(date);
-    this.model.splice(index, 1)
-  }
-
-  private _findDate(date: Date): number {
-    return this.model.map((m) => +m).indexOf(+date);
-  }
-
   onFileChanged(event:any) {
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
@@ -343,17 +309,11 @@ export class EditProfileVendorComponent implements OnInit {
     postVendor.email = this.Form1.value.email;
     postVendor.description = this.description;
     postVendor.bankAccount = this.Form1.value.bankAccount;
-      let inoperative:string[]=[];
-      this.model.forEach(e=>{
-        const dDate = new DatePipe('en-US');
-        inoperative.push(dDate.transform(new Date(e),"yyyy-MM-ddThh:mm:ssZZZZZ")!.toString());
-      })
-    postVendor.inoperative_date = inoperative;
 
     this.restService.updateProfileVendor(JSON.stringify(postVendor)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Successfully updated profile',
+          data: 'Profil berhasil diperbarui',
         });
 
         dialogRef.afterClosed().subscribe(result => {

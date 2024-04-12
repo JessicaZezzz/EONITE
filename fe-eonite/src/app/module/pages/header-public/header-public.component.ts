@@ -10,42 +10,42 @@ import { Slick } from 'ngx-slickjs';
 export class HeaderPublicComponent {
   image:any[]=[
     {
-      id:1,
+      id:75,
       title:'Wedding Organizer',
       images:'../assets/icon/wedding-organizer.jpg'
     },
     {
-      id:1,
+      id:76,
       title:'Birthday Party Organizer',
       images:'../assets/icon/birthdays.jpg'
     },
     {
-      id:1,
+      id:77,
       title:'Gathering/Outbound',
       images:'../assets/icon/gathering.png'
     },
     {
-      id:1,
+      id:78,
       title:'Seminar/Conference',
       images:'../assets/icon/seminar.png'
     },
     {
-      id:1,
+      id:74,
       title:'Holiday/Travel',
       images:'../assets/icon/holiday.png'
     },
     {
-      id:1,
+      id:69,
       title:'Concert',
       images:'../assets/icon/concert.png'
     },
     {
-      id:1,
+      id:68,
       title:'Exhibition',
       images:'../assets/icon/eksbisi.png'
     },
     {
-      id:1,
+      id:82,
       title:'Graduation',
       images:'../assets/icon/graduation.jpg'
     }

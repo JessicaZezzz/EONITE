@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { DatePipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { page, Product, Vendor } from '../../models/auth.model';
 import { HttpEventType, HttpParams } from '@angular/common/http';
 
@@ -28,11 +28,20 @@ export class ServicesComponent implements OnInit {
   constructor(private restService: RestApiServiceService,private route:ActivatedRoute,private router:Router){
   }
 
-  ngOnInit(){
-    this.search = this.route.snapshot.queryParamMap.get('search')!;
-    this.loader=true;
-    this.getDataVendor();
-    this.getDataProduct();
+  ngOnInit():void{
+    this.route.queryParams.subscribe(params => {
+      console.log('called')
+      console.log(params)
+      this.search = this.route.snapshot.queryParamMap.get('search')!;
+      this.loader=true;
+      this.getDataVendor();
+      this.getDataProduct();
+    });
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      // This block of code will be executed whenever the route parameters change
+      const id = params.get('id'); // Example: Get the value of 'id' parameter
+      console.log('params changed')
+    });
   }
 
   getDataVendor(){

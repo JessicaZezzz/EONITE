@@ -3,56 +3,61 @@
   <div class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
     <div class="relative -z-10 left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
   </div>
-  <mat-accordion *ngFor="let i of listPayment">
-    <mat-expansion-panel *ngIf="i.totalFundUser! > 0">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{ i.transaction?.invoice }}
-        </mat-panel-title>
-        <mat-panel-description [ngClass]="{'text-[10px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end':i.state=='WAITING-REFUND',
-                                          'text-[12px] font-semibold bg-green-300 p-1 text-green-600 rounded-md md:px-3 text-center items-end':i.state=='COMPLETED'}">
-          {{ i.state }}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div class="border-b-2 border-dashed pb-3">
-        <div class="flex justify-between">
-          <div class="flex items-start">
-            <div class="rounded-md">
-              <img class="h-[60px] w-[80px] w-full rounded-md"
-              [src]="getImage(i)">
-            </div>
-            <div class="ml-2">
-              <div class="text-xs text-gray-400 leading-6">{{ i.transaction!.transDet[0]!.product!.name }}</div>
-              <div class="text-xs text-gray-400 leading-6">{{ i.transaction!.transDet[0]!.quantity }} x {{ i.transaction!.transDet[0]!.product!.price! | currency }}...</div>
-            </div>
-          </div>
-          <div class="text-right text-sm leading-7 mt-7">
-            <div class="font-semibold">Grand Total ：{{i.transaction!.total! | currency}}</div>
-            <a [routerLink]="'/transaction-details/'+i.transaction?.id" class="font-bold text-[#5C06E4]">See Detail Transaction</a>
-          </div>
-        </div>
-      </div>
-      <div class="pt-4">
-        <div class="flex flex-col items-end text-sm leading-8 pb-6">
-          <div *ngIf="i.rejectedBy != undefined">
-            <div>Rejected By <span class="text-[#5C06E4]">{{ i.rejectedBy }}</span></div>
-            <div class="flex w-96 justify-between">
-              <div>Reason for cancellation <span class="text-[#5C06E4]">{{ i.alasanRejected }}</span></div>
+  <div class="space-y-2">
+    <div class="flex flex-col max-w-[600px]" *ngFor="let i of listPayment">
+      <mat-accordion>
+        <mat-expansion-panel *ngIf="i.totalFundUser! > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ i.transaction?.invoice }}
+            </mat-panel-title>
+            <mat-panel-description class="rounded-md text-center font-semibold px-2 py-1" [ngClass]="{'text-[11px] bg-amber-200 text-amber-600':i.state=='WAITING-REFUND',
+                                                                                                      'text-[12px] bg-green-300 text-green-600':i.state=='COMPLETED'}">
+              <div *ngIf="i.state=='COMPLETED'" class="w-full">Selesai</div>
+              <div *ngIf="i.state=='WAITING-REFUND'" class="w-full">Menunggu Pengembalian Dana</div>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="border-b-2 border-dashed pb-3">
+            <div class="flex justify-between">
+              <div class="flex items-start">
+                <div class="rounded-md">
+                  <img class="h-[60px] w-[80px] w-full rounded-md"
+                  [src]="getImage(i)">
+                </div>
+                <div class="ml-2">
+                  <div class="text-xs text-gray-400 leading-6">{{ i.transaction!.transDet[0]!.product!.name }}</div>
+                  <div class="text-xs text-gray-400 leading-6">{{ i.transaction!.transDet[0]!.quantity }} x {{ i.transaction!.transDet[0]!.product!.price! | currency }}...</div>
+                </div>
+              </div>
+              <div class="text-right text-sm leading-7 mt-7">
+                <div class="font-semibold">Total ：{{i.transaction!.total! | currency}}</div>
+                <a [routerLink]="'/transaction-details/'+i.transaction?.id" class="font-bold text-[#5C06E4]">Lihat Detail Transaksi</a>
+              </div>
             </div>
           </div>
-          <div *ngIf="i.state == 'WAITING-REFUND' && i.totalFundVendor! > 0" class="flex justify-center px-1 text-center rounded-md font-semibold bg-amber-200 text-amber-600 w-full">
-            Please wait while we process your payment
+          <div class="pt-4">
+            <div class="flex flex-col items-end text-sm leading-8 pb-6">
+              <div *ngIf="i.rejectedBy != undefined">
+                <div>Dibatalkan oleh : <span class="text-[#5C06E4]">{{ i.rejectedBy }}</span></div>
+                <div class="flex w-96 justify-between">
+                  <div>Alasan pembatalan : <span class="text-[#5C06E4]">{{ i.alasanRejected }}</span></div>
+                </div>
+              </div>
+              <div *ngIf="i.state == 'WAITING-REFUND' && i.totalFundVendor! > 0" class="flex justify-center px-1 text-center rounded-md font-semibold bg-amber-200 text-amber-600 w-full">
+                Harap tunggu sementara kami memproses pengembalian dana Anda
+              </div>
+            </div>
+            <div class="border-l-2 border-l-[#5C06E4] pl-2 mb-3">Bukti pembayaran</div>
+            <div class="rounded-xl bg-gray-100 mt-4 flex justify-center">
+              <img *ngIf="i.tfUser != undefined" class="w-96 rounded-md" [src]="getImg(i)">
+            </div>
+            <div class="mt-6 border-t pt-5 text-sm flex items-center">Total pembayaran kepada User：<span class="text-base text-red-500 font-bold">{{ i.totalFundUser!|currency }}</span></div>
           </div>
-        </div>
-        <div class="border-l-2 border-l-[#5C06E4] pl-2 mb-3">Proof of payment</div>
-        <div class="rounded-xl bg-gray-100 mt-4 justify-center">
-          <img *ngIf="i.tfUser != undefined" class="w-64 rounded-md" [src]="getImg(i)">
-        </div>
-        <div class="mt-6 border-t pt-5 text-sm flex items-center">Total payment to User：<span class="text-base text-red-500 font-bold">{{ i.totalFundUser!|currency }}</span></div>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <div *ngIf="listPayment?.length! == 0" class="w-full">
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  <div *ngIf="check()" class="w-full">
     <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
       <div class="grid gap-4 w-60">
         <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full shadow-sm justify-center items-center inline-flex">
@@ -63,7 +68,7 @@
           </svg>
         </div>
         <div>
-          <h2 class="text-center text-black text-xl font-semibold">There’s no refund here</h2>
+          <h2 class="text-center text-black text-xl font-semibold">Tidak ada daftar pengembalian dana di sini</h2>
         </div>
       </div>
     </div>

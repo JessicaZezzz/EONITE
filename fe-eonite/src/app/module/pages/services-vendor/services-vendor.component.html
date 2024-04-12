@@ -30,12 +30,12 @@
                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                 </svg>
                               </div>
-                              <input [(ngModel)]="filter.search" type="text" id="search-navbar" class="w-full block p-2 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Search Vendor">
+                              <input [(ngModel)]="filter.search" type="text" id="search-navbar" class="w-full block p-2 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Cari Vendor">
                             </div>
 
                             <div class="flex flex-col md:flex-row md:space-x-3 space-y-2 md:space-y-0">
                               <div class="flex flex-col">
-                                <span class="font-medium text-[13px] text-[#5C06E4] mb-1">Category</span>
+                                <span class="font-medium text-[13px] text-[#5C06E4] mb-1">Kategori</span>
                                 <mat-form-field>
                                   <mat-select [(ngModel)]="filter.categoryId" multiple class="mt-1 block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
                                     <mat-optgroup *ngFor="let group of category" [label]="group.name">
@@ -48,7 +48,7 @@
                               </div>
 
                               <div class="flex flex-col">
-                                <span class="font-medium text-[13px] text-[#5C06E4] mb-1">Domicile</span>
+                                <span class="font-medium text-[13px] text-[#5C06E4] mb-1">Domisili</span>
                                 <mat-form-field appearance="fill">
                                   <mat-select [(ngModel)]="filter.domicileId" class="mt-1 block w-full rounded-md border px-2 py-2.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:py-1.5 sm:leading-6">
                                     <mat-option *ngFor="let i of domicile" [value]="i.id">{{ i.name }}</mat-option>
@@ -218,8 +218,8 @@
                               </div>
                             </div>
                             <div class="flex flex-row space-x-2 justify-end mt-3">
-                              <button (click)="reset()" class="text-md bg-gray-300 px-5 py-2 rounded-md font-medium hover:bg-gray-400">Reset</button>
-                              <button (click)="apply()" class="text-[#5C06E4] text-md px-5 py-2 border-[#5C06E4] border-[1.5px] rounded-md font-medium hover:text-white hover:bg-[#5C06E4]">Apply</button>
+                              <button (click)="reset()" class="text-md bg-gray-300 px-5 py-2 rounded-md font-medium hover:bg-gray-400">Hapus Filter</button>
+                              <button (click)="apply()" class="text-[#5C06E4] text-md px-5 py-2 border-[#5C06E4] border-[1.5px] rounded-md font-medium hover:text-white hover:bg-[#5C06E4]">Terapkan Filter</button>
                             </div>
                           </div>
                         </mat-expansion-panel>
@@ -230,11 +230,11 @@
               </div>
               <div class="flex items-center">
                 <div class="w-full">
-                  <select (change)="setSort($event)" [(ngModel)]="filter.sortBy" placeholder="SortBy" id="small" class="block w-[150px] p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                    <option value="nameAsc">Sort By Name Asc</option>
-                    <option value="nameDesc">Sort By Name Desc</option>
-                    <option value="ratingAsc">Sort By Rating Asc</option>
-                    <option value="ratingDesc">Sort By Rating Desc</option>
+                  <select (change)="setSort($event)" [(ngModel)]="filter.sortBy" placeholder="SortBy" id="small" class="block w-[240px] p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    <option value="nameAsc">Urutkan Berdasarkan Nama Asc</option>
+                    <option value="nameDesc">Urutkan Berdasarkan Nama Des</option>
+                    <option value="ratingAsc">Urutkan Berdasarkan Rating Asc</option>
+                    <option value="ratingDesc">Urutkan Berdasarkan Rating Desc</option>
                   </select>
                 </div>
               </div>
@@ -251,7 +251,7 @@
     </div>
 </div>
 <app-footer></app-footer>
-<div *ngIf="loader" class="bg-white">
+<div *ngIf="loader" class="loading-overlay">
   <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
   <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">

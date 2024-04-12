@@ -36,6 +36,9 @@ export class AddProductComponent implements OnInit {
       capacity: new FormControl(this.product?.capacity, [
         Validators.required,
       ]),
+      max: new FormControl(this.product?.max, [
+        Validators.required,
+      ]),
       description: new FormControl(this.product?.description, [
         Validators.required,
       ]),
@@ -52,6 +55,10 @@ export class AddProductComponent implements OnInit {
 
   get capacity() {
     return this.Form1.get('capacity')!;
+  }
+
+  get max() {
+    return this.Form1.get('max')!;
   }
 
   get description() {
@@ -73,7 +80,7 @@ export class AddProductComponent implements OnInit {
       const max_width = 25600;
 
       if (fileInput.target.files[0].size > max_size) {
-        this.imageError = 'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+        this.imageError = 'Ukuran maksimum yang diperbolehkan adalah ' + max_size / 1000 + 'Mb';
 
         return false;
       }
@@ -89,7 +96,7 @@ export class AddProductComponent implements OnInit {
 
           if (img_height > max_height && img_width > max_width) {
             this.imageError =
-              'Maximum dimentions allowed ' +
+              'Dimensi maksimum diperbolehkan ' +
               max_height +
               '*' +
               max_width +
@@ -104,7 +111,7 @@ export class AddProductComponent implements OnInit {
               this.base64ImgArray.push(imgBase64Path);
             }else{
               this.imageError =
-              'Image dimensions are too wide/tall';
+              'Dimensi gambar terlalu lebar/tinggi';
               return false;
             }
             // this.previewImagePath = imgBase64Path;
@@ -136,6 +143,7 @@ export class AddProductComponent implements OnInit {
       postProduct.vendorId = sessionStorage.getItem('ID');
       postProduct.name = this.Form1.value.name;
       postProduct.price = this.Form1.value.price;
+      postProduct.max = this.Form1.value.max;
       postProduct.capacity = this.Form1.value.capacity;
       postProduct.description = this.Form1.value.description;
     let photo:string[]=[];
@@ -147,7 +155,7 @@ export class AddProductComponent implements OnInit {
     this.restService.addProduct(JSON.stringify(postProduct)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Successfully added new product',
+          data: 'Berhasil menambahkan produk baru',
         });
         this.onNoClick();
       }else if(event.statusCode == 500){

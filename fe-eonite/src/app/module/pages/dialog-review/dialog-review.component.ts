@@ -40,7 +40,7 @@ export class DialogReviewComponent implements OnInit {
       this.restService.updateReview(JSON.stringify(review)).subscribe(event => {
         if(event.statusCode == 200){
           const dialogRef = this.dialog.open(DialogSuccessComponent, {
-            data: 'Successfully updated review',
+            data: 'Ulasan berhasil diperbarui',
           });
           this.dialogRef.close(true);
 
@@ -58,7 +58,7 @@ export class DialogReviewComponent implements OnInit {
       this.restService.addReview(JSON.stringify(review)).subscribe(event => {
         if(event.statusCode == 200){
           const dialogRef = this.dialog.open(DialogSuccessComponent, {
-            data: 'Successfully added review',
+            data: 'Ulasan berhasil ditambahkan',
           });
           this.dialogRef.close(true);
 

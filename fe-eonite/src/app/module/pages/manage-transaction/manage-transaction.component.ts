@@ -16,9 +16,11 @@ export class ManageTransactionComponent implements OnInit {
 
   listTrans:Transaction[]=[];
   listRefund:refund[] = [];
+  loader:boolean=false;
   constructor(private dialog:MatDialog, private restService:RestApiServiceService,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
+    this.loader = true;
     this.getData();
     this.getRefund();
   }
@@ -37,6 +39,7 @@ export class ManageTransactionComponent implements OnInit {
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['fundTransactions'];
         this.listRefund = data;
+        this.loader = false;
       }
     })
   }

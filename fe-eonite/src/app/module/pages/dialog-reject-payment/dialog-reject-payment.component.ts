@@ -12,6 +12,7 @@ export class DialogRejectPaymentComponent implements OnInit {
 
   alasanReject:string='';
   trans?:Transaction;
+  loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<DialogRejectPaymentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Transaction, private restService:RestApiServiceService,private dialog:MatDialog) {
       this.trans=data;
@@ -25,6 +26,7 @@ export class DialogRejectPaymentComponent implements OnInit {
   }
 
   submit(){
+    this.loader=true;
     let postTrans :postTransaction={};
     postTrans.id = this.trans?.id;
     postTrans.prevState = this.trans?.state;
@@ -33,6 +35,7 @@ export class DialogRejectPaymentComponent implements OnInit {
 
     this.restService.updateTransaction(JSON.stringify(postTrans)).subscribe((event)=>{
       if(event.statusCode == 200){
+        this.loader=false;
         this.dialogRef.close(true);
       }
     })

@@ -8,7 +8,7 @@
     <div class="flex flex-row justify-around">
       <div class="flex flex-col p-3 space-y-1 ml-3 sm:ml-0">
         <div>
-          <div class="text-xs text-center">Search Result for</div>
+          <div class="text-xs text-center">Hasil pencarian untuk </div>
           <div class="text-2xl font-bold text-center">"{{ search }}"</div>
         </div>
       </div>
@@ -20,11 +20,11 @@
     <div class="flex flex-row justify-around">
       <div class="flex flex-col border-b-4 border-[#5C06E4] p-3 space-y-1 ml-3 sm:ml-0">
         <div>
-          <div class="text-2xl font-bold">List <font color="#5C06E4">Vendor </font> <font color="#788BF4">EOnite</font></div>
+          <div class="text-2xl font-bold"><font color="#5C06E4">Vendor </font> <font color="#788BF4">EOnite</font></div>
         </div>
       </div>
       <div class="flex items-center space-x-4">
-        <button (click)="redirectVendor()" class="text-[#5C06E4] font-medium text-md">See More</button>
+        <button (click)="redirectVendor()" class="text-[#5C06E4] font-medium text-md">Lihat Lebih Banyak</button>
       </div>
     </div>
     <div class="flex flex-row justify-around mt-4 mb-4">
@@ -37,11 +37,11 @@
     <div class="flex flex-row justify-around">
       <div class="flex flex-col border-b-4 border-[#5C06E4] p-3 space-y-1 ml-3 sm:ml-0">
         <div>
-          <div class="text-2xl font-bold">List <font color="#5C06E4">Product </font> <font color="#788BF4">EOnite</font></div>
+          <div class="text-2xl font-bold"><font color="#5C06E4">Product </font> <font color="#788BF4">EOnite</font></div>
         </div>
       </div>
       <div class="flex items-center space-x-4">
-        <button (click)="redirectProduct()" class="text-[#5C06E4] font-medium text-md">See More</button>
+        <button (click)="redirectProduct()" class="text-[#5C06E4] font-medium text-md">Lihat Lebih Banyak</button>
       </div>
     </div>
     <div class="flex flex-row justify-around mt-4 mb-4">
@@ -49,7 +49,7 @@
     </div>
   </div>
 <app-footer></app-footer>
-<div *ngIf="loader" class="bg-white">
+<div *ngIf="loader" class="loading-overlay">
   <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
   <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">

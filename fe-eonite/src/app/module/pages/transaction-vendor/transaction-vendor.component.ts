@@ -11,13 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./transaction-vendor.component.css']
 })
 export class TransactionVendorComponent implements OnInit {
-  listAll       : Transaction[]     =[];
-  listConfirmation : Transaction[]  =[];
-  listPayment   :Transaction[]      =[];
-  listOnGoing   : Transaction[]     =[];
-  listCompleted : Transaction[]     =[];
-  listCancelled : Transaction[]     =[];
-  listRefund    :Transaction[]      =[];
+  listAll?       : Transaction[]     =[];
+  listConfirmation? : Transaction[]  =[];
+  listPayment?   :Transaction[]      =[];
+  listOnGoing?   : Transaction[]     =[];
+  listCompleted? : Transaction[]     =[];
+  listCancelled? : Transaction[]     =[];
   loader:boolean=false;
   pages: number = 1;
   constructor(private sanitization:DomSanitizer,private router: Router,private restService:RestApiServiceService) { }
@@ -68,7 +67,9 @@ export class TransactionVendorComponent implements OnInit {
   }
 
   getImage(element:Transaction){
-    let data = this.sanitization.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+element!.transDet[0]!.product!.photo[0]!.image!)
+    let data:any;
+    if(element.transDet.length>0) data = this.sanitization.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+element!.transDet[0]!.product!.photo[0]!.image!);
+    else data = '';
     return data;
   }
 

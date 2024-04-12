@@ -2,19 +2,26 @@
   <div class="min-h-[600px] rounded-md shadow-lg w-full flex flex-row bg-white">
     <div class="w-1/2 hidden lg:block flex border-r-2 border-gray-100">
       <div class="h-full rounded-l-lg bg-cover bg-center flex flex-col justify-center" style="background-image: url('/assets/icon/bg-logins.jpg')">
-        <div class="text-2xl text-white text-center font-bold">Hello, Friends! </div>
-        <div class="text-lg text-white text-center font-light">Enter your personal details and start journey with us!</div>
+        <div class="text-2xl text-white text-center font-bold">Halo! </div>
+        <div class="text-lg text-white text-center font-light">Masukkan detail pribadi Anda dan mulailah perjalanan bersama kami!</div>
       </div>
     </div>
-    <div class="w-full lg:w-1/2 py-6 px-6 flex flex-col justify-center">
-      <button (click)="back()" style="rotate: 180deg;" class="align-left w-10">
-        <svg aria-hidden="true" class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-        fill="currentColor">
-          <path fill-rule="evenodd"
-            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-            clip-rule="evenodd" />
-        </svg>
-      </button>
+    <div class="w-full lg:w-1/2 py-6 px-6 flex flex-col justify-center h-full">
+      <div class="w-full flex justify-between mb-[60px]">
+        <button (click)="back()" style="rotate: 180deg; position: relative;" class="align-left w-10">
+          <svg aria-hidden="true" class="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+          fill="currentColor">
+            <path fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+        <a href="'/home">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0,0,256,256">
+            <g fill="#3c3c3c" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M25,1.05078c-0.2175,0 -0.43414,0.06898 -0.61914,0.20898l-23,17.95117c-0.43,0.34 -0.50992,0.9682 -0.16992,1.4082c0.34,0.43 0.9682,0.50992 1.4082,0.16992l1.38086,-1.07812v26.28906c0,0.55 0.45,1 1,1h14v-18h12v18h14c0.55,0 1,-0.45 1,-1v-26.28906l1.38086,1.07812c0.19,0.14 0.39914,0.21094 0.61914,0.21094c0.3,0 0.58906,-0.13086 0.78906,-0.38086c0.34,-0.44 0.26008,-1.0682 -0.16992,-1.4082l-23,-17.95117c-0.185,-0.14 -0.40164,-0.20898 -0.61914,-0.20898zM35,5v1.05078l6,4.67969v-5.73047z"></path></g></g>
+          </svg>
+        </a>
+      </div>
       <div class="sm:mx-auto sm:w-full sm:max-w-sm">
         <img class="mx-auto h-20 w-auto" src="/assets/icon/logo.png" alt="EONITE">
         <div class="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">EONITE</div>
@@ -22,21 +29,21 @@
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form class="space-y-6" [formGroup]="reactiveForm">
           <div class="col-span-full">
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email Address</label>
+            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
             <div class="mt-1">
               <input  type="email"
                       formControlName="email"
                       class="form-control"
                       [ngClass]="{'border-b-1 border-red-400': email.invalid && (email.dirty || email.touched)}"
-                      placeholder="Enter Email example xxx@gmail.com"
-                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                      placeholder="Masukkan Email contoh xxx@gmail.com"
+                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
             </div>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
               <div *ngIf="email.errors?.['required']" class="text-xs text-red-400">
-                * Required
+                * Wajib diisi
               </div>
               <div *ngIf="!email.errors?.['required'] && email.errors?.['emailValidator']" class="text-xs text-red-400">
-                * Invalid email format
+                * Format email salah
               </div>
             </div>
           </div>
@@ -44,17 +51,17 @@
             <div class="flex items-center justify-between">
               <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
               <div class="text-sm">
-                <button (click)="forgotPass()" class="font-medium text-[#5C06E4] hover:text-indigo-500">Forgot password?</button>
+                <button (click)="forgotPass()" class="font-medium text-[#5C06E4] hover:text-indigo-500">Lupa password?</button>
               </div>
             </div>
             <div class="mt-2 relative">
               <input  #passwords
                         type="password"
-                        placeholder="Enter Your Password"
+                        placeholder="Masukkan Password"
                         formControlName="password"
                         class="form-control"
                         [ngClass]="{'border-b-1 border-red-400': password.invalid && (password.dirty || password.touched)}"
-                        class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                        class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
                 <mat-icon class="absolute inset-y-0 top-2.5 end-3 flex"
                   style="cursor: pointer"
                   matSuffix
@@ -77,22 +84,22 @@
             </div>
             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="invalid-feedback">
               <div *ngIf="password.errors?.['required']" class="text-xs text-red-400">
-                * Required
+                * Wajib diisi
               </div>
               <div *ngIf="password.errors?.['minlength']" class="text-xs text-red-400">
-                * This field must have at least 12 characters
+                * Kolom ini harus memiliki minimal 12 karakter
               </div>
             </div>
           </div>
           <div>
             <button type="submit"
                     (click)="submit()"
-                    class="flex w-full justify-center rounded-md bg-[#5C06E4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
+                    class="flex w-full justify-center rounded-md bg-[#5C06E4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">MASUK</button>
           </div>
         </form>
         <p class="mt-10 text-center text-sm text-gray-500">
-          Don't have an account yet?
-          <a href="/signup" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">SIGN UP</a>
+          Belum punya akun?
+          <a href="/signup" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">DAFTAR</a>
         </p>
       </div>
     </div>
@@ -101,13 +108,13 @@
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow ">
             <div class="p-4 md:p-5 text-center">
-              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <svg class="mx-auto mb-4 w-12 h-12 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
               </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 text-center">Email not registered</h3>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 text-center">Email tidak terdaftar</h3>
                 <button type="button" (click)="openDialogError1 = false;"
                         class="flex w-full justify-center rounded-md bg-[#5C06E4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    BACK
+                    KEMBALI
                 </button>
             </div>
         </div>
@@ -117,14 +124,14 @@
     <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow ">
             <div class="p-4 md:p-5 text-center">
-              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <svg class="mx-auto mb-4 w-12 h-12 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
               </svg>
-                <h3 class="mb-1 text-lg font-normal text-gray-500 text-center font-bold">Wrong Credentials</h3>
-                <p class="text-sm mb-5">Invalid username or password</p>
+                <h3 class="mb-1 text-lg font-normal text-gray-500 text-center font-bold">Kredensial Salah</h3>
+                <p class="text-sm mb-5">Invalid email atau password</p>
                 <button type="button" (click)="openDialogError2 = false;"
                         class="flex w-full justify-center rounded-md bg-[#5C06E4] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                    BACK
+                    KEMBALI
                 </button>
             </div>
         </div>
@@ -132,7 +139,7 @@
   </div>
   <footer>
     <div class="w-full max-w-screen-xl pt-4 mx-auto md:pt-8 md:px-4">
-        <span class="block text-sm text-[#5C06E4] sm:text-center dark:text-gray-400 text-center">© 2024 <a href="#" class="hover:underline">EONITE™</a>. All Rights Reserved.</span>
+      <span class="block text-sm text-[#5C06E4] sm:text-center dark:text-gray-400 text-center">© 2024 <a href="/home" class="hover:underline">EONITE™</a>. Hak Cipta Dilindungi.</span>
     </div>
   </footer>
 </div>

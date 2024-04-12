@@ -18,6 +18,7 @@ export const StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\
   styleUrls: ['./sign-up-user.component.css']
 })
 export class SignUpUserComponent {
+  maxDate: string;
   reactiveForm!: FormGroup;
   user?:User;
   confPassword?:string;
@@ -28,6 +29,9 @@ export class SignUpUserComponent {
 
   constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog) {
     this.user = {} as User;
+    const today = new Date();
+    const eightYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    this.maxDate = eightYearsAgo.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
@@ -140,20 +144,20 @@ export class SignUpUserComponent {
         email:postUser.email!,
         option:'signup'
       };
-      const dialogRef = this.dialog.open(GenerateOtpComponent, {
-        data:generateOTP
-      });
+      // const dialogRef = this.dialog.open(GenerateOtpComponent, {
+      //   data:generateOTP
+      // });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if(result){
+      // dialogRef.afterClosed().subscribe(result => {
+      //   if(result){
           this.restService.postsignInUser(JSON.stringify(postUser)).subscribe(event=>{
             if(event.statusCode == 200){
               this.openDialogSuccessDiv = true;
             }else if(event.statusCode == 500){
               this.openDialogErrorDiv = true;
             }
-          });
-        }else{};
+        //   });
+        // }else{};
       });
   }
 

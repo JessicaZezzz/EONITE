@@ -49,10 +49,10 @@ export class ChatComponent implements OnInit {
               e.lastText = data.message;
               e.notification = data.total;
               e.recType = data.recType;
-              this.loader=false;
             }
           })
         })
+        this.loader=false;
       }
     });
     else if(this.userType =='VENDOR') this.restService.findMessageVendor(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
@@ -65,10 +65,10 @@ export class ChatComponent implements OnInit {
               e.lastText = data.message;
               e.notification = data.total;
               e.recType = data.recType;
-              this.loader=false;
             }
           })
         })
+        this.loader=false;
       }
     });
 

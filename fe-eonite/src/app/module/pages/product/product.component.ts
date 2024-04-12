@@ -20,6 +20,7 @@ export class ProductComponent implements OnInit {
   tooltip:string='';
   deleteItem:boolean=false;
   deleteItemId?:number;
+  rekening?:string;
 
   constructor(private restService:RestApiServiceService,public dialog: MatDialog) {
     this.vendorId = Number(sessionStorage.getItem('ID')!);
@@ -27,7 +28,7 @@ export class ProductComponent implements OnInit {
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['vendor'];
         this.stateVendor = data[0].status;
-        if(this.stateVendor == 'PENDING') this.tooltip='Your Status need to be confirmed first!'
+        this.rekening = data[0].bankAccount;
       }
     })
   }
@@ -89,7 +90,7 @@ export class ProductComponent implements OnInit {
     this.restService.deleteProduct(JSON.stringify(postDelete)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Successfully deleted the product',
+          data: 'Berhasil menghapus produk',
         });
         this.deleteItem=false;
         dialogRef.afterClosed().subscribe(result => {

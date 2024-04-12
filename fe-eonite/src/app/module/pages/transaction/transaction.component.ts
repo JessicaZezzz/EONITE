@@ -11,14 +11,12 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./transaction.component.css']
 })
 export class TransactionComponent implements OnInit {
-
   listAll?       : Transaction[]     =[];
   listConfirmation? : Transaction[]  =[];
   listPayment?   :Transaction[]      =[];
   listOnGoing?   : Transaction[]     =[];
   listCompleted? : Transaction[]     =[];
   listCancelled? : Transaction[]     =[];
-  listRefund?    :Transaction[]      =[];
   loader:boolean=false;
   pages: number = 1;
   constructor(private sanitization:DomSanitizer,private router: Router,private restService:RestApiServiceService) { }

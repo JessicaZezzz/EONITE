@@ -16,7 +16,6 @@ export class TestimonialComponent {
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['productReview'];
         this.review = data;
-        console.log(this.review)
       }
     })
   }

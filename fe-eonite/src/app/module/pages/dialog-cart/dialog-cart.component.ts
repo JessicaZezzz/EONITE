@@ -1,10 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
-import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatCalendarCellClassFunction, MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
+import { Product } from '../../models/auth.model';
 
 @Component({
   selector: 'app-dialog-cart',
@@ -19,11 +20,14 @@ export class DialogCartComponent implements OnInit {
   public model:Date[] = [];
   errorDate:string='';
   errorQty:string='';
+  minDate?:Date;
 
   @Output() openCart = new EventEmitter<boolean>();
   @ViewChild('picker', { static: true }) _picker?: MatDatepicker<Date>;
   constructor(public dialogRef: MatDialogRef<DialogCartComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: number, private router: Router,private restService:RestApiServiceService,public dialog: MatDialog) { }
+    @Inject(MAT_DIALOG_DATA) public data: Product, private router: Router,private restService:RestApiServiceService,public dialog: MatDialog) {
+      this.minDate = new Date();
+  }
 
   ngOnInit(): void {
   }
@@ -81,9 +85,10 @@ export class DialogCartComponent implements OnInit {
   submit(){
     this.errorDate = '';
     this.errorQty = '';
-    if(this.model.length == 0) this.errorDate ='*Please select booking date!';
-    if(this.qty <=0) this.errorQty = '*Quantity can not less than 0!';
-    if(this.model.length >= 1 && this.qty >=1){
+    if(this.model.length == 0) this.errorDate ='*Silakan pilih tanggal pemesanan!';
+    if(this.model.length > this.data.max!) this.errorDate ='*Pilihan tanggal pemesanan tidak boleh lebih dari '+this.data.max;
+    if(this.qty <=0) this.errorQty = '*Jumlah tidak boleh kurang dari 0!';
+    if(this.model.length >= 1 && this.model.length <= this.data.max! && this.qty >=1){
       if(sessionStorage.getItem('ID') == null){
         this.router.navigate(['/login']);
         this.onNoClick();
@@ -95,7 +100,7 @@ export class DialogCartComponent implements OnInit {
   addToCart(){
     let postCart:postCart={};
     postCart.userId = Number(sessionStorage.getItem('ID'));
-    postCart.productId = this.data;
+    postCart.productId = this.data.id;
     let bookingDate:string[]=[];
       this.model.forEach(e=>{
         const dDate = new DatePipe('en-US');
@@ -106,7 +111,7 @@ export class DialogCartComponent implements OnInit {
     this.restService.addCart(JSON.stringify(postCart)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Successfully added product to cart',
+          data: 'Berhasil menambahkan produk ke troli',
         });
         this.onNoClick();
 

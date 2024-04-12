@@ -68,7 +68,7 @@ export class ProfileVendorComponent implements OnInit {
       this.restService.updatePhotoId(JSON.stringify(postVendor)).subscribe(event=>{
         if(event.statusCode == 200){
           const dialogRef = this.dialog.open(DialogSuccessComponent, {
-            data: 'Successfully updated photo identity',
+            data: 'Identitas foto berhasil diperbarui',
           });
 
           dialogRef.afterClosed().subscribe(result => {
@@ -76,10 +76,6 @@ export class ProfileVendorComponent implements OnInit {
           });
         }else if(event.statusCode == 500){}
       })
-  }
-
-  bankAccount(){
-
   }
 
   changeDate(date:string){

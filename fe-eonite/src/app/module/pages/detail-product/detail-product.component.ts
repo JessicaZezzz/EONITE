@@ -22,27 +22,27 @@ export class DetailProductComponent implements OnInit {
     {
       rating:'5.0',
       bar:'0%',
-      total:0
+      total:'0'
     },
     {
       rating:'4.0',
       bar:'0%',
-      total:0
+      total:'0'
     },
     {
       rating:'3.0',
       bar:'0%',
-      total:0
+      total:'0'
     },
     {
       rating:'2.0',
       bar:'0%',
-      total:0
+      total:'0'
     },
     {
       rating:'1.0',
       bar:'0%',
-      total:0
+      total:'0'
     },
   ];
   image:string[]=[]
@@ -52,6 +52,7 @@ export class DetailProductComponent implements OnInit {
 
   constructor(private location: Location,private restService:RestApiServiceService,private router:ActivatedRoute,private routes:Router,private dialog:MatDialog) {
     this.cover =this.image[0];
+
   }
 
   ngOnInit(): void {
@@ -61,6 +62,7 @@ export class DetailProductComponent implements OnInit {
         this.product = data[0];
         this.vendorId =  Object(event.body)['vendorId'];
         this.vendorName = Object(event.body)['usernameVendor'];
+        console.log(this.product)
       }
       this.product?.photo.forEach(e=>{
         this.image.push('data:image/jpeg;base64,'+e.image)
@@ -89,15 +91,15 @@ export class DetailProductComponent implements OnInit {
     if(e.rating == 2) rate2++;
     if(e.rating == 1) rate1++;
   })
-    this.review[0].total = rate5/this.productReview.length*100;
-    this.review[0].bar = (rate5/this.productReview.length*100).toString()+'%';
-    this.review[1].total = rate4/this.productReview.length*100;
+    this.review[0].total = (rate5/this.productReview.length*100).toString().split('.')[0];
+    this.review[0].bar = (rate5/this.productReview.length*100).toString() +'%';
+    this.review[1].total = (rate4/this.productReview.length*100).toString().split('.')[0];
     this.review[1].bar = (rate4/this.productReview.length*100).toString()+'%';
-    this.review[2].total = rate3/this.productReview.length*100;
+    this.review[2].total = (rate3/this.productReview.length*100).toString().split('.')[0];
     this.review[2].bar = (rate3/this.productReview.length*100).toString()+'%';
-    this.review[3].total = rate2/this.productReview.length*100;
+    this.review[3].total = (rate2/this.productReview.length*100).toString().split('.')[0];
     this.review[3].bar = (rate2/this.productReview.length*100).toString()+'%';
-    this.review[4].total = rate1/this.productReview.length*100;
+    this.review[4].total = (rate1/this.productReview.length*100).toString().split('.')[0];
     this.review[4].bar = (rate1/this.productReview.length*100).toString()+'%';
   }
 
@@ -107,7 +109,7 @@ export class DetailProductComponent implements OnInit {
 
   addtoCart(){
     const dialogRef = this.dialog.open(DialogCartComponent, {
-      data:this.product?.id
+      data:this.product
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -140,5 +142,5 @@ export class DetailProductComponent implements OnInit {
 export interface review{
   rating:string;
   bar:string;
-  total:number;
+  total:string;
 }

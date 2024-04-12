@@ -7,7 +7,7 @@
     <div class="md:flex sm:mt-6">
       <div class="p-4 bg-white shadow-md rounded-lg">
           <div class="px-6 mt-3">
-            <div class="text-xl font-semibold text-center text-[#5C06E4]">Account Profile</div>
+            <div class="text-xl font-semibold text-center text-[#5C06E4]">Akun Profil</div>
             <div class="mt-2 flex flex-col sm:flex-row">
               <div class="flex flex-col items-center space-y-5">
                 <div class="w-[200px] flex justify-center">
@@ -16,38 +16,38 @@
                 </div>
                 <div class="flex flex-col space-y-2">
                   <button (click)="changePassword('USER')" class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
-                    CHANGE PASSWORD
+                    UBAH PASSWORD
                   </button>
                 </div>
               </div>
               <div class="items-center text-[#202142] sm:ml-8 sm:w-[500px]">
                 <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6">
                   <div class="sm:col-span-3">
-                    <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
+                    <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Nama Depan</label>
                     <div class="mt-1 text-semibold text-[15px] border rounded-md p-2">
                       {{ user?.firstName }}
                     </div>
                   </div>
                   <div class="sm:col-span-3">
-                    <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last Name</label>
+                    <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Nama Belakang</label>
                     <div class="mt-1 text-semibold text-[15px] border rounded-md p-2">
                       {{ user?.lastName }}
                     </div>
                   </div>
                   <div class="sm:col-span-3">
-                    <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Birth Date</label>
+                    <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Lahir</label>
                     <div class="mt-1 text-semibold text-[15px] border rounded-md p-2">
                       {{ changeDate(user?.birthDate) }}
                     </div>
                   </div>
                   <div class="sm:col-span-3">
-                    <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
+                    <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Nomor Telepon</label>
                     <div class="mt-1 text-semibold text-[15px] border rounded-md p-2">
                       {{ user?.phoneNumber }}
                     </div>
                   </div>
                   <div class="col-span-full">
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email Address</label>
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
                     <div class="mt-1 text-semibold text-[15px] border rounded-md p-2">
                       {{ user?.email }}
                     </div>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="flex flex-col sm:flex-row mt-3 justify-center">
                   <button type="button" (click)="editProfile()"
-                          class="flex justify-center rounded-md bg-[#5C06E4] px-10 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">EDIT</button>
+                          class="flex justify-center rounded-md bg-[#5C06E4] px-10 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">EDIT PROFIL</button>
                 </div>
               </div>
             </div>

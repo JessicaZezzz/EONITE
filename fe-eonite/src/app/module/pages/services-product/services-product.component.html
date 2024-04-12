@@ -8,7 +8,7 @@
         <div>
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex md:justify-between border-b border-gray-200 pb-2 pt-5 flex-col lg:flex-row items-center lg:items-baseline lg:space-x-[100px]">
-              <div class="text-2xl font-bold tracking-tight text-gray-900">Product</div>
+              <div class="text-2xl font-bold tracking-tight text-gray-900">Produk</div>
               <!-- Filter -->
               <div class="flex items-center">
                 <div class="relative inline-block text-left">
@@ -30,12 +30,12 @@
                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                 </svg>
                               </div>
-                              <input type="text" [(ngModel)]="filter.search" id="search-navbar" class="w-full block p-2 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Search Product">
+                              <input type="text" [(ngModel)]="filter.search" id="search-navbar" class="w-full block p-2 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Cari Produk">
                             </div>
 
                             <div class="flex flex-col md:flex-row md:space-x-3 space-y-2 md:space-y-0">
                               <div class="flex flex-col">
-                                <span class="font-medium text-[13px] text-[#5C06E4] mb-1">Price</span>
+                                <span class="font-medium text-[13px] text-[#5C06E4] mb-1">Harga</span>
                                 <div class="flex flex-row items-center space-x-2">
                                   <input [(ngModel)]="filter.min" type="number" id="number" placeholder="MIN" min=0 class="mt-2 block w-32 rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" />
                                   <span class="text-center">-</span>
@@ -205,8 +205,8 @@
                               </div>
                             </div>
                             <div class="flex flex-row space-x-2 justify-end mt-3">
-                              <button (click)="reset()" class="text-md bg-gray-300 px-5 py-2 rounded-md font-medium hover:bg-gray-400">Reset</button>
-                              <button (click)="apply()" class="text-[#5C06E4] text-md px-5 py-2 border-[#5C06E4] border-[1.5px] rounded-md font-medium hover:text-white hover:bg-[#5C06E4]">Apply</button>
+                              <button (click)="reset()" class="text-md bg-gray-300 px-5 py-2 rounded-md font-medium hover:bg-gray-400">Hapus Filter</button>
+                              <button (click)="apply()" class="text-[#5C06E4] text-md px-5 py-2 border-[#5C06E4] border-[1.5px] rounded-md font-medium hover:text-white hover:bg-[#5C06E4]">Terapkan Filter</button>
                             </div>
                           </div>
                         </mat-expansion-panel>
@@ -217,13 +217,13 @@
               </div>
               <div class="flex items-center">
                 <div class="w-full">
-                  <select (change)="setSort($event)" [(ngModel)]="filter.sortBy" placeholder="SortBy" id="small" class="block w-[150px] p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                    <option value="nameAsc">Sort By Name Asc</option>
-                    <option value="nameDesc">Sort By Name Desc</option>
-                    <option value="priceAsc">Sort By Price Asc</option>
-                    <option value="priceDesc">Sort By Price Desc</option>
-                    <option value="ratingAsc">Sort By Rating Asc</option>
-                    <option value="ratingDesc">Sort By Rating Desc</option>
+                  <select (change)="setSort($event)" [(ngModel)]="filter.sortBy" placeholder="SortBy" id="small" class="block w-[240px] p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    <option value="nameAsc">Urutkan Berdasarkan Nama Asc</option>
+                    <option value="nameDesc">Urutkan Berdasarkan Nama Des</option>
+                    <option value="priceAsc">Urutkan Berdasarkan Harga Asc</option>
+                    <option value="priceDesc">Urutkan Berdasarkan Harga Desc</option>
+                    <option value="ratingAsc">Urutkan Berdasarkan Rating Asc</option>
+                    <option value="ratingDesc">Urutkan Berdasarkan Rating Desc</option>
                   </select>
                 </div>
               </div>
@@ -241,7 +241,7 @@
     </div>
 </div>
 <app-footer></app-footer>
-<div *ngIf="loader" class="bg-white">
+<div *ngIf="loader" class="loading-overlay">
   <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
   <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">

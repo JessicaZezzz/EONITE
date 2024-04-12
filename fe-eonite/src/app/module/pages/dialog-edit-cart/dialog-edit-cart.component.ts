@@ -18,13 +18,13 @@ export class DialogEditCartComponent implements OnInit {
   public model :Date[]=[];
   errorDate:string='';
   errorQty:string='';
-
+  minDate?:Date;
   @Output() openCart = new EventEmitter<boolean>();
   @ViewChild('picker', { static: true }) _picker?: MatDatepicker<Date>;
 
   constructor(public dialogRef: MatDialogRef<DialogEditCartComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private dialog:MatDialog, private restService:RestApiServiceService) {
-
+      this.minDate = new Date();
   }
 
   ngOnInit(): void {
@@ -104,9 +104,10 @@ export class DialogEditCartComponent implements OnInit {
   submit(){
     this.errorDate = '';
     this.errorQty = '';
-    if(this.model.length == 0) this.errorDate ='*Please select booking date!';
-    if(this.data.quantity <= 0) this.errorQty = '*Quantity can not less than 0!';
-    if(this.model.length >= 1 && this.data.quantity >=1){
+    if(this.model.length == 0) this.errorDate ='*Silakan pilih tanggal pemesanan!';
+    if(this.model.length > this.data.productMax!) this.errorDate ='*Pilihan tanggal pemesanan tidak boleh lebih dari '+this.data.max;
+    if(this.data.quantity <= 0) this.errorQty = '*Jumlah tidak boleh kurang dari 0!';
+    if(this.model.length >= 1 && this.model.length <= this.data.productMax! && this.data.quantity >=1){
        this.updateCart();
     }
   }
@@ -124,7 +125,7 @@ export class DialogEditCartComponent implements OnInit {
     this.restService.updateCart(JSON.stringify(postCart)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Successfully updated products in cart',
+          data: 'Produk berhasil diperbarui di keranjang',
         });
         this.dialogRef.close(true);
 

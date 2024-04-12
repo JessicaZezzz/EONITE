@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
         if (user) {
             return true;
         } else {
-            alert('Session Expired! Please Log In')
+            alert('Silahkan Login terlebih dahulu!')
             this.router.navigate(['/home']);
             window.sessionStorage.clear();
             return false;

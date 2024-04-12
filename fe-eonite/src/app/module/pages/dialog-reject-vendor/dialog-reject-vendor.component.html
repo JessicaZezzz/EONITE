@@ -1,17 +1,24 @@
 <div class="flex flex-col text-center justify-center items-center">
   <div class="w-full my-2">
     <div class="font-semibold">
-      Reason for Vendor Rejection
+      Alasan Penolakan Vendor
     </div>
     <input type="text" minlength="1" maxlength="50" [(ngModel)]="alasanReject"
           class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
   </div>
   <div class="flex justify-center items-center space-x-4">
       <button (click)="onNoClick()" data-modal-toggle="deleteModal" type="button" class="rounded-md px-7 md:px-5 py-2 text-white bg-[#5C06E4] hover:bg-indigo-500">
-          No, cancel
+          Tidak, batal
       </button>
       <button [disabled]="alasanReject == ''" (click)="submit()" class="md:ml-3 rounded-md px-5 py-2 text-white bg-red-600 hover:bg-red-500 disabled:bg-gray-300">
-          Yes, I'm sure
+          Ya, Saya yakin
       </button>
+  </div>
+</div>
+<div *ngIf="loader" class="loading-overlay">
+  <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
+  <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">
+    </div>
   </div>
 </div>

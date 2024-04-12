@@ -3,7 +3,7 @@
     <div class="px-3 py-2 mt-2">
       <div class="font-bold text-2xl text-center text-[#5C06E4] border-b-2 pb-2 border-gray-300">Detail Booking Order</div>
       <div class="mb-4 mt-2 text-left ">
-          <div class="text-md font-bold mb-2">Bill To:</div>
+          <div class="text-md font-bold mb-2">Pembayaran ke:</div>
           <div class="text-gray-700 mb-1">{{ vendor?.usernameVendor }}</div>
           <div class="text-gray-700 mb-1">{{ vendor?.email }}</div>
           <div class="text-gray-700 mb-1">{{ vendor?.phoneBusiness }}</div>
@@ -13,11 +13,11 @@
         <table class="divide-y divide-gray-200">
           <thead>
             <tr>
-              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Product</th>
-              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Booking Date</th>
-              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Qty</th>
-              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Amount</th>
-              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Total</th>
+              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Produk</th>
+              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Tanggal Pemesanan</th>
+              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Jumlah</th>
+              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">Harga</th>
+              <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-[#5C06E4] uppercase">SubTotal</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
@@ -32,22 +32,22 @@
         </table>
       </div>
       <div class="flex flex-row w-full items-center justify-end mt-2 mb-2">
-        <div class="text-md font-semibold text-[#5C06E4] mr-2 mt-2">Grand Total</div>
+        <div class="text-md font-semibold text-[#5C06E4] mr-2 mt-2">Total</div>
         <div class="text-lg font-semibold mt-2">{{ grandTotal|currency }}</div>
       </div>
       <div class="mb-1 w-full">
-        <div class="flex tex-left justify-start font-semibold">Notes:</div>
+        <div class="flex tex-left justify-start font-semibold">Catatan:</div>
         <textarea rows="3" class="w-full border-gray-300 border-2 rounded-md p-2" [(ngModel)]="desc"></textarea>
       </div>
-      <div class="text-xs text-center text-[#5C06E4]">By placing an order,You agree to the <a href="/tnc"><b>EONITE's Terms and Condition</b></a></div>
+      <div class="text-xs text-center text-[#5C06E4]">Dengan melakukan pemesanan, Anda menyetujui <a href="/tnc"><b>Syarat dan Ketentuan EONITE</b></a></div>
     </div>
   </div>
   <div class="px-4 py-3 flex flex-row sm:px-6 justify-center space-x-3">
-    <button (click)="onNoClick()" type="button" class="w-full justify-center rounded-md bg-red-600 px-5 py-2 md:py-3 text-sm font-medium text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">CANCEL</button>
-    <button (click)="submitBooking()" type="button" class="w-full justify-center rounded-md bg-[#5C06E4] px-5 py-2 md:py-3 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">BOOKING</button>
+    <button (click)="onNoClick()" type="button" class="w-full justify-center rounded-md bg-red-600 px-5 py-2 md:py-3 text-sm font-medium text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">BATAL</button>
+    <button (click)="submitBooking()" type="button" class="w-full justify-center rounded-md bg-[#5C06E4] px-5 py-2 md:py-3 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">PESAN</button>
   </div>
 </div>
-<div *ngIf="loader" class="bg-white">
+<div *ngIf="loader" class="loading-overlay">
   <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
   <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">

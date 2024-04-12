@@ -13,11 +13,11 @@ export const MENU_PUBLIC:MENU[]=[
     link : '/services-vendor'
   },
   {
-    name : 'Product',
+    name : 'Produk',
     link : '/services-product'
   },
   {
-    name : 'About Us',
+    name : 'Tentang Kami',
     link : '/about-us'
   }
 ];
@@ -28,14 +28,14 @@ export const MENU_VENDOR:MENU[]=[
     link : '/home'
   },
   {
-    name : 'About Us',
+    name : 'Tentang Kami',
     link : '/about-us'
   }
 ];
 
 export const DROPDOWN_USER:MENU[]=[
   {
-    name : 'Profile',
+    name : 'Profil',
     link : '/profile-user'
   },
   {
@@ -43,30 +43,30 @@ export const DROPDOWN_USER:MENU[]=[
     link : '/chat'
   },
   {
-    name : 'Cart',
+    name : 'Keranjang',
     link : '/cart'
   },
   {
-    name : 'Transaction',
+    name : 'Transaksi',
     link : '/transaction'
   },
   {
-    name : 'Refund',
+    name : 'Pengembalian Dana',
     link : '/refund'
   },
   {
-    name : 'Logout',
+    name : 'Keluar',
     link : '/logout'
   }
 ];
 
 export const DROPDOWN_VENDOR:MENU[]=[
   {
-    name : 'Profile',
+    name : 'Profil',
     link : '/profile-vendor'
   },
   {
-    name : 'Product',
+    name : 'Produk',
     link : '/product-vendor'
   },
   {
@@ -74,38 +74,16 @@ export const DROPDOWN_VENDOR:MENU[]=[
     link : '/chat'
   },
   {
-    name : 'Transaction',
+    name : 'Transaksi',
     link : '/transaction-vendor'
   },
   {
-    name : 'Payment',
+    name : 'Pembayaran',
     link : '/payment'
   },
   {
-    name : 'Logout',
+    name : 'Keluar',
     link : '/logout'
-  }
-]
-
-export const DROPDOWN_ADMIN:MENU[]=[
-  {
-    name : 'Profile',
-    link : '/profile-vendor'
-  },
-  {
-    name : 'Logout',
-    link : '/logout'
-  }
-]
-
-export const MENU_ADMIN:MENU[]=[
-  {
-    name : 'Manage User',
-    link : '/manage_user'
-  },
-  {
-    name : 'Manage Vendor',
-    link : '/manage_vendor'
   }
 ]
 
@@ -156,7 +134,7 @@ export class Vendor{
   description?      :string;
   inoperative_date?  :string[];
   instagram_url?    :string;
-  rating?           :Number;
+  rating?           :number;
   status_reject? :any;
 }
 
@@ -172,6 +150,7 @@ export interface Product{
   name?         : string;
   price?        : number;
   description?  : string;
+  max?          :number;
   capacity?     : number;
   rating?       : number;
   photo        : Photo[];

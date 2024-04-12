@@ -7,8 +7,8 @@
     <div class="md:flex">
       <div class="p-4 bg-white shadow-md rounded-lg w-[450px] sm:w-[550px] md:w-[700px] lg:w-[1000px]">
         <mat-tab-group>
-          <mat-tab label="All">
-            <div *ngIf="listAll.length>0">
+          <mat-tab label="Semua">
+            <div *ngIf="listAll?.length!>0">
               <div class="w-full flex flex-col rounded-md border-[1px] border-[#5C06E4] mt-4 p-2" *ngFor="let i of listAll">
                 <div class="flex flex-col">
                   <div class="flex flex-row w-full justify-between">
@@ -21,22 +21,19 @@
                       </div>
                     </div>
                     <div *ngIf="i.state == 'WAITING-CONFIRMATION'" class="text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
-                      Waiting for Confirmation
+                      Menunggu Konfirmasi
                     </div>
                     <div *ngIf="i.state == 'WAITING-PAYMENT'" class="text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
-                      Waiting for Payment
+                      Menunggu Pembayaran
                     </div>
                     <div *ngIf="i.state == 'ON-GOING'" class="text-[12px] font-semibold bg-blue-300 p-1 text-blue-600 rounded-md md:px-3 text-center items-end">
-                      On Going
+                      Sedang Berlangsung
                     </div>
                     <div *ngIf="i.state == 'COMPLETED'" class="text-[12px] font-semibold bg-green-300 p-1 text-green-600 rounded-md md:px-3 text-center items-end">
-                      Completed
+                      Selesai
                     </div>
                     <div *ngIf="i.state == 'CANCELLED'" class="text-[12px] font-semibold bg-red-300 p-1 text-red-600 rounded-md md:px-3 text-center items-end">
-                      Cancelled
-                    </div>
-                    <div *ngIf="i.state == 'WAITING-REFUND'" class="text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
-                      Waiting for Refund
+                      Dibatalkan
                     </div>
                   </div>
                   <div class="flex flex-col md:flex-row">
@@ -50,16 +47,21 @@
                         </div>
                       </div>
                       <div class="flex flex-row">
-                        <div class="rounded-md">
-                          <img class="h-[60px] w-[80px] w-full rounded-md"
-                          [src]="getImage(i)">
+                        <div class="rounded-md bg-gray-200 min-w-[80px]">
+                          <img class="h-[60px] w-[80px] w-full rounded-md" [src]="getImage(i)">
                         </div>
-                        <div class="ml-3">
+                        <div class="ml-3" *ngIf="i.transDet.length>0">
                           <div class="text-[14px] font-semibold">
-                            {{ i!.transDet[0]!.product!.name }}
+                            {{ i!.transDet[0]!.product?.name }}
                           </div>
                           <div class="text-gray-500">
-                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product!.price! | currency }}
+                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product?.price! | currency }}
+                          </div>
+                          <div>...</div>
+                        </div>
+                        <div class="ml-3" *ngIf="i.transDet.length==0">
+                          <div class="text-[14px] font-medium">
+                            Produk telah dihapus
                           </div>
                           <div>...</div>
                         </div>
@@ -68,7 +70,7 @@
                     <div class="flex flex-col p-2 w-full md:w-[250px]">
                       <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-300 p-3">
                         <div class="text-sm text-gray-400">
-                          Grand Total
+                          Total
                         </div>
                         <div class="text-xl text-indigo-600 font-semibold w-full">
                           {{ i!.total! | currency }}
@@ -77,12 +79,12 @@
                     </div>
                   </div>
                   <div class="flex justify-end items-end">
-                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">View Detail Transaction</button>
+                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">Lihat Detail Transaksi</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="listAll.length==0" class="w-full">
+            <div *ngIf="listAll?.length! ==0" class="w-full">
               <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
                 <div class="grid gap-4 w-60">
                   <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full shadow-sm justify-center items-center inline-flex">
@@ -93,14 +95,14 @@
                     </svg>
                   </div>
                   <div class="w-full">
-                    <h2 class="text-center text-black text-xl font-semibold">There’s no items Transaction here</h2>
+                    <h2 class="text-center text-black text-xl font-semibold">Tidak ada transaksi di sini</h2>
                   </div>
                 </div>
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Waiting for Confirmation">
-            <div *ngIf="listConfirmation.length>0">
+          <mat-tab label="Menunggu Konfirmasi">
+            <div *ngIf="listConfirmation?.length!>0">
               <div class="w-full flex flex-col rounded-md border-[1px] border-[#5C06E4] mt-4 p-2" *ngFor="let i of listConfirmation">
                 <div class="flex flex-col">
                   <div class="flex flex-row w-full justify-between">
@@ -113,7 +115,7 @@
                       </div>
                     </div>
                     <div class="text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
-                      Waiting for Confirmation
+                      Menunggu Konfirmasi
                     </div>
                   </div>
                   <div class="flex flex-col md:flex-row">
@@ -131,12 +133,18 @@
                           <img class="h-[60px] w-[80px] w-full rounded-md"
                           [src]="getImage(i)">
                         </div>
-                        <div class="ml-3">
+                        <div class="ml-3" *ngIf="i.transDet.length>0">
                           <div class="text-[14px] font-semibold">
-                            {{ i!.transDet[0]!.product!.name }}
+                            {{ i!.transDet[0]!.product?.name }}
                           </div>
                           <div class="text-gray-500">
-                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product!.price! | currency }}
+                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product?.price! | currency }}
+                          </div>
+                          <div>...</div>
+                        </div>
+                        <div class="ml-3" *ngIf="i.transDet.length==0">
+                          <div class="text-[14px] font-medium">
+                            Produk telah dihapus
                           </div>
                           <div>...</div>
                         </div>
@@ -145,7 +153,7 @@
                     <div class="flex flex-col p-2 w-full md:w-[250px]">
                       <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-300 p-3">
                         <div class="text-sm text-gray-400">
-                          Grand Total
+                          Total
                         </div>
                         <div class="text-xl text-indigo-600 font-semibold w-full">
                           {{ i!.total! | currency }}
@@ -154,12 +162,12 @@
                     </div>
                   </div>
                   <div class="flex justify-end items-end">
-                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">View Detail Transaction</button>
+                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">Lihat Detail Transaksi</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="listConfirmation.length==0" class="w-full">
+            <div *ngIf="listConfirmation?.length! ==0" class="w-full">
               <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
                 <div class="grid gap-4 w-60">
                   <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full shadow-sm justify-center items-center inline-flex">
@@ -170,14 +178,14 @@
                     </svg>
                   </div>
                   <div>
-                    <h2 class="text-center text-black text-xl font-semibold">There’s no items Transaction here</h2>
+                    <h2 class="text-center text-black text-xl font-semibold">Tidak ada transaksi di sini</h2>
                   </div>
                 </div>
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Waiting for Payment">
-            <div *ngIf="listPayment.length>0">
+          <mat-tab label="Menunggu Pembayaran">
+            <div *ngIf="listPayment?.length!>0">
               <div class="w-full flex flex-col rounded-md border-[1px] border-[#5C06E4] mt-4 p-2" *ngFor="let i of listPayment">
                 <div class="flex flex-col">
                   <div class="flex flex-row w-full justify-between">
@@ -190,7 +198,7 @@
                       </div>
                     </div>
                     <div class="text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
-                      Waiting for Payment
+                      Menunggu Pembayaran
                     </div>
                   </div>
                   <div class="flex flex-col md:flex-row">
@@ -208,12 +216,18 @@
                           <img class="h-[60px] w-[80px] w-full rounded-md"
                           [src]="getImage(i)">
                         </div>
-                        <div class="ml-3">
+                        <div class="ml-3" *ngIf="i.transDet.length>0">
                           <div class="text-[14px] font-semibold">
-                            {{ i!.transDet[0]!.product!.name }}
+                            {{ i!.transDet[0]!.product?.name }}
                           </div>
                           <div class="text-gray-500">
-                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product!.price! | currency }}
+                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product?.price! | currency }}
+                          </div>
+                          <div>...</div>
+                        </div>
+                        <div class="ml-3" *ngIf="i.transDet.length==0">
+                          <div class="text-[14px] font-medium">
+                            Produk telah dihapus
                           </div>
                           <div>...</div>
                         </div>
@@ -222,7 +236,7 @@
                     <div class="flex flex-col p-2 w-full md:w-[250px]">
                       <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-300 p-3">
                         <div class="text-sm text-gray-400">
-                          Grand Total
+                          Total
                         </div>
                         <div class="text-xl text-indigo-600 font-semibold w-full">
                           {{ i!.total! | currency }}
@@ -231,12 +245,12 @@
                     </div>
                   </div>
                   <div class="flex justify-end items-end">
-                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">View Detail Transaction</button>
+                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">Lihat Detail Transaksi</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="listPayment.length==0" class="w-full">
+            <div *ngIf="listPayment?.length! ==0" class="w-full">
               <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
                 <div class="grid gap-4 w-60">
                   <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full shadow-sm justify-center items-center inline-flex">
@@ -247,14 +261,14 @@
                     </svg>
                   </div>
                   <div>
-                    <h2 class="text-center text-black text-xl font-semibold">There’s no items Transaction here</h2>
+                    <h2 class="text-center text-black text-xl font-semibold">Tidak ada transaksi di sini</h2>
                   </div>
                 </div>
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="On Going">
-            <div *ngIf="listOnGoing.length>0">
+          <mat-tab label="Sedang Berlangsung">
+            <div *ngIf="listOnGoing?.length!>0">
               <div class="w-full flex flex-col rounded-md border-[1px] border-[#5C06E4] mt-4 p-2" *ngFor="let i of listOnGoing">
                 <div class="flex flex-col">
                   <div class="flex flex-row w-full justify-between">
@@ -267,7 +281,7 @@
                       </div>
                     </div>
                     <div class="text-[12px] font-semibold bg-blue-300 p-1 text-blue-600 rounded-md md:px-3 text-center items-end">
-                      On Going
+                      Sedang Berlangsung
                     </div>
                   </div>
                   <div class="flex flex-col md:flex-row">
@@ -285,12 +299,18 @@
                           <img class="h-[60px] w-[80px] w-full rounded-md"
                           [src]="getImage(i)">
                         </div>
-                        <div class="ml-3">
+                        <div class="ml-3" *ngIf="i.transDet.length>0">
                           <div class="text-[14px] font-semibold">
-                            {{ i!.transDet[0]!.product!.name }}
+                            {{ i!.transDet[0]!.product?.name }}
                           </div>
                           <div class="text-gray-500">
-                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product!.price! | currency }}
+                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product?.price! | currency }}
+                          </div>
+                          <div>...</div>
+                        </div>
+                        <div class="ml-3" *ngIf="i.transDet.length==0">
+                          <div class="text-[14px] font-medium">
+                            Produk telah dihapus
                           </div>
                           <div>...</div>
                         </div>
@@ -299,7 +319,7 @@
                     <div class="flex flex-col p-2 w-full md:w-[250px]">
                       <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-300 p-3">
                         <div class="text-sm text-gray-400">
-                          Grand Total
+                          Total
                         </div>
                         <div class="text-xl text-indigo-600 font-semibold w-full">
                           {{ i!.total! | currency }}
@@ -308,12 +328,12 @@
                     </div>
                   </div>
                   <div class="flex justify-end items-end">
-                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">View Detail Transaction</button>
+                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">Lihat Detail Transaksi</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="listOnGoing.length==0" class="w-full">
+            <div *ngIf="listOnGoing?.length==0" class="w-full">
               <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
                 <div class="grid gap-4 w-60">
                   <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full shadow-sm justify-center items-center inline-flex">
@@ -324,14 +344,14 @@
                     </svg>
                   </div>
                   <div>
-                    <h2 class="text-center text-black text-xl font-semibold">There’s no items Transaction here</h2>
+                    <h2 class="text-center text-black text-xl font-semibold">Tidak ada transaksi di sini</h2>
                   </div>
                 </div>
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Completed">
-            <div *ngIf="listCompleted.length>0">
+          <mat-tab label="Selesai">
+            <div *ngIf="listCompleted?.length!>0">
               <div class="w-full flex flex-col rounded-md border-[1px] border-[#5C06E4] mt-4 p-2" *ngFor="let i of listCompleted">
                 <div class="flex flex-col">
                   <div class="flex flex-row w-full justify-between">
@@ -344,7 +364,7 @@
                       </div>
                     </div>
                     <div class="text-[12px] font-semibold bg-green-300 p-1 text-green-600 rounded-md md:px-3 text-center items-end">
-                      Completed
+                      Selesai
                     </div>
                   </div>
                   <div class="flex flex-col md:flex-row">
@@ -362,12 +382,18 @@
                           <img class="h-[60px] w-[80px] w-full rounded-md"
                           [src]="getImage(i)">
                         </div>
-                        <div class="ml-3">
+                        <div class="ml-3" *ngIf="i.transDet.length>0">
                           <div class="text-[14px] font-semibold">
-                            {{ i!.transDet[0]!.product!.name }}
+                            {{ i!.transDet[0]!.product?.name }}
                           </div>
                           <div class="text-gray-500">
-                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product!.price! | currency }}
+                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product?.price! | currency }}
+                          </div>
+                          <div>...</div>
+                        </div>
+                        <div class="ml-3" *ngIf="i.transDet.length==0">
+                          <div class="text-[14px] font-medium">
+                            Produk telah dihapus
                           </div>
                           <div>...</div>
                         </div>
@@ -376,7 +402,7 @@
                     <div class="flex flex-col p-2 w-full md:w-[250px]">
                       <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-300 p-3">
                         <div class="text-sm text-gray-400">
-                          Grand Total
+                          Total
                         </div>
                         <div class="text-xl text-indigo-600 font-semibold w-full">
                           {{ i!.total! | currency }}
@@ -385,12 +411,12 @@
                     </div>
                   </div>
                   <div class="flex justify-end items-end">
-                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">View Detail Transaction</button>
+                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">Lihat Detail Transaksi</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="listCompleted.length==0" class="w-full">
+            <div *ngIf="listCompleted?.length==0" class="w-full">
               <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
                 <div class="grid gap-4 w-60">
                   <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full shadow-sm justify-center items-center inline-flex">
@@ -401,14 +427,14 @@
                     </svg>
                   </div>
                   <div>
-                    <h2 class="text-center text-black text-xl font-semibold">There’s no items Transaction here</h2>
+                    <h2 class="text-center text-black text-xl font-semibold">Tidak ada transaksi di sini</h2>
                   </div>
                 </div>
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Cancelled">
-            <div *ngIf="listCancelled.length>0">
+          <mat-tab label="Dibatalkan">
+            <div *ngIf="listCancelled?.length!>0">
               <div class="w-full flex flex-col rounded-md border-[1px] border-[#5C06E4] mt-4 p-2" *ngFor="let i of listCancelled">
                 <div class="flex flex-col">
                   <div class="flex flex-row w-full justify-between">
@@ -421,7 +447,7 @@
                       </div>
                     </div>
                     <div class="text-[12px] font-semibold bg-red-300 p-1 text-red-600 rounded-md md:px-3 text-center items-end">
-                      Cancelled
+                      Dibatalkan
                     </div>
                   </div>
                   <div class="flex flex-col md:flex-row">
@@ -439,12 +465,18 @@
                           <img class="h-[60px] w-[80px] w-full rounded-md"
                           [src]="getImage(i)">
                         </div>
-                        <div class="ml-3">
+                        <div class="ml-3" *ngIf="i.transDet.length>0">
                           <div class="text-[14px] font-semibold">
-                            {{ i!.transDet[0]!.product!.name }}
+                            {{ i!.transDet[0]!.product?.name }}
                           </div>
                           <div class="text-gray-500">
-                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product!.price! | currency }}
+                            {{ i!.transDet[0]!.quantity }} x {{ i!.transDet[0]!.product?.price! | currency }}
+                          </div>
+                          <div>...</div>
+                        </div>
+                        <div class="ml-3" *ngIf="i.transDet.length==0">
+                          <div class="text-[14px] font-medium">
+                            Produk telah dihapus
                           </div>
                           <div>...</div>
                         </div>
@@ -453,7 +485,7 @@
                     <div class="flex flex-col p-2 w-full md:w-[250px]">
                       <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-300 p-3">
                         <div class="text-sm text-gray-400">
-                          Grand Total
+                          Total
                         </div>
                         <div class="text-xl text-indigo-600 font-semibold w-full">
                           {{ i!.total! | currency }}
@@ -462,12 +494,12 @@
                     </div>
                   </div>
                   <div class="flex justify-end items-end">
-                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">View Detail Transaction</button>
+                    <button (click)="redirectDetail(i.id!)" type="button" class="inline-flex w-full justify-center rounded-md bg-[#5c06e4] px-5 py-2 md:py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">Lihat Detail Transaksi</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngIf="listCancelled.length==0" class="w-full">
+            <div *ngIf="listCancelled?.length==0" class="w-full">
               <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
                 <div class="grid gap-4 w-60">
                   <div class="w-20 h-20 mx-auto bg-gray-50 rounded-full shadow-sm justify-center items-center inline-flex">
@@ -478,7 +510,7 @@
                     </svg>
                   </div>
                   <div>
-                    <h2 class="text-center text-black text-xl font-semibold">There’s no items Transaction here</h2>
+                    <h2 class="text-center text-black text-xl font-semibold">Tidak ada transaksi di sini</h2>
                   </div>
                 </div>
               </div>
@@ -490,7 +522,7 @@
   </div>
 </div>
 <app-footer></app-footer>
-<div *ngIf="loader" class="bg-white">
+<div *ngIf="loader" class="loading-overlay">
   <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
   <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">

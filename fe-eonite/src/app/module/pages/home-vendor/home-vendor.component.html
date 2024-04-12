@@ -19,7 +19,7 @@
               <div class="ml-2 w-full flex-1">
                 <div>
                   <div class="mt-3 text-3xl font-bold leading-8">{{ dashboarddata?.totalProduct }}</div>
-                  <div class="mt-1 text-base text-gray-600">Total Product</div>
+                  <div class="mt-1 text-base text-gray-600">Total Produk</div>
                 </div>
               </div>
             </div>
@@ -37,7 +37,7 @@
               <div class="ml-2 w-full flex-1">
                 <div>
                   <div class="mt-3 text-3xl font-bold leading-8">{{ dashboarddata?.totalRequest }}</div>
-                  <div class="mt-1 text-base text-gray-600">Total Request Transaction</div>
+                  <div class="mt-1 text-base text-gray-600">Total Permintaan Transaksi</div>
                 </div>
               </div>
             </div>
@@ -58,7 +58,7 @@
               <div class="ml-2 w-full flex-1">
                 <div>
                   <div class="mt-3 text-3xl font-bold leading-8">{{ dashboarddata?.totalReview }}</div>
-                  <div class="mt-1 text-base text-gray-600">Total Review</div>
+                  <div class="mt-1 text-base text-gray-600">Total Ulasan</div>
                 </div>
               </div>
             </div>
@@ -68,7 +68,7 @@
       <div class="col-span-12 mt-2">
         <div class="grid gap-2 grid-cols-1 lg:grid-cols-1">
           <div class="bg-white p-4 shadow-lg rounded-lg intro-y">
-            <div class="font-bold text-[20px] text-center">Report Statistic Order</div>
+            <div class="font-bold text-[20px] text-center">Laporan Statistik Transaksi</div>
             <div class="mt-4">
               <div class="flex flex-col">
                 <div class="card">
@@ -82,7 +82,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="loader" class="bg-white">
+<div *ngIf="loader" class="loading-overlay">
   <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
   <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">

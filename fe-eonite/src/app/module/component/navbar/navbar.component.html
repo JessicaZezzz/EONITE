@@ -35,7 +35,7 @@
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
             </svg>
           </button>
-          <input type="text" id="search-navbar" [(ngModel)]="search" class="w-[250px] block p-2 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Search Vendor, Product,...">
+          <input type="text" id="search-navbar" (keydown.enter)="onSearch($event)" [(ngModel)]="search" class="w-[250px] block p-2 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Cari Vendor, Produk,...">
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <!-- Profile dropdown -->
@@ -49,10 +49,10 @@
             </div>
             <div class="flex flex-row space-x-2" *ngIf="role==null">
               <button type="button" class="flex rounded-md bg-white text-[#5C06E4] border-[#5C06E4] border-[1px] text-sm font-medium hover:text-white hover:bg-[#5C06E4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 py-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true" (click)="redirectPage(1)">
-                <span class=" px-4">Login</span>
+                <span class=" px-4">Masuk</span>
               </button>
               <button type="button" class="flex rounded-md bg-[#5C06E4] text-sm font-medium text-white shadow-sm hover:bg-[#4700b9] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 py-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true" (click)="redirectPage(2)">
-                <span class=" px-4">Sign Up</span>
+                <span class=" px-4">Daftar</span>
               </button>
             </div>
             <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" [ngClass]="tabUser == true ? 'block transition ease-out duration-100' : 'hidden transition ease-in duration-75'">
@@ -72,7 +72,7 @@
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
           </svg>
         </button>
-        <input type="text" [(ngModel)]="search" id="search-navbar" class="w-full block p-2 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Search Vendor,Product,...">
+        <input type="text" [(ngModel)]="search" id="search-navbar" class="w-full block p-2 text-sm text-black border border-gray-300 rounded-lg bg-white focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" placeholder="Cari Vendor,Produk,...">
       </div>
       <div class="space-y-1 px-2 pb-3 pt-2 " [ngClass]="tabMobile == true ? 'block' : 'hidden'">
         <div *ngFor="let i of menu">

@@ -128,10 +128,10 @@ export class CartComponent implements OnInit {
     if(flag == 1){
       this.error=''; return false;
     }else if(flag > 1){
-      this.error='You can only checkout products from the same vendor';
+      this.error='Anda hanya dapat melakukan checkout produk dari vendor yang sama';
       return true;
     }else if(flag == 0){
-      this.error='No products selected';
+      this.error='Tidak ada produk yang dipilih';
       return true;
     }
     return true;
@@ -180,7 +180,7 @@ export class CartComponent implements OnInit {
 
   getError(element:any){
     if(this.userSelectionMap.get(element.vendorId)!.selected.length>0)return '';
-    return 'No products selected';
+    return 'Tidak ada produk yang dipilih';
   }
 
   onDelete(){
@@ -194,7 +194,7 @@ export class CartComponent implements OnInit {
     this.restService.deleteCart(JSON.stringify(postDelete)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Successfully removed product from cart',
+          data: 'Berhasil menghapus produk dari keranjang',
         });
         this.deleteItem=false;
         dialogRef.afterClosed().subscribe(result => {
@@ -223,6 +223,7 @@ export interface Product {
   productName:string;
   productPrice:number;
   productRating:number;
+  productMax:number;
   quantity: number;
   usernameVendor:string;
   bookdate?: string;

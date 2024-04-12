@@ -80,7 +80,7 @@ export class DialogBookingComponent implements OnInit {
     this.restService.addBooking(JSON.stringify(carts)).subscribe(event => {
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Successfully made a booking',
+          data: 'Berhasil melakukan pemesanan',
         });
         this.dialogRef.close(true);
         this.loader=false;

@@ -18,6 +18,7 @@ export const StrongPasswordRegx: RegExp = /^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\
   styleUrls: ['./sign-up-vendor.component.css']
 })
 export class SignUpVendorComponent {
+  maxDate: string;
   phase:number = 1;
   category : Category[] = [];
   domicile : Domicile[] = [];
@@ -36,6 +37,9 @@ export class SignUpVendorComponent {
 
   constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog){
     this.vendor = {} as Vendor;
+    const today = new Date();
+    const eightYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    this.maxDate = eightYearsAgo.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
@@ -167,7 +171,7 @@ export class SignUpVendorComponent {
       let file = event.target.files[0];
       if(file.size > 5000000){
         this.openDialogErrorDiv = true;
-        this.error='The photo exceeding the maximum file size. Please upload photo <= 5 MB'
+        this.error='Foto melebihi ukuran file maksimum. Silakan unggah foto <= 5 MB'
         this.deletePhoto();
       }else{
         this.imageFile = event.target.files[0];
@@ -208,20 +212,20 @@ export class SignUpVendorComponent {
       email:postVendor.email!,
       option:'signup'
     };
-    const dialogRef = this.dialog.open(GenerateOtpComponent, {
-      data:generateOTP
-    });
+    // const dialogRef = this.dialog.open(GenerateOtpComponent, {
+    //   data:generateOTP
+    // });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if(result){
         this.restService.postsignInVendor(JSON.stringify(postVendor)).subscribe(event=>{
           if(event.statusCode == 200){
             this.openDialogSuccessDiv = true;
           }else if(event.statusCode == 500){
             this.openDialogErrorDiv = true;
           }
-        })
-      }else{};
+      //   })
+      // }else{};
     });
   }
 
@@ -283,6 +287,10 @@ export class SignUpVendorComponent {
 
   back(){
     this.router.navigate(['/signup']);
+  }
+
+  home(){
+    this.router.navigate(['/home']);
   }
 }
 

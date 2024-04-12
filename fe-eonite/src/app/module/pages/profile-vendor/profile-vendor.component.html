@@ -7,7 +7,7 @@
     <div class="md:flex">
       <div class="p-4 bg-white shadow-md rounded-lg w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px]">
         <div class="md:flex flex justify-center">
-          <h2 class="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6 text-center">Profile Account</h2>
+          <h2 class="md:w-1/3 uppercase tracking-wide text-sm sm:text-lg mb-6 text-center">Akun Profil</h2>
         </div>
         <div class="flex justify-center mb-2">
           <div class="flex flex-col justify-center">
@@ -21,7 +21,7 @@
                     d="M8.10326 1.31699C8.47008 0.57374 9.52992 0.57374 9.89674 1.31699L11.7063 4.98347C11.8519 5.27862 12.1335 5.48319 12.4592 5.53051L16.5054 6.11846C17.3256 6.23765 17.6531 7.24562 17.0596 7.82416L14.1318 10.6781C13.8961 10.9079 13.7885 11.2389 13.8442 11.5632L14.5353 15.5931C14.6754 16.41 13.818 17.033 13.0844 16.6473L9.46534 14.7446C9.17402 14.5915 8.82598 14.5915 8.53466 14.7446L4.91562 16.6473C4.18199 17.033 3.32456 16.41 3.46467 15.5931L4.15585 11.5632C4.21148 11.2389 4.10393 10.9079 3.86825 10.6781L0.940384 7.82416C0.346867 7.24562 0.674378 6.23765 1.4946 6.11846L5.54081 5.53051C5.86652 5.48319 6.14808 5.27862 6.29374 4.98347L8.10326 1.31699Z"
                     fill="rgb(255, 213, 27)" />
                 </svg>
-                <span class="text-base font-semibold text-indigo-600 items-center">{{ vendor?.rating }}</span>
+                <span class="text-base font-semibold text-indigo-600 items-center">{{ vendor?.rating!.toFixed(1) }}</span>
             </div>
             <div class="flex justify-center mb-4">
               <div *ngIf="vendor?.status=='PENDING'">
@@ -38,11 +38,11 @@
                       </button>
                       <input id="file-upload" name="file-upload" type="file" (change)="onFileChanged($event)" accept="image/jpeg, image/png" class="">
                       <button (click)="upload()" [disabled]="urlImage == undefined" class="text-[12px] font-medium bg-[#5C06E4] p-1 text-white rounded-md md:px-3 text-center items-end">
-                        UPLOAD
+                        UNGGAH
                       </button>
                     </div>
                     <div class="text-red-400 text-sm">
-                      *Your status cannot be confirmed because <b> {{  vendor?.status_reject }} </b>.Please upload your identity photo again!
+                      *Status Anda tidak dapat dikonfirmasi karena <b> {{  vendor?.status_reject }} </b>.Silakan unggah kembali foto identitas Anda!
                     </div>
                   </div>
                 </div>
@@ -56,10 +56,10 @@
             </div>
             <div class="flex flex-row justify-center space-x-2">
               <button (click)="edit()" class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
-                EDIT PROFILE
+                EDIT PROFIL
               </button>
               <button (click)="openChangePass('VENDOR')" class="border-[1.5px] border-[#5C06E4] rounded-md p-2 text-[#5C06E4] font-medium hover:bg-[#5C06E4] hover:text-white">
-                CHANGE PASSWORD
+                UBAH PASSWORD
               </button>
             </div>
           </div>
@@ -70,7 +70,7 @@
             </div>
               <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
                 <div class="sm:col-span-3">
-                  <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name PIC</label>
+                  <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Nama Depan PIC</label>
                   <div class="mt-1">
                     <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                       {{ vendor?.firstName }}
@@ -78,7 +78,7 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last Name PIC</label>
+                  <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Nama Belakang PIC</label>
                   <div class="mt-1">
                     <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 ">
                       {{ vendor?.lastName }}
@@ -86,7 +86,7 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Birth Date</label>
+                  <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Lahir</label>
                   <div class="mt-1">
                     <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 ">
                       {{ changeDate(vendor?.birthDate!) }}
@@ -94,7 +94,7 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone PIC</label>
+                  <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Nomor Telepon PIC</label>
                   <div class="mt-1">
                     <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 ">
                       {{ vendor?.phoneNumber }}
@@ -105,7 +105,7 @@
           </div>
           <div class="md:flex mb-4 border-b-2 border-[#5C06E4] pb-3">
             <div class="md:w-1/3">
-              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">BUSINESS</legend>
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">BISNIS</legend>
             </div>
               <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
                 <div class="sm:col-span-3">
@@ -117,7 +117,7 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Email Vendor</label>
+                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
                   <div class="mt-1">
                     <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                       {{ vendor?.email }}
@@ -125,7 +125,7 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Category</label>
+                  <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Kategori</label>
                   <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                     <div *ngFor="let i of categoryName">
                       {{ i }}
@@ -133,13 +133,13 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="domicile" class="block text-sm font-medium leading-6 text-gray-900">Domicile</label>
+                  <label for="domicile" class="block text-sm font-medium leading-6 text-gray-900">Domisili</label>
                     <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                       {{ domicile }}
                     </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
+                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Nomor Telepon Bisnis</label>
                   <div class="mt-1">
                     <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                       {{ vendor?.phoneBusiness }}
@@ -147,7 +147,7 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="opthours" class="block text-sm font-medium leading-6 text-gray-900">Operational Hours</label>
+                  <label for="opthours" class="block text-sm font-medium leading-6 text-gray-900">Jam Operasional</label>
                   <div class=" flex flex-row mt-1 items-center">
                     <div class="block px-2 rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                       {{ checkTime(vendor?.startTime) }}
@@ -159,7 +159,7 @@
                   </div>
                 </div>
                 <div class="sm:col-span-3">
-                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Bank Account</label>
+                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Nomor Rekening Bank</label>
                   <div class="mt-1">
                     <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                       {{ checkData(vendor?.bankAccount) }}
@@ -167,18 +167,10 @@
                   </div>
                 </div>
                 <div class="sm:col-span-full">
-                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Company Address</label>
+                  <label for="Company Address" class="block text-sm font-medium leading-6 text-gray-900">Alamat</label>
                   <div class="mt-1">
                     <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
                       {{ checkData(vendor?.address) }}
-                    </div>
-                  </div>
-                </div>
-                <div class="sm:col-span-full">
-                  <label for="Inoperative date" class="block text-sm font-medium leading-6 text-gray-900">Inoperative date</label>
-                  <div class="mt-1">
-                    <div class="block px-2 w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300">
-                      {{ changeFormatInoperative(vendor?.inoperative_date!) }}
                     </div>
                   </div>
                 </div>
@@ -186,7 +178,7 @@
           </div>
           <div class="md:flex mb-4 border-b-2 border-[#5C06E4] pb-3">
             <div class="md:w-1/3">
-              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Social</legend>
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Social Media</legend>
             </div>
             <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
               <div class="sm:col-span-full flex">
@@ -204,7 +196,7 @@
           </div>
         <div class="md:flex mb-6">
           <div class="md:w-1/3">
-            <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Description</legend>
+            <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Deskripsi</legend>
           </div>
           <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
             <div class="sm:col-span-full">

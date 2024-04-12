@@ -14,6 +14,7 @@ export class DialogRejectVendorComponent implements OnInit {
   quest?:string;
   alasanReject:string='';
   dataVendor?:Vendor;
+  loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<DialogRejectVendorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Vendor, private restService:RestApiServiceService,private dialog:MatDialog) {
       this.dataVendor=data;
@@ -28,6 +29,7 @@ export class DialogRejectVendorComponent implements OnInit {
   }
 
   submit(){
+    this.loader=true;
     let dt : vendorState={
       id : this.dataVendor?.id,
       status : "PENDING",
@@ -36,6 +38,7 @@ export class DialogRejectVendorComponent implements OnInit {
 
     this.restService.updateVendorState(JSON.stringify(dt)).subscribe((event)=>{
       if(event.statusCode == 200){
+        this.loader=false;
         this.dialogRef.close(true);
       }
     })

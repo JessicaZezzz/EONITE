@@ -22,10 +22,14 @@ export class EditProfileUserComponent implements OnInit {
   openDialogSuccessDiv: boolean = false;
   urlImage?:any;
   imageFile:any;
+  maxDate: string;
 
   constructor(public dialogRef: MatDialogRef<EditProfileUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string,private restService: RestApiServiceService,public dialog: MatDialog) {
     this.user = {} as User;
+    const today = new Date();
+    const eightYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    this.maxDate = eightYearsAgo.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
@@ -141,7 +145,7 @@ export class EditProfileUserComponent implements OnInit {
     this.restService.updateProfileUser(JSON.stringify(postUser)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Successfully updated profile',
+          data: 'Profil berhasil diperbarui',
         });
 
         dialogRef.afterClosed().subscribe(result => {

@@ -17,6 +17,7 @@ export class DialogManagDetailVendorComponent implements OnInit {
   dataVendor!:Vendor;
   zoomImage:boolean = false;
   cover:string='';
+  loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<DialogManagDetailVendorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Vendor,private dialog:MatDialog, private restService:RestApiServiceService,private datePipe:DatePipe) {
       this.dataVendor = data;
@@ -28,6 +29,7 @@ export class DialogManagDetailVendorComponent implements OnInit {
   }
 
   confirm(){
+    this.loader=true;
     let dt : vendorState={
       id : this.dataVendor.id,
       status : "CONFIRMED",
@@ -36,8 +38,9 @@ export class DialogManagDetailVendorComponent implements OnInit {
 
     this.restService.updateVendorState(JSON.stringify(dt)).subscribe((event)=>{
       if(event.statusCode == 200){
+        this.loader=false;
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Successfully confirmed vendor"
+          data:"Vendor berhasil dikonfirmasi"
         });
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);
@@ -53,7 +56,7 @@ export class DialogManagDetailVendorComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Successfully rejected vendor"
+          data:"Berhasil menolak vendor"
         });
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);

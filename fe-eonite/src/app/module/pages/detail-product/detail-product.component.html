@@ -23,7 +23,7 @@
                 <div>
                   <div class="img-wrapper hover:cursor-pointer">
                     <img *ngIf="cover ==''" class="h-auto max-w-full rounded-lg zoom" src="../assets/icon/bg-default.png" alt="">
-                    <img *ngIf="cover !=''" class="h-auto max-w-full rounded-lg zoom" [src]="cover" alt="">
+                    <img *ngIf="cover !=''" class="h-auto w-[500px] rounded-lg zoom" [src]="cover" alt="">
                     <div class="content fade" (click)="onClick($event)">
                       <img [src]="'./assets/icon/icons8-zoom-in-52.png'" alt="">
                     </div>
@@ -56,7 +56,7 @@
             </div>
             <div class="md:flex-1 px-4">
               <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">{{ product!.name }}</h2>
-              <p class="text-gray-500 text-sm">By <button (click)="redirectVendor()" class="text-indigo-600 hover:underline">{{ vendorName }}</button></p>
+              <p class="text-gray-500 text-sm">Oleh <button (click)="redirectVendor()" class="text-indigo-600 hover:underline">{{ vendorName }}</button></p>
 
               <div class="flex items-center space-x-4 my-4">
                 <div>
@@ -70,13 +70,14 @@
                   <!-- <p class="text-gray-400 text-sm">Inclusive of all Taxes.</p> -->
                 </div>
               </div>
-              <div class="text-gray-500 font-semibold">Capacity : {{ product!.capacity }}</div>
-              <p class="text-gray-500 font-semibold">Description :</p>
+              <div class="text-gray-500 font-semibold">Kapasitas : {{ product!.capacity }}</div>
+              <div class="text-gray-500 font-semibold">Maksimal Pemilihan Tanggal : {{ product!.max }}</div>
+              <p class="text-gray-500 font-semibold">Deskripsi :</p>
               <p class="text-gray-500">{{ product!.description }}</p>
               <div class="flex py-1 space-x-4">
                 <button (click)="addtoCart()"
                         type="button"  class="py-3 px-4 font-medium rounded-md bg-[#5C06E4] hover:bg-indigo-500 text-white">
-                  ADD TO CART
+                  Tambah ke Keranjang
                 </button>
               </div>
             </div>
@@ -84,7 +85,7 @@
         </div>
         <div class="p-6 lg:max-w-7xl max-w-4xl mx-auto border-t-2 border-gray-200">
           <div>
-            <h3 class="text-lg font-bold text-[#333]">Reviews({{ productReview.length! }})</h3>
+            <h3 class="text-lg font-bold text-[#333]">Ulasan({{ productReview.length! }})</h3>
             <div class="grid md:grid-cols-2 gap-12 mt-4">
               <div class="space-y-2">
                 <div class="space-y-3" *ngFor="let i of review">
@@ -127,7 +128,7 @@
                     </div>
                   </div>
                   <div class="text-center w-full" *ngIf="productReview.length == 0">
-                    No Reviews
+                    Tidak Ada Ulasan
                   </div>
                 </div>
               </div>

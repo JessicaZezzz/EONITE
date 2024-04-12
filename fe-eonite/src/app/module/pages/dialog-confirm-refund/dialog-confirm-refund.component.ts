@@ -16,6 +16,7 @@ export class DialogConfirmRefundComponent implements OnInit {
   photoTransferUser?:any;
   errorUser:string='*Required';
   errorVendor:string='*Required';
+  loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<DialogConfirmRefundComponent>,
     @Inject(MAT_DIALOG_DATA) public data: refund, private restService:RestApiServiceService,private dialog:MatDialog,private datePipe:DatePipe) {
       if(this.data.totalFundUser == 0) this.errorUser='';
@@ -30,6 +31,7 @@ export class DialogConfirmRefundComponent implements OnInit {
   }
 
   submit(){
+    this.loader=true;
     let postrefund :postRefund={};
     postrefund.id = this.data?.id;
     if(this.photoTransferUser != undefined){
@@ -43,6 +45,7 @@ export class DialogConfirmRefundComponent implements OnInit {
 
     this.restService.updateRefund(JSON.stringify(postrefund)).subscribe((event)=>{
       if(event.statusCode == 200){
+        this.loader=false;
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
           data:"Successfully refunded the user and/or paid the vendor"
         });
@@ -110,7 +113,7 @@ export class DialogConfirmRefundComponent implements OnInit {
   }
 
   getDate(date:string){
-    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY HH:mm') || '';
   }
 }
 

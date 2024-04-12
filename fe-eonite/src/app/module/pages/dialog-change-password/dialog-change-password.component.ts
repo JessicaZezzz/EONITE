@@ -97,7 +97,7 @@ export class DialogChangePasswordComponent implements OnInit {
       this.restService.changePasswordVendor(JSON.stringify(newpass)).subscribe(e => {
         if(e.statusCode == 200){
           const dialogRef = this.dialog.open(DialogSuccessComponent, {
-            data: 'Successfully updated password',
+            data: 'Password berhasil diperbarui',
           });
 
           dialogRef.afterClosed().subscribe(result => {
@@ -110,7 +110,7 @@ export class DialogChangePasswordComponent implements OnInit {
       this.restService.changePasswordUser(JSON.stringify(newpass)).subscribe(e => {
         if(e.statusCode == 200){
           const dialogRef = this.dialog.open(DialogSuccessComponent, {
-            data: 'Successfully updated password',
+            data: 'Password berhasil diperbarui',
           });
 
           dialogRef.afterClosed().subscribe(result => {

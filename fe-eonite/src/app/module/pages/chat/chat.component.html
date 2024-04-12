@@ -8,7 +8,7 @@
       <div class="flex flex-row justify-between bg-white">
         <div class="flex flex-col max-h-[350px] sm:max-h-[650px]">
           <div class="border-b-2 py-4 px-2 m-1 hidden sm:block font-semibold text-[#5C06E4] text-md text-center">
-            List Chat
+            Daftar Chat
           </div>
           <div class="flex flex-col border-r-2 overflow-y-auto" *ngIf="userType =='VENDOR'">
             <div *ngFor="let i of chatRoom">
@@ -30,7 +30,7 @@
               </button>
             </div>
             <div *ngIf="chatRoom.length == 0" class="text-center mt-2 text-sm text-[#5C06E4]">
-              There is no conversation list
+              Tidak ada daftar chat
             </div>
           </div>
           <div class="flex flex-col border-r-2 overflow-y-auto" *ngIf="userType =='USER'">
@@ -53,7 +53,7 @@
               </button>
             </div>
             <div *ngIf="chatRoom.length == 0" class="text-center mt-2 text-sm text-[#5C06E4]">
-              There is no conversation list
+              Tidak ada daftar chat
             </div>
           </div>
         </div>
@@ -76,11 +76,11 @@
                   </div>
                 </div>
             </div>
-            <div class="flex items-center space-x-2">
+            <!-- <div class="flex items-center space-x-2">
                 <button (click)="deleteRoom()" type="button" class="inline-flex items-center justify-center rounded-lg border h-8 w-8 sm:h-10 sm:w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
                   <svg class="w-6 h-6 mx-auto" aria-hidden="true" fill="gray" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                 </button>
-            </div>
+            </div> -->
           </div>
           <div id="messages" class="relative h-full flex flex-col-reverse space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
             <div class="chat-message">
@@ -124,14 +124,14 @@
         </div>
         <div *ngIf="!activeMessage" class="flex-1 p-2 sm:p-6 justify-center text-[#5C06E4] font-medium text-[15px] items-center flex flex-col max-h-[350px] sm:max-h-[650px] min-h-[500px] sm:min-h-[650px]">
           <img src="../assets/icon/communication.png" class="w-20 h-20">
-          No conversations selected
+          Tidak ada ruang chat yang dipilih
         </div>
       </div>
     </div>
   </div>
 </div>
 <app-footer></app-footer>
-<div *ngIf="loader" class="bg-white">
+<div *ngIf="loader" class="loading-overlay">
   <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
   <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">

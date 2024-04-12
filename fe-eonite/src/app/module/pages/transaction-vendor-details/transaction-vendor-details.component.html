@@ -20,49 +20,40 @@
           <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto my-3">
             <div class="mb-5 pb-3 flex justify-between items-center border-b border-gray-400">
               <div class="flex flex-col sm:flex-row">
-                <div class="text-lg font-semibold text-[#5C06E4]">Detail Transactions</div>
+                <div class="text-lg font-semibold text-[#5C06E4]">Detail Transaksi</div>
                 <div *ngIf="list?.state == 'WAITING-CONFIRMATION'" class="sm:ml-3 text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
-                  Waiting for Confirmation
+                  Menunggu Konfirmasi
                 </div>
                 <div *ngIf="list?.state == 'WAITING-PAYMENT'" class="sm:ml-3 text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
-                  Waiting for Payment
+                  Menunggu Pembayaran
                 </div>
                 <div *ngIf="list?.state == 'ON-GOING'" class="sm:ml-3 text-[12px] font-semibold bg-blue-300 p-1 text-blue-600 rounded-md md:px-3 text-center items-end">
-                  On Going
+                  Sedang berlangsung
                 </div>
                 <div *ngIf="list?.state == 'COMPLETED'" class="sm:ml-3 text-[12px] font-semibold bg-green-300 p-1 text-green-600 rounded-md md:px-3 text-center items-end">
-                  Completed
+                  Selesai
                 </div>
                 <div *ngIf="list?.state == 'CANCELLED'" class="sm:ml-3 text-[12px] font-semibold bg-red-300 p-1 text-red-600 rounded-md md:px-3 text-center items-end">
-                  Cancelled
-                </div>
-                <div *ngIf="list?.state == 'WAITING-REFUND'" class="sm:ml-3 text-[12px] font-semibold bg-amber-200 p-1 text-amber-600 rounded-md md:px-3 text-center items-end">
-                  Waiting for Refund
+                  Dibatalkan
                 </div>
               </div>
-              <!-- <div class="inline-flex gap-x-2">
-                <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm" href="#">
-                  <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                  Invoice PDF
-                </a>
-              </div> -->
             </div>
             <div class="grid md:grid-cols-2 gap-3">
               <div>
                 <div class="grid space-y-3">
                   <dl class="grid sm:flex gap-x-3 text-sm">
                     <dt class="min-w-36 max-w-[200px] text-gray-500">
-                      Billed to:
+                      Pembayaran ke:
                     </dt>
                     <dd class="text-gray-800 dark:text-gray-200">
-                      <a class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline font-medium" href="#">
+                      <div class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline font-medium" href="#">
                         {{ list?.vendor?.usernameVendor }}
-                      </a>
+                      </div>
                     </dd>
                   </dl>
                   <dl class="grid sm:flex gap-x-3 text-sm">
                     <dt class="min-w-36 max-w-[200px] text-gray-500">
-                      Billing details:
+                      Detail Vendor:
                     </dt>
                     <dd class="font-medium text-gray-800">
                       <span class="block font-semibold">{{ list?.vendor?.firstName }} {{ list?.vendor?.lastName }}</span>
@@ -75,7 +66,7 @@
                   </dl>
                   <dl class="grid sm:flex gap-x-3 text-sm">
                     <dt class="min-w-36 max-w-[200px] text-gray-500">
-                      Billing By:
+                      Tagihan Untuk:
                     </dt>
                     <dd class="font-medium text-gray-800">
                       <span class="block font-semibold">{{ list?.user?.firstName }} {{ list?.user?.lastName }}</span>
@@ -91,7 +82,7 @@
                 <div class="grid space-y-3">
                   <dl class="grid sm:flex gap-x-3 text-sm">
                     <dt class="min-w-36 max-w-[200px] text-gray-500">
-                      Invoice number:
+                      Nomor Faktur:
                     </dt>
                     <dd class="font-medium text-gray-800">
                       {{ list?.invoice }}
@@ -99,7 +90,7 @@
                   </dl>
                   <dl class="grid sm:flex gap-x-3 text-sm">
                     <dt class="min-w-36 max-w-[200px] text-gray-500">
-                      Currency:
+                      Mata Uang:
                     </dt>
                     <dd class="font-medium text-gray-800">
                       IDR - Rupiah
@@ -107,7 +98,7 @@
                   </dl>
                   <dl class="grid sm:flex gap-x-3 text-sm">
                     <dt class="min-w-36 max-w-[200px] text-gray-500">
-                      Transaction Date:
+                      Tanggal Transaksi:
                     </dt>
                     <dd class="font-medium text-gray-800">
                       {{ changeDate(list?.transdate!) }}
@@ -115,10 +106,26 @@
                   </dl>
                   <dl class="grid sm:flex gap-x-3 text-sm">
                     <dt class="min-w-36 max-w-[200px] text-gray-500">
-                      Billing method:
+                      Metode Pembayaran:
                     </dt>
                     <dd class="font-medium text-gray-800">
-                      Send Transfer Photo
+                      Kirim foto bukti transfer
+                    </dd>
+                  </dl>
+                  <dl class="grid sm:flex gap-x-3 text-sm" *ngIf="list?.state == 'CANCELLED'">
+                    <dt class="min-w-36 max-w-[200px] text-gray-500">
+                      Dibatalkan oleh:
+                    </dt>
+                    <dd class="font-medium text-gray-800">
+                      {{ rejectedBY! }}
+                    </dd>
+                  </dl>
+                  <dl class="grid sm:flex gap-x-3 text-sm" *ngIf="list?.state == 'CANCELLED'">
+                    <dt class="min-w-36 max-w-[200px] text-gray-500">
+                      Alasan pembatalan:
+                    </dt>
+                    <dd class="font-medium text-gray-800">
+                      {{ alasanreject! }}
                     </dd>
                   </dl>
                 </div>
@@ -127,32 +134,32 @@
           <!-- Table Product -->
           <div class="mt-6 border border-gray-200 p-4 rounded-lg space-y-4 dark:border-gray-700">
             <div class="hidden sm:grid sm:grid-cols-6">
-              <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">Product</div>
-              <div class="text-start text-xs font-medium text-gray-500 uppercase">Booking Date</div>
-              <div class="text-start text-xs font-medium text-gray-500 uppercase">Qty</div>
-              <div class="text-start text-xs font-medium text-gray-500 uppercase">Amount</div>
-              <div class="text-end text-xs font-medium text-gray-500 uppercase">Total</div>
+              <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">Produk</div>
+              <div class="text-start text-xs font-medium text-gray-500 uppercase">Tanggal Pemesanan</div>
+              <div class="text-start text-xs font-medium text-gray-500 uppercase">Jumlah</div>
+              <div class="text-start text-xs font-medium text-gray-500 uppercase">Harga</div>
+              <div class="text-end text-xs font-medium text-gray-500 uppercase">Subtotal</div>
             </div>
             <div class="hidden sm:block border-b border-gray-700"></div>
             <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" *ngFor="let i of list?.transDet">
               <div class="col-span-full sm:col-span-2">
-                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Product</h5>
+                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Produk</h5>
                 <p class="font-medium text-gray-800">{{ i.product?.name }}</p>
               </div>
               <div>
-                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Booking Date</h5>
+                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Tanggal Pemesanan</h5>
                 <p class="text-gray-800">{{ changeFormatDate(i.bookdate!) }}</p>
               </div>
               <div>
-                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Qty</h5>
+                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Jumlah</h5>
                 <p class="text-gray-800">{{ i.quantity }}</p>
               </div>
               <div>
-                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Amount</h5>
+                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Harga</h5>
                 <p class="text-gray-800">{{ i.product?.price! | currency }}</p>
               </div>
               <div>
-                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Total</h5>
+                <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Subtotal</h5>
                 <p class="sm:text-end text-gray-800">{{ (i.quantity!*i.product?.price!) | currency }}</p>
               </div>
             </div>
@@ -161,7 +168,7 @@
             <div class="w-full max-w-2xl sm:text-end space-y-2">
               <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
                 <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
-                  <dt class="col-span-3 text-gray-500">Grand Total:</dt>
+                  <dt class="col-span-3 text-gray-500">Total:</dt>
                   <dd class="col-span-2 font-semibold text-lg text-[#5C06E4]">{{ list?.total! | currency }}</dd>
                 </dl>
               </div>
@@ -169,7 +176,7 @@
           </div>
           <div class="my-2 space-y-2">
             <div class="text-[#5C06E4] text-md font-semibold">
-              Notes :
+              Catatan :
             </div>
             <div class="text-sm border border-gray-200 p-3 rounded-lg space-y-2 dark:border-gray-700 md:w-[70%]">
               {{check(list?.description!)}}
@@ -179,28 +186,28 @@
           <div class="flex items-center justify-center mt-3">
             <!-- STATE ON GOING -->
             <div *ngIf="list?.state! == 'ON-GOING'">
-              <button (click)="submitState('CANCEL_VENDOR','ON-GOING','Are you sure want to cancel this transaction?')" class="text-white bg-red-600 py-2 px-6 rounded-md hover:bg-red-500 font-medium text-md">
-                CANCEL
+              <button (click)="submitState('CANCEL_VENDOR','ON-GOING','Apakah Anda yakin ingin membatalkan transaksi ini?')" class="text-white bg-red-600 py-2 px-6 rounded-md hover:bg-red-500 font-medium text-md">
+                BATAL
               </button>
             </div>
 
             <!-- STATE WAITING CONFIRMATION VENDOR -->
             <div *ngIf="list?.state! == 'WAITING-CONFIRMATION'">
-              <button (click)="submitState('REJECT','WAITING-CONFIRMATION','Are you sure reject this transaction?')" class=" mr-3 text-white bg-red-600 py-3 px-6 rounded-md hover:bg-red-500 font-medium text-md">
-                REJECT
+              <button (click)="submitState('REJECT','WAITING-CONFIRMATION','Apakah Anda yakin menolak transaksi ini?')" class=" mr-3 text-white bg-red-600 py-3 px-6 rounded-md hover:bg-red-500 font-medium text-md">
+                TOLAK
               </button>
-              <button (click)="submitState('ACCEPT','WAITING-CONFIRMATION','Are you sure accept this transaction?')" class="text-white bg-green-600 py-3 px-6 rounded-md hover:bg-green-500 font-medium text-md">
-                ACCEPT
+              <button (click)="submitState('ACCEPT','WAITING-CONFIRMATION','Apakah Anda yakin menerima transaksi ini?')" class="text-white bg-green-600 py-3 px-6 rounded-md hover:bg-green-500 font-medium text-md">
+                TERIMA
               </button>
             </div>
 
           </div>
           <!-- End Flex -->
           <div class="mt-4 sm:mt-8">
-            <h4 class="text-lg font-semibold text-gray-800">Thank you!</h4>
-            <p class="text-gray-500">If you have any questions concerning this invoice, use the following contact information:</p>
+            <h4 class="text-lg font-semibold text-gray-800">Terimakasih!</h4>
+            <p class="text-gray-500">Jika Anda memiliki pertanyaan mengenai faktur ini, silahkan menghubungi kontak berikut:</p>
             <div class="mt-1">
-              <p class="block text-sm font-medium text-gray-800">eonite&#64;gmail.com</p>
+              <p class="block text-sm font-medium text-gray-800">eoniteapp&#64;gmail.com</p>
               <p class="block text-sm font-medium text-gray-800">(0274) 109-9222</p>
             </div>
           </div>
@@ -211,9 +218,8 @@
   </div>
 </div>
 <app-footer></app-footer>
-
-<div *ngIf="loader" class="bg-white">
-  <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
+<div *ngIf="loader" class="loading-overlay">
+  <div class="absolute top-0 start-0 h-full bg-gray-800/[.4] z-10"></div>
   <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
     <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">
     </div>

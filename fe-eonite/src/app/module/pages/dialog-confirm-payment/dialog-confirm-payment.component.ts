@@ -15,6 +15,7 @@ export class DialogConfirmPaymentComponent implements OnInit {
 
   imgUrl?:string;
   trans?:Transaction;
+  loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<DialogConfirmPaymentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Transaction,private dialog:MatDialog, private restService:RestApiServiceService,private datePipe:DatePipe) {
       this.trans = data;
@@ -22,7 +23,7 @@ export class DialogConfirmPaymentComponent implements OnInit {
   }
 
   getDate(date:string){
-    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY HH:mm') || '';
   }
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class DialogConfirmPaymentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Successfully rejected payment"
+          data:"Berhasil menolak pembayaran"
         });
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);
@@ -45,6 +46,7 @@ export class DialogConfirmPaymentComponent implements OnInit {
   }
 
   confirm(){
+    this.loader=true;
     let postTrans :postTransaction={};
     postTrans.id = this.trans?.id;
     postTrans.prevState = this.trans?.state;
@@ -53,8 +55,9 @@ export class DialogConfirmPaymentComponent implements OnInit {
     this.restService.updateTransaction(JSON.stringify(postTrans)).subscribe((event)=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Successfully confirmed payment"
+          data:"Pembayaran berhasil dikonfirmasi"
         });
+        this.loader=false;
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);
         });

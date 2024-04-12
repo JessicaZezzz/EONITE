@@ -25,20 +25,33 @@ export class DialogCancelTransactionComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
+  check(){
+    if(this.data.action == 'DONE' || this.data.action == 'ACCEPT') return false;
+    else return true;
+  }
+
+  checkBtn(){
+    if(this.data.action == 'DONE' || this.data.action == 'ACCEPT') return false;
+    else {
+      if(this.alasanReject == undefined || this.alasanReject == '') return true;
+      else return false;
+    }
+  }
+
   submit(){
     this.loader=true;
     let postTrans :postTransaction={};
     postTrans.id = this.data.id;
     postTrans.prevState = this.data.prevState;
     postTrans.action = this.data.action;
-    if(this.data.action == 'CANCEL_USER' || this.data.action == 'CANCEL_VENDOR') postTrans.description = this.alasanReject;
+    postTrans.description = this.alasanReject;
     this.restService.updateTransaction(JSON.stringify(postTrans)).subscribe(event => {
       if(event.statusCode == 200){
+        this.loader=false;
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Transaction updated successfully',
+          data: 'Transaksi berhasil diperbarui',
         });
         this.dialogRef.close(true);
-        this.loader=false;
       }else if(event.statusCode == 500){
       }
     })

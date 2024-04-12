@@ -9,7 +9,7 @@
                 <div>
                   <div class="img-wrapper hover:cursor-pointer">
                     <img *ngIf="cover ==''" class="h-auto max-w-full rounded-lg zoom" src="../assets/icon/bg-default.png" alt="">
-                    <img *ngIf="cover !=''" class="h-auto max-w-full rounded-lg zoom" [src]="cover" alt="">
+                    <img *ngIf="cover !=''" class="h-auto w-[500px] rounded-lg zoom" [src]="cover" alt="">
                     <div class="content fade" (click)="onClick($event)">
                       <img [src]="'./assets/icon/icons8-zoom-in-52.png'" alt="">
                     </div>
@@ -55,15 +55,16 @@
                   <!-- <p class="text-gray-400 text-sm">Inclusive of all Taxes.</p> -->
                 </div>
               </div>
-              <div class="text-gray-500 font-semibold">Capacity : {{ product!.capacity }}</div>
-              <p class="text-gray-500 font-semibold">Description :</p>
+              <div class="text-gray-500 font-semibold">Kapasitas : {{ product!.capacity }}</div>
+              <div class="text-gray-500 font-semibold">Maksimal Pemilihan Tanggal : {{ product!.max }}</div>
+              <p class="text-gray-500 font-semibold">Deskripsi :</p>
               <p class="text-gray-500">{{ product!.description }}</p>
             </div>
           </div>
         </div>
         <div class="p-6 lg:max-w-7xl max-w-4xl mx-auto border-t-2 border-gray-200">
           <div>
-            <h3 class="text-lg font-bold text-[#333]">Reviews(10)</h3>
+            <h3 class="text-lg font-bold text-[#333]">Ulasan({{ productReview.length! }})</h3>
             <div class="grid md:grid-cols-2 gap-12 mt-4">
               <div class="space-y-2">
                 <div class="space-y-3" *ngFor="let i of review">
@@ -106,7 +107,7 @@
                     </div>
                   </div>
                   <div class="text-center w-full" *ngIf="productReview.length == 0">
-                    No Reviews
+                    Tidak Ada Ulasan
                   </div>
                 </div>
               </div>

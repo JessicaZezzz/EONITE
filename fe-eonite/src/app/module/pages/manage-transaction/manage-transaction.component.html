@@ -3,7 +3,7 @@
     <div class="flex items-center">
         <button class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800">
             <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
-                <div>Waiting Confirmation</div>
+                <div>Menunggu Konfirmasi</div>
             </div>
         </button>
     </div>
@@ -15,10 +15,10 @@
 					<th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Invoice #</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">User</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Vendor</th>
-          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Transaction Date</th>
-					<th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Total Amount</th>
-					<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">State</th>
-          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Action</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Tanggal Transaksi</th>
+					<th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Total</th>
+					<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Status</th>
+          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Aksi</th>
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-gray-200">
@@ -43,7 +43,7 @@
 					</td>
           <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
 						<button (click)="confirmPayment(i)" class="p-2 bg-[#5C06E4] rounded-md text-white hover:bg-indigo-400">
-              CONFIRM
+              KONFIRMASI
             </button>
 					</td>
 				</tr>
@@ -54,7 +54,7 @@
     <div class="flex items-center">
       <button class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800">
         <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
-            <div>Refund User/Pay Vendor</div>
+            <div>Pengembalian Dana User/Pembayaran Vendor</div>
         </div>
       </button>
     </div>
@@ -66,10 +66,10 @@
 					<th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Invoice #</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">User</th>
           <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Vendor</th>
-          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Transaction Date</th>
-					<th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Total Amount</th>
-					<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">State</th>
-          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Action</th>
+          <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Tanggal Transaksi</th>
+					<th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Total</th>
+					<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Status</th>
+          <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Aksi</th>
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-gray-200">
@@ -94,11 +94,18 @@
 					</td>
           <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
 						<button (click)="confirmRefund(i)" class="p-2 bg-[#5C06E4] rounded-md text-white hover:bg-indigo-400">
-              CONFIRM
+              KONFIRMASI
             </button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+</div>
+<div *ngIf="loader" class="loading-overlay">
+  <div class="absolute top-0 start-0 size-full bg-gray-800/[.4] z-10"></div>
+  <div class="absolute top-1/2 start-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div class="animate-spin inline-block size-10 border-[4px] border-current border-t-transparent text-[#5C06E4] rounded-full p-2" role="status" aria-label="loading">
+    </div>
+  </div>
 </div>

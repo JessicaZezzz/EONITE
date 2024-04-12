@@ -24,6 +24,8 @@ export class TransactionDetailComponent implements OnInit {
   list?: Transaction;
   bankAccount?: string;
   loader:boolean=false;
+  rejectedBY?:string;
+  alasanreject?:string;
   constructor(private datePipe:DatePipe,private route: ActivatedRoute,private routes:Router,private restService:RestApiServiceService,private dialog:MatDialog) {
     this.getData(this.route.snapshot.params['id']);
   }
@@ -45,12 +47,17 @@ export class TransactionDetailComponent implements OnInit {
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['transaction'];
         this.list=data;
+        let fund = Object(event.body)['fund'];
+        if(fund.length>0){
+          this.rejectedBY=fund[0].rejectedBy;
+          this.alasanreject = fund[0].alasanRejected;
+        }
+        this.loader=false;
         if(this.list?.payment.state != 'NONE'){
           this.urlImage = 'data:image/jpg;base64,'+this.list?.payment.image;
           this.Form.get('payment')!.setValue(this.urlImage);
           this.Form.get('name')!.setValue(this.list?.payment.bankAccount);
         }
-        this.loader=false;
       }
     })
   }
@@ -74,7 +81,7 @@ export class TransactionDetailComponent implements OnInit {
       let file = event.target.files[0];
       if(file.size > 5000000){
         this.openDialogErrorDiv = true;
-        this.error='The photo exceeding the maximum file size. Please upload photo <= 5 MB'
+        this.error='Foto melebihi ukuran file maksimum. Silakan unggah foto <= 5 MB'
         this.deletePhoto();
       }else{
         reader.readAsDataURL(file);
@@ -86,7 +93,7 @@ export class TransactionDetailComponent implements OnInit {
   }
 
   changeDate(date:string){
-    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY HH:mm') || '';
   }
 
   check(text:string){
@@ -137,6 +144,7 @@ export class TransactionDetailComponent implements OnInit {
   }
 
   updatePayment(){
+    this.loader = true;
     let postTrans :uploadPayment={};
     postTrans.transId = this.list?.id;
     postTrans.bankAccount = this.Form.value.name;
@@ -144,14 +152,12 @@ export class TransactionDetailComponent implements OnInit {
     postTrans.image = img;
     this.restService.updatePayment(JSON.stringify(postTrans)).subscribe(event => {
       if(event.statusCode == 200){
+        this.loader=false;
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Transaction updated successfully',
+          data: 'Transaksi berhasil diperbarui',
         });
         this.back();
-
       }else if(event.statusCode == 500){
-        // this.error='Email is already registered, please use another email';
-        // this.openDialogErrorDiv = true;
       }
     })
   }

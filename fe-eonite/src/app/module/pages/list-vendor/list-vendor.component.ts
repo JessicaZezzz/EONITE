@@ -53,4 +53,8 @@ export class ListVendorComponent implements OnInit {
     this.router.navigate(['/chat'],{queryParams:params})
   }
 
+  round(i:number){
+    return i.toFixed(1);
+  }
+
 }

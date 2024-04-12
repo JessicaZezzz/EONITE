@@ -32,4 +32,12 @@ export class RefundUserComponent implements OnInit {
     return data;
   }
 
+  check(){
+    if(this.listPayment?.length! == 0) return true;
+    else{
+      if(this.listPayment?.find(x => x.totalFundUser! > 0) != undefined) return false;
+      return true;
+    }
+  }
+
 }

@@ -1,12 +1,12 @@
 <div class="px-6 mt-3">
-  <div class="text-xl font-semibold text-center text-[#5C06E4]">Account Profile</div>
+  <div class="text-xl font-semibold text-center text-[#5C06E4]">Akun Profil</div>
   <div class="mt-2 flex flex-col sm:flex-row">
     <div class="flex flex-col items-center space-y-5">
       <div class="w-[200px] flex justify-center relative">
         <div class="flex flex-row absolute bottom-1 right-5">
           <label for="file-upload" class="rounded-full bg-[#5C06E4] text-white hover:cursor-pointer">
             <img class="w-8 h-8 p-2" src="../assets/icon/icons8-edit-50.png" alt="">
-            <input id="file-upload" name="file-upload" type="file" (change)="onFileChanged($event)" class="sr-only">
+            <input id="file-upload" name="file-upload" type="file" accept="image/png, image/jpg, image/jpeg" (change)="onFileChanged($event)" class="sr-only">
           </label>
         </div>
         <img class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500"
@@ -17,56 +17,57 @@
       <form class="space-y-2" [formGroup]="reactiveForm"  #form="ngForm">
         <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6">
           <div class="sm:col-span-3">
-            <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
+            <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Nama Depan</label>
             <div class="mt-1">
               <input  type="text"
                       formControlName="firstName"
                       class="form-control"
-                      placeholder="Enter First Name"
+                      placeholder="Masukkan Nama Depan"
                       minlength="1" maxlength="250"
                       [ngClass]="{'border-b-1 border-red-400': firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors?.['required']}"
-                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
             </div>
             <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="invalid-feedback">
               <div *ngIf="firstName.errors?.['required']" class="text-xs text-red-400">
-                * Required
+                * Wajib diisi
               </div>
             </div>
           </div>
           <div class="sm:col-span-3">
-            <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last Name</label>
+            <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Nama Belakang</label>
             <div class="mt-1">
               <input  type="text"
                       formControlName="lastName"
                       class="form-control"
-                      placeholder="Enter Last Name"
+                      placeholder="Masukkan Nama Belakang"
                       minlength="1" maxlength="250"
                       [ngClass]="{'border-b-1 border-red-400': lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors?.['required']}"
-                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
             </div>
             <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="invalid-feedback">
               <div *ngIf="lastName.errors?.['required']" class="text-xs text-red-400">
-                * Required
+                * Wajib diisi
               </div>
             </div>
           </div>
           <div class="sm:col-span-3">
-            <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Birth Date</label>
+            <label for="birth-date" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Lahir</label>
             <div class="mt-1">
               <input  type="date"
+                      [max]="maxDate"
                       formControlName="birthDate"
                       class="form-control"
                       [ngClass]="{'border-b-1 border-red-400': birthDate.invalid && (birthDate.dirty || birthDate.touched) && birthDate.errors?.['required']}"
-                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
             </div>
             <div *ngIf="birthDate.invalid && (birthDate.dirty || birthDate.touched)" class="invalid-feedback">
               <div *ngIf="birthDate.errors?.['required']" class="text-xs text-red-400">
-                * Required
+                * Wajib diisi
               </div>
             </div>
           </div>
           <div class="sm:col-span-3">
-            <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Phone</label>
+            <label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Nomor Telepon</label>
             <div class="mt-1">
               <input  type="text"
                       maxlength="13"
@@ -74,48 +75,48 @@
                       formControlName="phoneNumber"
                       class="form-control"
                       [ngClass]="{'border-b-1 border-red-400': phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)}"
-                      placeholder="Enter Phone Number"
-                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                      placeholder="Masukkan Nomor Telepon"
+                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
             </div>
             <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="invalid-feedback">
               <div *ngIf="phoneNumber.errors?.['required']" class="text-xs text-red-400">
-                * Required
+                * Wajib diisi
               </div>
               <div *ngIf="phoneNumber.errors?.['minlength']" class="text-xs text-red-400">
-                * This field must have at least 10 character.
+                * Kolom ini harus memiliki minimal 10 karakter.
               </div>
               <div *ngIf="phoneNumber.errors?.['pattern']" class="text-xs text-red-400">
-                * Invalid Phone Number
+                * Nomor telepon tidak valid
               </div>
             </div>
           </div>
           <div class="col-span-full">
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email Address</label>
+            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
             <div class="mt-1">
               <input  type="email"
                       formControlName="email"
                       class="form-control"
                       [ngClass]="{'border-b-1 border-red-400': email.invalid && (email.dirty || email.touched)}"
-                      placeholder="Enter Email example xxx@gmail.com"
-                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                      placeholder="Masukkan Email contoh xxx@gmail.com"
+                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
             </div>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
               <div *ngIf="email.errors?.['required']" class="text-xs text-red-400">
-                * Required
+                * Wajib diisi
               </div>
               <div *ngIf="!email.errors?.['required'] && email.errors?.['emailValidator']" class="text-xs text-red-400">
-                * Invalid email format
+                * Format email salah
               </div>
               <div *ngIf="!email.errors?.['required'] && email.errors?.['emailCheck']" class="text-xs text-red-400">
-                * Email already taken. Please use another email
+                * Email sudah di ambil. Silakan gunakan email lain
               </div>
             </div>
           </div>
         </div>
       </form>
       <div class="flex flex-col sm:flex-row mt-3 justify-center">
-        <button (click)="onNoClick()" type="button" class="w-full justify-center rounded-md bg-red-600 px-5 py-2 text-md font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">CANCEL</button>
-        <button (click)="onSubmit()" type="button" class="w-full justify-center rounded-md text-[#5C06E4] border-[2px] border-[#5C06E4] px-8 py-2 text-md font-semibold hover:text-white shadow-sm hover:bg-[#5C06E4] sm:ml-3 sm:w-auto">SAVE</button>
+        <button (click)="onNoClick()" type="button" class="w-full justify-center rounded-md bg-red-600 px-5 py-2 text-md font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">BATAL</button>
+        <button (click)="onSubmit()" type="button" class="w-full justify-center rounded-md text-[#5C06E4] border-[2px] border-[#5C06E4] px-8 py-2 text-md font-semibold hover:text-white shadow-sm hover:bg-[#5C06E4] sm:ml-3 sm:w-auto">SIMPAN</button>
       </div>
     </div>
   </div>

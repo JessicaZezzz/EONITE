@@ -51,17 +51,17 @@ export class HomeVendorComponent implements OnInit {
       const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
       this.data = {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni'],
           datasets: [
               {
-                  label: 'Completed Order',
+                  label: 'Pesanan Selesai',
                   data: this.dashboarddata.orderCompleted,
                   fill: false,
                   borderColor: COLOR_BLUE,
                   tension: 0.4
               },
               {
-                  label: 'Cancelled Order',
+                  label: 'Pesanan Dibatalkan',
                   data: this.dashboarddata.orderCancelled,
                   fill: false,
                   borderColor: COLOR_PURPLE,

@@ -23,6 +23,8 @@ export class TransactionVendorDetailsComponent implements OnInit {
   starRating:number = 0;
   list?: Transaction;
   loader:boolean=false;
+  rejectedBY?:string;
+  alasanreject?:string;
   constructor(private dialog:MatDialog,private route: ActivatedRoute,private datePipe: DatePipe,private routes:Router,private restService:RestApiServiceService) {
     this.getData(this.route.snapshot.params['id']);
   }
@@ -36,35 +38,18 @@ export class TransactionVendorDetailsComponent implements OnInit {
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['transaction'];
         this.list=data;
+        let fund = Object(event.body)['fund'];
+        if(fund.length>0){
+          this.rejectedBY=fund[0].rejectedBy;
+          this.alasanreject = fund[0].alasanRejected;
+        }
         this.loader=false;
       }
     })
   }
 
-  deletePhoto(){
-    this.urlImage = null;
-    this.Form.get('payment')!.setValue(null);
-  }
-
-  onFileChanged(event:any) {
-    let reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      if(file.size > 5000000){
-        this.openDialogErrorDiv = true;
-        this.error='The photo exceeding the maximum file size. Please upload photo <= 5 MB'
-        this.deletePhoto();
-      }else{
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          this.urlImage = reader.result;
-      }
-      };
-    }
-  }
-
   changeDate(date:string){
-    return this.datePipe.transform(date, 'dd MMMM YYYY') || '';
+    return this.datePipe.transform(date, 'dd MMMM YYYY HH:mm') || '';
   }
 
   check(text:string){

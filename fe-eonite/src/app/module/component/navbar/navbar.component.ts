@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DROPDOWN_ADMIN, DROPDOWN_USER, DROPDOWN_VENDOR, MENU, MENU_ADMIN, MENU_PUBLIC, MENU_VENDOR } from '../../models/auth.model';
+import { DROPDOWN_USER, DROPDOWN_VENDOR, MENU, MENU_PUBLIC, MENU_VENDOR } from '../../models/auth.model';
 import { Router } from '@angular/router';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { HttpEventType } from '@angular/common/http';
@@ -45,8 +45,6 @@ export class NavbarComponent implements OnInit {
       })
     }else if(this.role=='ADMIN'){
       sessionStorage.setItem('tab',"managevendor")
-      this.menu = MENU_ADMIN;
-      this.dropdown = DROPDOWN_ADMIN;
     }
   }
 
