@@ -154,6 +154,7 @@ export interface Product{
   capacity?     : number;
   rating?       : number;
   photo        : Photo[];
+  categoryid?   : number;
 }
 
 export class Photo{

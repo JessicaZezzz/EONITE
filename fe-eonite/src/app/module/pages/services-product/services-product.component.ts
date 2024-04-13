@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export interface filter{
   search?:string;
+  categoryId?:number[];
   min?:number;
   max?:number;
   rating?:number;
@@ -49,6 +50,7 @@ export class ServicesProductComponent implements OnInit {
     let params = new HttpParams().append('pagination',true)
                                 .append('pageSize',this.page.pageSize!)
                                 .append('pageIndex',this.page.pageIndex!);
+    if(this.filter.categoryId != null) params = params.append('category',this.filter.categoryId!.toString());
     if(this.filter.min != null) params = params.append('min',this.filter.min!);
     if(this.filter.max != null) params = params.append('max',this.filter.max!);
     if(this.filter.rating != null) params = params.append('rating',this.filter.rating!);

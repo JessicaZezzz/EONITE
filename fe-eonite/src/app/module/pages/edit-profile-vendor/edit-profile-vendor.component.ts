@@ -176,7 +176,7 @@ export class EditProfileVendorComponent implements OnInit {
   emailcheckValidator(): ValidatorFn {
     return (formGroup: AbstractControl): ValidationErrors | null => {
       const email = formGroup.get('email');
-      if(email?.value!=''){
+      if(email?.value!='' || email?.value!=null){
         this.restService.checkEmailVendor(email?.value).subscribe(e => {
           let vendor:any=e;
           if (e != null && vendor.id != this.vendorId) email?.setErrors({ emailCheck: true });
@@ -263,6 +263,12 @@ export class EditProfileVendorComponent implements OnInit {
         }
       };
     }
+  }
+
+  compareArray(){
+    let arrayA:number[]=this.subCategory;
+    let arrayB:number[]=this.Form1.value.categoryId;
+    return JSON.stringify(arrayA.slice().sort((a,b) => a-b)) === JSON.stringify(arrayB.slice().sort((a,b) => a-b));
   }
 
   updateVendor(){

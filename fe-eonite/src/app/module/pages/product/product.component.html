@@ -22,6 +22,16 @@
                 <ng-template mat-tab-label>
                   <span class="tab-text">Produk</span>
                 </ng-template>
+                <div *ngIf="stateVendor == 'PENDING' || rekening == undefined">
+                  <div class="w-full h-[200px] space-y-2 mt-3">
+                    <div *ngIf="stateVendor != 'PENDING'" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                      <span class="block sm:inline">Harap Menunggu status Anda sedang dikonfirmasi admin</span>
+                    </div>
+                    <div *ngIf="rekening == undefined" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                      <span class="block sm:inline">Harap mengisi nomor rekening anda terlebih dahulu pada Profil</span>
+                    </div>
+                  </div>
+                </div>
                 <div *ngIf="listProduct.length == 0">
                   <div class="w-full flex items-center flex-wrap justify-center gap-10 mt-5">
                     <div class="grid gap-4 w-60">
@@ -36,16 +46,6 @@
                         <h2 class="text-center text-black text-xl font-semibold leading-loose pb-2">Produk tidak ditemukan</h2>
                         <p class="text-center text-black text-base font-normal leading-relaxed pb-4">Coba buat produk Anda</p>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div *ngIf="stateVendor == 'PENDING' || rekening == undefined">
-                  <div class="w-full h-[200px] space-y-2 mt-3">
-                    <div *ngIf="stateVendor != 'PENDING'" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                      <span class="block sm:inline">Harap Menunggu status Anda sedang dikonfirmasi admin</span>
-                    </div>
-                    <div *ngIf="rekening == undefined" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                      <span class="block sm:inline">Harap mengisi nomor rekening anda terlebih dahulu pada Profil</span>
                     </div>
                   </div>
                 </div>

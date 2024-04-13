@@ -5,7 +5,15 @@ import { Product } from '../../models/auth.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
 import { HttpEventType } from '@angular/common/http';
+export interface category{
+  id?:number;
+  subcategory:subcategory;
+}
 
+export interface subcategory{
+  id?:number;
+  name?:string;
+}
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -22,11 +30,17 @@ export class EditProductComponent implements OnInit {
   rawFileArray:string[] = [];
   base64ImgArray:string[] = [];
   Form1!: FormGroup;
-
+  category : category[] = [];
   constructor(public dialogRef: MatDialogRef<EditProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,private restService:RestApiServiceService,public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.restService.getprofileVendor(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let data = Object(event.body)['vendor'];
+        this.category = data[0].categoryVendors;
+      }
+    })
     this.restService.getDetailProductById(this.data).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let datas = Object(event.body)['products'];
@@ -36,6 +50,7 @@ export class EditProductComponent implements OnInit {
       this.Form1.controls['price'].setValue(this.product.price)
       this.Form1.controls['max'].setValue(this.product.max)
       this.Form1.controls['capacity'].setValue(this.product.capacity)
+      this.Form1.controls['categoryid'].setValue(this.product.categoryid)
       this.Form1.controls['description'].setValue(this.product.description)
       this.product.photo.forEach(e=>{
         this.base64ImgArray.push('data:image/jpeg;base64,'+e.image)
@@ -53,6 +68,9 @@ export class EditProductComponent implements OnInit {
         Validators.required,
       ]),
       max: new FormControl(this.product?.max, [
+        Validators.required,
+      ]),
+      categoryid: new FormControl(this.product?.categoryid, [
         Validators.required,
       ]),
       description: new FormControl(this.product?.description, [
@@ -75,6 +93,10 @@ export class EditProductComponent implements OnInit {
 
   get max() {
     return this.Form1.get('max')!;
+  }
+
+  get categoryid() {
+    return this.Form1.get('categoryid')!;
   }
 
   get description() {
@@ -160,6 +182,7 @@ export class EditProductComponent implements OnInit {
       postProduct.name = this.Form1.value.name;
       postProduct.price = this.Form1.value.price;
       postProduct.max = this.Form1.value.max;
+      postProduct.categoryid = this.Form1.value.categoryid;
       postProduct.capacity = this.Form1.value.capacity;
       postProduct.description = this.Form1.value.description;
     let photo:string[]=[];

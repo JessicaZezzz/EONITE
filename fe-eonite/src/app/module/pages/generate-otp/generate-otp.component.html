@@ -34,7 +34,7 @@
     <div *ngIf="!checkOTP()" class="text-[#5C06E4] mt-4">*OTP sudah habis masa berlakunya, silakan kirim ulang OTP lagi</div>
     <div class="max-w-[260px] mx-auto mt-1">
         <button type="submit" (click)="submitOTP()" [disabled]="checkSubmitOTP()"
-            class="disabled:bg-gray-300 w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-[#5C06E4] px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">SEND</button>
+            class="disabled:bg-gray-300 w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-[#5C06E4] px-3.5 py-2.5 text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">KIRIM</button>
     </div>
     <div class="text-sm text-slate-500 mt-4">Tidak menerima kode? <button (click)="resendOTP()" class="font-medium text-[#5C06E4] hover:text-indigo-500 disabled:text-gray-400">Kirim ulang</button></div>
 </div>

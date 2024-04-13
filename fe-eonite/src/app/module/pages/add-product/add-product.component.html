@@ -8,7 +8,7 @@
       <h2 class="mb-4 text-xl font-bold text-gray-900 ">Tambah Produk</h2>
       <form [formGroup]="Form1">
           <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
-              <div class="">
+              <div class="col-span-full">
                   <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nama Produk</label>
                   <input type="text"
                         formControlName="name"
@@ -65,6 +65,21 @@
                 <div *ngIf="max.invalid && (max.dirty || max.touched)" class="invalid-feedback">
                   <div *ngIf="max.errors?.['required']" class="text-xs text-red-400">
                     * Wajib diisi
+                  </div>
+                </div>
+              </div>
+              <div class="w-full">
+                <label for="category" class="block text-sm font-medium leading-6 text-gray-900">Kategori</label>
+                <mat-form-field>
+                  <mat-select formControlName="categoryid"
+                              class="mt-1 block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6"
+                              [ngClass]="{'redborder border-b-1 border-red-400': categoryid.invalid && (categoryid.dirty || categoryid.touched)}">
+                              <mat-option *ngFor="let i of category" [value]="i.subcategory.id">{{ i.subcategory.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div *ngIf="categoryid.invalid && (categoryid.dirty || categoryid.touched)" class="invalid-feedback">
+                  <div *ngIf="categoryid.errors?.['required']" class="text-xs text-red-400">
+                   * Wajib diisi
                   </div>
                 </div>
               </div>

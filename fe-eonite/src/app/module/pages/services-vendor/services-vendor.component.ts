@@ -45,7 +45,6 @@ export class ServicesVendorComponent implements OnInit {
     this.restService.getDomicile().subscribe((data) => {
       this.domicile = data;
     });
-    console.log( this.router.snapshot.queryParamMap.get('category'))
     this.getDataVendor();
   }
 

@@ -1,9 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
-import { Product } from '../../models/auth.model';
+import { Category, Product } from '../../models/auth.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogSuccessComponent } from '../dialog-success/dialog-success.component';
+import { HttpEventType } from '@angular/common/http';
+
+export interface category{
+  id?:number;
+  subcategory:subcategory;
+}
+
+export interface subcategory{
+  id?:number;
+  name?:string;
+}
 
 @Component({
   selector: 'app-add-product',
@@ -21,11 +32,18 @@ export class AddProductComponent implements OnInit {
   rawFileArray:string[] = [];
   base64ImgArray:string[] = [];
   Form1!: FormGroup;
+  category : category[] = [];
 
   constructor(public dialogRef: MatDialogRef<AddProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,private restService:RestApiServiceService,public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.restService.getprofileVendor(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
+      if(event.type == HttpEventType.Response && event.body && event.ok){
+        let data = Object(event.body)['vendor'];
+        this.category = data[0].categoryVendors;
+      }
+    })
     this.Form1 = new FormGroup({
       name: new FormControl(this.product?.name, [
         Validators.required,
@@ -37,6 +55,9 @@ export class AddProductComponent implements OnInit {
         Validators.required,
       ]),
       max: new FormControl(this.product?.max, [
+        Validators.required,
+      ]),
+      categoryid: new FormControl(this.product?.categoryid, [
         Validators.required,
       ]),
       description: new FormControl(this.product?.description, [
@@ -59,6 +80,10 @@ export class AddProductComponent implements OnInit {
 
   get max() {
     return this.Form1.get('max')!;
+  }
+
+  get categoryid() {
+    return this.Form1.get('categoryid')!;
   }
 
   get description() {
@@ -145,6 +170,7 @@ export class AddProductComponent implements OnInit {
       postProduct.price = this.Form1.value.price;
       postProduct.max = this.Form1.value.max;
       postProduct.capacity = this.Form1.value.capacity;
+      postProduct.categoryid = this.Form1.value.categoryid;
       postProduct.description = this.Form1.value.description;
     let photo:string[]=[];
       this.base64ImgArray.forEach(e=>{
