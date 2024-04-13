@@ -2,6 +2,7 @@ package com.domain.eonite.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.domain.eonite.entity.FundTransaction;
 import com.domain.eonite.entity.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,4 +30,5 @@ public class TransRes {
     private Transaction transaction;
     private List<Transaction> transactions;
     private List<FundTransRes> fundTransactions;
+    private List<FundTransaction> fund;
 }

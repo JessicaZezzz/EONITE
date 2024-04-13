@@ -16,7 +16,7 @@ public class Payment {
     private Integer id;
     private Date date;
     @Lob
-    @Column (name = "image", columnDefinition="BLOB")
+    @Column (name = "image", columnDefinition="LONGBLOB")
     private byte[] image;
     private String state;
     private String description;

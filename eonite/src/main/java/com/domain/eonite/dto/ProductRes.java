@@ -21,6 +21,7 @@ public class ProductRes {
     private String usernameVendor;
     private String name;
     private Integer price;
+    private Integer max;
     private String description;
     private Integer capacity;
     private Float rating;

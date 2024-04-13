@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -127,16 +128,28 @@ public class AuthService {
     public ReqRes signInUser(ReqRes signInRequest){
         ReqRes response = new ReqRes();
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),signInRequest.getPassword())); 
-                var user = userRepo.findByEmail(signInRequest.getEmail()).orElseThrow();
-                var jwt = jwtUtils.generateToken(user);
-                var resfreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), user);
-                response.setStatusCode(200);
-                response.setId(user.getId());
-                response.setToken(jwt);
-                response.setRefreshToken(resfreshToken);
-                response.setExpirationTime("24 hr");
-                response.setMessage("Successfully Signed In");
+            userRepo.findByEmail(signInRequest.getEmail()).ifPresentOrElse((users) ->{
+                PasswordEncoder passencoder = new BCryptPasswordEncoder();
+                String encodedPassword = users.getPassword();
+                if(passencoder.matches(signInRequest.getPassword(), encodedPassword)){
+                    var user = userRepo.findByEmail(signInRequest.getEmail()).orElseThrow();
+                    var jwt = jwtUtils.generateToken(user);
+                    var resfreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), user);
+                    response.setStatusCode(200);
+                    response.setId(user.getId());
+                    response.setToken(jwt);
+                    response.setRefreshToken(resfreshToken);
+                    response.setExpirationTime("24 hr");
+                    response.setMessage("Successfully Signed In");
+                }else{
+                    response.setStatusCode(500);
+                    response.setError("Bad credentials");
+                }
+            },()->{
+                response.setStatusCode(500);
+                response.setError("No value present");
+            });
+            // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),signInRequest.getPassword()));     
         }catch(Exception e){
             response.setStatusCode(500);
             response.setError(e.getMessage());
@@ -148,16 +161,27 @@ public class AuthService {
     public ReqRes signInVendor(ReqRes signInRequest){
         ReqRes response = new ReqRes();
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(),signInRequest.getPassword()));
-            Vendor vendor = vendorRepo.findByEmail(signInRequest.getEmail()).get();
-            var jwt = jwtUtils.generateToken(vendor);
-            var resfreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), vendor);
-            response.setStatusCode(200);
-            response.setId(vendor.getId());
-            response.setToken(jwt);
-            response.setRefreshToken(resfreshToken);
-            response.setExpirationTime("24 hr");
-            response.setMessage("Successfully Signed In");
+            vendorRepo.findByEmail(signInRequest.getEmail()).ifPresentOrElse((users) ->{
+                PasswordEncoder passencoder = new BCryptPasswordEncoder();
+                String encodedPassword = users.getPassword();
+                if(passencoder.matches(signInRequest.getPassword(), encodedPassword)){
+                    var vendor = vendorRepo.findByEmail(signInRequest.getEmail()).orElseThrow();
+                    var jwt = jwtUtils.generateToken(vendor);
+                    var resfreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), vendor);
+                    response.setStatusCode(200);
+                    response.setId(vendor.getId());
+                    response.setToken(jwt);
+                    response.setRefreshToken(resfreshToken);
+                    response.setExpirationTime("24 hr");
+                    response.setMessage("Successfully Signed In");
+                }else{
+                    response.setStatusCode(500);
+                    response.setError("Bad credentials");
+                }
+            },()->{
+                response.setStatusCode(500);
+                response.setError("No value present");
+            });
         }catch(Exception e){
             response.setStatusCode(500);
             response.setError(e.getMessage());

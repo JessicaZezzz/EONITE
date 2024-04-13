@@ -111,8 +111,9 @@ public class CartService {
                 c.get(5,Integer.class),
                 c.get(6,Float.class),
                 c.get(7,Integer.class),
-                c.get(8,String.class),
-                (byte[]) c.get(9)
+                c.get(8,Integer.class),
+                c.get(9,String.class),
+                (byte[]) c.get(10)
             )).collect(Collectors.toList());
             
             try{

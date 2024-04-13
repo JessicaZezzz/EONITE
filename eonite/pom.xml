@@ -12,6 +12,7 @@
 	<artifactId>eonite</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>eonite</name>
+	<packaging>jar</packaging>
 	<description>Project EONITE</description>
 	<properties>
 		<java.version>17</java.version>

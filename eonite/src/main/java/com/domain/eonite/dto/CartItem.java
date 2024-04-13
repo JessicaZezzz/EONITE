@@ -18,6 +18,7 @@ public class CartItem {
     private float productRating;
     private Integer productPrice;
     private String productName;
+    private Integer productMax;
     private byte[] photo;
     
     public CartItem(Integer id, 
@@ -27,6 +28,7 @@ public class CartItem {
                     String productName,
                     Integer productPrice,
                     float productRating,
+                    Integer productMax,
                     Integer vendorId,
                     String usernameVendor,
                     byte[] photo) {
@@ -39,6 +41,7 @@ public class CartItem {
         this.productRating = productRating;
         this.productPrice = productPrice;
         this.productName = productName;
+        this.productMax = productMax;
         this.photo = photo;
     }
 

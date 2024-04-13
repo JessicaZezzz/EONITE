@@ -13,5 +13,7 @@ public interface FundTransRepo extends JpaRepository<FundTransaction,Integer> {
     List<FundTransaction> findAllByUserId(Integer id);
 
     List<FundTransaction> findAllByVendorId(Integer id);
+
+    List<FundTransaction> findByTransId(Integer id);
     
 }
