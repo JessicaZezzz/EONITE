@@ -14,11 +14,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.domain.eonite.service.JWTUtils;
 import com.domain.eonite.service.OurUserDetailsService;
 
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import io.jsonwebtoken.Jwts;
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter{
 
@@ -41,6 +42,7 @@ public class JWTAuthFilter extends OncePerRequestFilter{
         }
         jwtToken = authHeader.substring(7);
         userEmail = jwtUtils.extractUsername(jwtToken);
+        // Disini ambil role user/vendor
         if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = ourUserDetailsService.loadUserByUsername(userEmail);
 

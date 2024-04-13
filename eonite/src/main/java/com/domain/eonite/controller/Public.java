@@ -79,8 +79,9 @@ public class Public {
                                     @RequestParam(required = false,name = "min") Integer min,
                                     @RequestParam(required = false,name = "max") Integer max,
                                     @RequestParam(required = false,name = "rating") Integer rating,
+                                    @RequestParam(required = false,name = "category") String categoryId,
                                     @RequestParam(required = false,name = "id") Integer ids){
-        return ResponseEntity.ok(productService.getAllProduct(sortBy,sortDir,pagination,pageSize,pageIndex,search,min,max,rating,ids));
+        return ResponseEntity.ok(productService.getAllProduct(sortBy,sortDir,pagination,pageSize,pageIndex,search,min,max,rating,categoryId,ids));
     }
 
     @GetMapping("/vendorProfile")

@@ -11,8 +11,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 
 @Component
@@ -50,7 +50,7 @@ public class JWTUtils {
     public String extractUsername(String token){
         return extractClaims(token, Claims::getSubject);
     }
-    
+
     private <T> T extractClaims(String token, Function<Claims, T> claimsTFunction){
         return claimsTFunction.apply(Jwts.parser().verifyWith(Key).build().parseSignedClaims(token).getPayload());
     }

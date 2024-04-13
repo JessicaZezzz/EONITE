@@ -1,10 +1,10 @@
 package com.domain.eonite.repository;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.domain.eonite.entity.CategoryVendor;
 
 public interface CategoryVendorRepo extends JpaRepository<CategoryVendor,Integer> {
@@ -15,4 +15,6 @@ public interface CategoryVendorRepo extends JpaRepository<CategoryVendor,Integer
 
     @Query(value="select id from category_vendor where vendor_id = :id",nativeQuery = true)
     Integer[] findByVendorId(@Param("id") Integer id);
+
+    Optional<CategoryVendor> findBySubcategoryIdAndVendorId(Integer categoryid,Integer vendorid);
 }

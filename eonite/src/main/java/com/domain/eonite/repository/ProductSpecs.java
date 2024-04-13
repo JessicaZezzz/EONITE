@@ -1,5 +1,7 @@
 package com.domain.eonite.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.domain.Specification;
 
 import com.domain.eonite.entity.Product;
@@ -39,4 +41,11 @@ public class ProductSpecs {
                builder.conjunction() :
                builder.lessThanOrEqualTo(root.get("rating"), rating);
     }
+
+    public static Specification<Product> categoryId(List<Integer> id) {
+        return (root, query, builder) -> 
+            id == null ? 
+                builder.conjunction() :
+                root.get("categoryid").in(id);
+      }
 }

@@ -1,6 +1,9 @@
 package com.domain.eonite.service;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +41,7 @@ public class ProductService {
     @Autowired
     private PhotoRepo PhotoRepo;
 
-    public ProductRes getAllProduct(String sortBy, String sortDir, Boolean pagination, Integer pageSize, Integer pageIndex, String search, Integer min,Integer max,Integer rating,Integer vendorId){
+    public ProductRes getAllProduct(String sortBy, String sortDir, Boolean pagination, Integer pageSize, Integer pageIndex, String search, Integer min,Integer max,Integer rating,String categoryid,Integer vendorId){
         ProductRes resp = new ProductRes();
         Pageable paging;
             if(sortBy != null && sortDir != null){
@@ -50,8 +53,13 @@ public class ProductService {
         Specification<Product> spec2 = ProductSpecs.ProductPricemin(min);
         Specification<Product> spec3 = ProductSpecs.ProductPricemax(max);
         Specification<Product> spec4 = ProductSpecs.ratinglessThan(rating);
-        Specification<Product> specs = Specification.where(spec1).and(spec2).and(spec3).and(spec4).and(spec0);
-
+        List<Integer> listCategory = null;
+        if(categoryid != null){
+            listCategory = Arrays.stream(categoryid.split(",")).map(String::trim).map(Integer::parseInt).collect(Collectors.toList());
+        }
+        Specification<Product> spec5 = ProductSpecs.categoryId(listCategory);
+        Specification<Product> specs = Specification.where(spec1).and(spec2).and(spec3).and(spec4).and(spec5).and(spec0);
+        
         Page<Product> allProduct= ProductRepo.findAll(specs,paging);
         try{
             resp.setLength(allProduct.getTotalElements());
@@ -73,6 +81,7 @@ public class ProductService {
             product.setName(request.getName());
             product.setPrice(request.getPrice());
             product.setMax(request.getMax());
+            product.setCategoryid(request.getCategoryid());
             product.setDescription(request.getDescription());
             product.setCapacity(request.getCapacity());
             product.setRating((float) 0);
@@ -108,6 +117,7 @@ public class ProductService {
             product.setName(request.getName());
             product.setPrice(request.getPrice());
             product.setMax(request.getMax());
+            product.setCategoryid(request.getCategoryid());
             product.setDescription(request.getDescription());
             product.setCapacity(request.getCapacity());
             Product result = ProductRepo.save(product);  
