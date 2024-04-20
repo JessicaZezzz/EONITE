@@ -12,13 +12,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class PaymentVendorComponent implements OnInit {
 
   listPayment:refund[]=[];
+  loader:boolean=false;
   constructor(private restService:RestApiServiceService,private sanitization:DomSanitizer) { }
 
   ngOnInit(): void {
+    this.loader=true;
     this.restService.getTransactionRefundVendor(Number(sessionStorage.getItem("ID"))).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['fundTransactions'];
         this.listPayment = data;
+        this.loader=false;
       }
     })
   }

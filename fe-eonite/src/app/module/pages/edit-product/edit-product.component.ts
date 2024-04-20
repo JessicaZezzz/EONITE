@@ -31,6 +31,8 @@ export class EditProductComponent implements OnInit {
   base64ImgArray:string[] = [];
   Form1!: FormGroup;
   category : category[] = [];
+  available:boolean = false;
+
   constructor(public dialogRef: MatDialogRef<EditProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,private restService:RestApiServiceService,public dialog: MatDialog) { }
 
@@ -46,6 +48,8 @@ export class EditProductComponent implements OnInit {
         let datas = Object(event.body)['products'];
         this.product = datas[0];
       }
+      if(this.product.available == 1) this.available = true;
+      else this.available = false;
       this.Form1.controls['name'].setValue(this.product.name)
       this.Form1.controls['price'].setValue(this.product.price)
       this.Form1.controls['max'].setValue(this.product.max)
@@ -185,6 +189,8 @@ export class EditProductComponent implements OnInit {
       postProduct.categoryid = this.Form1.value.categoryid;
       postProduct.capacity = this.Form1.value.capacity;
       postProduct.description = this.Form1.value.description;
+      if(this.available) postProduct.available = 1;
+      else postProduct.available = 0;
     let photo:string[]=[];
       this.base64ImgArray.forEach(e=>{
         let img = e.split(',')[1];

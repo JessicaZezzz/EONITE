@@ -10,12 +10,15 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class TestimonialComponent {
   review:productReview[]=[];
+  loader:boolean=false;
 
   constructor(private restService:RestApiServiceService){
+    this.loader=true;
     this.restService.getTop6Review().subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['productReview'];
         this.review = data;
+        this.loader=false;
       }
     })
   }

@@ -14,8 +14,8 @@ export class DialogConfirmRefundComponent implements OnInit {
 
   photoTransferVendor?:any;
   photoTransferUser?:any;
-  errorUser:string='*Required';
-  errorVendor:string='*Required';
+  errorUser:string='*Wajib diisi';
+  errorVendor:string='*Wajib diisi';
   loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<DialogConfirmRefundComponent>,
     @Inject(MAT_DIALOG_DATA) public data: refund, private restService:RestApiServiceService,private dialog:MatDialog,private datePipe:DatePipe) {
@@ -47,7 +47,7 @@ export class DialogConfirmRefundComponent implements OnInit {
       if(event.statusCode == 200){
         this.loader=false;
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data:"Successfully refunded the user and/or paid the vendor"
+          data:"Berhasil mengembalikan dana pengguna dan/atau membayar vendor"
         });
         dialogRef.afterClosed().subscribe(result => {
           this.dialogRef.close(true);
@@ -73,7 +73,7 @@ export class DialogConfirmRefundComponent implements OnInit {
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       if(file.size > 5000000){
-        this.errorUser='*The photo exceeding the maximum file size. Please upload photo <= 5 MB'
+        this.errorUser='*Foto melebihi ukuran file maksimum. Silakan unggah foto <= 5 MB'
         this.photoTransferUser = undefined;
       }else{
         reader.readAsDataURL(file);
@@ -90,7 +90,7 @@ export class DialogConfirmRefundComponent implements OnInit {
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       if(file.size > 5000000){
-        this.errorVendor='*The photo exceeding the maximum file size. Please upload photo <= 5 MB'
+        this.errorVendor='*Foto melebihi ukuran file maksimum. Silakan unggah foto <= 5 MB'
         this.photoTransferVendor=undefined;
       }else{
         reader.readAsDataURL(file);
@@ -103,12 +103,12 @@ export class DialogConfirmRefundComponent implements OnInit {
   }
 
   deletePhotoUser(){
-    this.errorUser='*Required';
+    this.errorUser='*Wajib diisi';
     this.photoTransferUser=undefined;
   }
 
   deletePhotoVendor(){
-    this.errorVendor='*Required';
+    this.errorVendor='*Wajib diisi';
     this.photoTransferVendor=undefined;
   }
 

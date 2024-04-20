@@ -111,7 +111,7 @@ export class DialogCartComponent implements OnInit {
     this.restService.addCart(JSON.stringify(postCart)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Berhasil menambahkan produk ke troli',
+          data: 'Berhasil menambahkan produk ke keranjang',
         });
         this.onNoClick();
 

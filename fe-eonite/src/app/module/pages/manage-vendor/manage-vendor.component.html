@@ -30,7 +30,7 @@
                       </td>
                       <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                         <button *ngIf="i.status_reject == '' || i.status_reject == undefined" (click)="confirm(i)" type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-[#5C06E4]">KONFIRMASI</button>
-                        <button *ngIf="i.status_reject != '' && i.status_reject != undefined" [disabled]="true" matTooltip="Action has been taken, waiting for vendor revision" type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-gray-400">MENUNGGU</button>
+                        <button *ngIf="i.status_reject != '' && i.status_reject != undefined" [disabled]="true" matTooltip="Aksi telah dilakukan, menunggu revisi vendor" type="button" class="inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-gray-400">MENUNGGU</button>
                       </td>
                     </tr>
                   </tbody>

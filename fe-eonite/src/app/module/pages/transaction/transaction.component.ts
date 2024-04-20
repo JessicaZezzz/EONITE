@@ -19,6 +19,7 @@ export class TransactionComponent implements OnInit {
   listCancelled? : Transaction[]     =[];
   loader:boolean=false;
   pages: number = 1;
+  // state:string[]=['ALL','WAITING-CONFIRMATION','WAITING-PAYMENT','ON-GOING','COMPLETED','CANCELLED'];
   constructor(private sanitization:DomSanitizer,private router: Router,private restService:RestApiServiceService) { }
 
   ngOnInit(): void {
@@ -38,6 +39,7 @@ export class TransactionComponent implements OnInit {
         switch(state){
           case('ALL'):{
             this.listAll = data;
+            this.loader=false;
             break;
           }
           case('WAITING-CONFIRMATION'):{
@@ -58,7 +60,7 @@ export class TransactionComponent implements OnInit {
           }
           case('CANCELLED'):{
             this.listCancelled = data;
-            this.loader=false;
+
             break;
           }
         }

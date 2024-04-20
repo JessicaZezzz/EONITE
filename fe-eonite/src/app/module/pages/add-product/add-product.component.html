@@ -6,6 +6,11 @@
   <div class="sm:flex sm:items-start">
     <div class="max-w-2xl mx-auto px-3 sm:px-6 w-[300px] sm:w-[1000px]">
       <h2 class="mb-4 text-xl font-bold text-gray-900 ">Tambah Produk</h2>
+      <label class="inline-flex items-center cursor-pointer">
+        <input type="checkbox" [checked]="available" [(ngModel)]="available" class="sr-only peer">
+        <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        <span class="ms-3 text-sm font-medium text-gray-900">Aktifkan toggle ini jika produk tersedia dan dapat dipesan </span>
+      </label>
       <form [formGroup]="Form1">
           <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
               <div class="col-span-full">
@@ -114,20 +119,20 @@
                 </div>
               </div>
               <div class="sm:col-span-2">
-                  <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
-                  <textarea
-                        formControlName="description"
-                        class="form-control"
-                        minlength="1" maxlength="1000"
-                        [ngClass]="{'border-b-1 border-red-400': description.invalid && (description.dirty || description.touched) && description.errors?.['required']}"
-                        rows="8"
-                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="Tulis deskripsi produk di sini..."></textarea>
-                  <div *ngIf="description.invalid && (description.dirty || description.touched)" class="invalid-feedback">
-                    <div *ngIf="description.errors?.['required']" class="text-xs text-red-400">
-                      * Wajib diisi
-                    </div>
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi</label>
+                <textarea
+                      formControlName="description"
+                      class="form-control"
+                      minlength="1" maxlength="1000"
+                      [ngClass]="{'border-b-1 border-red-400': description.invalid && (description.dirty || description.touched) && description.errors?.['required']}"
+                      rows="8"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="Tulis deskripsi produk di sini..."></textarea>
+                <div *ngIf="description.invalid && (description.dirty || description.touched)" class="invalid-feedback">
+                  <div *ngIf="description.errors?.['required']" class="text-xs text-red-400">
+                    * Wajib diisi
                   </div>
                 </div>
+              </div>
           </div>
           <div class="flex items-center space-x-4 justify-center">
               <button (click)="onSubmit()" type="submit" class="text-white bg-[#5c06e4] hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">

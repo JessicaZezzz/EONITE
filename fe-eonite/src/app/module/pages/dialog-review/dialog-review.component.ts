@@ -25,7 +25,7 @@ export class DialogReviewComponent implements OnInit {
   }
 
   submit(){
-    if(this.starRating == 0 || this.comment == '') this.error=true;
+    if(this.starRating == 0 || this.comment == '' || !this.comment.trim()) this.error=true;
     else this.postReview();
   }
 

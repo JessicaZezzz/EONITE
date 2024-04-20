@@ -33,7 +33,7 @@ export class DialogCancelTransactionComponent implements OnInit {
   checkBtn(){
     if(this.data.action == 'DONE' || this.data.action == 'ACCEPT') return false;
     else {
-      if(this.alasanReject == undefined || this.alasanReject == '') return true;
+      if(this.alasanReject == undefined || this.alasanReject == '' || !this.alasanReject.trim()) return true;
       else return false;
     }
   }

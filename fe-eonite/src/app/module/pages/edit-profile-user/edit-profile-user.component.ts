@@ -61,7 +61,7 @@ export class EditProfileUserComponent implements OnInit {
         Validators.pattern("^[0-9]*$"),
         Validators.minLength(10)
       ]),
-      email: new FormControl(this.user?.email, [
+      email: new FormControl({value:this.user?.email, disabled: true}, [
         Validators.required,
         emailValidator(),
       ])
@@ -140,7 +140,7 @@ export class EditProfileUserComponent implements OnInit {
     postUser.phoneNumber = this.reactiveForm.value.phoneNumber;
     let img = this.urlImage!.split(',')[1];
     postUser.photo = img;
-    postUser.email = this.reactiveForm.value.email;
+    postUser.email = this.user?.email;
 
     this.restService.updateProfileUser(JSON.stringify(postUser)).subscribe(event=>{
       if(event.statusCode == 200){

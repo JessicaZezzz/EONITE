@@ -96,29 +96,31 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    let sendId:any, recId:any, sendType:any, recType:any;
-    if(this.userType == 'USER'){
-      sendId = this.chatRoomId?.userId;
-      recId = this.chatRoomId?.vendorId;
-      sendType = 'USER';
-      recType = 'VENDOR';
-    }else if(this.userType == 'VENDOR'){
-      sendId = this.chatRoomId?.vendorId;
-      recId = this.chatRoomId?.userId;
-      sendType = 'VENDOR';
-      recType = 'USER';
+    if(this.newmessage != undefined && this.newmessage.trim()){
+      let sendId:any, recId:any, sendType:any, recType:any;
+      if(this.userType == 'USER'){
+        sendId = this.chatRoomId?.userId;
+        recId = this.chatRoomId?.vendorId;
+        sendType = 'USER';
+        recType = 'VENDOR';
+      }else if(this.userType == 'VENDOR'){
+        sendId = this.chatRoomId?.vendorId;
+        recId = this.chatRoomId?.userId;
+        sendType = 'VENDOR';
+        recType = 'USER';
+      }
+      let obj: Message = {
+        chatId:this.chatRoomId?.chatId!,
+        senderId:sendId!,
+        recipientId:recId!,
+        senderType:sendType!,
+        recipientType:recType!,
+        content:this.newmessage!,
+        timestamp:new Date()
+      };
+      this.newmessage = '';
+      this.stompClient.send('/app/sendmsg', {}, JSON.stringify(obj));
     }
-    let obj: Message = {
-      chatId:this.chatRoomId?.chatId!,
-      senderId:sendId!,
-      recipientId:recId!,
-      senderType:sendType!,
-      recipientType:recType!,
-      content:this.newmessage!,
-      timestamp:new Date()
-    };
-    this.newmessage = '';
-    this.stompClient.send('/app/sendmsg', {}, JSON.stringify(obj));
   }
 
   deleteRoom(){

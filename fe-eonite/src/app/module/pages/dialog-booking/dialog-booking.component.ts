@@ -75,14 +75,17 @@ export class DialogBookingComponent implements OnInit {
     this.cartData.forEach(element => {
       carts.cartId.push(element.id);
     });
-    carts.description = this.desc;
+    if(this.desc == '')carts.description = '-';
+    else carts.description = this.desc;
 
     this.restService.addBooking(JSON.stringify(carts)).subscribe(event => {
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
           data: 'Berhasil melakukan pemesanan',
         });
-        this.dialogRef.close(true);
+        dialogRef.afterClosed().subscribe(result => {
+          this.dialogRef.close(true);
+        });
         this.loader=false;
       }else if(event.statusCode == 500){
       }

@@ -98,7 +98,7 @@
                       class="form-control"
                       [ngClass]="{'border-b-1 border-red-400': email.invalid && (email.dirty || email.touched)}"
                       placeholder="Masukkan Email contoh xxx@gmail.com"
-                      class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                      class="block w-full rounded-md border py-1.5 bg-gray-100 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
             </div>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
               <div *ngIf="email.errors?.['required']" class="text-xs text-red-400">
@@ -115,8 +115,8 @@
         </div>
       </form>
       <div class="flex flex-col sm:flex-row mt-3 justify-center">
-        <button (click)="onNoClick()" type="button" class="w-full justify-center rounded-md bg-red-600 px-5 py-2 text-md font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">BATAL</button>
-        <button (click)="onSubmit()" type="button" class="w-full justify-center rounded-md text-[#5C06E4] border-[2px] border-[#5C06E4] px-8 py-2 text-md font-semibold hover:text-white shadow-sm hover:bg-[#5C06E4] sm:ml-3 sm:w-auto">SIMPAN</button>
+        <button (click)="onNoClick()" type="button" class="w-full justify-center rounded-md bg-red-600 px-5 py-2 text-md font-medium text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">BATAL</button>
+        <button (click)="onSubmit()" type="button" class="w-full justify-center rounded-md px-8 py-2 text-md font-medium text-white shadow-sm hover:bg-indigo-500 bg-[#5C06E4] sm:ml-3 sm:w-auto">SIMPAN</button>
       </div>
     </div>
   </div>

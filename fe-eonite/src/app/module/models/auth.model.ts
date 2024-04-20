@@ -5,7 +5,7 @@ export interface MENU{
 
 export const MENU_PUBLIC:MENU[]=[
   {
-    name : 'Home',
+    name : 'Beranda',
     link : '/home'
   },
   {
@@ -24,7 +24,7 @@ export const MENU_PUBLIC:MENU[]=[
 
 export const MENU_VENDOR:MENU[]=[
   {
-    name : 'Dashboard',
+    name : 'Dasbor',
     link : '/home'
   },
   {
@@ -128,8 +128,10 @@ export class Vendor{
   endTime?        :string;
   email?          :string;
   password?       :string;
-  usernameVendor?   :string;
-  bankAccount?:string;
+  usernameVendor? :string;
+  bankAccount?    :string;
+  bankName?       :string;
+  bankType?       :string;
   categoryVendors?  :number[];
   description?      :string;
   inoperative_date?  :string[];
@@ -155,6 +157,7 @@ export interface Product{
   rating?       : number;
   photo        : Photo[];
   categoryid?   : number;
+  available?    : number;
 }
 
 export class Photo{
@@ -194,7 +197,9 @@ export interface refund{
   rejectedBy?     :string;
   alasanRejected? :string;
   timestamp?      :string;
-  bankAccountUser? :string
+  bankAccountUser? :string;
+  bankNameUser? :string;
+  bankTypeUser? :string
   state?          :string;
   totalFundUser?  :number;
   totalFundVendor?:number;

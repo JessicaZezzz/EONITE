@@ -11,13 +11,16 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class RefundUserComponent implements OnInit {
   listPayment:refund[]=[];
+  loader:boolean=false;
   constructor(private restService:RestApiServiceService,private sanitization:DomSanitizer) { }
 
   ngOnInit(): void {
+    this.loader=true;
     this.restService.getTransactionRefundUser(Number(sessionStorage.getItem("ID"))).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['fundTransactions'];
         this.listPayment = data;
+        this.loader=false;
       }
     })
   }

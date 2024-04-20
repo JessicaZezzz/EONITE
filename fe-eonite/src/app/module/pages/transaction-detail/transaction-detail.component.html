@@ -252,14 +252,17 @@
                       </div>
                     </div>
                     <div class="flex flex-row space-x-2 items-center my-2">
-                      <label for="name" class="block text-sm font-medium text-gray-900">Nomor rekening bank pengirim:</label>
+                      <label for="name" class="block text-[15px] font-semibold text-gray-900">Data Bukti Transfer</label>
                       <svg xmlns="http://www.w3.org/2000/svg" matTooltip="*Untuk kebutuhan pengembalian dana di masa depan jika diperlukan"  viewBox="0 0 30 30" width="18px" height="18px">   <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M16,21h-2v-7h2V21z M15,11.5 c-0.828,0-1.5-0.672-1.5-1.5s0.672-1.5,1.5-1.5s1.5,0.672,1.5,1.5S15.828,11.5,15,11.5z"/></svg>
+                    </div>
+                    <div class="flex flex-row space-x-2 items-center my-2">
+                      <label for="name" class="block text-sm font-medium text-gray-900">Nama rekening bank pengirim:</label>
                     </div>
                     <input type="text"
                           formControlName="name"
                           class="form-control"
                           minlength="1" maxlength="50"
-                          placeholder="XXXX-XXXX(Nama Bank)"
+                          placeholder="a.n Nama Pengirim"
                           [readonly]="list?.payment.state == 'WAITING-CONFIRMATION'"
                           [ngClass]="{'border-b-1 border-red-400': name.invalid && (name.dirty || name.touched) && name.errors?.['required']}"
                           class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
@@ -268,7 +271,42 @@
                         * Wajib diisi
                       </div>
                     </div>
+                    <div class="flex flex-row space-x-2 items-center my-2">
+                      <label for="nomor" class="block text-sm font-medium text-gray-900">Nomor rekening bank pengirim:</label>
+                    </div>
+                    <input type="text"
+                          formControlName="nomor"
+                          class="form-control"
+                          minlength="1" maxlength="50"
+                          placeholder="XXX-XXX-XXX"
+                          [readonly]="list?.payment.state == 'WAITING-CONFIRMATION'"
+                          [ngClass]="{'border-b-1 border-red-400': nomor.invalid && (nomor.dirty || nomor.touched) && nomor.errors?.['required']}"
+                          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div *ngIf="nomor.invalid && (nomor.dirty || nomor.touched)" class="invalid-feedback">
+                      <div *ngIf="nomor.errors?.['required']" class="text-xs text-red-400">
+                        * Wajib diisi
+                      </div>
+                    </div>
+                    <div class="flex flex-row space-x-2 items-center my-2">
+                      <label for="bank" class="block text-sm font-medium text-gray-900">Bank pengirim:</label>
+                    </div>
+                    <input type="text"
+                          formControlName="bank"
+                          class="form-control"
+                          minlength="1" maxlength="50"
+                          placeholder="Contoh: BCA, BRI, BNI, dll"
+                          [readonly]="list?.payment.state == 'WAITING-CONFIRMATION'"
+                          [ngClass]="{'border-b-1 border-red-400': bank.invalid && (bank.dirty || bank.touched) && bank.errors?.['required']}"
+                          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
+                    <div *ngIf="bank.invalid && (bank.dirty || bank.touched)" class="invalid-feedback">
+                      <div *ngIf="bank.errors?.['required']" class="text-xs text-red-400">
+                        * Wajib diisi
+                      </div>
+                    </div>
                   </div>
+                </div>
+                <div class="flex flex-row space-x-2 items-center justify-center my-2">
+                  <div class="text-sm font-medium text-red-600 text-center">Pastikan data bukti transfer sudah sesuai dengan foto bukti transfer!</div>
                 </div>
                 <div class="col-span-3 flex items-center justify-center space-x-2" >
                   <button *ngIf="list?.payment.state=='NONE'" (click)="submitState('CANCEL','WAITING-PAYMENT','Apakah Anda yakin ingin membatalkan transaksi ini?')" class="text-white bg-red-600 py-2 px-6 rounded-md hover:bg-red-500 font-medium text-md">

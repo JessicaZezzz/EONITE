@@ -11,6 +11,7 @@
         </div>
     </div>
     <div class="">
+      <div class="flex items-start text-lg leading-6 text-gray-900 md:mr-2 md:py-[8px] py-[5px] text-sm md:text-md">Pilih Tanggal Pemesanan</div>
       <mat-form-field>
         <mat-chip-list #chipList (click)="picker.open()">
           <mat-chip
@@ -27,7 +28,6 @@
             matInput
             [min]="minDate"
             [matDatepicker]="picker"
-            placeholder="Pilih Tanggal Pemesanan"
             (dateChange)="dateChanged($event)"
             [matChipInputFor]="chipList"
             hidden

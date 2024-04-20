@@ -21,6 +21,7 @@ export class ProfileVendorComponent implements OnInit {
   categoryName:string[]=[];
   domicile:string='-';
   urlImage:any;
+  loader:boolean=false;
   config: AngularEditorConfig = {
     editable: false,
     spellcheck: true,
@@ -39,12 +40,14 @@ export class ProfileVendorComponent implements OnInit {
   }
 
   getData(){
+    this.loader = true;
     this.restService.getprofileVendor(this.vendorId).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['vendor'];
         this.vendor = data[0];
         this.getCategory(this.vendor?.categoryVendors)
         this.getDomicile(this.vendor?.domicile_id!)
+        this.loader = false;
       }
     })
   }

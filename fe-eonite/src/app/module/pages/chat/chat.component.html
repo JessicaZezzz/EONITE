@@ -18,8 +18,8 @@
                     <img
                       src="{{'data:image/jpg;base64,' + i?.userPhoto}}"
                       class="object-cover h-10 sm:h-12 w-10 sm:w-12 rounded-full"/>
-                    <div *ngIf="i.notification >0 && i.recType == 'VENDOR'" class="rounded-full bg-[#5C06E4] w-[20px] sm:w-[25px] h-[20px] sm:h-[25px] bottom-[25px] left-[18px] sm:bottom-[35px] sm:left-[20px] ml-2 absolute flex items-center justify-center">
-                      <div class="text-white text-[10px] sm:text-xs font-semibold">{{ i.notification }}</div>
+                    <div *ngIf="i.notification >0 && i.recType == 'VENDOR'" class="rounded-full bg-[#5C06E4] w-[10px] sm:w-[15px] h-[10px] sm:h-[15px] bottom-[30px] left-[20px] sm:bottom-[35px] sm:left-[30px] ml-2 absolute flex items-center justify-center">
+                      <!-- <div class="text-white text-[10px] sm:text-xs font-semibold">{{ i.notification }}</div> -->
                     </div>
                   </div>
                   <div class="ml-3 flex flex-col hidden sm:block">
@@ -41,8 +41,8 @@
                     <img
                       src="{{'data:image/jpg;base64,' + i?.vendorPhoto}}"
                       class="object-cover h-10 sm:h-12 w-10 sm:w-12 rounded-full"/>
-                    <div *ngIf="i.notification >0 && i.recType == 'USER'" class="rounded-full bg-[#5C06E4] w-[20px] sm:w-[25px] h-[20px] sm:h-[25px] bottom-[25px] left-[18px] sm:bottom-[35px] sm:left-[20px] ml-2 absolute flex items-center justify-center">
-                      <div class="text-white text-[10px] sm:text-xs font-semibold">{{ i.notification }}</div>
+                    <div *ngIf="i.notification >0 && i.recType == 'USER'" class="rounded-full bg-[#5C06E4] w-[10px] sm:w-[15px] h-[10px] sm:h-[15px] bottom-[30px] left-[20px] sm:bottom-[35px] sm:left-[30px] ml-2 absolute flex items-center justify-center">
+                      <!-- <div class="text-white text-[10px] sm:text-xs font-semibold">{{ i.notification }}</div> -->
                     </div>
                   </div>
                   <div class="ml-3 flex flex-col hidden sm:block">
@@ -100,7 +100,7 @@
           </div>
           <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
             <div class="relative flex">
-                <input type="text" [(ngModel)]="newmessage" placeholder="Write your message!" class="w-full border-gray-200 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 bg-gray-100 rounded-md py-3">
+                <input type="text" [(ngModel)]="newmessage" placeholder="Ketikkan pesan anda disini!" class="w-full border-gray-200 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 bg-gray-100 rounded-md py-3">
                 <div class="absolute right-0 items-center inset-y-0 flex">
                   <!-- <button type="button" class="inline-flex hidden sm:block items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-gray-600">
