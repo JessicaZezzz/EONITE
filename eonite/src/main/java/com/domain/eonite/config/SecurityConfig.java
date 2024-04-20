@@ -34,7 +34,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(request -> request.requestMatchers("/auth/**","/public/**").permitAll()
                                                 .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                                                 .requestMatchers("/user/**").hasAnyAuthority("USER")
-                                                .requestMatchers("/vendor/**").hasAnyAuthority("VENDOR")
+                                                .requestMatchers("/vendor/**").hasAnyAuthority("USER","VENDOR")
                                                 .requestMatchers("/trans/**").hasAnyAuthority("USER","ADMIN","VENDOR")
                                                 .anyRequest().authenticated())
                                     .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

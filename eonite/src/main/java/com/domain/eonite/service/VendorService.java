@@ -30,6 +30,9 @@ public class VendorService {
     @Autowired
     private SubCategoryRepo subCategoryRepo;
 
+    @Autowired
+    private ProductRepo productRepo;
+
     public VendorRes getAllVendor(String sortBy, String sortDir, Boolean pagination, Integer pageSize, Integer pageIndex, String search, String categoryId,Integer domicileId,Integer rating){
         VendorRes resp = new VendorRes();
         Pageable paging;
@@ -114,6 +117,14 @@ public class VendorService {
                     categoryVendor.setSubcategory(sub);
                     categoryVendor.setVendor(vendorResult);
                     categoryVendorRepository.save(categoryVendor);
+                }
+
+                List<Product> products = productRepo.findAllByVendorId(request.getId());
+                for(Product p : products){
+                    categoryVendorRepository.findBySubcategoryIdAndVendorId(p.getCategoryid(),request.getId()).ifPresentOrElse((e)->{}, ()->{
+                        p.setCategoryid(null);
+                        productRepo.save(p);
+                    });
                 }
 
                 try{
