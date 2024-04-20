@@ -156,11 +156,11 @@
               </div>
             </div>
             <div class="col-span-full">
-              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Kata Sandi</label>
               <div class="mt-1 relative">
                 <input  #passwords
                         type="password"
-                        placeholder="Masukkan Password"
+                        placeholder="Masukkan Kata Sandi"
                         formControlName="password"
                         class="form-control"
                         [ngClass]="{'border-b-1 border-red-400': password.invalid && (password.dirty || password.touched)}"
@@ -198,14 +198,14 @@
               </div>
             </div>
             <div class="col-span-full">
-              <label for="confpassword" class="block text-sm font-medium leading-6 text-gray-900">Konfirmasi Password</label>
+              <label for="confpassword" class="block text-sm font-medium leading-6 text-gray-900">Konfirmasi Kata Sandi</label>
               <div class="mt-1 relative">
                 <input #confpassword1
                         type="password"
                         formControlName="confirmPassword"
                         class="form-control"
                         [ngClass]="{'border-b-1 border-red-400': confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)}"
-                        placeholder="Masukkan Konfirmasi Password"
+                        placeholder="Masukkan Konfirmasi Kata Sandi"
                         class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 placeholder:text-[12px] border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
                 <mat-icon class="absolute inset-y-0 top-2.5 end-3 flex"
                   style="cursor: pointer"
@@ -232,7 +232,7 @@
                   * Wajib diisi
                 </div>
                 <div *ngIf="confirmPassword.errors?.['passwordMismatch']" class="text-xs text-red-400">
-                  * Password tidak cocok
+                  * Kata sandi tidak cocok
                 </div>
               </div>
             </div>

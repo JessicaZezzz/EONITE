@@ -4,7 +4,7 @@
       Transaksi
     </div>
     <p class="text-sm text-gray-500">
-      Invoice {{ data.transaction?.invoice }}
+      Faktur {{ data.transaction?.invoice }}
     </p>
   </div>
   <div class="mt-5 sm:mt-10 grid grid-cols-3 sm:grid-cols-4 gap-5" *ngIf="data.rejectedBy != undefined">
@@ -37,8 +37,20 @@
     <ul class="mt-3 flex flex-col">
       <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg ">
         <div class="flex items-center justify-between w-full">
+          <span>Nama Rekening Bank User</span>
+          <span>{{ data.transaction?.payment?.bankName }}</span>
+        </div>
+      </li>
+      <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg ">
+        <div class="flex items-center justify-between w-full">
           <span>Nomor Rekening Bank User</span>
           <span>{{ data.transaction?.payment?.bankAccount }}</span>
+        </div>
+      </li>
+      <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg ">
+        <div class="flex items-center justify-between w-full">
+          <span>Bank User</span>
+          <span>{{ data.transaction?.payment?.bankType }}</span>
         </div>
       </li>
       <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-semibold bg-gray-50 border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg">
@@ -49,8 +61,20 @@
       </li>
       <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg ">
         <div class="flex items-center justify-between w-full">
+          <span>Nama Rekening Bank Vendor</span>
+          <span>{{ data.transaction?.vendor?.bankName }}</span>
+        </div>
+      </li>
+      <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg ">
+        <div class="flex items-center justify-between w-full">
           <span>Nomor Rekening Bank Vendor</span>
           <span>{{ data.transaction?.vendor?.bankAccount }}</span>
+        </div>
+      </li>
+      <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg ">
+        <div class="flex items-center justify-between w-full">
+          <span>Bank Vendor</span>
+          <span>{{ data.transaction?.vendor?.bankType }}</span>
         </div>
       </li>
       <li class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-semibold bg-gray-50 border text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg">

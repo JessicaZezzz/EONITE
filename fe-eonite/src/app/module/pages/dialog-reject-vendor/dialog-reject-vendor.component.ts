@@ -43,6 +43,11 @@ export class DialogRejectVendorComponent implements OnInit {
       }
     })
   }
+
+  checkalasan(){
+    if(this.alasanReject == '' || !this.alasanReject.trim())return true;
+    else return false;
+  }
 }
 
 export interface vendorState{

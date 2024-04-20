@@ -154,11 +154,17 @@ export class EditProfileVendorComponent implements OnInit {
       startTime: new FormControl(this.vendor?.startTime, []),
       endTime: new FormControl(this.vendor?.endTime, []),
       address: new FormControl(this.vendor?.address, []),
-      email: new FormControl(this.vendor?.email, [
+      email: new FormControl({value:this.vendor?.email,disabled:true}, [
         Validators.required,
         emailValidator(),
       ]),
       bankAccount:new FormControl(this.vendor?.bankAccount, [
+        Validators.required,
+      ]),
+      bankName:new FormControl(this.vendor?.bankName, [
+        Validators.required,
+      ]),
+      bankType:new FormControl(this.vendor?.bankType, [
         Validators.required,
       ]),
     },{
@@ -229,6 +235,14 @@ export class EditProfileVendorComponent implements OnInit {
 
   get bankAccount() {
     return this.Form1.get('bankAccount')!;
+  }
+
+  get bankName() {
+    return this.Form1.get('bankName')!;
+  }
+
+  get bankType() {
+    return this.Form1.get('bankType')!;
   }
 
   get usernameVendor() {
@@ -312,9 +326,11 @@ export class EditProfileVendorComponent implements OnInit {
     postVendor.instagram_url = this.Form1.value.instagram;
     let img = this.urlImage!.split(',')[1];
     postVendor.photo = img;
-    postVendor.email = this.Form1.value.email;
+    postVendor.email = this.vendor?.email;
     postVendor.description = this.description;
     postVendor.bankAccount = this.Form1.value.bankAccount;
+    postVendor.bankName = this.Form1.value.bankName;
+    postVendor.bankType = this.Form1.value.bankType;
 
     this.restService.updateProfileVendor(JSON.stringify(postVendor)).subscribe(event=>{
       if(event.statusCode == 200){

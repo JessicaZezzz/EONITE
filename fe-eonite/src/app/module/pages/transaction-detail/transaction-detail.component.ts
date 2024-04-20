@@ -23,6 +23,8 @@ export class TransactionDetailComponent implements OnInit {
   error:string='';
   list?: Transaction;
   bankAccount?: string;
+  bankName?:string;
+  bankType?:string;
   loader:boolean=false;
   rejectedBY?:string;
   alasanreject?:string;
@@ -32,7 +34,13 @@ export class TransactionDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.Form = new FormGroup({
-      name: new FormControl(this.bankAccount, [
+      name: new FormControl(this.bankName, [
+        Validators.required,
+      ]),
+      nomor: new FormControl(this.bankAccount, [
+        Validators.required,
+      ]),
+      bank: new FormControl(this.bankType, [
         Validators.required,
       ]),
       payment: new FormControl(this.payments, [
@@ -56,7 +64,9 @@ export class TransactionDetailComponent implements OnInit {
         if(this.list?.payment.state != 'NONE'){
           this.urlImage = 'data:image/jpg;base64,'+this.list?.payment.image;
           this.Form.get('payment')!.setValue(this.urlImage);
-          this.Form.get('name')!.setValue(this.list?.payment.bankAccount);
+          this.Form.get('name')!.setValue(this.list?.payment.bankName);
+          this.Form.get('nomor')!.setValue(this.list?.payment.bankAccount);
+          this.Form.get('bank')!.setValue(this.list?.payment.bankType);
         }
       }
     })
@@ -64,6 +74,14 @@ export class TransactionDetailComponent implements OnInit {
 
   get name() {
     return this.Form.get('name')!;
+  }
+
+  get nomor() {
+    return this.Form.get('nomor')!;
+  }
+
+  get bank() {
+    return this.Form.get('bank')!;
   }
 
   get payment() {
@@ -147,7 +165,9 @@ export class TransactionDetailComponent implements OnInit {
     this.loader = true;
     let postTrans :uploadPayment={};
     postTrans.transId = this.list?.id;
-    postTrans.bankAccount = this.Form.value.name;
+    postTrans.bankAccount = this.Form.value.nomor;
+    postTrans.bankName = this.Form.value.name;
+    postTrans.bankType = this.Form.value.bank;
     let img = this.urlImage!.split(',')[1];
     postTrans.image = img;
     this.restService.updatePayment(JSON.stringify(postTrans)).subscribe(event => {
@@ -199,6 +219,8 @@ export interface postTransaction{
 export interface uploadPayment{
   transId?:number;
   bankAccount?:string;
+  bankName?:string;
+  bankType?:string;
   image?:any;
 }
 

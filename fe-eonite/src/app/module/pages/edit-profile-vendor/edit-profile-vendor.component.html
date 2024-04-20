@@ -140,7 +140,7 @@
                             placeholder="Masukkan Email contoh xxx@gmail.com"
                             minlength="1" maxlength="250"
                             [ngClass]="{'border-b-1 border-red-400': email.invalid && (email.dirty || email.touched) && usernameVendor.errors?.['required']}"
-                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm  placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                            class="block w-full rounded-md border bg-gray-100 py-1.5 text-gray-900 shadow-sm  placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
                   </div>
                   <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
                     <div *ngIf="email.errors?.['required']" class="text-xs text-red-400">
@@ -232,7 +232,24 @@
                 </div>
 
                 <div class="sm:col-span-3">
-                  <label for="phone-company" class="block text-sm font-medium leading-6 text-gray-900">Nomor Rekening Bank</label>
+                  <label for="bankName" class="block text-sm font-medium leading-6 text-gray-900">Nama Rekening Bank</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                            formControlName="bankName"
+                            class="form-control"
+                            [ngClass]="{'border-b-1 border-red-400': bankName.invalid && (bankName.dirty || bankName.touched)}"
+                            placeholder="Masukkan Nama Rekening Bank"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="bankName.invalid && (bankName.dirty || bankName.touched)" class="invalid-feedback">
+                    <div *ngIf="bankName.errors?.['required']" class="text-xs text-red-400">
+                     * Wajib diisi
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="bankAccount" class="block text-sm font-medium leading-6 text-gray-900">Nomor Rekening Bank</label>
                   <div class="mt-1">
                     <input  type="text"
                             formControlName="bankAccount"
@@ -243,6 +260,23 @@
                   </div>
                   <div *ngIf="bankAccount.invalid && (bankAccount.dirty || bankAccount.touched)" class="invalid-feedback">
                     <div *ngIf="bankAccount.errors?.['required']" class="text-xs text-red-400">
+                     * Wajib diisi
+                    </div>
+                  </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label for="bankType" class="block text-sm font-medium leading-6 text-gray-900">Rekening Bank</label>
+                  <div class="mt-1">
+                    <input  type="text"
+                            formControlName="bankType"
+                            class="form-control"
+                            [ngClass]="{'border-b-1 border-red-400': bankType.invalid && (bankType.dirty || bankType.touched)}"
+                            placeholder="Masukkan Rekening Bank"
+                            class="block w-full rounded-md border py-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 sm:text-sm sm:leading-6">
+                  </div>
+                  <div *ngIf="bankType.invalid && (bankAccount.dirty || bankType.touched)" class="invalid-feedback">
+                    <div *ngIf="bankType.errors?.['required']" class="text-xs text-red-400">
                      * Wajib diisi
                     </div>
                   </div>
@@ -262,7 +296,7 @@
           </div>
           <div class="md:flex mb-4 border-b-2 border-[#5C06E4] pb-3">
             <div class="md:w-1/3">
-              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Social Media</legend>
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Media Sosial</legend>
             </div>
             <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
               <div class="sm:col-span-full flex">
@@ -285,7 +319,7 @@
         </form>
           <div class="md:flex mb-6">
             <div class="md:w-1/3">
-              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Description</legend>
+              <legend class="uppercase tracking-wide text-md font-semibold text-[#5C06E4]">Deskripsi</legend>
             </div>
             <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 w-full">
               <div class="sm:col-span-full">
@@ -304,7 +338,7 @@
           </div>
           <div class="flex flex-row justify-center space-x-3">
             <button (click)="redirect()" type="button" class="inline-flex w-full justify-center rounded-md bg-red-600 px-5 py-2 md:py-3 text-md font-medium text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">BATAL</button>
-            <button (click)="updateVendor()" type="button" class="inline-flex w-full justify-center rounded-md text-white bg-[#5C06E4] px-8 py-2 md:py-3 text-md font-medium hover:text-white shadow-sm hover:bg-[#5C06E4] sm:ml-3 sm:w-auto">SIMPAN</button>
+            <button (click)="updateVendor()" type="button" class="inline-flex w-full justify-center rounded-md text-white bg-[#5C06E4] hover:bg-indigo-500 px-8 py-2 md:py-3 text-md font-medium hover:text-white shadow-sm hover:bg-[#5C06E4] sm:ml-3 sm:w-auto">SIMPAN</button>
           </div>
       </div>
     </div>

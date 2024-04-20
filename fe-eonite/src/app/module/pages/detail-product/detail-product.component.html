@@ -75,11 +75,12 @@
               <p class="text-gray-500 font-semibold">Deskripsi :</p>
               <p class="text-gray-500">{{ product!.description }}</p>
               <div class="flex py-1 space-x-4">
-                <button (click)="addtoCart()"
-                        type="button"  class="py-3 px-4 font-medium rounded-md bg-[#5C06E4] hover:bg-indigo-500 text-white">
+                <button (click)="addtoCart()" [disabled]="product!.available == 0"
+                        type="button"  class="py-3 px-4 font-medium rounded-md bg-[#5C06E4] disabled:bg-gray-300 hover:bg-indigo-500 text-white">
                   Tambah ke Keranjang
                 </button>
               </div>
+              <div *ngIf="product!.available == 0" class="text-[#5C06E4]">Saat ini produk tidak tersedia</div>
             </div>
           </div>
         </div>

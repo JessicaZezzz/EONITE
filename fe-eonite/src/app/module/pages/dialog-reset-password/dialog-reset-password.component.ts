@@ -47,7 +47,7 @@ export class DialogResetPasswordComponent implements OnInit {
     this.restService.resetPassword(JSON.stringify(form)).subscribe(event=>{
       if(event.statusCode == 200){
         const dialogRef = this.dialog.open(DialogSuccessComponent, {
-          data: 'Berhasil mereset password',
+          data: 'Berhasil mengatur ulang kata sandi. Silahkan masuk menggunakan kata sandi yang telah dikirimkan ke email anda',
         });
         this.dialogRef.close();
       }else if(event.statusCode == 500){

@@ -21,6 +21,7 @@ export class ProfileUserComponent implements OnInit {
   openDialogErrorDiv: boolean = false;
   openDialogSuccessDiv: boolean = false;
   urlImage?:any;
+  loader:boolean = false;
 
   constructor(private restService: RestApiServiceService, private router: Router,public dialog: MatDialog,private datePipe:DatePipe) {
     this.user = {} as User;
@@ -31,11 +32,13 @@ export class ProfileUserComponent implements OnInit {
   }
 
   getDataProfile(){
+    this.loader = true;
     this.restService.getprofileUser(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['users'];
         this.user = data[0];
         this.urlImage = 'data:image/jpeg;base64,'+this.user?.photo;
+        this.loader = false;
       }
     })
   }

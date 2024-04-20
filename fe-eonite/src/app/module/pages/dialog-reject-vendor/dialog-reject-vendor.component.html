@@ -10,7 +10,7 @@
       <button (click)="onNoClick()" data-modal-toggle="deleteModal" type="button" class="rounded-md px-7 md:px-5 py-2 text-white bg-[#5C06E4] hover:bg-indigo-500">
           Tidak, batal
       </button>
-      <button [disabled]="alasanReject == ''" (click)="submit()" class="md:ml-3 rounded-md px-5 py-2 text-white bg-red-600 hover:bg-red-500 disabled:bg-gray-300">
+      <button [disabled]="checkalasan()" (click)="submit()" class="md:ml-3 rounded-md px-5 py-2 text-white bg-red-600 hover:bg-red-500 disabled:bg-gray-300">
           Ya, Saya yakin
       </button>
   </div>

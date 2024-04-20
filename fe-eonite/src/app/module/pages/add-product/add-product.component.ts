@@ -33,6 +33,7 @@ export class AddProductComponent implements OnInit {
   base64ImgArray:string[] = [];
   Form1!: FormGroup;
   category : category[] = [];
+  available:boolean = false;
 
   constructor(public dialogRef: MatDialogRef<AddProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,private restService:RestApiServiceService,public dialog: MatDialog) { }
@@ -172,6 +173,8 @@ export class AddProductComponent implements OnInit {
       postProduct.capacity = this.Form1.value.capacity;
       postProduct.categoryid = this.Form1.value.categoryid;
       postProduct.description = this.Form1.value.description;
+      if(this.available) postProduct.available = 1;
+      else postProduct.available = 0;
     let photo:string[]=[];
       this.base64ImgArray.forEach(e=>{
         let img = e.split(',')[1];
