@@ -52,6 +52,8 @@ public class Vendor implements UserDetails {
     private Time endTime;
     private String flag;
     private String bankAccount;
+    private String bankName;
+    private String bankType;
     private String email;
     private String password;
     private String status_reject;

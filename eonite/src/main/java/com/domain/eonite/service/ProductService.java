@@ -86,6 +86,7 @@ public class ProductService {
             product.setCapacity(request.getCapacity());
             product.setRating((float) 0);
             product.setVendor(Vendor);
+            product.setAvailable(request.getAvailable());
             Product result = ProductRepo.save(product);
             List<Product> products = new ArrayList<Product>();
             products.add(product);
@@ -120,6 +121,7 @@ public class ProductService {
             product.setCategoryid(request.getCategoryid());
             product.setDescription(request.getDescription());
             product.setCapacity(request.getCapacity());
+            product.setAvailable(request.getAvailable());
             Product result = ProductRepo.save(product);  
             for(Photo p: PhotoRepo.findByProductId(request.getId())){
                 PhotoRepo.delete(p);

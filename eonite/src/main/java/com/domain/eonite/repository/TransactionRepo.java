@@ -31,4 +31,10 @@ public interface TransactionRepo extends JpaRepository<Transaction,Integer> {
     @Query(value="SELECT * FROM transaction t WHERE t.vendor_id=:id ORDER BY t.transdate DESC",nativeQuery=true)
     List<Transaction> findByVendorIdAndOrderByTransdateAsc(Integer id);
 
+    @Query(value="SELECT * FROM transaction t WHERE t.user_id=:id and t.state=:state ORDER BY t.transdate DESC",nativeQuery=true)
+    List<Transaction> findByUserAndState(Integer id, String state);
+
+    @Query(value="SELECT * FROM transaction t WHERE t.vendor_id=:id and t.state=:state ORDER BY t.transdate DESC",nativeQuery=true)
+    List<Transaction> findByVendorAndState(Integer id, String state);
+
 }

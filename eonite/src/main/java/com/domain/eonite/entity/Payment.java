@@ -21,6 +21,8 @@ public class Payment {
     private String state;
     private String description;
     private String bankAccount;
+    private String bankName;
+    private String bankType;
     
     @JsonIgnore
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
