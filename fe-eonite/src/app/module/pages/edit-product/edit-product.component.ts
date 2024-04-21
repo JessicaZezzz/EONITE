@@ -32,11 +32,12 @@ export class EditProductComponent implements OnInit {
   Form1!: FormGroup;
   category : category[] = [];
   available:boolean = false;
-
+  loader:boolean=false;
   constructor(public dialogRef: MatDialogRef<EditProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number,private restService:RestApiServiceService,public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.loader=true;
     this.restService.getprofileVendor(Number(sessionStorage.getItem('ID'))).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['vendor'];
@@ -59,6 +60,7 @@ export class EditProductComponent implements OnInit {
       this.product.photo.forEach(e=>{
         this.base64ImgArray.push('data:image/jpeg;base64,'+e.image)
       })
+      this.loader=false;
     })
 
     this.Form1 = new FormGroup({

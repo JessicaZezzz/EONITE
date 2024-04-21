@@ -21,6 +21,7 @@ export class ProductComponent implements OnInit {
   deleteItem:boolean=false;
   deleteItemId?:number;
   rekening?:string;
+  loader:boolean=false;
 
   constructor(private restService:RestApiServiceService,public dialog: MatDialog) {
     this.vendorId = Number(sessionStorage.getItem('ID')!);
@@ -38,10 +39,12 @@ export class ProductComponent implements OnInit {
   }
 
   getData(){
+    this.loader=true;
     this.restService.getProductbyVendorId(this.vendorId).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['products'];
         this.listProduct = data;
+        this.loader=false;
       }
     })
   }

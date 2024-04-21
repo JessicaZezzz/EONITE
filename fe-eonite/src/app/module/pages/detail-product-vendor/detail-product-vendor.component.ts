@@ -13,6 +13,7 @@ import { review } from '../detail-product/detail-product.component';
 export class DetailProductVendorComponent implements OnInit {
   zoomImage:boolean = false;
   scale:string ='50%';
+  loader:boolean = false;
   review : review[]=[
     {
       rating:'5.0',
@@ -49,6 +50,7 @@ export class DetailProductVendorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: number,private restService:RestApiServiceService) { }
 
   ngOnInit(): void {
+    this.loader=true;
     this.restService.getDetailProductById(this.data).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['products'];
@@ -59,11 +61,15 @@ export class DetailProductVendorComponent implements OnInit {
       })
       if(this.image.length > 0) this.cover=this.image[0];
     })
+  }
+
+  getReview(){
     this.restService.getReview(this.data).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['productReview'];
         this.productReview = data;
         if(this.productReview.length>0) this.calcRating();
+        this.loader=false;
       }
     })
   }

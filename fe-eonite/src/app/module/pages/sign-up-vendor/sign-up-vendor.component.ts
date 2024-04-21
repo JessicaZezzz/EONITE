@@ -212,12 +212,12 @@ export class SignUpVendorComponent {
       email:postVendor.email!,
       option:'signup'
     };
-    // const dialogRef = this.dialog.open(GenerateOtpComponent, {
-    //   data:generateOTP
-    // });
+    const dialogRef = this.dialog.open(GenerateOtpComponent, {
+      data:generateOTP
+    });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if(result){
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
         this.restService.postsignInVendor(JSON.stringify(postVendor)).subscribe(event=>{
           if(event.statusCode == 200){
             this.openDialogSuccessDiv = true;
@@ -225,8 +225,8 @@ export class SignUpVendorComponent {
             this.openDialogErrorDiv = true;
           }
         })
-    //   }else{};
-    // });
+      }else{};
+    });
   }
 
   get firstName() {

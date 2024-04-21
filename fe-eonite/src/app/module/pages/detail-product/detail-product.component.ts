@@ -17,6 +17,7 @@ export class DetailProductComponent implements OnInit {
   zoomImage:boolean = false;
   vendorId?:number;
   vendorName?:string;
+  loader:boolean=false;
   scale:string ='50%';
   review : review[]=[
     {
@@ -56,6 +57,7 @@ export class DetailProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loader=true;
     this.restService.getDetailProductById(this.router.snapshot.params['id']).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['products'];
@@ -68,12 +70,17 @@ export class DetailProductComponent implements OnInit {
         this.image.push('data:image/jpeg;base64,'+e.image)
       })
       if(this.image.length > 0) this.cover=this.image[0];
+      this.getReview();
     })
+  }
+
+  getReview(){
     this.restService.getReview(this.router.snapshot.params['id']).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['productReview'];
         this.productReview = data;
         if(this.productReview.length>0) this.calcRating();
+        this.loader=false;
       }
     })
   }

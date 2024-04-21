@@ -66,7 +66,7 @@ export class EditProfileUserComponent implements OnInit {
         emailValidator(),
       ])
     },{
-      validators: this.emailcheckValidator()
+      // validators: this.emailcheckValidator()
     });
   }
 

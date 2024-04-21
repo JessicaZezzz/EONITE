@@ -14,6 +14,7 @@ import { DatePipe, Location } from '@angular/common';
 export class DetailVendorComponent implements OnInit {
   tabActive: boolean = true;
   show:boolean = false;
+  loader:boolean = false;
   categoryName:string[]=[];
   listProduct:Product[] = [];
   vendor?:Vendor;
@@ -35,6 +36,7 @@ export class DetailVendorComponent implements OnInit {
   constructor(private restService:RestApiServiceService, private router:ActivatedRoute,private routes:Router,private datePipe:DatePipe) { }
 
   ngOnInit(): void {
+    this.loader=true;
     this.restService.getprofileVendor(this.router.snapshot.params['id']).subscribe((event)=>{
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['vendor'];
@@ -56,6 +58,7 @@ export class DetailVendorComponent implements OnInit {
         let data = Object(event.body)['products'];
         this.listProduct = data;
         this.page.length = Object(event.body)['length'];
+        this.loader=false;
       }
     })
   }
