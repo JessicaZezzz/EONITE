@@ -21,4 +21,6 @@ public class PaymentRes {
     private String description;
     private Integer transId;
     private String bankAccount;
+    private String bankName;
+    private String bankType;
 }

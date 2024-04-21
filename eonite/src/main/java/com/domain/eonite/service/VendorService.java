@@ -101,6 +101,8 @@ public class VendorService {
             Vendor.setInstagram_url(request.getInstagram_url());
             Vendor.setEmail(request.getEmail());
             Vendor.setBankAccount(request.getBankAccount());
+            Vendor.setBankName(request.getBankName());
+            Vendor.setBankType(request.getBankType());
                 Vendor vendorResult = vendorRepository.save(Vendor);
                 List<Vendor> VendorList = new ArrayList<Vendor>();
                 VendorList.add(Vendor);

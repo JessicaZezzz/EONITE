@@ -20,6 +20,7 @@ public class Product {
     private Float rating;
     private Integer max;
     private Integer categoryid;
+    private Integer available;
 
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})

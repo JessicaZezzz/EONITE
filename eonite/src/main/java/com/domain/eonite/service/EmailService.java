@@ -75,8 +75,8 @@ public class EmailService {
         
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(msg, true);
-	        helper.setTo(generateOTPRequest.getEmail());
-	        helper.setSubject("Verify Your Account [EONITE]");
+            helper.setTo(generateOTPRequest.getEmail());
+            helper.setSubject("Verifikasi Akun Anda [EONITE]");
             Context context = new Context();
             context.setVariable("otp", ConfirmToken);
             String htmlContent = templateEngine.process("generateotp", context);
@@ -123,7 +123,7 @@ public class EmailService {
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 	        helper.setTo(generateOTPRequest.getEmail());
-	        helper.setSubject("Verify Your Account [EONITE]");
+	        helper.setSubject("Verifikasi Akun Anda [EONITE]");
             Context context = new Context();
             context.setVariable("otp", ConfirmToken);
             String htmlContent = templateEngine.process("generateotplogin", context);
@@ -152,15 +152,15 @@ public class EmailService {
                     token.setMessage("OTP Matched");
                 }else{
                     token.setStatusCode(500);
-                    token.setError("Wrong OTP!");
+                    token.setError("OTP Salah! Silahkan coba lagi");
                 }
             }else{
                 token.setStatusCode(500);
-                token.setError("OTP has expired");
+                token.setError("OTP telah kadaluwarsa");
             }
         },()->{
             token.setStatusCode(500);
-            token.setError("User Not Found");
+            token.setError("User tidak ditemukan");
         });
         return token; 
     }
@@ -184,13 +184,13 @@ public class EmailService {
                 try {
                     sendEmailReset(generateOTPRequest.getEmail(), newPassword);
                     token.setStatusCode(200);
-                    token.setMessage("Success send reset Password to Email");
+                    token.setMessage("Berhasil mengirim kata sandi sementara ke email");
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
             },()->{
                 token.setStatusCode(500);
-                token.setError("Email not found. Failed to reset password");
+                token.setError("Email tidak ditemukan. Gagal mengatur ulang kata sandi");
             });
         }else if(generateOTPRequest.getUserType().equals("VENDOR")){
             String newPassword = generateRandomPassword();
@@ -201,13 +201,13 @@ public class EmailService {
                 try {
                     sendEmailReset(generateOTPRequest.getEmail(), newPassword);
                     token.setStatusCode(200);
-                    token.setMessage("Success send reset Password to Email");
+                    token.setMessage("Berhasil mengirim kata sandi sementara ke email");
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
             },()->{
                 token.setStatusCode(500);
-                token.setError("Email not found. Failed to reset password");
+                token.setError("Email tidak ditemukan. Gagal mengatur ulang kata sandi");
             });
         }
         return token; 
@@ -217,7 +217,7 @@ public class EmailService {
         MimeMessage msg = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(msg, true);
 	        helper.setTo(email);
-	        helper.setSubject("Reset Your Account Password [EONITE]");
+	        helper.setSubject("Atur Ulang Kata Sandi Akun Anda [EONITE]");
             Context context = new Context();
             context.setVariable("email", email);
             context.setVariable("password", password);

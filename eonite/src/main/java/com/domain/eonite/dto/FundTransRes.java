@@ -15,6 +15,8 @@ public class FundTransRes {
     private String alasanRejected;
     private Date timestamp;
     private String bankAccountUser;
+    private String bankNameUser;
+    private String bankTypeUser;
     private String state;
     private Double totalFundUser;
     private Double totalFundVendor;

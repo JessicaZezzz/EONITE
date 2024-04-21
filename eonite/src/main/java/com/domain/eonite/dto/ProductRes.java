@@ -25,6 +25,7 @@ public class ProductRes {
     private String description;
     private Integer capacity;
     private Integer categoryid;
+    private Integer available;
     private Float rating;
     private List<byte[]> photo;
     private List<Product> products;

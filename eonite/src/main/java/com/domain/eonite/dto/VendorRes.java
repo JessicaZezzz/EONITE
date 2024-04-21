@@ -42,6 +42,8 @@ public class VendorRes {
     private Time endTime;
     private String email;
     private String bankAccount;
+    private String bankName;
+    private String bankType;
     private String password;
     private String status_reject;
     private Long length;
