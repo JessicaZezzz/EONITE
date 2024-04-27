@@ -40,7 +40,7 @@ export class DialogChangePasswordComponent implements OnInit {
         Validators.required
       ]),
     },{
-      validators: [passwordConfirmationValidator('newpasswords', 'confirmPassword'),this.passwordValidator()]
+      validators: [passwordConfirmationValidator('newpasswords', 'confirmPassword'),this.passwordValidator(),this.matchNewPassword()]
     });
   }
 
@@ -74,6 +74,18 @@ export class DialogChangePasswordComponent implements OnInit {
             if (e.statusCode == 500) oldpassword?.setErrors({ passwordMatch: true });
               return null;
           });
+        }
+      }
+      return null;
+    };
+  }
+
+  matchNewPassword(): ValidatorFn{
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const newpassword = formGroup.get('newpasswords');
+      if(newpassword?.value!=''){
+        if(this.Form1.get('oldpasswords')?.value == newpassword!.value){
+          newpassword?.setErrors({ passwordSame: true });
         }
       }
       return null;

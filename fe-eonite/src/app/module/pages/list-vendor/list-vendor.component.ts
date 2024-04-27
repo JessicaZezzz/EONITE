@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Domicile, page, Vendor } from '../../models/auth.model';
 import { RestApiServiceService } from '../../services/rest-api-service.service';
 import { Router } from '@angular/router';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-list-vendor',
@@ -15,9 +16,14 @@ export class ListVendorComponent implements OnInit {
   @Output() pages = new EventEmitter<page>();
   domicile : Domicile[] = [];
 
-  constructor(private restService: RestApiServiceService,private router: Router) { }
+  constructor(private restService: RestApiServiceService,private router: Router,public _MatPaginatorIntl: MatPaginatorIntl) { }
 
   ngOnInit(): void {
+    this._MatPaginatorIntl.itemsPerPageLabel = 'Total item per halaman : ';
+    this._MatPaginatorIntl.firstPageLabel = 'Halaman pertama';
+    this._MatPaginatorIntl.lastPageLabel = 'Halaman terakhir';
+    this._MatPaginatorIntl.nextPageLabel = 'Halaman selanjutnya';
+    this._MatPaginatorIntl.previousPageLabel = 'Halaman sebelumnya';
     this.restService.getDomicile().subscribe((data) => {
       this.domicile = data;
     });

@@ -36,7 +36,7 @@
 						{{ getDate(i.transdate!) }}
 					</td>
 					<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 text-end">
-						{{ i.total! | currency }}
+						{{ i.total!+2500 | currency }}
 					</td>
 					<td class="px-6 py-4 text-sm text-gray-800 text-center">
 						{{ i.state }}
@@ -87,7 +87,7 @@
 						{{ getDate(i.transaction?.transdate!) }}
 					</td>
 					<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 text-end">
-						{{ i.transaction?.total! | currency }}
+						{{ i.transaction?.total!+2500 | currency }}
 					</td>
 					<td class="px-6 py-4 text-sm text-gray-800 text-center">
 						{{ i.transaction?.state }}

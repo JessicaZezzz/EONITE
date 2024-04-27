@@ -31,6 +31,7 @@ export class DialogBookingComponent implements OnInit {
       let price = element.productPrice * element.quantity;
       this.grandTotal += price;
     });
+    this.grandTotal += 2500;
     this.getDataVendor();
   }
 

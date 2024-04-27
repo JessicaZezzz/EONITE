@@ -126,7 +126,28 @@ export class CartComponent implements OnInit {
     })
 
     if(flag == 1){
-      this.error=''; return false;
+      let flgs = 0;
+      this.userSelectionMap.forEach(e=>{
+        e.selected.forEach(x=>{
+          let dt = x.bookdate.split(',');
+            for(let i of dt){
+              var year = i.substring(6, 10);
+              var month = i.substring(3, 5);
+              var day = i.substring(0, 2);
+              let tmp = new Date(parseInt(year),parseInt(month)-1,parseInt(day));
+              let dates = new Date();
+              dates.setHours(0,0,0,0);
+              if(tmp < dates) flgs++;
+            }
+        })
+      })
+      if(flgs>0){
+        this.error='Tanggal pemesanan harus lebih besar atau sama dengan tanggal hari ini';
+        return true;
+      }else{
+        this.error='';
+        return false;
+      }
     }else if(flag > 1){
       this.error='Anda hanya dapat melakukan checkout produk dari vendor yang sama';
       return true;

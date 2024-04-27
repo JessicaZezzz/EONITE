@@ -30,7 +30,7 @@
                 </div>
               </div>
               <div class="text-right text-sm leading-7 mt-7">
-                <div class="font-semibold">Total ：{{i.transaction!.total! | currency}}</div>
+                <div class="font-semibold">Total ：{{i.transaction!.total!+2500 | currency}}</div>
                 <a [routerLink]="'/transaction-details/'+i.transaction?.id" class="font-bold text-[#5C06E4]">Lihat Detail Transaksi</a>
               </div>
             </div>

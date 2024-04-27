@@ -87,7 +87,7 @@ export class DialogCartComponent implements OnInit {
     this.errorQty = '';
     if(this.model.length == 0) this.errorDate ='*Silakan pilih tanggal pemesanan!';
     if(this.model.length > this.data.max!) this.errorDate ='*Pilihan tanggal pemesanan tidak boleh lebih dari '+this.data.max;
-    if(this.qty <=0) this.errorQty = '*Jumlah tidak boleh kurang dari 0!';
+    if(this.qty <=0) this.errorQty = '*Jumlah tidak boleh kurang dari 1!';
     if(this.model.length >= 1 && this.model.length <= this.data.max! && this.qty >=1){
       if(sessionStorage.getItem('ID') == null){
         this.router.navigate(['/login']);

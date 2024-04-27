@@ -106,7 +106,7 @@ export class DialogEditCartComponent implements OnInit {
     this.errorQty = '';
     if(this.model.length == 0) this.errorDate ='*Silakan pilih tanggal pemesanan!';
     if(this.model.length > this.data.productMax!) this.errorDate ='*Pilihan tanggal pemesanan tidak boleh lebih dari '+this.data.productMax;
-    if(this.data.quantity <= 0) this.errorQty = '*Jumlah tidak boleh kurang dari 0!';
+    if(this.data.quantity <= 0) this.errorQty = '*Jumlah tidak boleh kurang dari 1!';
     if(this.model.length >= 1 && this.model.length <= this.data.productMax! && this.data.quantity >=1){
        this.updateCart();
     }

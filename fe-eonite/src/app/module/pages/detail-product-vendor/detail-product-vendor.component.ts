@@ -55,6 +55,7 @@ export class DetailProductVendorComponent implements OnInit {
       if(event.type == HttpEventType.Response && event.body && event.ok){
         let data = Object(event.body)['products'];
         this.product = data[0];
+        this.getReview();
       }
       this.product?.photo.forEach(e=>{
         this.image.push('data:image/jpeg;base64,'+e.image)

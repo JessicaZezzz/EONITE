@@ -180,8 +180,12 @@
             <div class="w-full max-w-2xl sm:text-end space-y-2">
               <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:gap-2">
                 <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
+                  <dt class="col-span-3 text-gray-500">Biaya Admin:</dt>
+                  <dd class="col-span-2 font-medium text-md text-[#5C06E4]">Rp 2.500,00</dd>
+                </dl>
+                <dl class="grid sm:grid-cols-5 gap-x-3 text-sm">
                   <dt class="col-span-3 text-gray-500">Total:</dt>
-                  <dd class="col-span-2 font-semibold text-lg text-[#5C06E4]">{{ list?.total! | currency }}</dd>
+                  <dd class="col-span-2 font-semibold text-lg text-[#5C06E4]">{{ list?.total!+2500 | currency }}</dd>
                 </dl>
               </div>
             </div>

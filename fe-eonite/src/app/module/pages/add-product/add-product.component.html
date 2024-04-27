@@ -51,7 +51,7 @@
                         placeholder="Masukkan kapasitas"
                         minlength="1" maxlength="50"
                         [ngClass]="{'border-b-1 border-red-400': capacity.invalid && (capacity.dirty || capacity.touched) && capacity.errors?.['required']}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Enter Product Name">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                   <div *ngIf="capacity.invalid && (capacity.dirty || capacity.touched)" class="invalid-feedback">
                     <div *ngIf="capacity.errors?.['required']" class="text-xs text-red-400">
                       * Wajib diisi
