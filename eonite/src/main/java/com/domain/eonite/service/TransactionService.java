@@ -204,8 +204,8 @@ public class TransactionService {
                 }
                 
                 context.setVariable("productList",productList);
-
-                BigDecimal amount = new BigDecimal(trans.getTotal().toString()); 
+                Number totals = trans.getTotal()+2500;
+                BigDecimal amount = new BigDecimal(totals.toString()); 
                 Locale indonesiaLocale = new Locale("id", "ID");
                 NumberFormat formatIDR = NumberFormat.getCurrencyInstance(indonesiaLocale);
                 String formattedIDR = formatIDR.format(amount);
@@ -448,7 +448,8 @@ public class TransactionService {
                             totalRefund += totaltransDet;
                         });
 
-                        funding.setTotalFundUser(totalRefund);
+                        if(totalRefund>0) funding.setTotalFundUser(totalRefund+2500);
+                        else funding.setTotalFundUser(totalRefund);
                         funding.setTotalFundVendor(transactionRepo.findById(request.getId()).get().getTotal()-totalRefund);
                         fundTransRepo.save(funding);
                     break;
@@ -476,7 +477,7 @@ public class TransactionService {
                         fundings.setTransId(request.getId());
                         fundings.setUserId(transactionRepo.findById(request.getId()).get().getUser().getId());
                         fundings.setVendorId(transactionRepo.findById(request.getId()).get().getVendor().getId());
-                        fundings.setTotalFundUser(transactionRepo.findById(request.getId()).get().getTotal()*1.0);
+                        fundings.setTotalFundUser(transactionRepo.findById(request.getId()).get().getTotal()*1.0 + 2500);
                         fundings.setTotalFundVendor(0.0);
                         fundTransRepo.save(fundings);
                     break;
